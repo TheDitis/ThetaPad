@@ -6,12 +6,13 @@
 import {useReducer, useState} from "react";
 import {
     Action,
-    Line,
+    ContinueShapeAction,
+    CreateShapeAction,
+    Line, Point,
     Shape,
     ShapeKind,
     ShapesUpdateAction,
-    ThetaPadStateType,
-    CreateShapeAction
+    ThetaPadStateType
 } from "./ThetaPad";
 
 
@@ -24,15 +25,17 @@ const shapesReducer = (
     action: ShapesUpdateAction
 ): Shape[] => {
     if (action.createKind()) {
+        console.log("Pushing ", action.payload)
         shapeArray.push(action.payload);
     }
     if (action.continueKind()) {
         if (shapeArray.length) {
-            shapeArray[-1].update(action.payload)
-            shapeArray[shapeArray.length - 1] = Object.assign(
-                shapeArray[shapeArray.length - 1],
-                action.payload
-            )
+            shapeArray[shapeArray.length - 1].update(action.payload)
+//            shapeArray[shapeArray.length - 1] = Object.assign(
+//                shapeArray[shapeArray.length - 1],
+//                action.payload
+//            )
+            console.log("Ran Once!")
         }
     }
     return shapeArray
@@ -52,17 +55,62 @@ const useThetaPadState = () => {
         }
     }
 
-    const handleCanvasClick = (e: MouseEvent) => {
+    const handleLineEvent = (e) => {
+        console.log(e)
+        // Starting a new line:
         if (!inDraw) {
-            switch (drawMode) {
-                case ShapeKind.Line:
-                    dispatch(
-                        new CreateShapeAction(
-                            new Line(e.x, e.y)
-                        )
-                    )
-            }
+            dispatch(
+                new CreateShapeAction(
+                    new Line(e.clientX, e.clientY)
+                )
+            )
+            setInDraw(true);
         }
+        // If in the middle of a drawing action
+        else {
+            dispatch(
+                new ContinueShapeAction(
+                    {end: new Point(e.clientX, e.clientY)} as Partial<Line>
+                )
+            )
+        }
+    }
+
+    const handleCanvasClick = (e: MouseEvent) => {
+        console.log("LINE EVENT: ", e)
+        console.log(shapes)
+        switch (drawMode) {
+            case ShapeKind.Line:
+                handleLineEvent(e);
+                break;
+            default:
+                console.error("drawMode ", drawMode,
+                    " not handled in handleCanvasClick inDraw branch")
+                break;
+        }
+//        if (!inDraw) {
+//            switch (drawMode) {
+//                case ShapeKind.Line:
+//                    dispatch(
+//                        new CreateShapeAction(
+//                            new Line(e.x, e.y)
+//                        )
+//                    )
+//                    setInDraw(true);
+//                    break;
+//                default:
+//                    console.error("drawMode ", drawMode,
+//                        " not handled in handleCanvasClick inDraw branch")
+//                    break;
+//            }
+//        }
+//        else {
+//            switch (drawMode) {
+//                case ShapeKind.Line
+//                default:
+//                    break;
+//            }
+//        }
     }
 
     return {

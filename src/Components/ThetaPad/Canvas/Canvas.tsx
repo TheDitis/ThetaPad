@@ -1,7 +1,7 @@
 import {Layer, Stage} from "react-konva";
 import React from "react";
 import styled from "styled-components";
-import ShapesLayer from "./Layers/ShapesLayer";
+import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 
 const CanvasRoot = styled.div<{}>`
   width: 100vw;
@@ -12,7 +12,7 @@ const CanvasRoot = styled.div<{}>`
 const Canvas: React.FC = ((props) => {
     return (
         <CanvasRoot>
-            <Stage>
+            <Stage width={window.innerWidth} height={window.innerHeight}>
                 <ShapesLayer/>
             </Stage>
         </CanvasRoot>

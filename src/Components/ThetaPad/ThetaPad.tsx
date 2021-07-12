@@ -1,4 +1,4 @@
-import React, {Dispatch, useReducer} from "react";
+import React, {Context, ContextType, Dispatch, useReducer} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
@@ -17,7 +17,7 @@ export enum ShapeKind {
 }
 
 
-class Point {
+export class Point {
     x: number;
     y: number;
 
@@ -54,6 +54,10 @@ export class Shape {
             }
         }
     }
+
+    isLine(): this is Line {
+        return this.kind === ShapeKind.Line;
+    }
 }
 
 export class Line extends Shape {
@@ -64,11 +68,19 @@ export class Line extends Shape {
 
     constructor(x: number, y: number, color: string = "black", ) {
         super(x, y, ShapeKind.Line, color);
-        this.start = this.origin;
-        this.end = this.origin
+        this.start = new Point(x, y);
+        this.end = new Point(x, y);
         this.length = 0;
         this.angle = 0;
     }
+
+    get points(): number[] {
+        return [this.start.x, this.start.y, this.end.x, this.end.y]
+    }
+//    get points() {
+//        return [0, 0, 500, 500]
+//    }
+
 }
 export class Poly extends Shape {
     points: Point[];
@@ -203,8 +215,8 @@ export interface ThetaPadStateType {
     shapes: Shape[];
 }
 
-const ThetaPadContext = React.createContext<ThetaPadStateType | null>(null);
 
+export let ThetaPadContext: Context<ThetaPadStateType>;
 
 
 /////---------------------------------------------------------------------------
@@ -213,6 +225,9 @@ const ThetaPadContext = React.createContext<ThetaPadStateType | null>(null);
 
 const ThetaPad: React.FC<{}> = (props) => {
     const thetaPadState = useThetaPadState();
+
+    ThetaPadContext = React.createContext<ThetaPadStateType>(thetaPadState);
+
     return (
         <ThetaPadContext.Provider
             value={thetaPadState}
