@@ -1,13 +1,12 @@
-import React, {Context, ContextType, Dispatch, useReducer} from "react";
+/** ThetaPad.tsx
+ * @file The root component for the actual drawing portion of the app
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
+import React from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
 import {Shape, ShapeMap, ShapeKind} from "./types/shapes";
-
-
-
-
-
 
 
 /////---------------------------------------------------------------------------
@@ -26,7 +25,6 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 `;
 
 
-
 /////---------------------------------------------------------------------------
 ///     PRIMARY STATE TYPE:
 /////---------------------------------------------------------------------------
@@ -38,7 +36,6 @@ export interface ThetaPadStateType {
     drawMode: ShapeKind;
     shapes: ShapeMap;
 }
-
 
 
 /////---------------------------------------------------------------------------

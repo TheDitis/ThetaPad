@@ -1,7 +1,6 @@
 /** useThetaPadState.ts
- * author: Ryan McKay
- *
- * This is the primary state manager for ThetaPad
+ * @file Primary state management hook for ThetaPad
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {useReducer, useState} from "react";
 import {

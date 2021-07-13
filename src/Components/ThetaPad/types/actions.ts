@@ -1,5 +1,6 @@
-/**
- * Type & Class declarations for state-manipulation actions
+/** actions.ts
+ * @file Type & Class declarations for state-manipulation actions
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Shape, ShapeKind} from "./shapes";
 

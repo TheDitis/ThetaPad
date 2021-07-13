@@ -1,5 +1,5 @@
-/**
- * Type & Class declarations for shape objects
+/** shapes.ts
+ * @file Type & Class declarations for shape objects
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 

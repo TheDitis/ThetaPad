@@ -1,5 +1,9 @@
+/** ShapesLayer.tsx
+ * @file The layer in Canvas that holds the drawn konva shapes
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {Layer} from "react-konva";
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import {ShapeMap} from "../../../types/shapes";
 import {Line as KonvaLine} from "react-konva"

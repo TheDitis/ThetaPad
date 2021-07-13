@@ -1,4 +1,8 @@
-import {Layer, Stage} from "react-konva";
+/** Canvas.tsx
+ * @file The drawing & image area component
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
+import {Stage} from "react-konva";
 import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
