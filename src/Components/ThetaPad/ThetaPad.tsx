@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
 import {Shape, ShapeMap, ShapeKind} from "./types/shapes";
+import Sidebar from "./Sidebar/Sidebar";
 
 
 /////---------------------------------------------------------------------------
@@ -22,6 +23,7 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
   width: 100vw;
   height: 100vw;
   background: white;
+  display: flex;
 `;
 
 
@@ -29,12 +31,19 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 ///     PRIMARY STATE TYPE:
 /////---------------------------------------------------------------------------
 
+export interface Dimensions {
+    sidebar: number,
+    width: number,
+    height: number
+}
+
 export interface ThetaPadStateType {
     dispatch;
     handleCanvasClick;
     handleMouseMove;
     drawMode: ShapeKind;
     shapes: ShapeMap;
+    dimensions: Dimensions;
 }
 
 
@@ -46,12 +55,17 @@ const ThetaPad: React.FC<{}> = (props) => {
     const thetaPadState = useThetaPadState();
 
     return (
-        <ThetaPadRoot
-            onMouseDown={thetaPadState.handleCanvasClick}
-            onMouseUp={thetaPadState.handleCanvasClick}
-            onMouseMove={thetaPadState.handleMouseMove}
-        >
-            <Canvas shapes={thetaPadState.shapes}/>
+        <ThetaPadRoot>
+            <Sidebar
+                width={thetaPadState.dimensions.sidebar}
+                shapes={thetaPadState.shapes}
+            />
+            <Canvas
+                onClick={thetaPadState.handleCanvasClick}
+                onMouseMove={thetaPadState.handleMouseMove}
+                dimensions={thetaPadState.dimensions}
+                shapes={thetaPadState.shapes}
+            />
         </ThetaPadRoot>
     )
 }

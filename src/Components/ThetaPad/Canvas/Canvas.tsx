@@ -7,22 +7,38 @@ import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {ShapeMap} from "../types/shapes";
+import {Dimensions} from "../ThetaPad";
 
-const CanvasRoot = styled.div<{}>`
-  width: 100vw;
+interface CanvasStyleProps {
+    dimensions: Dimensions
+}
+
+const CanvasRoot = styled.div<CanvasStyleProps>`
+  width: ${props => props.dimensions.width - props.dimensions.sidebar}px;
   height: 100vh;
   background: rgb(156, 231, 255);
 `
 
 interface CanvasProps {
-    shapes: ShapeMap
+    onClick;
+    onMouseMove;
+    dimensions: Dimensions;
+    shapes: ShapeMap;
 }
 
 const Canvas: React.FC<CanvasProps> = ((props) => {
     return (
-        <CanvasRoot>
+        <CanvasRoot
+            dimensions={props.dimensions}
+            onMouseDown={props.onClick}
+            onMouseUp={props.onClick}
+            onMouseMove={props.onMouseMove}
+        >
             <Stage width={window.innerWidth} height={window.innerHeight}>
-                <ShapesLayer shapes={props.shapes}/>
+                <ShapesLayer
+                    dimensions={props.dimensions}
+                    shapes={props.shapes}
+                />
             </Stage>
         </CanvasRoot>
     )

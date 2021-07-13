@@ -2,8 +2,9 @@
  * @file Primary state management hook for ThetaPad
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {useReducer, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {
+    Dimensions,
     ThetaPadStateType
 } from "./ThetaPad";
 import {ShapeMap, ShapeKind, Line, Point} from "./types/shapes";
@@ -48,9 +49,36 @@ const shapesReducer = (
  *      and updater functions
  */
 const useThetaPadState = () => {
+    const [dimensions, setDimensions] = useState<Dimensions>({
+        sidebar: 300,
+        width: window.innerWidth,
+        height: window.innerHeight,
+    })
+//    const [sidebarWidth, setSidebarWidth] = useState<number>(300);
     const [currentShape, setCurrentShape] = useState<string | null>(null);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
+
+    /**
+     * ON MOUNT: add a window-resize event listener that updates dimensions
+     * ON UNMOUNT: remove that event listener
+     */
+    useEffect(() => {
+        const updateDimensions = (e) => {
+            setDimensions({
+                sidebar: dimensions.sidebar,
+                width: e.target.innerWidth,
+                height: e.target.innerHeight,
+            })
+        }
+
+        window.addEventListener('resize', updateDimensions)
+
+        return () => {
+            window.removeEventListener('resize', updateDimensions);
+        }
+    }, []);
+
 
     /**
      * The highest-level state-update dispatch funtion
@@ -136,6 +164,7 @@ const useThetaPadState = () => {
         handleMouseMove,
         drawMode,
         shapes,
+        dimensions,
     } as ThetaPadStateType
 }
 
