@@ -6,8 +6,9 @@ import React from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
-import {Shape, ShapeMap, ShapeKind} from "./types/shapes";
+import {ShapeMap, ShapeKind} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
+import {NAVBAR_HEIGHT} from "../constants";
 
 
 /////---------------------------------------------------------------------------
@@ -15,13 +16,15 @@ import Sidebar from "./Sidebar/Sidebar";
 /////---------------------------------------------------------------------------
 
 interface ThetaPadStyleProps {
-    width?: number,
-    height?: number,
+    dimensions: Dimensions
 }
 
 const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
-  width: 100vw;
-  height: 100vw;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 100;
+  width: ${props => props.dimensions.width}px;
+  height: ${props => props.dimensions.height - NAVBAR_HEIGHT}px;
   background: white;
   display: flex;
 `;
@@ -55,7 +58,7 @@ const ThetaPad: React.FC<{}> = (props) => {
     const thetaPadState = useThetaPadState();
 
     return (
-        <ThetaPadRoot>
+        <ThetaPadRoot dimensions={thetaPadState.dimensions}>
             <Sidebar
                 width={thetaPadState.dimensions.sidebar}
                 shapes={thetaPadState.shapes}

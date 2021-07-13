@@ -2,6 +2,7 @@
  * @file Type & Class declarations for shape objects
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
+import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../constants";
 
 
 /////---------------------------------------------------------------------------
@@ -25,13 +26,13 @@ export class Point {
     y: number;
 
     /**
-     * Create a new Point
+     * Create a new Point, auto-adjusted with the sizes of other page elements
      * @param {number} x - the X coordinate
      * @param {number} y - the Y coordinate
      */
     constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
+        this.x = x - SIDEBAR_WIDTH;
+        this.y = y - NAVBAR_HEIGHT;
     }
 
     /**

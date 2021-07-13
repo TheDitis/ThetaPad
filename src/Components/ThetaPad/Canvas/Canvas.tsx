@@ -8,6 +8,7 @@ import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {ShapeMap} from "../types/shapes";
 import {Dimensions} from "../ThetaPad";
+import {NAVBAR_HEIGHT} from "../../constants";
 
 interface CanvasStyleProps {
     dimensions: Dimensions
@@ -15,7 +16,7 @@ interface CanvasStyleProps {
 
 const CanvasRoot = styled.div<CanvasStyleProps>`
   width: ${props => props.dimensions.width - props.dimensions.sidebar}px;
-  height: 100vh;
+  height: ${props => props.dimensions.height - NAVBAR_HEIGHT};
   background: rgb(156, 231, 255);
 `
 

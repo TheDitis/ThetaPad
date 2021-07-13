@@ -15,6 +15,7 @@ import {
     EndShapeAction,
     ShapesUpdateAction
 } from "./types/actions";
+import {SIDEBAR_WIDTH} from "../constants";
 
 
 /////---------------------------------------------------------------------------
@@ -50,11 +51,10 @@ const shapesReducer = (
  */
 const useThetaPadState = () => {
     const [dimensions, setDimensions] = useState<Dimensions>({
-        sidebar: 300,
+        sidebar: SIDEBAR_WIDTH,
         width: window.innerWidth,
         height: window.innerHeight,
     })
-//    const [sidebarWidth, setSidebarWidth] = useState<number>(300);
     const [currentShape, setCurrentShape] = useState<string | null>(null);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
@@ -65,6 +65,7 @@ const useThetaPadState = () => {
      */
     useEffect(() => {
         const updateDimensions = (e) => {
+            console.log(e)
             setDimensions({
                 sidebar: dimensions.sidebar,
                 width: e.target.innerWidth,
@@ -122,6 +123,7 @@ const useThetaPadState = () => {
      * @param {MouseEvent} e - the mousedown or mouseup event that was triggered
      */
     const handleCanvasClick = (e: MouseEvent) => {
+        console.log(e)
         console.log(shapes)
         switch (drawMode) {
             case ShapeKind.Line:

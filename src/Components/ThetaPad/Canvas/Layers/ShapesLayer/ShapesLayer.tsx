@@ -28,7 +28,7 @@ const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
                     return (
                         <KonvaLine
                             key={shape.id}
-                            x={-dimensions.sidebar}
+                            x={0}
                             y={0}
                             points={shape.points}
                             stroke={shape.color}

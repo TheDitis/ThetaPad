@@ -17,6 +17,8 @@ interface SidebarStyleProps {
 
 const SidebarRoot = styled.div<SidebarStyleProps>`
   width: ${props => props.width}px;
+  height: 100%;
+  background: #282c34;
 `
 
 

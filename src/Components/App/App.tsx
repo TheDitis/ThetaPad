@@ -4,11 +4,13 @@
  */
 import './App.css';
 import ThetaPad from "../ThetaPad/ThetaPad";
+import Navbar from "../Navbar/Navbar";
 
 const App = () => {
   return (
       <div className="App">
-        <ThetaPad/>
+          <Navbar/>
+          <ThetaPad/>
       </div>
   );
 }
