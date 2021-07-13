@@ -7,7 +7,6 @@ import {ShapeMap} from "../types/shapes";
 const CanvasRoot = styled.div<{}>`
   width: 100vw;
   height: 100vh;
-  border: 2px solid orange;
   background: rgb(156, 231, 255);
 `
 

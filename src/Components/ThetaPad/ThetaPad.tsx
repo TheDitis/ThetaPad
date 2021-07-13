@@ -23,15 +23,6 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
   width: 100vw;
   height: 100vw;
   background: white;
-  h1 {
-    color: red;
-  }
-  .hiThere {
-    color: ivory;
-  }
-  &:hover {
-    background: red;
-  }
 `;
 
 

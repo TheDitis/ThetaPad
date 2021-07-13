@@ -43,12 +43,20 @@ const shapesReducer = (
 ///     HOOK DEFINITION:
 /////---------------------------------------------------------------------------
 
+/**
+ * This is the primary state-management system for ThetaPad
+ * @return {ThetaPadStateType} - An object containing all necessary state items
+ *      and updater functions
+ */
 const useThetaPadState = () => {
     const [currentShape, setCurrentShape] = useState<string | null>(null);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
 
-
+    /**
+     * The highest-level state-update dispatch funtion
+     * @param {Action} action - an action-object derived from Action
+     */
     const dispatch = (action: Action): void => {
         if (action.targetsShapes()) {
             updateShapes(action);
@@ -58,6 +66,11 @@ const useThetaPadState = () => {
         }
     }
 
+    /**
+     * Handles mouseup and mousedown events on the canvas when drawMode is Line.
+     * Called by 'handleCanvasClick'
+     * @param e - the mouseup/mousedown event that was fired
+     */
     const handleLineClickEvent = (e) => {
         // Starting a new line:
         if (!currentShape && e.type === "mousedown") {
@@ -76,6 +89,11 @@ const useThetaPadState = () => {
         }
     }
 
+    /**
+     * Called on all mousedown and mouseup events that occur on the canvas.
+     * Routes the event to the relevant handler one layer of specificity down.
+     * @param {MouseEvent} e - the mousedown or mouseup event that was triggered
+     */
     const handleCanvasClick = (e: MouseEvent) => {
         console.log(shapes)
         switch (drawMode) {
@@ -89,6 +107,11 @@ const useThetaPadState = () => {
         }
     }
 
+    /**
+     * Called when the mouse is moved over the canvas. Only does anything if in
+     * the middle of a shape-drawing.
+     * @param {MouseEvent} e - The mousemove event that was fired
+     */
     const handleMouseMove = (e: MouseEvent) => {
         if (currentShape) {
             switch (drawMode) {

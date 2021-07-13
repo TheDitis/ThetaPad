@@ -120,7 +120,6 @@ export abstract class Shape {
 export class Line extends Shape {
     start: Point;
     end: Point;
-    length: number;
     angle: number;
 
     /**
@@ -133,8 +132,15 @@ export class Line extends Shape {
         super(x, y, ShapeKind.Line, color);
         this.start = new Point(x, y);
         this.end = new Point(x, y);
-        this.length = 0;
         this.angle = 0;
+    }
+
+    /**
+     * Get the length of this line
+     * @return {number} - the length of the line
+     */
+    get length(): number {
+        return this.start.distanceFrom(this.end);
     }
 
     /**
