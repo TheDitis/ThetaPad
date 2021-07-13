@@ -5,15 +5,16 @@
  */
 import {useReducer, useState} from "react";
 import {
+    ThetaPadStateType
+} from "./ThetaPad";
+import {ShapeMap, ShapeKind, Line, Point} from "./types/shapes";
+import {
     Action,
     ContinueShapeAction,
     CreateShapeAction,
-    Line, Point,
-    Shape,
-    ShapeKind,
-    ShapesUpdateAction,
-    ThetaPadStateType
-} from "./ThetaPad";
+    EndShapeAction,
+    ShapesUpdateAction
+} from "./types/actions";
 
 
 /////---------------------------------------------------------------------------
@@ -21,30 +22,32 @@ import {
 /////---------------------------------------------------------------------------
 
 const shapesReducer = (
-    shapeArray: Shape[],
+    shapes: ShapeMap,
     action: ShapesUpdateAction
-): Shape[] => {
+): ShapeMap => {
     if (action.createKind()) {
-        console.log("Pushing ", action.payload)
-        shapeArray.push(action.payload);
+        shapes[action.payload.id] = action.payload;
     }
     if (action.continueKind()) {
-        if (shapeArray.length) {
-            shapeArray[shapeArray.length - 1].update(action.payload)
-//            shapeArray[shapeArray.length - 1] = Object.assign(
-//                shapeArray[shapeArray.length - 1],
-//                action.payload
-//            )
-            console.log("Ran Once!")
-        }
+        shapes[action.targetShape].update(action.payload);
     }
-    return shapeArray
+    if (action.endKind()) {
+        console.log("ENDING LINE")
+    }
+    return {...shapes}
 }
 
+
+
+/////---------------------------------------------------------------------------
+///     HOOK DEFINITION:
+/////---------------------------------------------------------------------------
+
 const useThetaPadState = () => {
-    const [inDraw, setInDraw] = useState(false);
+    const [currentShape, setCurrentShape] = useState<string | null>(null);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
-    const [shapes, updateShapes] = useReducer(shapesReducer, [])
+    const [shapes, updateShapes] = useReducer(shapesReducer, {});
+
 
     const dispatch = (action: Action): void => {
         if (action.targetsShapes()) {
@@ -55,67 +58,60 @@ const useThetaPadState = () => {
         }
     }
 
-    const handleLineEvent = (e) => {
-        console.log(e)
+    const handleLineClickEvent = (e) => {
         // Starting a new line:
-        if (!inDraw) {
-            dispatch(
-                new CreateShapeAction(
-                    new Line(e.clientX, e.clientY)
-                )
-            )
-            setInDraw(true);
+        if (!currentShape && e.type === "mousedown") {
+            const newShape = new Line(e.pageX, e.pageY);
+            setCurrentShape(newShape.id);
+            dispatch(new CreateShapeAction(newShape))
         }
         // If in the middle of a drawing action
-        else {
+        else if (currentShape && e.type === "mouseup") {
             dispatch(
-                new ContinueShapeAction(
-                    {end: new Point(e.clientX, e.clientY)} as Partial<Line>
+                new EndShapeAction(
+                    currentShape
                 )
             )
+            setCurrentShape(null);
         }
     }
 
     const handleCanvasClick = (e: MouseEvent) => {
-        console.log("LINE EVENT: ", e)
         console.log(shapes)
         switch (drawMode) {
             case ShapeKind.Line:
-                handleLineEvent(e);
+                handleLineClickEvent(e);
                 break;
             default:
                 console.error("drawMode ", drawMode,
                     " not handled in handleCanvasClick inDraw branch")
                 break;
         }
-//        if (!inDraw) {
-//            switch (drawMode) {
-//                case ShapeKind.Line:
-//                    dispatch(
-//                        new CreateShapeAction(
-//                            new Line(e.x, e.y)
-//                        )
-//                    )
-//                    setInDraw(true);
-//                    break;
-//                default:
-//                    console.error("drawMode ", drawMode,
-//                        " not handled in handleCanvasClick inDraw branch")
-//                    break;
-//            }
-//        }
-//        else {
-//            switch (drawMode) {
-//                case ShapeKind.Line
-//                default:
-//                    break;
-//            }
-//        }
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+        if (currentShape) {
+            switch (drawMode) {
+                case ShapeKind.Line:
+                    dispatch(
+                        new ContinueShapeAction(
+                            currentShape,
+                            {end: new Point(e.pageX, e.pageY)} as Partial<Line>
+                        )
+                    )
+                    break;
+                default:
+                    console.error("drawMode ", drawMode,
+                        " not handled in handleMouseMove inDraw branch")
+                    break;
+            }
+        }
     }
 
     return {
         dispatch,
         handleCanvasClick,
+        handleMouseMove,
         drawMode,
         shapes,
     } as ThetaPadStateType

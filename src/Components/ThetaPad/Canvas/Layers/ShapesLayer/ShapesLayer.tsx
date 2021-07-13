@@ -1,26 +1,30 @@
 import {Layer} from "react-konva";
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import styled from "styled-components";
-import {ThetaPadContext, ShapeKind} from "../../../ThetaPad";
+import {ShapeMap} from "../../../types/shapes";
 import {Line as KonvaLine} from "react-konva"
-import uuid from "react-uuid";
+
 
 const ShapesLayerRoot = styled(Layer)`
   width: 100vw;
   height: 100vh;
 `
 
-const ShapesLayer: React.FC = () => {
-    const {shapes} = useContext(ThetaPadContext)
+interface ShapesLayerProps {
+    shapes: ShapeMap
+}
+
+const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
+    const {shapes} = props
+
     return (
         <ShapesLayerRoot>
-            {shapes.map(shape => {
+            {Object.values(shapes).map(shape => {
                 if (shape.isLine()) {
-                    return <KonvaLine key={uuid()} x={0} y={0} points={shape.points} stroke={shape.color} strokeWidth={2}/>
+                    return <KonvaLine key={shape.id} x={0} y={0} points={shape.points} stroke={shape.color} strokeWidth={2}/>
                 }
                 return null;
             })}
-            {/*<KonvaLine x={0} y={0} points={[0, 0, 400, 400]} stroke={"red"} strokeWidth={2}/>*/}
         </ShapesLayerRoot>
     )
 }
