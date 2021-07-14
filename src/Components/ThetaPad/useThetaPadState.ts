@@ -15,7 +15,7 @@ import {
     EndShapeAction,
     ShapesUpdateAction
 } from "./types/actions";
-import {SIDEBAR_WIDTH} from "../constants";
+import {MIN_SIDEBAR_WIDTH, SIDEBAR_WIDTH} from "../constants";
 
 
 /////---------------------------------------------------------------------------
@@ -37,6 +37,7 @@ const shapesReducer = (
     }
     return {...shapes}
 }
+
 
 
 
@@ -65,6 +66,8 @@ const useThetaPadState = () => {
      */
     useEffect(() => {
         const updateDimensions = (e) => {
+//            if (e.target.innerWidth)
+//            const sidebar =
             console.log(e)
             setDimensions({
                 sidebar: dimensions.sidebar,

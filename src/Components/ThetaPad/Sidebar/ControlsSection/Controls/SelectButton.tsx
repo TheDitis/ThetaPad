@@ -26,7 +26,6 @@ const selectButtonBase = (props: SelectButtonStyleProps) => ({
     }
 })
 
-
 const useStyles = makeStyles({
     // Unselected styles, no different from base
     SelectButton: selectButtonBase,

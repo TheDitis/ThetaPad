@@ -7,6 +7,7 @@ import {ShapeKind, ShapeMap} from "../types/shapes";
 import React from "react";
 import {PrimaryDispatch} from "../ThetaPad";
 import ControlsSection from "./ControlsSection/ControlsSection";
+import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
 
 
 /////---------------------------------------------------------------------------
@@ -36,10 +37,13 @@ interface SideBarProps {
 }
 
 
-const Sidebar: React.FC<SideBarProps> = (props) => {
+const Sidebar: React.FC<SideBarProps> = (
+    {width, drawMode, dispatch, shapes}
+) => {
     return (
-        <SidebarRoot width={props.width}>
-            <ControlsSection drawMode={props.drawMode} dispatch={props.dispatch}/>
+        <SidebarRoot width={width}>
+            <ControlsSection drawMode={drawMode} dispatch={dispatch}/>
+            <ShapeProfilesSection shapes={shapes}/>
         </SidebarRoot>
     )
 }

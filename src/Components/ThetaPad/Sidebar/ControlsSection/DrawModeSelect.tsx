@@ -9,9 +9,7 @@ import SelectButton from "../ControlsSection/Controls/SelectButton";
 import uuid from "react-uuid";
 
 
-
-interface DrawModeSelectStyleProps {
-}
+interface DrawModeSelectStyleProps {}
 
 const DrawModeSelectRoot = styled.div<DrawModeSelectStyleProps>`
   width: 100%;
@@ -29,8 +27,6 @@ interface DrawModeSelectProps {
  * A set of buttons for selecting the drawing mode
  * @param {ShapeKind} drawMode - the current drawing mode
  * @param {(ShapeKind) => void} onChange - function to call on click
- * @return {JSX.Element}
- * @constructor
  */
 const DrawModeSelect: React.FC<DrawModeSelectProps> = (
     {drawMode, onChange}
