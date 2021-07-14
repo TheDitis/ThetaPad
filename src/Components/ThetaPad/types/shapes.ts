@@ -2,7 +2,7 @@
  * @file Type & Class declarations for shape objects
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../constants";
+import {MIN_SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../constants";
 
 
 /////---------------------------------------------------------------------------
@@ -28,8 +28,10 @@ export const ShapeKindOptions: {[label: string]: ShapeKind} = {
 
 /** Represents a 2D point. */
 export class Point {
-    x: number;
-    y: number;
+    static xOffset = MIN_SIDEBAR_WIDTH;
+    static yOffset = NAVBAR_HEIGHT;
+    private _x: number;
+    private _y: number;
 
     /**
      * Create a new Point, auto-adjusted with the sizes of other page elements
@@ -37,8 +39,28 @@ export class Point {
      * @param {number} y - the Y coordinate
      */
     constructor(x: number, y: number) {
-        this.x = x - SIDEBAR_WIDTH;
-        this.y = y - NAVBAR_HEIGHT;
+        this._x = x;
+        this._y = y;
+    }
+
+    /** @return {number} - X coordinate translated by xOffset */
+    get x(): number {
+        return this._x - Point.xOffset;
+    }
+
+    /** @return {number} - Y coordinate translated by yOffset */
+    get y(): number {
+        return this._y - Point.yOffset;
+    }
+
+    /**
+     * Translates the point by the values provided
+     * @param {number} x - the amount to translate in the X direction
+     * @param {number} y - the amount to translate in the Y direction
+     */
+    translate(x: number, y: number) {
+        this._x += x;
+        this._y += y;
     }
 
     /**
@@ -47,8 +69,8 @@ export class Point {
      * @return {number} - Absolute difference between this point and otherPoint
      */
     distanceFrom(otherPoint: Point): number {
-        const yDist = Math.abs(this.y - otherPoint.y);
-        const xDist = Math.abs(this.x - otherPoint.x);
+        const yDist = Math.abs(this._y - otherPoint._y);
+        const xDist = Math.abs(this._x - otherPoint._x);
         return Math.sqrt((yDist ** 2) + (xDist ** 2))
     }
 }

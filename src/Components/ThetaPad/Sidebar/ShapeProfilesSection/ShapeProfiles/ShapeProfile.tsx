@@ -5,17 +5,24 @@
 import React from "react";
 import styled from "styled-components";
 import {Shape} from "../../../types/shapes";
+import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 
 interface ShapeProfileStyleProps {
 
 }
 
 const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
-  height: 100px;
+  height: ${SHAPE_PROFILE_HEIGHT}px;
   background: white;
   border-radius: 5px;
   display: flex;
   margin: 5px 4px;
+
+  .leftSection {
+    height: ${SHAPE_PROFILE_HEIGHT}px;
+    width: ${SHAPE_PROFILE_HEIGHT}px;
+    border-right: 2px solid gray;
+  }
 `
 
 interface ShapeProfileProps {
@@ -23,7 +30,6 @@ interface ShapeProfileProps {
     children: React.FC<{key: string}>[]
 }
 
-//const isNamedChild =
 
 const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, children}) => {
 //    const getComponent = (key) => {
@@ -36,7 +42,17 @@ const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, children}) => {
 
     return (
         <ShapeProfileRoot>
+            <div className={"leftSection"}>
 
+            </div>
+            <div className={"rightSection"}>
+                <div className={"topSection"}>
+
+                </div>
+                <div className={"bottomSection"}>
+
+                </div>
+            </div>
         </ShapeProfileRoot>
     )
 }

@@ -25,6 +25,7 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
 `
 
 
+
 /////---------------------------------------------------------------------------
 ///     COMPONENT:
 /////---------------------------------------------------------------------------
@@ -36,7 +37,13 @@ interface SideBarProps {
     shapes: ShapeMap,
 }
 
-
+/**
+ * The main Sidebar of the app
+ * @param {number} width - The calculated width of the sidebar in px
+ * @param {ShapeKind} drawMode - the current shape-drawing mode
+ * @param {PrimaryDispatch} dispatch - the primary dispatch function
+ * @param {ShapeMap} shapes - the object of all shapes
+ */
 const Sidebar: React.FC<SideBarProps> = (
     {width, drawMode, dispatch, shapes}
 ) => {

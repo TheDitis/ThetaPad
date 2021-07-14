@@ -15,7 +15,7 @@ import {
     EndShapeAction,
     ShapesUpdateAction
 } from "./types/actions";
-import {MIN_SIDEBAR_WIDTH, SIDEBAR_WIDTH} from "../constants";
+import {MAX_SIDEBAR_WIDTH, MIN_SIDEBAR_WIDTH} from "../constants";
 
 
 /////---------------------------------------------------------------------------
@@ -51,37 +51,9 @@ const shapesReducer = (
  *      and updater functions
  */
 const useThetaPadState = () => {
-    const [dimensions, setDimensions] = useState<Dimensions>({
-        sidebar: SIDEBAR_WIDTH,
-        width: window.innerWidth,
-        height: window.innerHeight,
-    })
     const [currentShape, setCurrentShape] = useState<string | null>(null);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
-
-    /**
-     * ON MOUNT: add a window-resize event listener that updates dimensions
-     * ON UNMOUNT: remove that event listener
-     */
-    useEffect(() => {
-        const updateDimensions = (e) => {
-//            if (e.target.innerWidth)
-//            const sidebar =
-            console.log(e)
-            setDimensions({
-                sidebar: dimensions.sidebar,
-                width: e.target.innerWidth,
-                height: e.target.innerHeight,
-            })
-        }
-
-        window.addEventListener('resize', updateDimensions)
-
-        return () => {
-            window.removeEventListener('resize', updateDimensions);
-        }
-    }, [dimensions.sidebar]);
 
 
     /**
@@ -169,7 +141,6 @@ const useThetaPadState = () => {
         handleMouseMove,
         drawMode,
         shapes,
-        dimensions,
     } as ThetaPadStateType
 }
 
