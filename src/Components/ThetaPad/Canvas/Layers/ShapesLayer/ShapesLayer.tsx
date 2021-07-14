@@ -19,7 +19,7 @@ interface ShapesLayerProps {
 }
 
 const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-    const {shapes, dimensions} = props
+    const {shapes} = props
 
     return (
         <ShapesLayerRoot>

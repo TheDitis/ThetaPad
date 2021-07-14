@@ -9,6 +9,7 @@ import useThetaPadState from "./useThetaPadState";
 import {ShapeMap, ShapeKind} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
 import {NAVBAR_HEIGHT} from "../constants";
+import {Action} from "./types/actions";
 
 
 /////---------------------------------------------------------------------------
@@ -34,6 +35,8 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 ///     PRIMARY STATE TYPE:
 /////---------------------------------------------------------------------------
 
+export type PrimaryDispatch = (action: Action) => void
+
 export interface Dimensions {
     sidebar: number,
     width: number,
@@ -41,7 +44,7 @@ export interface Dimensions {
 }
 
 export interface ThetaPadStateType {
-    dispatch;
+    dispatch: PrimaryDispatch;
     handleCanvasClick;
     handleMouseMove;
     drawMode: ShapeKind;
@@ -60,6 +63,8 @@ const ThetaPad: React.FC<{}> = (props) => {
     return (
         <ThetaPadRoot dimensions={thetaPadState.dimensions}>
             <Sidebar
+                drawMode={thetaPadState.drawMode}
+                dispatch={thetaPadState.dispatch}
                 width={thetaPadState.dimensions.sidebar}
                 shapes={thetaPadState.shapes}
             />

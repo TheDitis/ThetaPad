@@ -3,8 +3,10 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import {ShapeMap} from "../types/shapes";
+import {ShapeKind, ShapeMap} from "../types/shapes";
 import React from "react";
+import {PrimaryDispatch} from "../ThetaPad";
+import ControlsSection from "./ControlsSection/ControlsSection";
 
 
 /////---------------------------------------------------------------------------
@@ -27,15 +29,17 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
 /////---------------------------------------------------------------------------
 
 interface SideBarProps {
+    drawMode: ShapeKind,
+    dispatch: PrimaryDispatch,
     width: number,
     shapes: ShapeMap,
 }
 
-const Sidebar: React.FC<SideBarProps> = (props) => {
 
+const Sidebar: React.FC<SideBarProps> = (props) => {
     return (
         <SidebarRoot width={props.width}>
-            <h1>Sidebar</h1>
+            <ControlsSection drawMode={props.drawMode} dispatch={props.dispatch}/>
         </SidebarRoot>
     )
 }

@@ -4,7 +4,7 @@
  */
 import {useEffect, useReducer, useState} from "react";
 import {
-    Dimensions,
+    Dimensions, PrimaryDispatch,
     ThetaPadStateType
 } from "./ThetaPad";
 import {ShapeMap, ShapeKind, Line, Point} from "./types/shapes";
@@ -78,14 +78,14 @@ const useThetaPadState = () => {
         return () => {
             window.removeEventListener('resize', updateDimensions);
         }
-    }, []);
+    }, [dimensions.sidebar]);
 
 
     /**
      * The highest-level state-update dispatch funtion
      * @param {Action} action - an action-object derived from Action
      */
-    const dispatch = (action: Action): void => {
+    const dispatch: PrimaryDispatch = (action: Action): void => {
         if (action.targetsShapes()) {
             updateShapes(action);
         }
