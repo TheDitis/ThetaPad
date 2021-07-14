@@ -11,6 +11,7 @@ import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import {DispatchContext, UnitContext} from "../../../ThetaPad";
 import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
 import ShapeInfoItem from "./ShapeInfoItem";
+import uuid from "react-uuid";
 
 
 interface ShapeProfileStyleProps {
@@ -160,7 +161,11 @@ const ShapeProfile: React.FC<ShapeProfileProps> = (
                 </div>
                 <div className={"bottomSection"}>
                     {infoProps.map(propName => (
-                        <ShapeInfoItem shape={shape} property={propName}/>
+                        <ShapeInfoItem
+                            key={uuid()}
+                            shape={shape}
+                            property={propName}
+                        />
                     ))}
                 </div>
             </div>

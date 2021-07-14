@@ -6,6 +6,7 @@ import React from "react";
 import styled from "styled-components";
 import {ShapeMap} from "../../types/shapes";
 import LineProfile from "./ShapeProfiles/LineProfile";
+import uuid from "react-uuid";
 
 interface ShapeProfilesSectionStyleProps {
 
@@ -35,7 +36,7 @@ const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (
         <ShapeProfilesSectionRoot>
             {Object.entries(shapes).map(([id, shape], index) => {
                 if (shape.isLine()) {
-                    return <LineProfile line={shape} index={index}/>
+                    return <LineProfile key={uuid()} line={shape} index={index}/>
                 }
                 return null;
             })}

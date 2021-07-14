@@ -35,7 +35,7 @@ const shapesReducer = (
         shapes[action.targetShape].update(action.payload);
     }
     else if (action.isEndKind()) {
-        console.log("ENDING LINE")
+        console.log("Done drawing ", shapes[action.targetShape]);
     }
     else if (action.isRemoveKind()) {
         delete shapes[action.targetShape];
@@ -115,8 +115,6 @@ const useThetaPadState = () => {
      * @param {MouseEvent} e - the mousedown or mouseup event that was triggered
      */
     const handleCanvasClick = (e: MouseEvent) => {
-        console.log(e)
-        console.log(shapes)
         switch (drawMode) {
             case ShapeKind.Line:
                 handleLineClickEvent(e);
