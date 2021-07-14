@@ -2,15 +2,14 @@
  * @file The root component for the actual drawing portion of the app
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
 import {ShapeMap, ShapeKind} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
-import {NAVBAR_HEIGHT} from "../constants";
 import {Action} from "./types/actions";
-import useAppDimensions from "./useAppDimensions";
+import {SizeContext} from "../App/AppContextProvider";
 
 
 /////---------------------------------------------------------------------------
@@ -18,15 +17,15 @@ import useAppDimensions from "./useAppDimensions";
 /////---------------------------------------------------------------------------
 
 interface ThetaPadStyleProps {
-    dimensions: Dimensions
+    height: number;
 }
 
 const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
+  height: 100%;
+  width: 100%;
   margin: 0;
   box-sizing: border-box;
   z-index: 100;
-  width: ${props => props.dimensions.width}px;
-  height: ${props => props.dimensions.height - NAVBAR_HEIGHT}px;
   background: white;
   display: flex;
 `;
@@ -38,11 +37,6 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 
 export type PrimaryDispatch = (action: Action) => void
 
-export interface Dimensions {
-    sidebar: number,
-    width: number,
-    height: number
-}
 
 export interface ThetaPadStateType {
     dispatch: PrimaryDispatch;
@@ -53,29 +47,33 @@ export interface ThetaPadStateType {
 }
 
 
+
+
 /////---------------------------------------------------------------------------
 ///     COMPONENT DEFINITION:
 /////---------------------------------------------------------------------------
 
-const ThetaPad: React.FC<{}> = (props) => {
+export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
+
+const ThetaPad: React.FC = () => {
+    const {height} = useContext(SizeContext);
     const thetaPadState = useThetaPadState();
-    const dimensions = useAppDimensions();
 
     return (
-        <ThetaPadRoot dimensions={dimensions}>
-            <Sidebar
-                drawMode={thetaPadState.drawMode}
-                dispatch={thetaPadState.dispatch}
-                width={dimensions.sidebar}
-                shapes={thetaPadState.shapes}
-            />
-            <Canvas
-                onClick={thetaPadState.handleCanvasClick}
-                onMouseMove={thetaPadState.handleMouseMove}
-                dimensions={dimensions}
-                shapes={thetaPadState.shapes}
-            />
-        </ThetaPadRoot>
+        <DispatchContext.Provider value={thetaPadState.dispatch}>
+            <ThetaPadRoot height={height}>
+                <Sidebar
+                    drawMode={thetaPadState.drawMode}
+                    dispatch={thetaPadState.dispatch}
+                    shapes={thetaPadState.shapes}
+                />
+                <Canvas
+                    onClick={thetaPadState.handleCanvasClick}
+                    onMouseMove={thetaPadState.handleMouseMove}
+                    shapes={thetaPadState.shapes}
+                />
+            </ThetaPadRoot>
+        </DispatchContext.Provider>
     )
 }
 

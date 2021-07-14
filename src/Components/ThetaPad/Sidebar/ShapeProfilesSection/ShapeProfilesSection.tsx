@@ -15,10 +15,12 @@ const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  overflow-x: hidden;
   overflow-y: scroll;
   margin-bottom: 30px;
-  border: 2px solid orangered;
+  display: flex;
+  flex-direction: column;
+  flex-flow: column nowrap;
+  align-items: stretch;
 `
 
 
@@ -31,9 +33,9 @@ const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (
 ) => {
     return (
         <ShapeProfilesSectionRoot>
-            {Object.entries(shapes).map(([id, shape]) => {
+            {Object.entries(shapes).map(([id, shape], index) => {
                 if (shape.isLine()) {
-                    return <LineProfile line={shape}/>
+                    return <LineProfile line={shape} index={index}/>
                 }
                 return null;
             })}

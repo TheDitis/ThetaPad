@@ -5,14 +5,19 @@
 import './App.css';
 import ThetaPad from "../ThetaPad/ThetaPad";
 import Navbar from "../Navbar/Navbar";
+import React from "react";
+import AppContextProvider from "./AppContextProvider";
+
 
 const App = () => {
-  return (
-      <div className="App">
-          <Navbar/>
-          <ThetaPad/>
-      </div>
-  );
+    return (
+        <AppContextProvider>
+            <div className="App">
+                <Navbar/>
+                <ThetaPad/>
+            </div>
+        </AppContextProvider>
+    );
 }
 
 export default App;

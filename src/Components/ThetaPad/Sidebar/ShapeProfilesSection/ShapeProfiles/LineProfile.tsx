@@ -3,18 +3,18 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import styled from "styled-components";
 import {Line} from "../../../types/shapes";
 import ShapeProfile from "./ShapeProfile";
 
 
 interface LineProfileProps {
-    line: Line
+    index: number,
+    line: Line,
 }
 
-const LineProfile: React.FC<LineProfileProps> = (props) => {
+const LineProfile: React.FC<LineProfileProps> = ({line, index}) => {
     return (
-        <ShapeProfile shape={props.line}>
+        <ShapeProfile shape={line} index={index}>
         </ShapeProfile>
     )
 }

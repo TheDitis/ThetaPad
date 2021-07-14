@@ -2,11 +2,8 @@
  * @file Primary state management hook for ThetaPad
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {useEffect, useReducer, useState} from "react";
-import {
-    Dimensions, PrimaryDispatch,
-    ThetaPadStateType
-} from "./ThetaPad";
+import {useReducer, useState} from "react";
+import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
 import {ShapeMap, ShapeKind, Line, Point} from "./types/shapes";
 import {
     Action,
@@ -15,29 +12,39 @@ import {
     EndShapeAction,
     ShapesUpdateAction
 } from "./types/actions";
-import {MAX_SIDEBAR_WIDTH, MIN_SIDEBAR_WIDTH} from "../constants";
 
 
 /////---------------------------------------------------------------------------
 ///     REDUCERS:
 /////---------------------------------------------------------------------------
 
+/**
+ * Returns updated version of shapes based on type of action passed
+ * @param {ShapeMap} shapes - the current shapes state
+ * @param {ShapesUpdateAction} action - the action that was passed
+ * @return {ShapeMap} - A new, updated version of shapes
+ */
 const shapesReducer = (
     shapes: ShapeMap,
     action: ShapesUpdateAction
 ): ShapeMap => {
-    if (action.createKind()) {
+    if (action.isCreateKind()) {
         shapes[action.payload.id] = action.payload;
     }
-    if (action.continueKind()) {
+    else if (action.isContinueKind()) {
         shapes[action.targetShape].update(action.payload);
     }
-    if (action.endKind()) {
+    else if (action.isEndKind()) {
         console.log("ENDING LINE")
+    }
+    else if (action.isRemoveKind()) {
+        delete shapes[action.targetShape];
+    }
+    else {
+        console.error("ACTION TYPE ", action.kind, " NOT HANDLED IN shapesReducer!")
     }
     return {...shapes}
 }
-
 
 
 

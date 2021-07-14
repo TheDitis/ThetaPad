@@ -4,8 +4,9 @@
  */
 import styled from "styled-components";
 import {ShapeKind, ShapeMap} from "../types/shapes";
-import React from "react";
+import React, {useContext} from "react";
 import {PrimaryDispatch} from "../ThetaPad";
+import {SizeContext} from "../../App/AppContextProvider";
 import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
 
@@ -33,7 +34,6 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
 interface SideBarProps {
     drawMode: ShapeKind,
     dispatch: PrimaryDispatch,
-    width: number,
     shapes: ShapeMap,
 }
 
@@ -45,8 +45,9 @@ interface SideBarProps {
  * @param {ShapeMap} shapes - the object of all shapes
  */
 const Sidebar: React.FC<SideBarProps> = (
-    {width, drawMode, dispatch, shapes}
+    {drawMode, dispatch, shapes}
 ) => {
+    const {width} = useContext(SizeContext);
     return (
         <SidebarRoot width={width}>
             <ControlsSection drawMode={drawMode} dispatch={dispatch}/>

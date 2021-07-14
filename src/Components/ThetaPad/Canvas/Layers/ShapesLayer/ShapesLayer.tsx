@@ -7,14 +7,12 @@ import React from "react";
 import styled from "styled-components";
 import {ShapeMap} from "../../../types/shapes";
 import {Line as KonvaLine} from "react-konva"
-import {Dimensions} from "../../../ThetaPad";
 
 
 const ShapesLayerRoot = styled(Layer)`
 `
 
 interface ShapesLayerProps {
-    dimensions: Dimensions;
     shapes: ShapeMap;
 }
 

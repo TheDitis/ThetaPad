@@ -52,16 +52,20 @@ export abstract class ShapesUpdateAction extends Action {
     target = ActionTarget.Shapes;
 
     /** @return {this is CreateShapeAction} */
-    createKind(): this is CreateShapeAction {
+    isCreateKind(): this is CreateShapeAction {
         return this.kind === ShapesUpdateActionKind.Create;
     }
     /** @return {this is ContinueShapeAction} */
-    continueKind(): this is ContinueShapeAction {
+    isContinueKind(): this is ContinueShapeAction {
         return this.kind === ShapesUpdateActionKind.Continue;
     }
     /** @return {this is EndShapeAction} */
-    endKind(): this is EndShapeAction {
+    isEndKind(): this is EndShapeAction {
         return this.kind === ShapesUpdateActionKind.End;
+    }
+    /** @return {this is RemoveShapeAction} */
+    isRemoveKind(): this is RemoveShapeAction {
+        return this.kind === ShapesUpdateActionKind.Remove;
     }
 }
 
@@ -123,6 +127,24 @@ export class EndShapeAction extends ShapesUpdateAction {
     }
 }
 
+/**
+ * Action to remove shape with a given ID
+ * @extends ShapesUpdateAction
+ */
+export class RemoveShapeAction extends ShapesUpdateAction {
+    kind = ShapesUpdateActionKind.Remove;
+    targetShape: string;
+
+    /**
+     * Create a new RemoveShapeAction
+     * @param {string} shapeId - the ID of the shape you want to remove
+     */
+    constructor(shapeId: string) {
+        super();
+        this.targetShape = shapeId;
+    }
+
+}
 
 
 /////---------------------------------------------------------------------------
