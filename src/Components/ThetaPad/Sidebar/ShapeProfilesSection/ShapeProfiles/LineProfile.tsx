@@ -14,7 +14,12 @@ interface LineProfileProps {
 
 const LineProfile: React.FC<LineProfileProps> = ({line, index}) => {
     return (
-        <ShapeProfile shape={line} index={index}>
+        <ShapeProfile
+            shape={line}
+            index={index}
+            infoProps={['length', 'angle']}
+            unitValue={line.length}
+        >
         </ShapeProfile>
     )
 }

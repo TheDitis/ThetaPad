@@ -8,8 +8,9 @@ import {Shape} from "../../../types/shapes";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
-import {DispatchContext} from "../../../ThetaPad";
-import {RemoveShapeAction} from "../../../types/actions";
+import {DispatchContext, UnitContext} from "../../../ThetaPad";
+import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
+import ShapeInfoItem from "./ShapeInfoItem";
 
 
 interface ShapeProfileStyleProps {
@@ -37,32 +38,62 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
   .rightSection {
     height: ${SHAPE_PROFILE_HEIGHT}px;
     width: 100%;
-  }
+    
+    .topSection {
+      position: relative;
+      height: 55%;
+      width: 100%;
+      border-bottom: 1px solid ${props => props.border};
+      display: flex;
+      align-items: center;
 
-  .topSection {
-    position: relative;
-    height: 50%;
-    width: 100%;
-    border-bottom: 1px solid ${props => props.border};
-    display: flex;
-    align-items: center;
+      .icon {
+        border-right: 1px solid ${props => props.border};
+        height: 100%;
+      }
+      
+      .labelAndControls {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 10px;
+        
+        h3 {
+          //margin-left: 20px;
+          margin: 0;
+          padding: 0;
+        }
 
-    .icon {
-      border-right: 1px solid ${props => props.border};
+        .xButton {
+          font-size: 18pt;
+          margin: 0;
+          padding: 0;
+          position: relative;
+          top: -5px;
+          //position: absolute;
+          line-height: 18pt;
+          //right: 0.8vw;
+          cursor: pointer;
+          transition: transform 80ms ease-in-out;
+        }
+      }
+
+      
     }
     
-    h3 {
-      margin-left: 20px;
-    }
-    
-    .xButton {
-      font-size: 18pt;
-      position: absolute;
-      right: 0.8vw;
-      cursor: pointer;
-      transition: transform 80ms ease-in-out;
+    .bottomSection {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 5px;
+      background: rgba(0, 0, 0, 0.13);
     }
   }
+
+  
 `
 
 const shapeIcons = {
@@ -74,6 +105,8 @@ const shapeIcons = {
 interface ShapeProfileProps {
     shape: Shape;
     index: number;
+    infoProps: string[];
+    unitValue: number;
 //    children: React.FC<{key: string}>[];
 }
 
@@ -81,11 +114,27 @@ interface ShapeProfileProps {
  * Basic profile to show info about a given shape
  * @param {Shape} shape - the shape to show info for
  * @param {number} index - its index in the list
+ * @param {string[]} - the array of names of shape properties you want to be
+ *      shown on the bottom row of the profile
+ * @param {number} unitValue - the value to set the unit to on unit button click
  */
-const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
+const ShapeProfile: React.FC<ShapeProfileProps> = (
+    {shape, index, infoProps, unitValue}
+) => {
+    const unit = useContext(UnitContext);
     const dispatch = useContext(DispatchContext);
     const borderColor = "rgba(0, 0, 0, 0.3)";
     const Icon = shapeIcons[shape.kind];
+
+    const toggleUnit = () => {
+        if (unit === 1) {
+            dispatch(new ChangeUnitAction(unitValue));
+            shape.isUnit = true;
+        } else {
+            dispatch(new ResetUnitAction());
+            shape.isUnit = false;
+        }
+    }
 
     return (
         <ShapeProfileRoot border={borderColor}>
@@ -97,16 +146,22 @@ const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
                     <div className={"icon"}>
                         <Icon/>
                     </div>
-                    <h3>{shape.kind} {index}</h3>
-                    <p
-                        className={"xButton"}
-                        onClick={() => dispatch(
-                            new RemoveShapeAction(shape.id)
-                        )}
-                    >×</p>
+                    <div className={"labelAndControls"}>
+                        <h3>{shape.kind} {index}</h3>
+                        <button onClick={toggleUnit}>Unit</button>
+
+                        <h5
+                            className={"xButton"}
+                            onClick={() => dispatch(
+                                new RemoveShapeAction(shape.id)
+                            )}
+                        >×</h5>
+                    </div>
                 </div>
                 <div className={"bottomSection"}>
-
+                    {infoProps.map(propName => (
+                        <ShapeInfoItem shape={shape} property={propName}/>
+                    ))}
                 </div>
             </div>
         </ShapeProfileRoot>

@@ -14,6 +14,7 @@ export enum ActionTarget {
     None,
     Shapes,
     Mode,
+    Unit,
 }
 
 /** The abstract base class for all action types */
@@ -22,11 +23,15 @@ export abstract class Action {
 
     /** @return {this is ShapesUpdateAction} */
     targetsShapes(): this is ShapesUpdateAction {
-        return this.target === ActionTarget.Shapes
+        return this.target === ActionTarget.Shapes;
     }
     /** @return {this is ChangeDrawModeAction} */
     targetsDrawMode(): this is ChangeDrawModeAction {
-        return this.target === ActionTarget.Mode
+        return this.target === ActionTarget.Mode;
+    }
+    /** @return {this is ChangeUnitAction} */
+    targetsUnit(): this is ChangeUnitAction {
+        return this.target === ActionTarget.Unit;
     }
 }
 
@@ -166,5 +171,40 @@ export class ChangeDrawModeAction extends Action {
     constructor(value: ShapeKind) {
         super();
         this.value = value;
+    }
+}
+
+
+/////---------------------------------------------------------------------------
+///     ACTIONS THAT TARGET THE BASE UNIT:
+/////---------------------------------------------------------------------------
+
+/**
+ * Action to change the length measurement unit
+ * @extends Action
+ */
+export class ChangeUnitAction extends Action {
+    target = ActionTarget.Unit;
+    value: number;
+
+    /**
+     * Create a new ChangeUnitAction
+     * @param {number} newValue - the new value to measure all lengths by
+     */
+    constructor(newValue: number) {
+        super();
+        this.value = newValue;
+    }
+}
+
+/**
+ * Action to set the length measurement unit back to its default (1)
+ * @extends ChangeUnitAction
+ */
+export class ResetUnitAction extends ChangeUnitAction {
+
+    /** Create a new ResetUnitAction */
+    constructor() {
+        super(1);
     }
 }

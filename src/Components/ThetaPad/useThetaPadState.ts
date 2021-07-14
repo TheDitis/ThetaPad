@@ -2,9 +2,9 @@
  * @file Primary state management hook for ThetaPad
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {useReducer, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
-import {ShapeMap, ShapeKind, Line, Point} from "./types/shapes";
+import {ShapeMap, ShapeKind, Line, Point, Shape} from "./types/shapes";
 import {
     Action,
     ContinueShapeAction,
@@ -59,8 +59,14 @@ const shapesReducer = (
  */
 const useThetaPadState = () => {
     const [currentShape, setCurrentShape] = useState<string | null>(null);
+    const [unit, setUnit] = useState<number>(1);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
+
+    useEffect(() => {
+        Shape.unitLength = unit;
+    }, [unit]);
+
 
 
     /**
@@ -73,6 +79,10 @@ const useThetaPadState = () => {
         }
         else if (action.targetsDrawMode()) {
             setDrawMode(action.value);
+        }
+        else if (action.targetsUnit()) {
+            setUnit(action.value);
+            updateShapes(new EndShapeAction(""))
         }
     }
 
@@ -144,6 +154,7 @@ const useThetaPadState = () => {
 
     return {
         dispatch,
+        unit,
         handleCanvasClick,
         handleMouseMove,
         drawMode,

@@ -64,19 +64,43 @@ export class Point {
     }
 
     /**
-     * Calculates absolute distance from another point
+     * Calculates absolute distance to another point
      * @param {Point} otherPoint - The point you want find distance to
      * @return {number} - Absolute difference between this point and otherPoint
      */
-    distanceFrom(otherPoint: Point): number {
+    distanceTo(otherPoint: Point): number {
         const yDist = Math.abs(this._y - otherPoint._y);
         const xDist = Math.abs(this._x - otherPoint._x);
         return Math.sqrt((yDist ** 2) + (xDist ** 2))
+    }
+
+    /**
+     * Get the angle in degrees from this point to another
+     * @param {Point} otherPoint - the point you want the angle to from this one
+     * @return {number} - the angle to otherPoint
+     */
+    angleTo(otherPoint: Point): number {
+        return Math.atan2(
+            otherPoint._y - this._y,
+            otherPoint._x - this._x
+        ) * 180 / Math.PI;
+    }
+
+    /**
+     * Calculates relative distance to another point
+     * @param {Point} otherPoint - the point you want to find relative distances to
+     * @return {Point}
+     */
+    midpoint(otherPoint: Point): Point {
+        const avgX = (this._x + otherPoint._x) / 2;
+        const avgY = (this._y + otherPoint._y) / 2;
+        return new Point(avgX, avgY);
     }
 }
 
 /** Abstract base class for shapes (Line, Poly, & Circle) */
 export abstract class Shape {
+    static unitLength: number = 1;
     id: string;
     kind: ShapeKind;
     origin: Point;
@@ -149,7 +173,6 @@ export abstract class Shape {
 export class Line extends Shape {
     start: Point;
     end: Point;
-    angle: number;
 
     /**
      * Create a new Line, with only a starting point and color
@@ -161,15 +184,16 @@ export class Line extends Shape {
         super(x, y, ShapeKind.Line, color);
         this.start = new Point(x, y);
         this.end = new Point(x, y);
-        this.angle = 0;
     }
 
-    /**
-     * Get the length of this line
-     * @return {number} - the length of the line
-     */
+    /** @return {number} - the length of the line */
     get length(): number {
-        return this.start.distanceFrom(this.end);
+        return this.start.distanceTo(this.end);
+    }
+
+    /** @return {number} - the angle of the line in degrees */
+    get angle(): number {
+        return this.start.angleTo(this.end);
     }
 
     /**
@@ -186,6 +210,11 @@ export class Line extends Shape {
      */
     get zeroedPoints() {
         return [0, 0, this.end.x - this.start.x, this.end.y - this.start.y];
+    }
+
+    /** @return {Point} - the midpoint of the line */
+    get midpoint(): Point {
+        return this.start.midpoint(this.end)
     }
 
 }

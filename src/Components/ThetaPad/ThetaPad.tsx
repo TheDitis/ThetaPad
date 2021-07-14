@@ -40,6 +40,7 @@ export type PrimaryDispatch = (action: Action) => void
 
 export interface ThetaPadStateType {
     dispatch: PrimaryDispatch;
+    unit: number;
     handleCanvasClick;
     handleMouseMove;
     drawMode: ShapeKind;
@@ -48,12 +49,12 @@ export interface ThetaPadStateType {
 
 
 
-
 /////---------------------------------------------------------------------------
 ///     COMPONENT DEFINITION:
 /////---------------------------------------------------------------------------
 
 export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
+export const UnitContext = React.createContext(1)
 
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
@@ -61,18 +62,20 @@ const ThetaPad: React.FC = () => {
 
     return (
         <DispatchContext.Provider value={thetaPadState.dispatch}>
-            <ThetaPadRoot height={height}>
-                <Sidebar
-                    drawMode={thetaPadState.drawMode}
-                    dispatch={thetaPadState.dispatch}
-                    shapes={thetaPadState.shapes}
-                />
-                <Canvas
-                    onClick={thetaPadState.handleCanvasClick}
-                    onMouseMove={thetaPadState.handleMouseMove}
-                    shapes={thetaPadState.shapes}
-                />
-            </ThetaPadRoot>
+            <UnitContext.Provider value={thetaPadState.unit}>
+                <ThetaPadRoot height={height}>
+                    <Sidebar
+                        drawMode={thetaPadState.drawMode}
+                        dispatch={thetaPadState.dispatch}
+                        shapes={thetaPadState.shapes}
+                    />
+                    <Canvas
+                        onClick={thetaPadState.handleCanvasClick}
+                        onMouseMove={thetaPadState.handleMouseMove}
+                        shapes={thetaPadState.shapes}
+                    />
+                </ThetaPadRoot>
+            </UnitContext.Provider>
         </DispatchContext.Provider>
     )
 }
