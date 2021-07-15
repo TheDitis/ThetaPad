@@ -189,6 +189,18 @@ export class Line extends Shape {
         this.end = new Point(x, y);
     }
 
+    /**
+     * Create a new line from 2 points
+     * @param {Point} pt1 - The point the line should start at
+     * @param {Point} pt2 - The point the line should end at
+     * @return {Line} - The new Line between the 2 points
+     */
+    static fromPoints(pt1: Point, pt2: Point): Line {
+        const newLine = new Line(pt1.x, pt1.y);
+        newLine.end = new Point(pt2.x, pt2.y);
+        return newLine
+    }
+
     /** @return {number} - the length of the line */
     get length(): number {
         return this.start.distanceTo(this.end);
@@ -207,6 +219,7 @@ export class Line extends Shape {
         return [this.start.x, this.start.y, this.end.x, this.end.y]
     }
 
+    /** @return {number[]} - same as points but offset for canvas location */
     get canvasPoints(): number[] {
         return [
             this.start.canvasX, this.start.canvasY,
@@ -227,14 +240,10 @@ export class Line extends Shape {
         return this.start.midpoint(this.end)
     }
 
+    /** @return {Line} - A new Line instance with the same values */
     copy(): Line {
         return new Line(this.start.x, this.start.y, this.color);
     }
-
-//    static withNewEnd(line: Line, endX: number, endY: number): Line {
-//        const newLine = Line(line.start.x, line.start.y)
-//    }
-
 }
 
 /**
@@ -243,8 +252,6 @@ export class Line extends Shape {
  */
 export class Poly extends Shape {
     points: Point[];
-//    distances: number[];
-//    angles: number[];
 
     /**
      * Create a new Poly line, starting at (x, y)
@@ -255,24 +262,72 @@ export class Poly extends Shape {
     constructor(x: number, y: number, color: string = "blue") {
         super(x, y, ShapeKind.Poly, color);
         this.points = [this.origin];
-//        this.distances = [0];
-//        this.angles = [0];
     }
 
+    /** @return {Line[]} - Array of Lines between each set of adjacent points */
+    get asLines(): Line[] {
+        const output: Line[] = [];
+        let pt1 = this.points[0];
+        for (const pt2 of this.points.slice(1)) {
+            output.push(Line.fromPoints(pt1, pt2));
+            pt1 = pt2;
+        }
+        return output;
+    }
+
+    /** @return {number[]} - Array of distances between each pair of points */
+    get lengths(): number[] {
+        return this.asLines.map(line => line.length);
+    }
+
+    /** @return {number[]} - Array of angles of lines connecting points */
+    get angles(): number[] {
+        return this.asLines.map(line => line.angle);
+    }
+
+    /** @return {number[]} - this.points, offset for display on canvas */
     get canvasPoints(): number[] {
         return Array.from(_.flatMap(this.points, (pt: Point) => (
             [pt.x - Point.xOffset, pt.y - Point.yOffset]
         )))
     }
 
+    /** @return {number} - The total length of this line */
+    get totalLength(): number {
+        let pt1 = this.points[0];
+        let sum = 0;
+        for (const pt2 of this.points) {
+            sum += pt1.distanceTo(pt2);
+            pt1 = pt2;
+        }
+        return sum;
+    }
+
+    /** @return {number} - the average of all the segment angles */
+    get averageAngle(): number {
+        const angles = this.angles;
+        return angles.reduce((a, b) => a + b, 0) / angles.length;
+    }
+
+    /**
+     * Add a new point to the end
+     * @param {number} x - the X coordinate of the new point
+     * @param {number} y - the Y coordinate of the new point
+     */
     addPoint(x: number, y: number) {
         this.points.push(new Point(x, y));
     }
 
+    /**
+     * Update the last point to a new location
+     * @param {number} endX - new X coordinate of the last point
+     * @param {number} endY - new Y coordinate of the last point
+     */
     setEndpoint(endX: number, endY: number) {
         this.points[this.points.length - 1].moveTo(endX, endY);
     }
 
+    /** @return {Poly} - Create a new Poly with the same values */
     copy(): Poly {
         const firstPoint = this.points[0];
         const newPoly = new Poly(firstPoint.x, firstPoint.y, this.color);

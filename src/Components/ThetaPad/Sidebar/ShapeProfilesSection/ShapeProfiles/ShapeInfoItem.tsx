@@ -1,5 +1,5 @@
 /** ShapeInfoItem.tsx
- * @file A single piece of information shown in ShapeProfile. An icon/value pair
+ * @file A single piece of information shown in ShapeProfileBase. An icon/value pair
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React, {useContext} from "react";
@@ -12,7 +12,9 @@ import {UnitContext} from "../../../ThetaPad";
 // The icon to display for each property
 const iconMap = {
     length: LengthIcon,
+    totalLength: LengthIcon,
     angle: AngleIcon,
+    averageAngle: AngleIcon,
     radius: null,
     diameter: null,
 }
@@ -20,6 +22,8 @@ const iconMap = {
 // The unit character that should be displayed for each property
 const unitMap = {
     length: '',
+    totalLength: '',
+    averageAngle: '',
     angle: '°',
     radius: '',
     diameter: '',
@@ -32,6 +36,7 @@ interface ShapeInfoItemStyleProps {
 const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   display: flex;
   height: 100%; 
+  margin-right: 10px;
   
   .valueContainer {
       background-color: white;

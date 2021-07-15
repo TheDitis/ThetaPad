@@ -29,12 +29,9 @@ const shapesReducer = (
     // End a poly draw if one is in session
     else if (action.isEndKind()) {
         const shape = shapes[action.targetShape];
-        if (shape.isPoly()) {
-            shape.points.pop();
+        if (shape && shape.isPoly()) {
             if (shape.points.length < 2) {
                 delete shapes[action.targetShape];
-            } else {
-                shapes[action.targetShape] = shape;
             }
         }
     }
@@ -68,14 +65,15 @@ const useThetaPadState = () => {
 
     /** Bind a key listener, and remove it when done. */
     useEffect(() => {
-        const keyListener = (e: KeyboardEvent) => {
+        const keyListener = async (e: KeyboardEvent) => {
             console.log(e)
             switch (e.key.toLowerCase()) {
                 case "escape":
                     console.log("esc hit")
                     if (tempShape !== null && tempShape.isPoly()) {
                         console.log("Should be working")
-                        dispatch(new CreateShapeAction(tempShape));
+                        tempShape.points.pop();
+                        await dispatch(new CreateShapeAction(tempShape));
                         dispatch(new EndShapeAction(tempShape.id));
                         setTempShape(null);
                     }
@@ -147,11 +145,9 @@ const useThetaPadState = () => {
                 setTempShape(newShape);
             } else {
                 tempShape.addPoint(e.pageX, e.pageY);
-                tempShape.addPoint(e.pageX, e.pageY); // yes, twice
                 setTempShape(tempShape);
             }
         }
-        console.log("tempShape: ", tempShape !== null && tempShape.isPoly() ? tempShape.points : null)
     }
 
     /**

@@ -1,18 +1,14 @@
 /** LineProfile.tsx
- * @file ShapeProfile specific to Line type
+ * @file ShapeProfileBase specific to Line type
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
 import {Line} from "../../../types/shapes";
-import ShapeProfile from "./ShapeProfile";
+import ShapeProfileBase from "./ShapeProfileBase";
 import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";
 
 
-interface LineProfileProps {
-    index: number,
-    line: Line,
-}
 
 const LineInfoItems: React.FC<{shape: Line}> = (props) => (
     <>
@@ -26,15 +22,20 @@ const LineInfoItems: React.FC<{shape: Line}> = (props) => (
     </>
 )
 
+interface LineProfileProps {
+    line: Line,
+    index: number,
+}
+
 const LineProfile: React.FC<LineProfileProps> = ({line, index}) => {
     return (
-        <ShapeProfile
+        <ShapeProfileBase
             shape={line}
             index={index}
             unitValue={line.length}
             InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
         >
-        </ShapeProfile>
+        </ShapeProfileBase>
     )
 }
 

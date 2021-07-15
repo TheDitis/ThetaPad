@@ -5,9 +5,8 @@
 import React from "react";
 import styled from "styled-components";
 import {Shape, ShapeMap} from "../../types/shapes";
-import LineProfile from "./ShapeProfiles/LineProfile";
-import uuid from "react-uuid";
 import CompletedShapesProfiles from "./CompletedShapesProfiles";
+import ShapeProfile from "./ShapeProfiles/ShapeProfile";
 
 
 interface ShapeProfilesSectionStyleProps {
@@ -38,8 +37,7 @@ const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (
     return (
         <ShapeProfilesSectionRoot>
             <CompletedShapesProfiles shapes={shapes}/>
-            {/*TODO: REFACTOR THIS ONCE OTHER DRAW MODES WORK*/}
-            {tempShape !== null && tempShape.isLine() && <LineProfile key={uuid()} line={tempShape} index={Object.keys(shapes).length}/>}
+            {tempShape !== null && <ShapeProfile shape={tempShape} index={Object.keys(shapes).length}/>}
         </ShapeProfilesSectionRoot>
     )
 }

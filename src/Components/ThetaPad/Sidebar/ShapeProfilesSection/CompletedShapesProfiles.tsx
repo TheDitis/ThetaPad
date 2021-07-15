@@ -4,20 +4,17 @@
  */
 import React from "react";
 import {ShapeMap} from "../../types/shapes";
-import LineProfile from "./ShapeProfiles/LineProfile";
 import uuid from "react-uuid";
+import ShapeProfile from "./ShapeProfiles/ShapeProfile";
 
 
 interface CompletedShapesProfilesProps {shapes: ShapeMap}
 
 const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = ({shapes}) => (
     <>
-        {Object.entries(shapes).map(([id, shape], index) => {
-            if (shape.isLine()) {
-                return <LineProfile key={uuid()} line={shape} index={index}/>
-            }
-            return null;
-        })}
+        {Object.entries(shapes).map(([id, shape], index) => (
+            <ShapeProfile key={uuid()} shape={shape} index={index}/>
+        ))}
     </>
 )
 
