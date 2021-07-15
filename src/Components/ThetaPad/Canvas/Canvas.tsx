@@ -6,7 +6,7 @@ import {Stage} from "react-konva";
 import React, {useContext} from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {ShapeMap} from "../types/shapes";
+import {Shape, ShapeMap} from "../types/shapes";
 import {Dimensions, SizeContext} from "../../App/AppContextProvider";
 
 interface CanvasStyleProps {
@@ -23,6 +23,7 @@ interface CanvasProps {
     onClick;
     onMouseMove;
     shapes: ShapeMap;
+//    tempShape: Shape | null;
 }
 
 const Canvas: React.FC<CanvasProps> = ((props) => {
@@ -37,6 +38,7 @@ const Canvas: React.FC<CanvasProps> = ((props) => {
             <Stage width={window.innerWidth} height={window.innerHeight}>
                 <ShapesLayer
                     shapes={props.shapes}
+//                    tempShape={props.tempShape}
                 />
             </Stage>
         </CanvasRoot>

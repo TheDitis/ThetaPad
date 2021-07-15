@@ -3,10 +3,28 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Layer} from "react-konva";
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import styled from "styled-components";
-import {ShapeMap} from "../../../types/shapes";
+import {Shape, ShapeMap} from "../../../types/shapes";
 import {Line as KonvaLine} from "react-konva"
+import {TempShapesContext} from "../../../ThetaPad";
+
+
+const DrawnShape = ({shape}) => {
+    if (shape === undefined) return null
+    if (shape.isLine()) {
+        return (
+            <KonvaLine
+                x={0}
+                y={0}
+                points={shape.points}
+                stroke={shape.color}
+                strokeWidth={2}
+            />
+        )
+    }
+    return null;
+}
 
 
 const ShapesLayerRoot = styled(Layer)`
@@ -14,28 +32,23 @@ const ShapesLayerRoot = styled(Layer)`
 
 interface ShapesLayerProps {
     shapes: ShapeMap;
+//    tempShape: Shape | null;
 }
 
 const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
+    const tempShape = useContext(TempShapesContext);
     const {shapes} = props
+    useEffect(() => {
+        console.log("tempShape udpated: ", tempShape);
+    }, [tempShape]);
+
 
     return (
         <ShapesLayerRoot>
-            {Object.values(shapes).map(shape => {
-                if (shape.isLine()) {
-                    return (
-                        <KonvaLine
-                            key={shape.id}
-                            x={0}
-                            y={0}
-                            points={shape.points}
-                            stroke={shape.color}
-                            strokeWidth={2}
-                        />
-                    )
-                }
-                return null;
-            })}
+            {Object.values(shapes).map(shape => (
+                <DrawnShape key={shape.id} shape={shape}/>
+            ))}
+            {tempShape !== null ? <DrawnShape shape={tempShape}/> : null}
         </ShapesLayerRoot>
     )
 }

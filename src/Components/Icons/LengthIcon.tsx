@@ -55,4 +55,4 @@ const LengthIcon: React.FC<LengthIconProps> = ({size = 1, color = "black"}) => {
     )
 };
 
-export default LengthIcon;
+export default React.memo(LengthIcon);

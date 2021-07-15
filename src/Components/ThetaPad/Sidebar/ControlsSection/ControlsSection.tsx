@@ -39,4 +39,10 @@ const ControlsSection: React.FC<ControlsProps> = ({drawMode, dispatch}) => {
     )
 }
 
-export default ControlsSection;
+//export default ControlsSection;
+export default React.memo(
+    ControlsSection,
+    (prev, next) => {
+        return prev.drawMode === next.drawMode;
+    }
+)

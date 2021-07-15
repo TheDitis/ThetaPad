@@ -49,19 +49,20 @@ interface ShapeInfoItemProps {
 }
 
 const ShapeInfoItem: React.FC<ShapeInfoItemProps> = ({shape, property}) => {
-    const unit = useContext(UnitContext)
+//    const unit = useContext(UnitContext)
 
-    const getFormattedValue = (): string => {
-        let value = shape[property];
-        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
-            value = value / unit;
-            return value.toFixed(unit === 1 ? 0 : 2)
-        }
-        return value.toFixed(1);
-    }
+//    const getFormattedValue = (): string => {
+//        let value = shape[property];
+//        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
+//            value = value / unit;
+//            return value.toFixed(unit === 1 ? 0 : 2)
+//        }
+//        return value.toFixed(1);
+//    }
 
     const Icon = iconMap[property];
-    const value = getFormattedValue();
+//    const value = getFormattedValue();
+    const value = shape[property];
     const unitChar = unitMap[property];
     return (
         <ShapeInfoItemRoot>

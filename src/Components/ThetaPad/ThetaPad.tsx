@@ -6,7 +6,7 @@ import React, {useContext} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
-import {ShapeMap, ShapeKind} from "./types/shapes";
+import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
 import {Action} from "./types/actions";
 import {SizeContext} from "../App/AppContextProvider";
@@ -53,16 +53,20 @@ export interface ThetaPadStateType {
 ///     COMPONENT DEFINITION:
 /////---------------------------------------------------------------------------
 
-export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
-export const UnitContext = React.createContext(1)
+//export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
+export const DispatchContext = null;
+export const UnitContext = 1;
+//export const UnitContext = React.createContext(1)
+export const TempShapesContext = React.createContext<Shape | null>(null);
 
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
     const thetaPadState = useThetaPadState();
 
     return (
-        <DispatchContext.Provider value={thetaPadState.dispatch}>
-            <UnitContext.Provider value={thetaPadState.unit}>
+//        <DispatchContext.Provider value={thetaPadState.dispatch}>
+        <TempShapesContext.Provider value={thetaPadState.tempShape}>
+            {/*<UnitContext.Provider value={thetaPadState.unit}>*/}
                 <ThetaPadRoot height={height}>
                     <Sidebar
                         drawMode={thetaPadState.drawMode}
@@ -70,13 +74,15 @@ const ThetaPad: React.FC = () => {
                         shapes={thetaPadState.shapes}
                     />
                     <Canvas
+//                        tempShape={thetaPadState.tempShape}
                         onClick={thetaPadState.handleCanvasClick}
                         onMouseMove={thetaPadState.handleMouseMove}
                         shapes={thetaPadState.shapes}
                     />
                 </ThetaPadRoot>
-            </UnitContext.Provider>
-        </DispatchContext.Provider>
+            {/*</UnitContext.Provider>*/}
+        </TempShapesContext.Provider>
+//        </DispatchContext.Provider>
     )
 }
 

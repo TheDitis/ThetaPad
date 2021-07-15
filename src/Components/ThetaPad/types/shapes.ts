@@ -30,8 +30,8 @@ export const ShapeKindOptions: {[label: string]: ShapeKind} = {
 export class Point {
     static xOffset = MIN_SIDEBAR_WIDTH;
     static yOffset = NAVBAR_HEIGHT;
-    private _x: number;
-    private _y: number;
+    _x: number;
+    _y: number;
 
     /**
      * Create a new Point, auto-adjusted with the sizes of other page elements
@@ -51,6 +51,11 @@ export class Point {
     /** @return {number} - Y coordinate translated by yOffset */
     get y(): number {
         return this._y - Point.yOffset;
+    }
+
+    moveTo(newX: number, newY: number) {
+        this._x = newX;
+        this._y = newY;
     }
 
     /**
@@ -100,7 +105,6 @@ export class Point {
 
 /** Abstract base class for shapes (Line, Poly, & Circle) */
 export abstract class Shape {
-    static unitLength: number = 1;
     id: string;
     kind: ShapeKind;
     origin: Point;
@@ -216,6 +220,14 @@ export class Line extends Shape {
     get midpoint(): Point {
         return this.start.midpoint(this.end)
     }
+
+    copy(): Line {
+        return new Line(this.start._x, this.start._y, this.color);
+    }
+
+//    static withNewEnd(line: Line, endX: number, endY: number): Line {
+//        const newLine = Line(line.start.x, line.start.y)
+//    }
 
 }
 
