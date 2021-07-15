@@ -104,10 +104,9 @@ const shapeIcons = {
 interface ShapeProfileProps {
     shape: Shape;
     index: number;
-    infoProps: string[];
     unitValue: number;
     InfoItems?: React.FC;
-    children: React.FC<{key: string}>[];
+    children?: React.FC<{key: string}>[];
 }
 
 /**
@@ -119,7 +118,7 @@ interface ShapeProfileProps {
  * @param {number} unitValue - the value to set the unit to on unit button click
  */
 const ShapeProfile: React.FC<ShapeProfileProps> = (
-    {shape, index, infoProps, unitValue, InfoItems= () => null}
+    {shape, index, unitValue, InfoItems= () => null}
 ) => {
     const unit = useContext(UnitContext);
     const dispatch = useContext(DispatchContext);

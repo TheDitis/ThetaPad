@@ -31,7 +31,6 @@ const LineProfile: React.FC<LineProfileProps> = ({line, index}) => {
         <ShapeProfile
             shape={line}
             index={index}
-            infoProps={['length', 'angle']}
             unitValue={line.length}
             InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
         >

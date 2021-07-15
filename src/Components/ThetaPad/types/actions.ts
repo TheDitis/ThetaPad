@@ -60,8 +60,8 @@ export abstract class ShapesUpdateAction extends Action {
     isCreateKind(): this is CreateShapeAction {
         return this.kind === ShapesUpdateActionKind.Create;
     }
-    /** @return {this is ContinueShapeAction} */
-    isContinueKind(): this is ContinueShapeAction {
+    /** @return {this is UpdateShapeAction} */
+    isUpdateKind(): this is UpdateShapeAction {
         return this.kind === ShapesUpdateActionKind.Continue;
     }
     /** @return {this is EndShapeAction} */
@@ -97,13 +97,13 @@ export class CreateShapeAction extends ShapesUpdateAction {
  * Action to update an existing shape
  * @extends ShapesUpdateAction
  */
-export class ContinueShapeAction extends ShapesUpdateAction {
+export class UpdateShapeAction extends ShapesUpdateAction {
     kind = ShapesUpdateActionKind.Continue;
     targetShape: string;
     payload: Partial<Shape>
 
     /**
-     * Create a new ContinueShapeAction
+     * Create a new UpdateShapeAction
      * @param {string} shapeId - the ID of the shape you need to update
      * @param {Partial<Shape>} updateValues - the partial shape with new values
      */

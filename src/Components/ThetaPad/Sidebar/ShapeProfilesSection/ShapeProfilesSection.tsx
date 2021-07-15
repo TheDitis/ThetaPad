@@ -38,6 +38,7 @@ const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (
     return (
         <ShapeProfilesSectionRoot>
             <CompletedShapesProfiles shapes={shapes}/>
+            {/*TODO: REFACTOR THIS ONCE OTHER DRAW MODES WORK*/}
             {tempShape !== null && tempShape.isLine() && <LineProfile key={uuid()} line={tempShape} index={Object.keys(shapes).length}/>}
         </ShapeProfilesSectionRoot>
     )

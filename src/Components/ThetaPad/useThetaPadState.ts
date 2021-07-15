@@ -2,14 +2,10 @@
  * @file Primary state management hook for ThetaPad
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {useReducer, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
-import {ShapeMap, ShapeKind, Line, Shape} from "./types/shapes";
-import {
-    Action,
-    CreateShapeAction,
-    ShapesUpdateAction
-} from "./types/actions";
+import {Line, Poly, Shape, ShapeKind, ShapeMap} from "./types/shapes";
+import {Action, ChangeDrawModeAction, CreateShapeAction, EndShapeAction, ShapesUpdateAction} from "./types/actions";
 
 
 /////---------------------------------------------------------------------------
@@ -26,9 +22,23 @@ const shapesReducer = (
     shapes: ShapeMap,
     action: ShapesUpdateAction
 ): ShapeMap => {
+    // Add a new shape
     if (action.isCreateKind()) {
         shapes[action.payload.id] = action.payload;
     }
+    // End a poly draw if one is in session
+    else if (action.isEndKind()) {
+        const shape = shapes[action.targetShape];
+        if (shape.isPoly()) {
+            shape.points.pop();
+            if (shape.points.length < 2) {
+                delete shapes[action.targetShape];
+            } else {
+                shapes[action.targetShape] = shape;
+            }
+        }
+    }
+    // Remove a shape by id
     else if (action.isRemoveKind()) {
         delete shapes[action.targetShape];
     }
@@ -54,6 +64,37 @@ const useThetaPadState = () => {
     const [unit, setUnit] = useState<number>(1);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
+
+
+    /** Bind a key listener, and remove it when done. */
+    useEffect(() => {
+        const keyListener = (e: KeyboardEvent) => {
+            console.log(e)
+            switch (e.key.toLowerCase()) {
+                case "escape":
+                    console.log("esc hit")
+                    if (tempShape !== null && tempShape.isPoly()) {
+                        console.log("Should be working")
+                        dispatch(new CreateShapeAction(tempShape));
+                        dispatch(new EndShapeAction(tempShape.id));
+                        setTempShape(null);
+                    }
+                    break;
+                case "l":
+                    dispatch(new ChangeDrawModeAction(ShapeKind.Line));
+                    break;
+                case "p":
+                    dispatch(new ChangeDrawModeAction(ShapeKind.Poly));
+                    break;
+
+            }
+        }
+
+        window.addEventListener("keydown", keyListener);
+
+        return () => window.removeEventListener("keydown", keyListener);
+    }, [tempShape]);
+
 
 
     /**
@@ -82,7 +123,7 @@ const useThetaPadState = () => {
         // Starting a new line:
         if (!tempShape && e.type === "mousedown") {
             const newShape = new Line(e.pageX, e.pageY, "red");
-            setTempShape(newShape)
+            setTempShape(newShape);
         }
         // If in the middle of a drawing action
         else if (tempShape && e.type === "mouseup") {
@@ -94,6 +135,25 @@ const useThetaPadState = () => {
         }
     }
 
+    const handlePolyClickEvent = (e) => {
+        if (tempShape !== null && !tempShape?.isPoly()) {
+            console.error("handlePolyClick called with non-poly tempShape")
+        }
+        else if (e.type === "mousedown") {
+            // Start a new poly-draw
+            if (tempShape === null) {
+                const newShape = new Poly(e.pageX, e.pageY, "purple");
+                newShape.addPoint(e.pageX, e.pageY);
+                setTempShape(newShape);
+            } else {
+                tempShape.addPoint(e.pageX, e.pageY);
+                tempShape.addPoint(e.pageX, e.pageY); // yes, twice
+                setTempShape(tempShape);
+            }
+        }
+        console.log("tempShape: ", tempShape !== null && tempShape.isPoly() ? tempShape.points : null)
+    }
+
     /**
      * Called on all mousedown and mouseup events that occur on the canvas.
      * Routes the event to the relevant handler one layer of specificity down.
@@ -103,6 +163,9 @@ const useThetaPadState = () => {
         switch (drawMode) {
             case ShapeKind.Line:
                 handleLineClickEvent(e);
+                break;
+            case ShapeKind.Poly:
+                handlePolyClickEvent(e);
                 break;
             default:
                 console.error("drawMode ", drawMode,
@@ -122,6 +185,12 @@ const useThetaPadState = () => {
                 const tempCurrentShape = tempShape.copy();
                 tempCurrentShape.end.moveTo(e.pageX, e.pageY);
                 setTempShape(tempCurrentShape);
+            }
+            else if (tempShape.isPoly()) {
+                const tempTempShape = tempShape.copy();
+                tempTempShape.setEndpoint(e.pageX, e.pageY);
+                console.log(tempTempShape.points)
+                setTempShape(tempTempShape);
             }
         }
     }

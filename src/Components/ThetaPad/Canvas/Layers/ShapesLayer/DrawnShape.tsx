@@ -1,4 +1,4 @@
-/** DrawnShapes.tsx
+/** DrawnShape.tsx
  * @file Component that returns the relevant Konva shape to shape passed
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
@@ -22,9 +22,19 @@ const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
             <KonvaLine
                 x={0}
                 y={0}
-                points={shape.points}
+                points={shape.canvasPoints}
                 stroke={shape.color}
                 strokeWidth={2}
+            />
+        )
+    }
+    if (shape.isPoly()) {
+        return (
+            <KonvaLine
+                x={0}
+                y={0}
+                points={shape.canvasPoints}
+                stroke={shape.color}
             />
         )
     }

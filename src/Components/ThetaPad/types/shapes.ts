@@ -3,6 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {MIN_SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../constants";
+import _ from "lodash";
 
 
 /////---------------------------------------------------------------------------
@@ -30,8 +31,8 @@ export const ShapeKindOptions: {[label: string]: ShapeKind} = {
 export class Point {
     static xOffset = MIN_SIDEBAR_WIDTH;
     static yOffset = NAVBAR_HEIGHT;
-    _x: number;
-    _y: number;
+    x: number;
+    y: number;
 
     /**
      * Create a new Point, auto-adjusted with the sizes of other page elements
@@ -39,23 +40,21 @@ export class Point {
      * @param {number} y - the Y coordinate
      */
     constructor(x: number, y: number) {
-        this._x = x;
-        this._y = y;
+        this.x = x;
+        this.y = y;
+    }
+    
+    get canvasX(): number {
+        return this.x - Point.xOffset;
     }
 
-    /** @return {number} - X coordinate translated by xOffset */
-    get x(): number {
-        return this._x - Point.xOffset;
-    }
-
-    /** @return {number} - Y coordinate translated by yOffset */
-    get y(): number {
-        return this._y - Point.yOffset;
+    get canvasY(): number {
+        return this.y - Point.yOffset;
     }
 
     moveTo(newX: number, newY: number) {
-        this._x = newX;
-        this._y = newY;
+        this.x = newX;
+        this.y = newY;
     }
 
     /**
@@ -64,8 +63,8 @@ export class Point {
      * @param {number} y - the amount to translate in the Y direction
      */
     translate(x: number, y: number) {
-        this._x += x;
-        this._y += y;
+        this.x += x;
+        this.y += y;
     }
 
     /**
@@ -74,8 +73,8 @@ export class Point {
      * @return {number} - Absolute difference between this point and otherPoint
      */
     distanceTo(otherPoint: Point): number {
-        const yDist = Math.abs(this._y - otherPoint._y);
-        const xDist = Math.abs(this._x - otherPoint._x);
+        const yDist = Math.abs(this.y - otherPoint.y);
+        const xDist = Math.abs(this.x - otherPoint.x);
         return Math.sqrt((yDist ** 2) + (xDist ** 2))
     }
 
@@ -86,8 +85,8 @@ export class Point {
      */
     angleTo(otherPoint: Point): number {
         return Math.atan2(
-            otherPoint._y - this._y,
-            otherPoint._x - this._x
+            otherPoint.y - this.y,
+            otherPoint.x - this.x
         ) * 180 / Math.PI;
     }
 
@@ -97,8 +96,8 @@ export class Point {
      * @return {Point}
      */
     midpoint(otherPoint: Point): Point {
-        const avgX = (this._x + otherPoint._x) / 2;
-        const avgY = (this._y + otherPoint._y) / 2;
+        const avgX = (this.x + otherPoint.x) / 2;
+        const avgY = (this.y + otherPoint.y) / 2;
         return new Point(avgX, avgY);
     }
 }
@@ -208,6 +207,13 @@ export class Line extends Shape {
         return [this.start.x, this.start.y, this.end.x, this.end.y]
     }
 
+    get canvasPoints(): number[] {
+        return [
+            this.start.canvasX, this.start.canvasY,
+            this.end.canvasX, this.end.canvasY
+        ]
+    }
+
     /**
      * Get an array of the coordinate values, translated to start at 0, 0
      * @return {number[]} - Translated coordinate values [0, 0, x2-x1, y2-y1]
@@ -222,7 +228,7 @@ export class Line extends Shape {
     }
 
     copy(): Line {
-        return new Line(this.start._x, this.start._y, this.color);
+        return new Line(this.start.x, this.start.y, this.color);
     }
 
 //    static withNewEnd(line: Line, endX: number, endY: number): Line {
@@ -237,8 +243,8 @@ export class Line extends Shape {
  */
 export class Poly extends Shape {
     points: Point[];
-    distances: number[];
-    angles: number[];
+//    distances: number[];
+//    angles: number[];
 
     /**
      * Create a new Poly line, starting at (x, y)
@@ -248,9 +254,30 @@ export class Poly extends Shape {
      */
     constructor(x: number, y: number, color: string = "blue") {
         super(x, y, ShapeKind.Poly, color);
-        this.points = [this.origin]
-        this.distances = [0];
-        this.angles = [0];
+        this.points = [this.origin];
+//        this.distances = [0];
+//        this.angles = [0];
+    }
+
+    get canvasPoints(): number[] {
+        return Array.from(_.flatMap(this.points, (pt: Point) => (
+            [pt.x - Point.xOffset, pt.y - Point.yOffset]
+        )))
+    }
+
+    addPoint(x: number, y: number) {
+        this.points.push(new Point(x, y));
+    }
+
+    setEndpoint(endX: number, endY: number) {
+        this.points[this.points.length - 1].moveTo(endX, endY);
+    }
+
+    copy(): Poly {
+        const firstPoint = this.points[0];
+        const newPoly = new Poly(firstPoint.x, firstPoint.y, this.color);
+        newPoly.points = this.points;
+        return newPoly;
     }
 }
 

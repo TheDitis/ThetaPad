@@ -27,7 +27,7 @@ const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
             {Object.values(shapes).map(shape => (
                 <DrawnShape key={shape.id} shape={shape}/>
             ))}
-            {tempShape !== null ? <DrawnShape shape={tempShape}/> : null}
+            {tempShape !== null && <DrawnShape shape={tempShape}/>}
         </Layer>
     )
 }
