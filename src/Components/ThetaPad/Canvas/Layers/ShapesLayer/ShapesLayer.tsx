@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Layer} from "react-konva";
-import React, {useEffect} from "react";
+import React from "react";
 import {Shape, ShapeMap} from "../../../types/shapes";
 import DrawnShape from "./DrawnShape";
 

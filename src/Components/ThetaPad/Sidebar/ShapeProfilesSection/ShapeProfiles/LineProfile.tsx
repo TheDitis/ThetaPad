@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {Line, Shape} from "../../../types/shapes";
+import {Line} from "../../../types/shapes";
 import ShapeProfile from "./ShapeProfile";
 import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";

@@ -4,7 +4,7 @@
  */
 import {useReducer, useState} from "react";
 import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
-import {ShapeMap, ShapeKind, Line, Point, Shape} from "./types/shapes";
+import {ShapeMap, ShapeKind, Line, Shape} from "./types/shapes";
 import {
     Action,
     CreateShapeAction,
@@ -134,7 +134,7 @@ const useThetaPadState = () => {
         handleMouseMove,
         drawMode,
         shapes,
-    } // as ThetaPadStateType
+    } as ThetaPadStateType
 }
 
 export default useThetaPadState;

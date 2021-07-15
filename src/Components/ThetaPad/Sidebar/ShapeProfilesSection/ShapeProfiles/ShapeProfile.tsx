@@ -10,8 +10,6 @@ import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import {DispatchContext, UnitContext} from "../../../ThetaPad";
 import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
-import ShapeInfoItem from "./ShapeInfoItem";
-import uuid from "react-uuid";
 
 
 interface ShapeProfileStyleProps {

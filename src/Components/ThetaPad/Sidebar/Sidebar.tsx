@@ -4,7 +4,7 @@
  */
 import styled from "styled-components";
 import {Shape, ShapeKind, ShapeMap} from "../types/shapes";
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {PrimaryDispatch} from "../ThetaPad";
 import {SizeContext} from "../../App/AppContextProvider";
 import ControlsSection from "./ControlsSection/ControlsSection";
@@ -49,9 +49,6 @@ const Sidebar: React.FC<SideBarProps> = (
     {drawMode, dispatch, shapes, tempShape}
 ) => {
     const {width} = useContext(SizeContext);
-    useEffect(() => {
-        console.log("Sidebar re-rendered")
-    });
 
     return (
         <SidebarRoot width={width}>

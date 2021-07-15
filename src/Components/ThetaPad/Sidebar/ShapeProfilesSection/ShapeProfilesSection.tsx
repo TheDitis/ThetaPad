@@ -2,7 +2,7 @@
  * @file
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import {Shape, ShapeMap} from "../../types/shapes";
 import LineProfile from "./ShapeProfiles/LineProfile";
