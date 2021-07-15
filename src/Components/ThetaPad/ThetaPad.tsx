@@ -53,25 +53,21 @@ export interface ThetaPadStateType {
 ///     COMPONENT DEFINITION:
 /////---------------------------------------------------------------------------
 
-//export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
-export const DispatchContext = null;
-export const UnitContext = 1;
-//export const UnitContext = React.createContext(1)
-export const TempShapesContext = React.createContext<Shape | null>(null);
+export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
+export const UnitContext = React.createContext(1)
 
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
     const thetaPadState = useThetaPadState();
 
     return (
-//        <DispatchContext.Provider value={thetaPadState.dispatch}>
-//        <TempShapesContext.Provider value={thetaPadState.tempShape}>
-        <>
+        <DispatchContext.Provider value={thetaPadState.dispatch}>
+            <UnitContext.Provider value={thetaPadState.unit}>
                 <ThetaPadRoot height={height}>
                     <Sidebar
+                        dispatch={thetaPadState.dispatch}
                         tempShape={thetaPadState.tempShape}
                         drawMode={thetaPadState.drawMode}
-                        dispatch={thetaPadState.dispatch}
                         shapes={thetaPadState.shapes}
                     />
                     <Canvas
@@ -81,9 +77,8 @@ const ThetaPad: React.FC = () => {
                         shapes={thetaPadState.shapes}
                     />
                 </ThetaPadRoot>
-        </>
-//        </TempShapesContext.Provider>
-//        </DispatchContext.Provider>
+            </UnitContext.Provider>
+        </DispatchContext.Provider>
     )
 }
 

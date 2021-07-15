@@ -33,13 +33,15 @@ const ControlsSection: React.FC<ControlsProps> = ({drawMode, dispatch}) => {
         <div style={styles}>
             <DrawModeSelect
                 drawMode={drawMode}
-                onChange={(label) => dispatch(new ChangeDrawModeAction(label))}
+                onChange={(label) => {
+                    console.log(label)
+                    dispatch(new ChangeDrawModeAction(label))
+                }}
             />
         </div>
     )
 }
 
-//export default ControlsSection;
 export default React.memo(
     ControlsSection,
     (prev, next) => {

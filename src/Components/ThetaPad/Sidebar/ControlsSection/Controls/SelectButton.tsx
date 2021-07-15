@@ -67,7 +67,7 @@ const SelectButton: React.FC<SelectButtonProps> = (
             className={
                 selected ? classes.SelectButtonSelected : classes.SelectButton
             }
-            onClick={selected ? onClick : () => null}
+            onClick={selected ? () => null : onClick}
         >
             {children}
         </Button>

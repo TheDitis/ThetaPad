@@ -123,19 +123,21 @@ interface ShapeProfileProps {
 const ShapeProfile: React.FC<ShapeProfileProps> = (
     {shape, index, infoProps, unitValue, InfoItems= () => null}
 ) => {
-//    const unit = useContext(UnitContext);
-//    const dispatch = useContext(DispatchContext);
+    const unit = useContext(UnitContext);
+    const dispatch = useContext(DispatchContext);
     const borderColor = "rgba(0, 0, 0, 0.3)";
     const Icon = shapeIcons[shape.kind];
 
     const toggleUnit = () => {
-//        if (unit === 1) {
-//            dispatch(new ChangeUnitAction(unitValue));
-//            shape.isUnit = true;
-//        } else {
-//            dispatch(new ResetUnitAction());
-//            shape.isUnit = false;
-//        }
+        if (unit !== unitValue) {
+            console.log("CHANGING UNIT TO ", unitValue)
+            dispatch(new ChangeUnitAction(unitValue));
+            shape.isUnit = true;
+        } else {
+            console.log("resetting unit")
+            dispatch(new ResetUnitAction());
+            shape.isUnit = false;
+        }
     }
 
     return (
@@ -150,13 +152,13 @@ const ShapeProfile: React.FC<ShapeProfileProps> = (
                     </div>
                     <div className={"labelAndControls"}>
                         <h3>{shape.kind} {index}</h3>
-                        {/*<button onClick={toggleUnit}>Unit</button>*/}
+                        <button onClick={toggleUnit}>Unit</button>
 
                         <h5
                             className={"xButton"}
-//                            onClick={() => dispatch(
-//                                new RemoveShapeAction(shape.id)
-//                            )}
+                            onClick={() => dispatch(
+                                new RemoveShapeAction(shape.id)
+                            )}
                         >×</h5>
                     </div>
                 </div>
@@ -169,7 +171,3 @@ const ShapeProfile: React.FC<ShapeProfileProps> = (
 }
 
 export default ShapeProfile;
-
-//export default React.memo(
-//    ShapeProfile
-//)

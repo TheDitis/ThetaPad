@@ -7,9 +7,7 @@ import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
 import {ShapeMap, ShapeKind, Line, Point, Shape} from "./types/shapes";
 import {
     Action,
-    ContinueShapeAction,
     CreateShapeAction,
-    EndShapeAction,
     ShapesUpdateAction
 } from "./types/actions";
 
@@ -31,12 +29,6 @@ const shapesReducer = (
     if (action.isCreateKind()) {
         shapes[action.payload.id] = action.payload;
     }
-//    else if (action.isContinueKind()) {
-//        shapes[action.targetShape].update(action.payload);
-//    }
-//    else if (action.isEndKind()) {
-////        console.log("Done drawing ", shapes[action.targetShape]);
-//    }
     else if (action.isRemoveKind()) {
         delete shapes[action.targetShape];
     }
@@ -64,7 +56,6 @@ const useThetaPadState = () => {
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
 
 
-
     /**
      * The highest-level state-update dispatch funtion
      * @param {Action} action - an action-object derived from Action
@@ -74,11 +65,11 @@ const useThetaPadState = () => {
             updateShapes(action)
         }
         else if (action.targetsDrawMode()) {
+            console.log("setting draw mode to ", action.value)
             setDrawMode(action.value);
         }
         else if (action.targetsUnit()) {
             setUnit(action.value);
-            updateShapes(new EndShapeAction(""))
         }
     }
 
@@ -92,19 +83,14 @@ const useThetaPadState = () => {
         if (!tempShape && e.type === "mousedown") {
             const newShape = new Line(e.pageX, e.pageY, "red");
             setTempShape(newShape)
-//            dispatch(new CreateShapeAction(newShape))
         }
         // If in the middle of a drawing action
         else if (tempShape && e.type === "mouseup") {
-            tempShape.color = "black";
-            dispatch(new CreateShapeAction(tempShape));
+            if (tempShape.isLine() && tempShape.length > 1) {
+                tempShape.color = "black";
+                dispatch(new CreateShapeAction(tempShape));
+            }
             setTempShape(null);
-//            dispatch(
-//                new EndShapeAction(
-////                    tempShape
-//                )
-//            )
-//            setTempShape(null);
         }
     }
 
@@ -135,29 +121,8 @@ const useThetaPadState = () => {
             if (tempShape.isLine()) {
                 const tempCurrentShape = tempShape.copy();
                 tempCurrentShape.end.moveTo(e.pageX, e.pageY);
-//                tempCurrentShape.id = Date.now().toString();
-
                 setTempShape(tempCurrentShape);
             }
-//            switch (drawMode) {
-//                case ShapeKind.Line:
-////                    dispatch(
-////                        new ContinueShapeAction(
-////                            tempShape,
-////                            {end: new Point(e.pageX, e.pageY)} as Partial<Line>
-////                        )
-////                    )
-//                    const tempCurrentShape = tempShape;
-//                    tempCurrentShape.update({end: new Point(e.pageX, e.pageY)} as Partial<Line>)
-//                    //@ts-ignore
-//                    console.log("UPDATING TEMPSHAPE: ", tempCurrentShape.end.x)
-//                    setTempShape(tempCurrentShape);
-//                    break;
-//                default:
-//                    console.error("drawMode ", drawMode,
-//                        " not handled in handleMouseMove inDraw branch")
-//                    break;
-//            }
         }
     }
 

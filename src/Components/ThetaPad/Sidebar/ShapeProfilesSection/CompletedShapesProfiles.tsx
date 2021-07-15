@@ -3,25 +3,14 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-//import styled from "styled-components";
 import {ShapeMap} from "../../types/shapes";
 import LineProfile from "./ShapeProfiles/LineProfile";
 import uuid from "react-uuid";
 
-//interface CompletedShapesProfilesStyleProps {
-//
-//}
-//
-//const CompletedShapesProfilesRoot = styled.div<CompletedShapesProfilesStyleProps>`
-//
-//`
-//
-//
-//interface CompletedShapesProfilesProps {
-//
-//}
 
-const CompletedShapesProfiles: React.FC<{shapes: ShapeMap}> = ({shapes}) => (
+interface CompletedShapesProfilesProps {shapes: ShapeMap}
+
+const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = ({shapes}) => (
     <>
         {Object.entries(shapes).map(([id, shape], index) => {
             if (shape.isLine()) {
@@ -31,5 +20,6 @@ const CompletedShapesProfiles: React.FC<{shapes: ShapeMap}> = ({shapes}) => (
         })}
     </>
 )
+
 
 export default React.memo(CompletedShapesProfiles);

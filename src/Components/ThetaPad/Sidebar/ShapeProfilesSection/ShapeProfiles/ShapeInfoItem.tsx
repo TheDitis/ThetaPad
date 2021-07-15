@@ -9,6 +9,7 @@ import AngleIcon from "../../../../Icons/AngleIcon";
 import {Shape} from "../../../types/shapes";
 import {UnitContext} from "../../../ThetaPad";
 
+// The icon to display for each property
 const iconMap = {
     length: LengthIcon,
     angle: AngleIcon,
@@ -16,6 +17,7 @@ const iconMap = {
     diameter: null,
 }
 
+// The unit character that should be displayed for each property
 const unitMap = {
     length: '',
     angle: '°',
@@ -48,22 +50,28 @@ interface ShapeInfoItemProps {
     property: string;
 }
 
+/**
+ * Theses are the individual info items in ShapeProfiles as an icon/value pair
+ * @param {Shape} shape - the shape you're getting info from
+ * @param {string} property - the property of 'shape' you are interested in
+ */
 const ShapeInfoItem: React.FC<ShapeInfoItemProps> = ({shape, property}) => {
-//    const unit = useContext(UnitContext)
+    const unit = useContext(UnitContext)
 
-//    const getFormattedValue = (): string => {
-//        let value = shape[property];
-//        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
-//            value = value / unit;
-//            return value.toFixed(unit === 1 ? 0 : 2)
-//        }
-//        return value.toFixed(1);
-//    }
+    /** @return {string} - A readable representation of shape[property] */
+    const getFormattedValue = (): string => {
+        let value = shape[property];
+        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
+            value = value / unit;
+            return value.toFixed(unit === 1 ? 0 : 2)
+        }
+        return value.toFixed(1);
+    }
 
     const Icon = iconMap[property];
-//    const value = getFormattedValue();
-    const value = shape[property];
+    const value = getFormattedValue();
     const unitChar = unitMap[property];
+
     return (
         <ShapeInfoItemRoot>
             <Icon size={0.23}/>

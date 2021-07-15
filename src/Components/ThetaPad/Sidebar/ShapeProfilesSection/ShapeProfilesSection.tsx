@@ -2,14 +2,12 @@
  * @file
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import {Shape, ShapeMap} from "../../types/shapes";
 import LineProfile from "./ShapeProfiles/LineProfile";
 import uuid from "react-uuid";
 import CompletedShapesProfiles from "./CompletedShapesProfiles";
-
-
 
 
 interface ShapeProfilesSectionStyleProps {

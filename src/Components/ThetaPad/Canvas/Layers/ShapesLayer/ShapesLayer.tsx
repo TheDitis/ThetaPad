@@ -7,7 +7,6 @@ import React, {useContext, useEffect} from "react";
 import styled from "styled-components";
 import {Shape, ShapeMap} from "../../../types/shapes";
 import {Line as KonvaLine} from "react-konva"
-import {TempShapesContext} from "../../../ThetaPad";
 
 
 const DrawnShape = ({shape}) => {
@@ -36,7 +35,6 @@ interface ShapesLayerProps {
 }
 
 const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-//    const tempShape = useContext(TempShapesContext);
     const {shapes, tempShape} = props
     useEffect(() => {
         console.log("tempShape udpated: ", tempShape);
