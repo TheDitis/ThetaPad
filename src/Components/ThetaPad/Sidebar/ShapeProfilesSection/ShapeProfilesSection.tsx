@@ -4,9 +4,13 @@
  */
 import React from "react";
 import styled from "styled-components";
-import {ShapeMap} from "../../types/shapes";
+import {Shape, ShapeMap} from "../../types/shapes";
 import LineProfile from "./ShapeProfiles/LineProfile";
 import uuid from "react-uuid";
+import CompletedShapesProfiles from "./CompletedShapesProfiles";
+
+
+
 
 interface ShapeProfilesSectionStyleProps {
 
@@ -27,21 +31,18 @@ const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
 
 interface ShapeProfilesSectionProps {
     shapes: ShapeMap;
+    tempShape: Shape | null;
 }
 
 const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (
-    {shapes}
+    {shapes, tempShape}
 ) => {
     return (
         <ShapeProfilesSectionRoot>
-            {Object.entries(shapes).map(([id, shape], index) => {
-                if (shape.isLine()) {
-                    return <LineProfile key={uuid()} line={shape} index={index}/>
-                }
-                return null;
-            })}
+            <CompletedShapesProfiles shapes={shapes}/>
+            {tempShape !== null && tempShape.isLine() && <LineProfile key={uuid()} line={tempShape} index={Object.keys(shapes).length}/>}
         </ShapeProfilesSectionRoot>
     )
 }
 
-export default ShapeProfilesSection;
+export default ShapeProfilesSection

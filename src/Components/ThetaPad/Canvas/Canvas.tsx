@@ -23,7 +23,7 @@ interface CanvasProps {
     onClick;
     onMouseMove;
     shapes: ShapeMap;
-//    tempShape: Shape | null;
+    tempShape: Shape | null;
 }
 
 const Canvas: React.FC<CanvasProps> = ((props) => {
@@ -38,7 +38,7 @@ const Canvas: React.FC<CanvasProps> = ((props) => {
             <Stage width={window.innerWidth} height={window.innerHeight}>
                 <ShapesLayer
                     shapes={props.shapes}
-//                    tempShape={props.tempShape}
+                    tempShape={props.tempShape}
                 />
             </Stage>
         </CanvasRoot>

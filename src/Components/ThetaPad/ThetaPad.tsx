@@ -65,23 +65,24 @@ const ThetaPad: React.FC = () => {
 
     return (
 //        <DispatchContext.Provider value={thetaPadState.dispatch}>
-        <TempShapesContext.Provider value={thetaPadState.tempShape}>
-            {/*<UnitContext.Provider value={thetaPadState.unit}>*/}
+//        <TempShapesContext.Provider value={thetaPadState.tempShape}>
+        <>
                 <ThetaPadRoot height={height}>
                     <Sidebar
+                        tempShape={thetaPadState.tempShape}
                         drawMode={thetaPadState.drawMode}
                         dispatch={thetaPadState.dispatch}
                         shapes={thetaPadState.shapes}
                     />
                     <Canvas
-//                        tempShape={thetaPadState.tempShape}
+                        tempShape={thetaPadState.tempShape}
                         onClick={thetaPadState.handleCanvasClick}
                         onMouseMove={thetaPadState.handleMouseMove}
                         shapes={thetaPadState.shapes}
                     />
                 </ThetaPadRoot>
-            {/*</UnitContext.Provider>*/}
-        </TempShapesContext.Provider>
+        </>
+//        </TempShapesContext.Provider>
 //        </DispatchContext.Provider>
     )
 }

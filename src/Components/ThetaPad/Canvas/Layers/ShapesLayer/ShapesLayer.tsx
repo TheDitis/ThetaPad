@@ -32,12 +32,12 @@ const ShapesLayerRoot = styled(Layer)`
 
 interface ShapesLayerProps {
     shapes: ShapeMap;
-//    tempShape: Shape | null;
+    tempShape: Shape | null;
 }
 
 const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-    const tempShape = useContext(TempShapesContext);
-    const {shapes} = props
+//    const tempShape = useContext(TempShapesContext);
+    const {shapes, tempShape} = props
     useEffect(() => {
         console.log("tempShape udpated: ", tempShape);
     }, [tempShape]);

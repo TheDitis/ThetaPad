@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import {ShapeKind, ShapeMap} from "../types/shapes";
+import {Shape, ShapeKind, ShapeMap} from "../types/shapes";
 import React, {useContext, useEffect} from "react";
 import {PrimaryDispatch} from "../ThetaPad";
 import {SizeContext} from "../../App/AppContextProvider";
@@ -35,6 +35,7 @@ interface SideBarProps {
     drawMode: ShapeKind,
     dispatch: PrimaryDispatch,
     shapes: ShapeMap,
+    tempShape: Shape | null,
 }
 
 /**
@@ -45,7 +46,7 @@ interface SideBarProps {
  * @param {ShapeMap} shapes - the object of all shapes
  */
 const Sidebar: React.FC<SideBarProps> = (
-    {drawMode, dispatch, shapes}
+    {drawMode, dispatch, shapes, tempShape}
 ) => {
     const {width} = useContext(SizeContext);
     useEffect(() => {
@@ -55,7 +56,7 @@ const Sidebar: React.FC<SideBarProps> = (
     return (
         <SidebarRoot width={width}>
             <ControlsSection drawMode={drawMode} dispatch={dispatch}/>
-            <ShapeProfilesSection shapes={shapes}/>
+            <ShapeProfilesSection shapes={shapes} tempShape={tempShape}/>
         </SidebarRoot>
     )
 }
