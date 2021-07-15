@@ -6,7 +6,7 @@ import React, {useContext} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
-import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
+import {ShapeMap, ShapeKind} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
 import {Action} from "./types/actions";
 import {SizeContext} from "../App/AppContextProvider";
