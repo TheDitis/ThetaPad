@@ -6,7 +6,7 @@ import React, {useContext} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
-import {ShapeMap, ShapeKind} from "./types/shapes";
+import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
 import {Action} from "./types/actions";
 import {SizeContext} from "../App/AppContextProvider";
@@ -45,6 +45,7 @@ export interface ThetaPadStateType {
     handleMouseMove;
     drawMode: ShapeKind;
     shapes: ShapeMap;
+    tempShape: Shape | null;
 }
 
 
@@ -65,11 +66,13 @@ const ThetaPad: React.FC = () => {
             <UnitContext.Provider value={thetaPadState.unit}>
                 <ThetaPadRoot height={height}>
                     <Sidebar
-                        drawMode={thetaPadState.drawMode}
                         dispatch={thetaPadState.dispatch}
+                        tempShape={thetaPadState.tempShape}
+                        drawMode={thetaPadState.drawMode}
                         shapes={thetaPadState.shapes}
                     />
                     <Canvas
+                        tempShape={thetaPadState.tempShape}
                         onClick={thetaPadState.handleCanvasClick}
                         onMouseMove={thetaPadState.handleMouseMove}
                         shapes={thetaPadState.shapes}

@@ -10,8 +10,6 @@ import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import {DispatchContext, UnitContext} from "../../../ThetaPad";
 import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
-import ShapeInfoItem from "./ShapeInfoItem";
-import uuid from "react-uuid";
 
 
 interface ShapeProfileStyleProps {
@@ -108,7 +106,8 @@ interface ShapeProfileProps {
     index: number;
     infoProps: string[];
     unitValue: number;
-//    children: React.FC<{key: string}>[];
+    InfoItems?: React.FC;
+    children: React.FC<{key: string}>[];
 }
 
 /**
@@ -120,7 +119,7 @@ interface ShapeProfileProps {
  * @param {number} unitValue - the value to set the unit to on unit button click
  */
 const ShapeProfile: React.FC<ShapeProfileProps> = (
-    {shape, index, infoProps, unitValue}
+    {shape, index, infoProps, unitValue, InfoItems= () => null}
 ) => {
     const unit = useContext(UnitContext);
     const dispatch = useContext(DispatchContext);
@@ -128,10 +127,12 @@ const ShapeProfile: React.FC<ShapeProfileProps> = (
     const Icon = shapeIcons[shape.kind];
 
     const toggleUnit = () => {
-        if (unit === 1) {
+        if (unit !== unitValue) {
+            console.log("CHANGING UNIT TO ", unitValue)
             dispatch(new ChangeUnitAction(unitValue));
             shape.isUnit = true;
         } else {
+            console.log("resetting unit")
             dispatch(new ResetUnitAction());
             shape.isUnit = false;
         }
@@ -160,13 +161,7 @@ const ShapeProfile: React.FC<ShapeProfileProps> = (
                     </div>
                 </div>
                 <div className={"bottomSection"}>
-                    {infoProps.map(propName => (
-                        <ShapeInfoItem
-                            key={uuid()}
-                            shape={shape}
-                            property={propName}
-                        />
-                    ))}
+                    <InfoItems/>
                 </div>
             </div>
         </ShapeProfileRoot>

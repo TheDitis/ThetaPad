@@ -4,39 +4,31 @@
  */
 import {Layer} from "react-konva";
 import React from "react";
-import styled from "styled-components";
-import {ShapeMap} from "../../../types/shapes";
-import {Line as KonvaLine} from "react-konva"
+import {Shape, ShapeMap} from "../../../types/shapes";
+import DrawnShape from "./DrawnShape";
 
 
-const ShapesLayerRoot = styled(Layer)`
-`
 
 interface ShapesLayerProps {
     shapes: ShapeMap;
+    tempShape: Shape | null;
 }
 
+
+/**
+ * The Konva layer that holds the drawn shapes
+ * @param {React.PropsWithChildren<ShapesLayerProps>} props
+ */
 const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-    const {shapes} = props
+    const {shapes, tempShape} = props
 
     return (
-        <ShapesLayerRoot>
-            {Object.values(shapes).map(shape => {
-                if (shape.isLine()) {
-                    return (
-                        <KonvaLine
-                            key={shape.id}
-                            x={0}
-                            y={0}
-                            points={shape.points}
-                            stroke={shape.color}
-                            strokeWidth={2}
-                        />
-                    )
-                }
-                return null;
-            })}
-        </ShapesLayerRoot>
+        <Layer>
+            {Object.values(shapes).map(shape => (
+                <DrawnShape key={shape.id} shape={shape}/>
+            ))}
+            {tempShape !== null ? <DrawnShape shape={tempShape}/> : null}
+        </Layer>
     )
 }
 
