@@ -19,8 +19,8 @@ const PolyLineInfoItems: React.FC<{shape: Poly}> = ({shape}) => (
 
 
 interface PolyLineProfileProps {
-    line: Poly,
-    index: number,
+    line: Poly;
+    index: number;
 }
 
 const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index}) => {

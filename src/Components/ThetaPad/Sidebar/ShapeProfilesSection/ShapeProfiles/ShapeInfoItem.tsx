@@ -8,6 +8,7 @@ import LengthIcon from "../../../../Icons/LengthIcon";
 import AngleIcon from "../../../../Icons/AngleIcon";
 import {Shape} from "../../../types/shapes";
 import {UnitContext} from "../../../ThetaPad";
+import RadiusIcon from "../../../../Icons/RadiusIcon";
 
 // The icon to display for each property
 const iconMap = {
@@ -15,7 +16,7 @@ const iconMap = {
     totalLength: LengthIcon,
     angle: AngleIcon,
     averageAngle: AngleIcon,
-    radius: null,
+    radius: RadiusIcon,
     diameter: null,
 }
 
@@ -23,7 +24,7 @@ const iconMap = {
 const unitMap = {
     length: '',
     totalLength: '',
-    averageAngle: '',
+    averageAngle: '°',
     angle: '°',
     radius: '',
     diameter: '',
@@ -40,7 +41,7 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   
   .valueContainer {
       background-color: white;
-      width: 45px;
+      width: 65px;
       border-radius: 5px;
       margin: 8px;
       float: bottom;

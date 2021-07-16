@@ -4,7 +4,7 @@
  */
 import {useEffect, useReducer, useState} from "react";
 import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
-import {Line, Poly, Shape, ShapeKind, ShapeMap} from "./types/shapes";
+import {Circle, Line, Point, Poly, Shape, ShapeKind, ShapeMap} from "./types/shapes";
 import {Action, ChangeDrawModeAction, CreateShapeAction, EndShapeAction, ShapesUpdateAction} from "./types/actions";
 
 
@@ -134,7 +134,7 @@ const useThetaPadState = () => {
     }
 
     const handlePolyClickEvent = (e) => {
-        if (tempShape !== null && !tempShape?.isPoly()) {
+        if (tempShape !== null && !tempShape.isPoly()) {
             console.error("handlePolyClick called with non-poly tempShape")
         }
         else if (e.type === "mousedown") {
@@ -147,6 +147,21 @@ const useThetaPadState = () => {
                 tempShape.addPoint(e.pageX, e.pageY);
                 setTempShape(tempShape);
             }
+        }
+    }
+
+    const handleCircleClickEvent = (e: MouseEvent) => {
+        if (tempShape !== null && !tempShape.isCircle()) {
+            console.error("handleCircleClick called with non-circle tempShape");
+        }
+        else if (e.type === "mousedown") {
+            console.log("Starting circle")
+            setTempShape(new Circle(e.pageX, e.pageY));
+        }
+        else if (e.type === "mouseup" && tempShape !== null) {
+            console.log("Ending circle")
+            dispatch(new CreateShapeAction(tempShape));
+            setTempShape(null);
         }
     }
 
@@ -163,6 +178,9 @@ const useThetaPadState = () => {
             case ShapeKind.Poly:
                 handlePolyClickEvent(e);
                 break;
+            case ShapeKind.Circle:
+                handleCircleClickEvent(e);
+                break;
             default:
                 console.error("drawMode ", drawMode,
                     " not handled in handleCanvasClick inDraw branch")
@@ -178,14 +196,21 @@ const useThetaPadState = () => {
     const handleMouseMove = (e: MouseEvent) => {
         if (tempShape !== null) {
             if (tempShape.isLine()) {
-                const tempCurrentShape = tempShape.copy();
-                tempCurrentShape.end.moveTo(e.pageX, e.pageY);
-                setTempShape(tempCurrentShape);
+                const tempTempShape = tempShape.copy();
+                tempTempShape.end.moveTo(e.pageX, e.pageY);
+                setTempShape(tempTempShape);
             }
             else if (tempShape.isPoly()) {
                 const tempTempShape = tempShape.copy();
                 tempTempShape.setEndpoint(e.pageX, e.pageY);
                 console.log(tempTempShape.points)
+                setTempShape(tempTempShape);
+            }
+            else if (tempShape.isCircle()) {
+                const tempTempShape = tempShape.copy();
+                tempTempShape.r = tempTempShape.origin.distanceTo(
+                    new Point(e.pageX, e.pageY)
+                );
                 setTempShape(tempTempShape);
             }
         }

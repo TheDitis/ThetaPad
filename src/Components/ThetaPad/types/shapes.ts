@@ -349,8 +349,19 @@ export class Circle extends Shape {
      * @param {number} y - center Y coordinate
      * @param {string} color - the color to draw this circle in
      */
-    constructor(x: number, y: number, color: string = "red") {
+    constructor(x: number, y: number, color: string = "green") {
         super(x, y, ShapeKind.Circle, color);
         this.r = 0;
     }
+
+    copy(): Circle {
+        const tempCircle = new Circle(this.origin.x, this.origin.y, this.color);
+        tempCircle.r = this.r;
+        return tempCircle;
+    }
+
+    get radius(): number {
+        return this.r;
+    }
 }
+

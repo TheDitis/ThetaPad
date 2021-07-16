@@ -9,7 +9,6 @@ import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";
 
 
-
 const LineInfoItems: React.FC<{shape: Line}> = (props) => (
     <>
         {['length', 'angle'].map(propName => (
@@ -21,6 +20,7 @@ const LineInfoItems: React.FC<{shape: Line}> = (props) => (
         ))}
     </>
 )
+
 
 interface LineProfileProps {
     line: Line,

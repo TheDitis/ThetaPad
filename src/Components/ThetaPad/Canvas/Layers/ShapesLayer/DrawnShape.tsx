@@ -3,6 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Line as KonvaLine} from "react-konva";
+import {Circle as KonvaCircle} from "react-konva";
 import React from "react";
 import {Shape} from "../../../types/shapes";
 
@@ -35,6 +36,19 @@ const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
                 y={0}
                 points={shape.canvasPoints}
                 stroke={shape.color}
+                strokeWidth={2}
+            />
+        )
+    }
+    if (shape.isCircle()) {
+        console.log("DRAWING CIRCLE")
+        return (
+            <KonvaCircle
+                x={shape.origin.canvasX}
+                y={shape.origin.canvasY}
+                radius={shape.r}
+                stroke={shape.color}
+                strokeWidth={2}
             />
         )
     }

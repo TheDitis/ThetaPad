@@ -10,6 +10,7 @@ import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import {DispatchContext, UnitContext} from "../../../ThetaPad";
 import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
+import CircleIcon from "../../../../Icons/CircleIcon";
 
 
 interface ShapeProfileStyleProps {
@@ -47,6 +48,9 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
       align-items: center;
 
       .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-right: 1px solid ${props => props.border};
         height: 100%;
       }
@@ -61,7 +65,6 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         padding-right: 10px;
         
         h3 {
-          //margin-left: 20px;
           margin: 0;
           padding: 0;
         }
@@ -72,15 +75,11 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
           padding: 0;
           position: relative;
           top: -5px;
-          //position: absolute;
           line-height: 18pt;
-          //right: 0.8vw;
           cursor: pointer;
           transition: transform 80ms ease-in-out;
         }
       }
-
-      
     }
     
     .bottomSection {
@@ -91,13 +90,12 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
       background: rgba(0, 0, 0, 0.13);
     }
   }
-
-  
 `
 
 const shapeIcons = {
     "Line": StraightLineIcon,
     "Poly": PolyLineIcon,
+    "Circle": CircleIcon,
     // TODO: Create a circle and radius icon
 }
 
@@ -165,5 +163,4 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
         </ShapeProfileRoot>
     );
 }
-
 export default ShapeProfileBase;
