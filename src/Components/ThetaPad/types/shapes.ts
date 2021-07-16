@@ -104,11 +104,12 @@ export class Point {
 
 /** Abstract base class for shapes (Line, Poly, & Circle) */
 export abstract class Shape {
+    static unitShape: string | null;
     id: string;
     kind: ShapeKind;
     origin: Point;
     color: string;
-    isUnit: boolean;
+//    isUnit: boolean;
     showDetails: boolean;
 
     /**
@@ -129,7 +130,7 @@ export abstract class Shape {
         this.kind = kind;
         this.origin = new Point(x, y);
         this.color = color;
-        this.isUnit = false;
+//        this.isUnit = false;
         this.showDetails = false;
     }
 
@@ -161,6 +162,10 @@ export abstract class Shape {
     /** @return {this is Circle} */
     isCircle(): this is Circle {
         return this.kind === ShapeKind.Circle
+    }
+
+    get isUnit(): boolean {
+        return this.id === Shape.unitShape;
     }
 }
 

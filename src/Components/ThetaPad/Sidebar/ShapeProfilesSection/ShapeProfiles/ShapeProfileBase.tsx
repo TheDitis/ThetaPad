@@ -14,8 +14,11 @@ import CircleIcon from "../../../../Icons/CircleIcon";
 
 
 interface ShapeProfileStyleProps {
-    border: string;
+    isUnit: boolean;
+    border?: string;
 }
+
+const borderColor = "rgba(0, 0, 0, 0.3)";
 
 const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
   box-sizing: border-box;
@@ -31,7 +34,7 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
     max-width: ${SHAPE_PROFILE_HEIGHT}px;
 
     min-width: 40px;
-    border-right: 1px solid ${props => props.border};
+    border-right: 1px solid ${borderColor};
   }
 
   .rightSection {
@@ -42,7 +45,7 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
       position: relative;
       height: ${SHAPE_PROFILE_HEIGHT * 0.55}px;
       width: 100%;
-      border-bottom: 1px solid ${props => props.border};
+      border-bottom: 1px solid ${borderColor};
       display: flex;
       align-items: center;
 
@@ -50,7 +53,7 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         display: flex;
         align-items: center;
         justify-content: center;
-        border-right: 1px solid ${props => props.border};
+        border-right: 1px solid ${borderColor};
         height: 100%;
       }
 
@@ -62,7 +65,15 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         justify-content: space-between;
         padding-left: 20px;
         padding-right: 10px;
-        
+
+        .unitButton {
+          color: ${props => props.isUnit ? "white" : "black"};
+          border: 1px solid gray;
+          padding: 5px 10px;
+          border-radius: 8px;
+          background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
+        }
+
         .xButton {
           font-size: 18pt;
           position: relative;
@@ -113,23 +124,22 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
 ) => {
     const unit = useContext(UnitContext);
     const dispatch = useContext(DispatchContext);
-    const borderColor = "rgba(0, 0, 0, 0.3)";
     const Icon = shapeIcons[shape.kind];
 
     const toggleUnit = () => {
         if (unit !== unitValue) {
             console.log("CHANGING UNIT TO ", unitValue)
             dispatch(new ChangeUnitAction(unitValue));
-            shape.isUnit = true;
+            Shape.unitShape = shape.id;
         } else {
             console.log("resetting unit")
             dispatch(new ResetUnitAction());
-            shape.isUnit = false;
+            Shape.unitShape = null;
         }
     }
 
     return (
-        <ShapeProfileRoot border={borderColor}>
+        <ShapeProfileRoot isUnit={shape.isUnit}>
             <div className={"leftSection"}>
 
             </div>
@@ -140,7 +150,10 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     </div>
                     <div className={"labelAndControls"}>
                         <h3>{shape.kind} {index}</h3>
-                        <button onClick={toggleUnit}>Unit</button>
+                        <button
+                            className={"unitButton"}
+                            onClick={toggleUnit}
+                        >Unit</button>
 
                         <h5
                             className={"xButton"}

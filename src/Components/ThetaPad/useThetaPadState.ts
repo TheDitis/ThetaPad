@@ -66,12 +66,9 @@ const useThetaPadState = () => {
     /** Bind a key listener, and remove it when done. */
     useEffect(() => {
         const keyListener = async (e: KeyboardEvent) => {
-            console.log(e)
             switch (e.key.toLowerCase()) {
                 case "escape":
-                    console.log("esc hit")
                     if (tempShape !== null && tempShape.isPoly()) {
-                        console.log("Should be working")
                         tempShape.points.pop();
                         await dispatch(new CreateShapeAction(tempShape));
                         dispatch(new EndShapeAction(tempShape.id));
