@@ -23,16 +23,15 @@ interface PolyLineProfileProps {
     index: number;
 }
 
-const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index}) => {
-    return (
-        <ShapeProfileBase
-            shape={line}
-            index={index}
-            unitValue={line.totalLength}
-            InfoItems={React.memo(() => <PolyLineInfoItems shape={line}/>)}
-        >
-        </ShapeProfileBase>
-    )
-}
+const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index}) => (
+    <ShapeProfileBase
+        shape={line}
+        index={index}
+        unitValue={line.totalLength}
+        InfoItems={React.memo(() => <PolyLineInfoItems shape={line}/>)}
+    >
+    </ShapeProfileBase>
+)
+
 
 export default PolyLineProfile;

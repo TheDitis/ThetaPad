@@ -27,15 +27,14 @@ interface CircleProfileProps {
     index: number;
 }
 
-const CircleProfile: React.FC<CircleProfileProps> = ({circle, index}) => {
-    return (
-        <ShapeProfileBase
-            shape={circle}
-            index={index}
-            unitValue={circle.r}
-            InfoItems={React.memo(() => <CircleInfoItems shape={circle}/>)}
-        />
-    )
-}
+const CircleProfile: React.FC<CircleProfileProps> = ({circle, index}) => (
+    <ShapeProfileBase
+        shape={circle}
+        index={index}
+        unitValue={circle.r}
+        InfoItems={React.memo(() => <CircleInfoItems shape={circle}/>)}
+    />
+)
+
 
 export default CircleProfile;

@@ -18,12 +18,11 @@ interface ShapeProfileStyleProps {
 }
 
 const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
-  box-sizing: content-box;
+  box-sizing: border-box;
   height: ${SHAPE_PROFILE_HEIGHT}px;
   background: white;
   border-radius: 10px;
   display: flex;
-  padding: 0;
   margin: 5px 4px;
   color: black;
 
@@ -38,10 +37,10 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
   .rightSection {
     height: ${SHAPE_PROFILE_HEIGHT}px;
     width: 100%;
-    
+
     .topSection {
       position: relative;
-      height: 55%;
+      height: ${SHAPE_PROFILE_HEIGHT * 0.55}px;
       width: 100%;
       border-bottom: 1px solid ${props => props.border};
       display: flex;
@@ -54,7 +53,7 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         border-right: 1px solid ${props => props.border};
         height: 100%;
       }
-      
+
       .labelAndControls {
         width: 100%;
         height: 100%;
@@ -64,15 +63,8 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         padding-left: 20px;
         padding-right: 10px;
         
-        h3 {
-          margin: 0;
-          padding: 0;
-        }
-
         .xButton {
           font-size: 18pt;
-          margin: 0;
-          padding: 0;
           position: relative;
           top: -5px;
           line-height: 18pt;
@@ -81,11 +73,14 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         }
       }
     }
-    
+
     .bottomSection {
       width: 100%;
+      height: ${SHAPE_PROFILE_HEIGHT * 0.45}px;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       padding-left: 5px;
       background: rgba(0, 0, 0, 0.13);
     }
@@ -96,7 +91,6 @@ const shapeIcons = {
     "Line": StraightLineIcon,
     "Poly": PolyLineIcon,
     "Circle": CircleIcon,
-    // TODO: Create a circle and radius icon
 }
 
 interface ShapeProfileProps {

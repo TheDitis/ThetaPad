@@ -27,16 +27,15 @@ interface LineProfileProps {
     index: number,
 }
 
-const LineProfile: React.FC<LineProfileProps> = ({line, index}) => {
-    return (
-        <ShapeProfileBase
-            shape={line}
-            index={index}
-            unitValue={line.length}
-            InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
-        >
-        </ShapeProfileBase>
-    )
-}
+const LineProfile: React.FC<LineProfileProps> = ({line, index}) => (
+    <ShapeProfileBase
+        shape={line}
+        index={index}
+        unitValue={line.length}
+        InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
+    >
+    </ShapeProfileBase>
+)
+
 
 export default LineProfile;

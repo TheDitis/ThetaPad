@@ -12,7 +12,7 @@ const AngleIcon: React.FC<AngleIconProps> = ({size = 1, color = "black"}) => {
     const height = 358 / (1 / size) / 4;
 
     return (
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 458 358" enableBackground="new 0 0 458 358" style={{marginTop: 8}}>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 458 358" enableBackground="new 0 0 458 358">
 
             <g id="Angle">
                 <g>

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import {Shape, ShapeMap} from "../../types/shapes";
 import CompletedShapesProfiles from "./CompletedShapesProfiles";
 import ShapeProfile from "./ShapeProfiles/ShapeProfile";
+import {SHAPE_PROFILE_HEIGHT} from "../../../constants";
 
 
 interface ShapeProfilesSectionStyleProps {
@@ -23,6 +24,7 @@ const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
   flex-direction: column;
   flex-flow: column nowrap;
   align-items: stretch;
+  padding-bottom: ${SHAPE_PROFILE_HEIGHT * 3}px;
 `
 
 

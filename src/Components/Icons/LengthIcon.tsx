@@ -12,7 +12,7 @@ const LengthIcon: React.FC<LengthIconProps> = ({size = 1, color = "black"}) => {
     const height = 358 / (1 / size) / 4;
 
     return (
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 458 358" enableBackground="new 0 0 458 358" style={{marginTop: 8}}>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 458 358" enableBackground="new 0 0 458 358" >
         <g id="Length">
             <line fill="none" stroke={color} strokeWidth="19" strokeLinecap="round" strokeMiterlimit="10" x1="31.334" y1="187.998" x2="31.334" y2="330.666"/>
             <line fill="none" stroke={color} strokeWidth="19" strokeLinecap="round" strokeMiterlimit="10" x1="427.667" y1="187.998" x2="427.667" y2="330.666"/>

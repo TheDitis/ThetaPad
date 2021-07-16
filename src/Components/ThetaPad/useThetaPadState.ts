@@ -84,7 +84,11 @@ const useThetaPadState = () => {
                 case "p":
                     dispatch(new ChangeDrawModeAction(ShapeKind.Poly));
                     break;
-
+                case "c":
+                    dispatch(new ChangeDrawModeAction(ShapeKind.Circle));
+                    break;
+                default:
+                    break
             }
         }
 
@@ -92,8 +96,6 @@ const useThetaPadState = () => {
 
         return () => window.removeEventListener("keydown", keyListener);
     }, [tempShape]);
-
-
 
     /**
      * The highest-level state-update dispatch funtion
@@ -104,8 +106,9 @@ const useThetaPadState = () => {
             updateShapes(action)
         }
         else if (action.targetsDrawMode()) {
-            console.log("setting draw mode to ", action.value)
-            setDrawMode(action.value);
+            if (!tempShape) {
+                setDrawMode(action.value)
+            }
         }
         else if (action.targetsUnit()) {
             setUnit(action.value);
@@ -115,9 +118,12 @@ const useThetaPadState = () => {
     /**
      * Handles mouseup and mousedown events on the canvas when drawMode is Line.
      * Called by 'handleCanvasClick'
-     * @param e - the mouseup/mousedown event that was fired
+     * @param {MouseEvent} e - the mouseup/mousedown fired
      */
     const handleLineClickEvent = (e) => {
+        if (tempShape !== null && !tempShape.isLine()) {
+            console.error("handleLineClick called with non-line tempShape")
+        }
         // Starting a new line:
         if (!tempShape && e.type === "mousedown") {
             const newShape = new Line(e.pageX, e.pageY, "red");
@@ -133,6 +139,11 @@ const useThetaPadState = () => {
         }
     }
 
+    /**
+     * Handles mouseup and mousedown events on the canvas in Poly drawMode.
+     * Called by 'handleCanvasClick'
+     * @param {MouseEvent} e - the mouseup/mousedown fired
+     */
     const handlePolyClickEvent = (e) => {
         if (tempShape !== null && !tempShape.isPoly()) {
             console.error("handlePolyClick called with non-poly tempShape")
@@ -150,6 +161,11 @@ const useThetaPadState = () => {
         }
     }
 
+    /**
+     * Handles mouseup and mousedown events on the canvas in Circle drawMode.
+     * Called by 'handleCanvasClick'
+     * @param {MouseEvent} e - the mouseup/mousedown fired
+     */
     const handleCircleClickEvent = (e: MouseEvent) => {
         if (tempShape !== null && !tempShape.isCircle()) {
             console.error("handleCircleClick called with non-circle tempShape");
@@ -160,7 +176,9 @@ const useThetaPadState = () => {
         }
         else if (e.type === "mouseup" && tempShape !== null) {
             console.log("Ending circle")
-            dispatch(new CreateShapeAction(tempShape));
+            if (tempShape.r > 3) {
+                dispatch(new CreateShapeAction(tempShape));
+            }
             setTempShape(null);
         }
     }

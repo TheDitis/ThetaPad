@@ -36,18 +36,22 @@ interface ShapeInfoItemStyleProps {
 
 const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   height: 100%; 
   margin-right: 10px;
+  padding: 0;
   
   .valueContainer {
-      background-color: white;
-      width: 65px;
-      border-radius: 5px;
-      margin: 8px;
-      float: bottom;
-      padding: 0;
-      padding-top: 2px;
-    }
+    background-color: white;
+    width: 65px;
+    border-radius: 5px;
+    margin-left: 8px;
+    float: bottom;
+    padding: 0;
+    padding-top: 2px;
+  }
 `
 
 
