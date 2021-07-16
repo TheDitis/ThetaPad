@@ -41,7 +41,6 @@ const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
         )
     }
     if (shape.isCircle()) {
-        console.log("DRAWING CIRCLE")
         return (
             <KonvaCircle
                 x={shape.origin.canvasX}

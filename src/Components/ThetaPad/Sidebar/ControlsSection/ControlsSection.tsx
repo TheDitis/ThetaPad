@@ -34,7 +34,6 @@ const ControlsSection: React.FC<ControlsProps> = ({drawMode, dispatch}) => {
             <DrawModeSelect
                 drawMode={drawMode}
                 onChange={(label) => {
-                    console.log(label)
                     dispatch(new ChangeDrawModeAction(label))
                 }}
             />

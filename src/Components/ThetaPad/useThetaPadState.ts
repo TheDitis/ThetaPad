@@ -2,7 +2,7 @@
  * @file Primary state management hook for ThetaPad
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {useEffect, useReducer, useState} from "react";
+import {useCallback, useEffect, useReducer, useState} from "react";
 import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
 import {Circle, Line, Point, Poly, Shape, ShapeKind, ShapeMap} from "./types/shapes";
 import {Action, ChangeDrawModeAction, CreateShapeAction, EndShapeAction, ShapesUpdateAction} from "./types/actions";
@@ -62,6 +62,24 @@ const useThetaPadState = () => {
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
 
+    /**
+     * The highest-level state-update dispatch function
+     * @param {Action} action - an action-object derived from Action
+     */
+    const dispatch: PrimaryDispatch = useCallback((action: Action) => {
+        if (action.targetsShapes()) {
+            updateShapes(action)
+        }
+        else if (action.targetsDrawMode()) {
+            if (!tempShape) {
+                setDrawMode(action.value)
+            }
+        }
+        else if (action.targetsUnit()) {
+            setUnit(action.value);
+        }
+    }, [tempShape])
+
 
     /** Bind a key listener, and remove it when done. */
     useEffect(() => {
@@ -92,25 +110,7 @@ const useThetaPadState = () => {
         window.addEventListener("keydown", keyListener);
 
         return () => window.removeEventListener("keydown", keyListener);
-    }, [tempShape]);
-
-    /**
-     * The highest-level state-update dispatch funtion
-     * @param {Action} action - an action-object derived from Action
-     */
-    const dispatch: PrimaryDispatch = (action: Action): void => {
-        if (action.targetsShapes()) {
-            updateShapes(action)
-        }
-        else if (action.targetsDrawMode()) {
-            if (!tempShape) {
-                setDrawMode(action.value)
-            }
-        }
-        else if (action.targetsUnit()) {
-            setUnit(action.value);
-        }
-    }
+    }, [tempShape, dispatch]);
 
     /**
      * Handles mouseup and mousedown events on the canvas when drawMode is Line.
@@ -168,11 +168,9 @@ const useThetaPadState = () => {
             console.error("handleCircleClick called with non-circle tempShape");
         }
         else if (e.type === "mousedown") {
-            console.log("Starting circle")
             setTempShape(new Circle(e.pageX, e.pageY));
         }
         else if (e.type === "mouseup" && tempShape !== null) {
-            console.log("Ending circle")
             if (tempShape.r > 3) {
                 dispatch(new CreateShapeAction(tempShape));
             }
@@ -218,7 +216,6 @@ const useThetaPadState = () => {
             else if (tempShape.isPoly()) {
                 const tempTempShape = tempShape.copy();
                 tempTempShape.setEndpoint(e.pageX, e.pageY);
-                console.log(tempTempShape.points)
                 setTempShape(tempTempShape);
             }
             else if (tempShape.isCircle()) {
