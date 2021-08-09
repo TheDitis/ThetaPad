@@ -61,24 +61,45 @@ const useThetaPadState = () => {
     const [unit, setUnit] = useState<number>(1);
     const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
     const [shapes, updateShapes] = useReducer(shapesReducer, {});
+//    const undoBuffer: Action[] = []; // TODO: IMPLEMENT THIS
 
     /**
      * The highest-level state-update dispatch function
      * @param {Action} action - an action-object derived from Action
      */
-    const dispatch: PrimaryDispatch = useCallback((action: Action) => {
+    const dispatch = (action: Action) => {
         if (action.targetsShapes()) {
             updateShapes(action)
         }
         else if (action.targetsDrawMode()) {
+            console.log("action targeting drawMode received in dispatch")
+            console.log("tempShape: ", tempShape)
             if (!tempShape) {
+                console.log("setting drawMode to ", action.value)
                 setDrawMode(action.value)
             }
         }
         else if (action.targetsUnit()) {
             setUnit(action.value);
         }
-    }, [tempShape])
+    }
+
+//    const dispatch: PrimaryDispatch = useCallback((action: Action) => {
+//        if (action.targetsShapes()) {
+//            updateShapes(action)
+//        }
+//        else if (action.targetsDrawMode()) {
+//            console.log("action targeting drawMode received in dispatch")
+//            console.log("tempShape: ", tempShape)
+//            if (!tempShape) {
+//                console.log("setting drawMode to ", action.value)
+//                setDrawMode(action.value)
+//            }
+//        }
+//        else if (action.targetsUnit()) {
+//            setUnit(action.value);
+//        }
+//    }, [tempShape])
 
 
     /** Bind a key listener, and remove it when done. */

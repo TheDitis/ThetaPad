@@ -7,6 +7,9 @@ import ThetaPad from "../ThetaPad/ThetaPad";
 import Navbar from "../Navbar/Navbar";
 import React from "react";
 import AppContextProvider from "./AppContextProvider";
+import LogRocket from "logrocket";
+
+LogRocket.init('ixpzlp/thetapad-2');
 
 
 const App = () => {

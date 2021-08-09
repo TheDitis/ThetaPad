@@ -52,7 +52,11 @@ const Sidebar: React.FC<SideBarProps> = (
 
     return (
         <SidebarRoot width={width}>
-            <ControlsSection drawMode={drawMode} dispatch={dispatch}/>
+            <ControlsSection
+                drawMode={drawMode}
+                dispatch={dispatch}
+                tempShape={tempShape}
+            />
             <ShapeProfilesSection shapes={shapes} tempShape={tempShape}/>
         </SidebarRoot>
     )

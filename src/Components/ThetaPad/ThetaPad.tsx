@@ -2,7 +2,7 @@
  * @file The root component for the actual drawing portion of the app
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 import useThetaPadState from "./useThetaPadState";
@@ -60,6 +60,12 @@ export const UnitContext = React.createContext(1)
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
     const thetaPadState = useThetaPadState();
+
+//    useEffect(() => {
+//        console.log("Rerendering")
+//        console.log(thetaPadState)
+//    }, [thetaPadState]);
+
 
     return (
         <DispatchContext.Provider value={thetaPadState.dispatch}>

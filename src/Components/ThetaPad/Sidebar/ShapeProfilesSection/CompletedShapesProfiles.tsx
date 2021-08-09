@@ -6,6 +6,7 @@ import React from "react";
 import {ShapeMap} from "../../types/shapes";
 import uuid from "react-uuid";
 import ShapeProfile from "./ShapeProfiles/ShapeProfile";
+import _ from "lodash";
 
 
 interface CompletedShapesProfilesProps {shapes: ShapeMap}
@@ -19,4 +20,22 @@ const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = ({shapes
 )
 
 
-export default React.memo(CompletedShapesProfiles);
+export default React.memo(
+    CompletedShapesProfiles,
+    (prev, next) => {
+        const prevIds = Object.keys(prev.shapes);
+        const nextIds = Object.keys(prev.shapes);
+        console.log(prevIds)
+        console.log(nextIds)
+        if (prevIds.length !== nextIds.length) {
+            console.log("shape added or removed")
+            return false;
+        }
+        for (let [id1, id2] of _.zip(prevIds, nextIds)) {
+            console.log(id1, id2)
+            console.log(id1 === id2)
+            if (id1 !== id2) return false;
+        }
+        return true;
+    }
+);
