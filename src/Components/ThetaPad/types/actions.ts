@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Shape, ShapeKind} from "./shapes";
-
+import {Action as ReduxAction} from "@reduxjs/toolkit";
 
 /////---------------------------------------------------------------------------
 ///     ROOT LEVEL ACTION DEFINITIONS:
@@ -13,21 +13,28 @@ import {Shape, ShapeKind} from "./shapes";
 export enum ActionTarget {
     None,
     Shapes,
-    Mode,
+    TempShape,
+    DrawMode,
     Unit,
 }
 
 /** The abstract base class for all action types */
-export abstract class Action {
+export abstract class Action implements ReduxAction {
     abstract target: ActionTarget = ActionTarget.None;
+
+    get type() {return this.target}
 
     /** @return {this is ShapesUpdateAction} */
     targetsShapes(): this is ShapesUpdateAction {
         return this.target === ActionTarget.Shapes;
     }
+    /** @return {this is TempShapeUpdateAction} */
+    targetsTempShapes(): this is TempShapeUpdateAction {
+        return this.target === ActionTarget.TempShape;
+    }
     /** @return {this is ChangeDrawModeAction} */
     targetsDrawMode(): this is ChangeDrawModeAction {
-        return this.target === ActionTarget.Mode;
+        return this.target === ActionTarget.DrawMode;
     }
     /** @return {this is ChangeUnitAction} */
     targetsUnit(): this is ChangeUnitAction {
@@ -73,7 +80,6 @@ export abstract class ShapesUpdateAction extends Action {
         return this.kind === ShapesUpdateActionKind.Remove;
     }
 }
-
 
 /**
  * Action to create a new shape
@@ -148,8 +154,55 @@ export class RemoveShapeAction extends ShapesUpdateAction {
         super();
         this.targetShape = shapeId;
     }
-
 }
+
+
+
+/////---------------------------------------------------------------------------
+///     ACTIONS THAT TARGET TEMP-SHAPE:
+/////---------------------------------------------------------------------------
+
+// TODO: Document these new actions
+export enum TempShapeUpdateActionKind {
+    Create,
+    Update,
+    Complete,
+    Cancel,
+}
+
+export abstract class TempShapeUpdateAction extends Action {
+    abstract kind: TempShapeUpdateActionKind;
+    target = ActionTarget.TempShape;
+}
+
+export class CreateTempShapeAction extends TempShapeUpdateAction {
+    kind = TempShapeUpdateActionKind.Create;
+    payload: Shape;
+
+    constructor(newShape: Shape) {
+        super();
+        this.payload = newShape;
+    }
+}
+
+export class UpdateTempShapeAction extends TempShapeUpdateAction {
+    kind = TempShapeUpdateActionKind.Update;
+    payload: Partial<Shape>;
+
+    constructor(updateValues: Partial<Shape>) {
+        super();
+        this.payload = updateValues;
+    }
+}
+
+export class CompleteShapeAction extends TempShapeUpdateAction {
+    kind = TempShapeUpdateActionKind.Complete;
+}
+
+export class CancelTempShapeAction extends TempShapeUpdateAction {
+    kind = TempShapeUpdateActionKind.Cancel;
+}
+
 
 
 /////---------------------------------------------------------------------------
@@ -161,7 +214,7 @@ export class RemoveShapeAction extends ShapesUpdateAction {
  * @extends Action
  */
 export class ChangeDrawModeAction extends Action {
-    target = ActionTarget.Mode;
+    target = ActionTarget.DrawMode;
     value: ShapeKind;
 
     /**
