@@ -102,11 +102,12 @@ export class Point {
     }
 
     asObject(): {} {
-        const keys = Object.getOwnPropertyNames(this);
-        return   keys.reduce((classAsObj, key) => {
-            classAsObj[key] = this[key]
-            return classAsObj
-        }, {})
+        return {x: this.x, y: this.y}
+//        const keys = Object.getOwnPropertyNames(this);
+//        return keys.reduce((classAsObj, key) => {
+//            classAsObj[key] = this[key]
+//            return classAsObj
+//        }, {})
     }
 }
 
@@ -178,9 +179,13 @@ export abstract class Shape {
 
     asObject(): {} {
         const keys = Object.getOwnPropertyNames(this);
-        return   keys.reduce((classAsObj, key) => {
-            if (this[key])
-            classAsObj[key] = this[key]
+        return keys.reduce((classAsObj, key) => {
+            if (this[key].constructor.name === "Point") {
+                classAsObj[key] = this[key].asObject();
+            }
+            else {
+                classAsObj[key] = this[key]
+            }
             return classAsObj
         }, {})
     }

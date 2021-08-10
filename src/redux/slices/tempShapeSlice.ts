@@ -1,4 +1,4 @@
-import {CaseReducer, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
+import {CaseReducer, createSlice, SliceCaseReducers, createAction} from "@reduxjs/toolkit";
 import {
     CancelTempShapeAction, CompleteTempShapeAction,
     CreateTempShapeAction,
@@ -8,6 +8,16 @@ import {
 } from "../../Components/ThetaPad/types/actions";
 import {Shape} from "../../Components/ThetaPad/types/shapes";
 
+export enum TempShapeActionKinds {
+    Create = "Create",
+    Update = "Update",
+    Reset = "Reset"
+}
+
+const createTempShape = createAction<Shape>(TempShapeActionKinds.Create);
+const updateTempShape = createAction<Partial<Shape>>(TempShapeActionKinds.Update);
+const resetTempShape = createAction(TempShapeActionKinds.Reset);
+
 const tempShapeSlice = createSlice<
         null | Shape,
         SliceCaseReducers<Shape | null>,
@@ -16,28 +26,42 @@ const tempShapeSlice = createSlice<
         {
             name: 'tempShape',
             initialState: null,
-            reducers: {},
-            extraReducers: {
-                [TempShapeUpdateActionKind.Create]: (
+            reducers: {
+                [TempShapeActionKinds.Create]: (
                     state,
-                    action: CreateTempShapeAction
+                    action
                 ) => action.payload,
 
-                [TempShapeUpdateActionKind.Update]: (
+                [TempShapeActionKinds.Update]: (
                     state,
-                    action: UpdateTempShapeAction
+                    action
                 ) => Object.assign({}, state, action.payload),
 
-                [TempShapeUpdateActionKind.Cancel]: (
-                    state,
-                    action: CancelTempShapeAction
-                ) => null,
-
-                [TempShapeUpdateActionKind.Complete]: (
-                    state,
-                    action: CompleteTempShapeAction
-                ) => null,
-            }
+                [TempShapeActionKinds.Reset]: (
+                    state
+                ) => null
+            },
+//            extraReducers: {
+//                [TempShapeUpdateActionKind.Create]: (
+//                    state,
+//                    action: CreateTempShapeAction
+//                ) => action.payload,
+//
+//                [TempShapeUpdateActionKind.Update]: (
+//                    state,
+//                    action: UpdateTempShapeAction
+//                ) => Object.assign({}, state, action.payload),
+//
+//                [TempShapeUpdateActionKind.Cancel]: (
+//                    state,
+//                    action: CancelTempShapeAction
+//                ) => null,
+//
+//                [TempShapeUpdateActionKind.Complete]: (
+//                    state,
+//                    action: CompleteTempShapeAction
+//                ) => null,
+//            }
         }
 )
 
