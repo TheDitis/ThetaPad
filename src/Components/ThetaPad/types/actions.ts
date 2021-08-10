@@ -4,6 +4,7 @@
  */
 import {Shape, ShapeKind} from "./shapes";
 import {Action as ReduxAction} from "@reduxjs/toolkit";
+import {getOwnPropertyDescriptors} from "immer/dist/utils/common";
 
 /////---------------------------------------------------------------------------
 ///     ROOT LEVEL ACTION DEFINITIONS:
@@ -11,35 +12,51 @@ import {Action as ReduxAction} from "@reduxjs/toolkit";
 
 // Items in state that an action can target:
 export enum ActionTarget {
-    None,
-    Shapes,
-    TempShape,
-    DrawMode,
-    Unit,
+    None = "None",
+    Shapes = "Shapes",
+    TempShape = "TempShape",
+    DrawMode = "DrawMode",
+    Unit = "Unit",
 }
 
 /** The abstract base class for all action types */
 export abstract class Action implements ReduxAction {
     abstract target: ActionTarget = ActionTarget.None;
-
-    get type() {return this.target}
+    abstract get type();
 
     /** @return {this is ShapesUpdateAction} */
     targetsShapes(): this is ShapesUpdateAction {
         return this.target === ActionTarget.Shapes;
     }
     /** @return {this is TempShapeUpdateAction} */
-    targetsTempShapes(): this is TempShapeUpdateAction {
+    targetsTempShape(): this is TempShapeUpdateAction {
         return this.target === ActionTarget.TempShape;
     }
     /** @return {this is ChangeDrawModeAction} */
     targetsDrawMode(): this is ChangeDrawModeAction {
         return this.target === ActionTarget.DrawMode;
     }
-    /** @return {this is ChangeUnitAction} */
-    targetsUnit(): this is ChangeUnitAction {
+    /** @return {this is SetUnitAction} */
+    targetsUnit(): this is SetUnitAction {
         return this.target === ActionTarget.Unit;
     }
+
+    get toRedux(): {} {
+        const keys = Object.getOwnPropertyNames(this);
+        const newObj =  keys.reduce((classAsObj, key) => {
+            if (key === "payload") {
+                classAsObj[key] = this[key].asObject()
+            }
+            else {
+                classAsObj[key] = this[key]
+            }
+            return classAsObj
+        }, {})
+        newObj["type"] = this.type;
+        console.log("toRedux result: ", newObj)
+        return newObj
+    }
+
 }
 
 
@@ -49,10 +66,10 @@ export abstract class Action implements ReduxAction {
 
 // Types of update actions that targets shapes
 export enum ShapesUpdateActionKind {
-    Create,
-    Continue,
-    End,
-    Remove,
+    Create = "Create",
+    Update = "Update",
+    End = "End",
+    Remove = "Remove",
 }
 
 /**
@@ -63,13 +80,17 @@ export abstract class ShapesUpdateAction extends Action {
     abstract kind: ShapesUpdateActionKind;
     target = ActionTarget.Shapes;
 
+    get type(): string {
+        return `${this.target}/${this.kind}`;
+    }
+
     /** @return {this is CreateShapeAction} */
     isCreateKind(): this is CreateShapeAction {
         return this.kind === ShapesUpdateActionKind.Create;
     }
     /** @return {this is UpdateShapeAction} */
     isUpdateKind(): this is UpdateShapeAction {
-        return this.kind === ShapesUpdateActionKind.Continue;
+        return this.kind === ShapesUpdateActionKind.Update;
     }
     /** @return {this is EndShapeAction} */
     isEndKind(): this is EndShapeAction {
@@ -97,6 +118,9 @@ export class CreateShapeAction extends ShapesUpdateAction {
         super();
         this.payload = newShape
     }
+//    get toRedux(): {} {
+//        return {type: `${this.target}/${this.kind}`, payload: this.payload}
+//    }
 }
 
 /**
@@ -104,7 +128,7 @@ export class CreateShapeAction extends ShapesUpdateAction {
  * @extends ShapesUpdateAction
  */
 export class UpdateShapeAction extends ShapesUpdateAction {
-    kind = ShapesUpdateActionKind.Continue;
+    kind = ShapesUpdateActionKind.Update;
     targetShape: string;
     payload: Partial<Shape>
 
@@ -164,15 +188,31 @@ export class RemoveShapeAction extends ShapesUpdateAction {
 
 // TODO: Document these new actions
 export enum TempShapeUpdateActionKind {
-    Create,
-    Update,
-    Complete,
-    Cancel,
+    Create = "Create",
+    Update = "Update",
+    Complete = "Complete",
+    Cancel = "Cancel",
 }
 
 export abstract class TempShapeUpdateAction extends Action {
     abstract kind: TempShapeUpdateActionKind;
     target = ActionTarget.TempShape;
+    get type() {
+        return this.target + "/" + this.kind;
+    }
+
+    isCreateKind(): this is CreateTempShapeAction {
+        return this.kind === TempShapeUpdateActionKind.Create;
+    }
+    isUpdateKind(): this is UpdateTempShapeAction {
+        return this.kind === TempShapeUpdateActionKind.Update;
+    }
+    isCompleteKind(): this is CompleteTempShapeAction {
+        return this.kind === TempShapeUpdateActionKind.Complete;
+    }
+    isCancelKind(): this is CancelTempShapeAction {
+        return this.kind === TempShapeUpdateActionKind.Cancel;
+    }
 }
 
 export class CreateTempShapeAction extends TempShapeUpdateAction {
@@ -195,7 +235,7 @@ export class UpdateTempShapeAction extends TempShapeUpdateAction {
     }
 }
 
-export class CompleteShapeAction extends TempShapeUpdateAction {
+export class CompleteTempShapeAction extends TempShapeUpdateAction {
     kind = TempShapeUpdateActionKind.Complete;
 }
 
@@ -217,6 +257,10 @@ export class ChangeDrawModeAction extends Action {
     target = ActionTarget.DrawMode;
     value: ShapeKind;
 
+    get type() {
+        return this.target;
+    }
+
     /**
      * Create a new ChangeDrawModeAction
      * @param {ShapeKind} value - shape-type to change the drawing mode to
@@ -232,16 +276,31 @@ export class ChangeDrawModeAction extends Action {
 ///     ACTIONS THAT TARGET THE BASE UNIT:
 /////---------------------------------------------------------------------------
 
+export enum UnitUpdateActionKind {
+    Set = "Set",
+    Reset = "Reset",
+}
+
+export abstract class UnitUpdateAction extends Action {
+    target = ActionTarget.Unit;
+    abstract kind: UnitUpdateActionKind;
+    abstract value: number;
+
+    get type() {
+        return `${this.target}/${this.kind}`;
+    }
+}
+
 /**
  * Action to change the length measurement unit
  * @extends Action
  */
-export class ChangeUnitAction extends Action {
-    target = ActionTarget.Unit;
+export class SetUnitAction extends UnitUpdateAction {
+    kind = UnitUpdateActionKind.Set;
     value: number;
 
     /**
-     * Create a new ChangeUnitAction
+     * Create a new SetUnitAction
      * @param {number} newValue - the new value to measure all lengths by
      */
     constructor(newValue: number) {
@@ -252,9 +311,10 @@ export class ChangeUnitAction extends Action {
 
 /**
  * Action to set the length measurement unit back to its default (1)
- * @extends ChangeUnitAction
+ * @extends SetUnitAction
  */
-export class ResetUnitAction extends ChangeUnitAction {
+export class ResetUnitAction extends SetUnitAction {
+    kind = UnitUpdateActionKind.Reset;
 
     /** Create a new ResetUnitAction */
     constructor() {

@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.6.1",
+    "immer": "^9.0.5",
     "logrocket": "^2.0.0",
     "react-redux": "^7.2.4"
   }

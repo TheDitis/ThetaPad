@@ -10,8 +10,6 @@ import DrawnShape from "./DrawnShape";
 
 
 interface ShapesLayerProps {
-    shapes: ShapeMap;
-    tempShape: Shape | null;
 }
 
 
@@ -20,14 +18,15 @@ interface ShapesLayerProps {
  * @param {React.PropsWithChildren<ShapesLayerProps>} props
  */
 const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-    const {shapes, tempShape} = props
+//    const {} = props
+
 
     return (
         <Layer>
-            {Object.values(shapes).map(shape => (
-                <DrawnShape key={shape.id} shape={shape}/>
-            ))}
-            {tempShape !== null && <DrawnShape shape={tempShape}/>}
+            {/*{Object.values(shapes).map(shape => (*/}
+            {/*    <DrawnShape key={shape.id} shape={shape}/>*/}
+            {/*))}*/}
+            {/*{tempShape !== null && <DrawnShape shape={tempShape}/>}*/}
         </Layer>
     )
 }

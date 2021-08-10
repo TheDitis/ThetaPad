@@ -100,6 +100,14 @@ export class Point {
         const avgY = (this.y + otherPoint.y) / 2;
         return new Point(avgX, avgY);
     }
+
+    asObject(): {} {
+        const keys = Object.getOwnPropertyNames(this);
+        return   keys.reduce((classAsObj, key) => {
+            classAsObj[key] = this[key]
+            return classAsObj
+        }, {})
+    }
 }
 
 /** Abstract base class for shapes (Line, Poly, & Circle) */
@@ -166,6 +174,15 @@ export abstract class Shape {
 
     get isUnit(): boolean {
         return this.id === Shape.unitShape;
+    }
+
+    asObject(): {} {
+        const keys = Object.getOwnPropertyNames(this);
+        return   keys.reduce((classAsObj, key) => {
+            if (this[key])
+            classAsObj[key] = this[key]
+            return classAsObj
+        }, {})
     }
 }
 

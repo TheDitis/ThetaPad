@@ -3,11 +3,13 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Stage} from "react-konva";
-import React, {useContext} from "react";
+import React, {MouseEventHandler, useContext} from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {Shape, ShapeMap} from "../types/shapes";
+import {Line, Shape, ShapeKind, ShapeMap} from "../types/shapes";
 import {Dimensions, SizeContext} from "../../App/AppContextProvider";
+import {useDispatch} from "react-redux";
+import {CreateShapeAction} from "../types/actions";
 
 interface CanvasStyleProps {
     dimensions: Dimensions
@@ -22,25 +24,27 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
 interface CanvasProps {
     onClick;
     onMouseMove;
-    shapes: ShapeMap;
-    tempShape: Shape | null;
 }
 
 const Canvas: React.FC<CanvasProps> = ((props) => {
     const dimensions = useContext(SizeContext);
+    const dispatch = useDispatch();
+
+    const handleClick = (e: MouseEvent) => {
+        dispatch(new CreateShapeAction(new Line(0, 0)).toRedux)
+    }
+
     return (
+        // @ts-ignore
         <CanvasRoot
             dimensions={dimensions}
-            onMouseDown={props.onClick}
-            onMouseUp={props.onClick}
+            onMouseDown={handleClick}
+            onMouseUp={handleClick}
             onMouseMove={props.onMouseMove}
         >
-            <Stage width={window.innerWidth} height={window.innerHeight}>
-                <ShapesLayer
-                    shapes={props.shapes}
-                    tempShape={props.tempShape}
-                />
-            </Stage>
+            {/*<Stage width={window.innerWidth} height={window.innerHeight}>*/}
+            {/*    <ShapesLayer/>*/}
+            {/*</Stage>*/}
         </CanvasRoot>
     )
 })

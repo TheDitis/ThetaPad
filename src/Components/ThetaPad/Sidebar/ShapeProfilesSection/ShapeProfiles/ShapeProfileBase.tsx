@@ -9,7 +9,7 @@ import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import {DispatchContext, UnitContext} from "../../../ThetaPad";
-import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
+import {SetUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
 import CircleIcon from "../../../../Icons/CircleIcon";
 
 
@@ -128,7 +128,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
 
     const toggleUnit = () => {
         if (unit !== unitValue) {
-            dispatch(new ChangeUnitAction(unitValue));
+            dispatch(new SetUnitAction(unitValue));
             Shape.unitShape = shape.id;
         } else {
             dispatch(new ResetUnitAction());
