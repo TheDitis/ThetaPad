@@ -111,7 +111,7 @@ export class Point {
     }
 }
 
-/** Abstract base class for shapes (LineType, PolyType, & CircleType) */
+/** Abstract base class for shapes (Line, Poly, & Circle) */
 export abstract class Shape {
     static unitShape: string | null;
     id: string;
@@ -160,15 +160,15 @@ export abstract class Shape {
         }
     }
 
-    /** @return {this is LineType} */
+    /** @return {this is Line} */
     isLine(): this is Line {
         return this.kind === ShapeKind.Line;
     }
-    /** @return {this is PolyType} */
+    /** @return {this is Poly} */
     isPoly(): this is Poly {
         return this.kind === ShapeKind.Poly;
     }
-    /** @return {this is CircleType} */
+    /** @return {this is Circle} */
     isCircle(): this is Circle {
         return this.kind === ShapeKind.Circle
     }
@@ -205,7 +205,7 @@ export class Line extends Shape {
     end: Point;
 
     /**
-     * Create a new LineType, with only a starting point and color
+     * Create a new Line, with only a starting point and color
      * @param {number} x - initial X coordinate
      * @param {number} y - initial Y coordinate
      * @param {string} color - the color it should be drawn in
@@ -220,7 +220,7 @@ export class Line extends Shape {
      * Create a new line from 2 points
      * @param {Point} pt1 - The point the line should start at
      * @param {Point} pt2 - The point the line should end at
-     * @return {Line} - The new LineType between the 2 points
+     * @return {Line} - The new Line between the 2 points
      */
     static fromPoints(pt1: Point, pt2: Point): Line {
         const newLine = new Line(pt1.x, pt1.y);
@@ -267,7 +267,7 @@ export class Line extends Shape {
         return this.start.midpoint(this.end)
     }
 
-    /** @return {Line} - A new LineType instance with the same values */
+    /** @return {Line} - A new Line instance with the same values */
     copy(): Line {
         return new Line(this.start.x, this.start.y, this.color);
     }
@@ -281,7 +281,7 @@ export class Poly extends Shape {
     points: Point[];
 
     /**
-     * Create a new PolyType line, starting at (x, y)
+     * Create a new Poly line, starting at (x, y)
      * @param {number} x - starting X coordinate
      * @param {number} y - starting Y coordinate
      * @param {string} color - the color to draw this line in
@@ -354,7 +354,7 @@ export class Poly extends Shape {
         this.points[this.points.length - 1].moveTo(endX, endY);
     }
 
-    /** @return {Poly} - Create a new PolyType with the same values */
+    /** @return {Poly} - Create a new Poly with the same values */
     copy(): Poly {
         const firstPoint = this.points[0];
         const newPoly = new Poly(firstPoint.x, firstPoint.y, this.color);
@@ -371,7 +371,7 @@ export class Circle extends Shape {
     r: number;
 
     /**
-     * Create a new CircleType ShapeType
+     * Create a new Circle Shape
      * @param {number} x - center X coordinate
      * @param {number} y - center Y coordinate
      * @param {string} color - the color to draw this circle in

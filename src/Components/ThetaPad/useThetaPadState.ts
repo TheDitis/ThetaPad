@@ -5,7 +5,7 @@ export {}
 // */
 //import {useCallback, useEffect, useReducer, useState} from "react";
 //import {PrimaryDispatch, ThetaPadStateType} from "./ThetaPad";
-//import {CircleType, LineType, Point, PolyType, ShapeType, ShapeKind, ShapeMap} from "./types/shapes";
+//import {Circle, Line, Point, Poly, Shape, ShapeKind, ShapeMap} from "./types/shapes";
 //import {Action, ChangeDrawModeAction, CreateShapeAction, EndShapeAction, ShapesUpdateAction} from "./types/actions";
 //
 //
@@ -58,9 +58,9 @@ export {}
 // *      and updater functions
 // */
 //const useThetaPadState = () => {
-//    const [tempShape, setTempShape] = useState<ShapeType | null>(null);
+//    const [tempShape, setTempShape] = useState<Shape | null>(null);
 //    const [unit, setUnit] = useState<number>(1);
-//    const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.Line)
+//    const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.LineUtils)
 //    const [shapes, updateShapes] = useReducer(shapesReducer, {});
 ////    const undoBuffer: Action[] = []; // TODO: IMPLEMENT THIS
 //
@@ -116,7 +116,7 @@ export {}
 //                    }
 //                    break;
 //                case "l":
-//                    dispatch(new ChangeDrawModeAction(ShapeKind.Line));
+//                    dispatch(new ChangeDrawModeAction(ShapeKind.LineUtils));
 //                    break;
 //                case "p":
 //                    dispatch(new ChangeDrawModeAction(ShapeKind.Poly));
@@ -135,7 +135,7 @@ export {}
 //    }, [tempShape, dispatch]);
 //
 //    /**
-//     * Handles mouseup and mousedown events on the canvas when drawMode is LineType.
+//     * Handles mouseup and mousedown events on the canvas when drawMode is Line.
 //     * Called by 'handleCanvasClick'
 //     * @param {MouseEvent} e - the mouseup/mousedown fired
 //     */
@@ -145,7 +145,7 @@ export {}
 //        }
 //        // Starting a new line:
 //        if (!tempShape && e.type === "mousedown") {
-//            const newShape = new LineType(e.pageX, e.pageY, "red");
+//            const newShape = new Line(e.pageX, e.pageY, "red");
 //            setTempShape(newShape);
 //        }
 //        // If in the middle of a drawing action
@@ -159,7 +159,7 @@ export {}
 //    }
 //
 //    /**
-//     * Handles mouseup and mousedown events on the canvas in PolyType drawMode.
+//     * Handles mouseup and mousedown events on the canvas in Poly drawMode.
 //     * Called by 'handleCanvasClick'
 //     * @param {MouseEvent} e - the mouseup/mousedown fired
 //     */
@@ -170,7 +170,7 @@ export {}
 //        else if (e.type === "mousedown") {
 //            // Start a new poly-draw
 //            if (tempShape === null) {
-//                const newShape = new PolyType(e.pageX, e.pageY, "purple");
+//                const newShape = new Poly(e.pageX, e.pageY, "purple");
 //                newShape.addPoint(e.pageX, e.pageY);
 //                setTempShape(newShape);
 //            } else {
@@ -181,7 +181,7 @@ export {}
 //    }
 //
 //    /**
-//     * Handles mouseup and mousedown events on the canvas in CircleType drawMode.
+//     * Handles mouseup and mousedown events on the canvas in Circle drawMode.
 //     * Called by 'handleCanvasClick'
 //     * @param {MouseEvent} e - the mouseup/mousedown fired
 //     */
@@ -190,7 +190,7 @@ export {}
 //            console.error("handleCircleClick called with non-circle tempShape");
 //        }
 //        else if (e.type === "mousedown") {
-//            setTempShape(new CircleType(e.pageX, e.pageY));
+//            setTempShape(new Circle(e.pageX, e.pageY));
 //        }
 //        else if (e.type === "mouseup" && tempShape !== null) {
 //            if (tempShape.r > 3) {
@@ -207,7 +207,7 @@ export {}
 //     */
 //    const handleCanvasClick = (e: MouseEvent) => {
 //        switch (drawMode) {
-//            case ShapeKind.Line:
+//            case ShapeKind.LineUtils:
 //                handleLineClickEvent(e);
 //                break;
 //            case ShapeKind.Poly:

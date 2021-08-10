@@ -6,12 +6,13 @@ import React, {useContext, useEffect} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
 //import useThetaPadState from "./useThetaPadState";
-import {ShapeMap, ShapeKind, ShapeType} from "./types/shapes";
+import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
 //import Sidebar from "./Sidebar/Sidebar";
 import {Action} from "./types/actions";
 import {SizeContext} from "../App/AppContextProvider";
 import store from "../../redux/store";
 import {Provider} from "react-redux";
+import Sidebar from "./Sidebar/Sidebar";
 
 /////---------------------------------------------------------------------------
 ///     STYLE:
@@ -46,7 +47,7 @@ export interface ThetaPadStateType {
     handleMouseMove;
     drawMode: ShapeKind;
     shapes: ShapeMap;
-    tempShape: ShapeType | null;
+    tempShape: Shape | null;
 }
 
 
@@ -55,8 +56,8 @@ export interface ThetaPadStateType {
 ///     COMPONENT DEFINITION:
 /////---------------------------------------------------------------------------
 
-export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
-export const UnitContext = React.createContext(1)
+//export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
+//export const UnitContext = React.createContext(1)
 
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
@@ -73,12 +74,7 @@ const ThetaPad: React.FC = () => {
             {/*<DispatchContext.Provider value={thetaPadState.dispatch}>*/}
             {/*    <UnitContext.Provider value={thetaPadState.unit}>*/}
                     <ThetaPadRoot height={height}>
-                        {/*<Sidebar*/}
-                        {/*    dispatch={thetaPadState.dispatch}*/}
-                        {/*    tempShape={thetaPadState.tempShape}*/}
-                        {/*    drawMode={thetaPadState.drawMode}*/}
-                        {/*    shapes={thetaPadState.shapes}*/}
-                        {/*/>*/}
+                        <Sidebar/>
                         <Canvas
 //                            tempShape={thetaPadState.tempShape}
 //                            onClick={thetaPadState.handleCanvasClick}

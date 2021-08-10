@@ -1,16 +1,16 @@
 export {}
 ///** PolyLineProfile.tsx
-// * @file A Profile specific to they PolyType line type
+// * @file A Profile specific to they Poly line type
 // * @author Ryan McKay <ryanscottmckay@gmail.com>
 // */
 //import React from "react";
-//import {PolyType} from "../../../types/shapes";
+//import {Poly} from "../../../types/shapes";
 //import ShapeProfileBase from "./ShapeProfileBase";
 //import ShapeInfoItem from "./ShapeInfoItem";
 //import uuid from "react-uuid";
 //
 //
-//const PolyLineInfoItems: React.FC<{shape: PolyType}> = ({shape}) => (
+//const PolyLineInfoItems: React.FC<{shape: Poly}> = ({shape}) => (
 //    <>
 //        {['totalLength', 'averageAngle'].map(propName => (
 //            <ShapeInfoItem key={uuid()} shape={shape} property={propName}/>
@@ -20,7 +20,7 @@ export {}
 //
 //
 //interface PolyLineProfileProps {
-//    line: PolyType;
+//    line: Poly;
 //    index: number;
 //}
 //

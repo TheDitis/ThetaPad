@@ -1,36 +1,48 @@
-export {}
-///** ShapesLayer.tsx
-// * @file The layer in Canvas that holds the drawn konva shapes
-// * @author Ryan McKay <ryanscottmckay@gmail.com>
-// */
-//import {Layer} from "react-konva";
-//import React from "react";
-//import {ShapeType, ShapeMap} from "../../../types/shapes";
-//import DrawnShape from "./DrawnShape";
-//
-//
-//
-//interface ShapesLayerProps {
-//}
-//
-//
-///**
-// * The Konva layer that holds the drawn shapes
-// * @param {React.PropsWithChildren<ShapesLayerProps>} props
-// */
-//const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-////    const {} = props
-//
-//
-//    return (
-//        <Layer>
-//            {/*{Object.values(shapes).map(shape => (*/}
-//            {/*    <DrawnShape key={shape.id} shape={shape}/>*/}
-//            {/*))}*/}
-//            {/*{tempShape !== null && <DrawnShape shape={tempShape}/>}*/}
-//        </Layer>
-//    )
-//}
-//
-//
-//export default ShapesLayer;
+//export {}
+/** ShapesLayer.tsx
+ * @file The layer in Canvas that holds the drawn konva shapes
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
+import {Layer} from "react-konva";
+import React from "react";
+import DrawnShape from "./DrawnShape";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../../redux/store";
+
+const DrawnShapes = (props) => {
+    const shapes = useSelector((state: RootState) => state.shapes);
+    return (
+        <>
+            {Object.values(shapes).map(shape => (
+                <DrawnShape key={shape.id} shape={shape}/>
+            ))}
+        </>
+    )
+}
+
+const DrawnTempShape = (props) => {
+    const tempShape = useSelector((state: RootState) => state.tempShape)
+    return tempShape !== null ? (
+        <DrawnShape shape={tempShape}/>
+    ) : null;
+}
+
+interface ShapesLayerProps {
+}
+
+
+/**
+ * The Konva layer that holds the drawn shapes
+ * @param {React.PropsWithChildren<ShapesLayerProps>} props
+ */
+const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
+    return (
+        <Layer>
+            <DrawnShapes/>
+            <DrawnTempShape/>
+        </Layer>
+    )
+}
+
+
+export default ShapesLayer;

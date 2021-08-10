@@ -6,7 +6,7 @@ import {CaseReducer, createSlice, SliceCaseReducers, createAction} from "@reduxj
 //    TempShapeUpdateActionKind,
 //    UpdateTempShapeAction
 //} from "../../Components/ThetaPad/types/actions";
-import {ShapeType} from "../../Components/ThetaPad/types/shapes";
+import {Shape} from "../../Components/ThetaPad/types/shapes";
 
 //export enum TempShapeActionKinds {
 //    Create = "Create",
@@ -14,18 +14,17 @@ import {ShapeType} from "../../Components/ThetaPad/types/shapes";
 //    Reset = "Reset"
 //}
 //
-//export const createTempShape = createAction<ShapeType>(TempShapeActionKinds.Create);
-//export const updateTempShape = createAction<Partial<ShapeType>>(TempShapeActionKinds.Update);
+//export const createTempShape = createAction<Shape>(TempShapeActionKinds.Create);
+//export const updateTempShape = createAction<Partial<Shape>>(TempShapeActionKinds.Update);
 //export const resetTempShape = createAction(TempShapeActionKinds.Reset);
 
-const tempShapeSlice = createSlice<
-        null | ShapeType,
-        SliceCaseReducers<ShapeType | null>,
-        "tempShape"
-    >(
+const initialTempShape: Shape | null = null;
+
+
+const tempShapeSlice = createSlice(
         {
             name: 'tempShape',
-            initialState: null,
+            initialState: initialTempShape,
             reducers: {
                 createTempShape: (
                     state,
@@ -37,9 +36,7 @@ const tempShapeSlice = createSlice<
                     action
                 ) => Object.assign({}, state, action.payload),
 
-                clearTempShape: (
-                    state
-                ) => null
+                clearTempShape: (state) => null
             },
 //            extraReducers: {
 //                [TempShapeUpdateActionKind.Create]: (

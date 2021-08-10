@@ -1,26 +1,34 @@
-export {}
-///** CompletedShapesProfiles.tsx
-// * @file Memoized fragment of all ShapeProfiles of shapes that have been completed
-// * @author Ryan McKay <ryanscottmckay@gmail.com>
-// */
-//import React from "react";
-//import {ShapeMap} from "../../types/shapes";
-//import uuid from "react-uuid";
-//import ShapeProfile from "./ShapeProfiles/ShapeProfile";
-//import _ from "lodash";
-//
-//
-//interface CompletedShapesProfilesProps {shapes: ShapeMap}
-//
-//const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = ({shapes}) => (
-//    <>
-//        {Object.entries(shapes).map(([id, shape], index) => (
-//            <ShapeProfile key={uuid()} shape={shape} index={index}/>
-//        ))}
-//    </>
-//)
-//
-//
+/** CompletedShapesProfiles.tsx
+ * @file Memoized fragment of all ShapeProfiles of shapes that have been completed
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
+import React from "react";
+import {ShapeMap} from "../../types/shapes";
+import uuid from "react-uuid";
+import ShapeProfile from "./ShapeProfiles/ShapeProfile";
+import _ from "lodash";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../redux/store";
+
+
+interface CompletedShapesProfilesProps {}
+
+const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = (props) => {
+    const shapes = useSelector((state: RootState) => state.shapes);
+
+    return (
+        <>
+            {Object.entries(shapes).map(([id, shape], index) => (
+                <ShapeProfile key={uuid()} shape={shape} index={index}/>
+            ))}
+        </>
+    )
+}
+
+
+export default CompletedShapesProfiles;
+
+
 //export default React.memo(
 //    CompletedShapesProfiles,
 //    (prev, next) => {

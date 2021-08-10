@@ -1,5 +1,5 @@
 import {createAction, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
-import {ShapeMap, ShapeType} from "../../Components/ThetaPad/types/shapes";
+import {ShapeMap, Shape} from "../../Components/ThetaPad/types/shapes";
 import {
     CreateShapeAction,
     RemoveShapeAction,
@@ -13,9 +13,9 @@ import {
 //    Remove = "Remove",
 //}
 
-//export const createShape = createAction<ShapeType>(ShapesActionKind.Create);
+//export const createShape = createAction<Shape>(ShapesActionKind.Create);
 //export const updateShape = createAction<
-//    { target: string, payload: Partial<ShapeType> }
+//    { target: string, payload: Partial<Shape> }
 //    >(ShapesActionKind.Update);
 //export const removeShape = createAction<string>(ShapesActionKind.Remove);
 

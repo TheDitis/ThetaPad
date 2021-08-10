@@ -5,14 +5,16 @@
 import {Stage} from "react-konva";
 import React, {MouseEventHandler, useContext} from "react";
 import styled from "styled-components";
-//import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {Line} from "../types/shapes";
-//import type {LineType, ShapeType, ShapeKind, ShapeMap} from "../types/shapes";
+import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
+import {LineUtils} from "../types/shapes";
+//import type {Line, Shape, ShapeKind, ShapeMap} from "../types/shapes";
 import {Dimensions, SizeContext} from "../../App/AppContextProvider";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 //import {CreateShapeAction, CreateTempShapeAction} from "../types/actions";
-import {AppDispatch} from "../../../redux/store";
-import {createTempShape} from "../../../redux/slices/tempShapeSlice";
+import store, {AppDispatch, AppState} from "../../../redux/store";
+import {clearTempShape, createTempShape, updateTempShape} from "../../../redux/slices/tempShapeSlice";
+import {createShape} from "../../../redux/slices/shapesSlice";
+import StageWithReduxBridge from "./Layers/ShapesLayer/StageWithReduxBridge";
 
 interface CanvasStyleProps {
     dimensions: Dimensions
@@ -24,6 +26,22 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
   background: rgb(156, 231, 255);
 `
 
+const completeTempShape = () => {
+    const tempShape = store.getState().tempShape;
+    if (tempShape) {
+        store.dispatch(createShape(tempShape));
+        store.dispatch(clearTempShape());
+    }
+    console.log("here")
+}
+
+const handleMouseMove = (e) => {
+    const tempShape = store.getState().tempShape;
+    if (tempShape) {
+        store.dispatch(updateTempShape({end: {x: e.pageX, y: e.pageY}}))
+    }
+}
+
 interface CanvasProps {
 //    onClick;
 //    onMouseMove;
@@ -33,22 +51,32 @@ const Canvas: React.FC<CanvasProps> = ((props) => {
     const dimensions = useContext(SizeContext);
     const dispatch = useDispatch<AppDispatch>();
 
-    const handleClick = (e: MouseEvent) => {
+//    const tempShape = useSelector<AppState>(state => state.tempShape)
+
+    const handleClick = (e) => {
         if (e.type === "mousedown") {
-            dispatch(createTempShape(Line.new(e.x, e.y)))
+            dispatch(createTempShape(LineUtils.new(e.pageX, e.pageY)));
+        }
+        if (e.type === "mouseup") {
+            completeTempShape();
         }
     }
 
+
+
     return (
-        // @ts-ignore
         <CanvasRoot
             dimensions={dimensions}
             onMouseDown={handleClick}
             onMouseUp={handleClick}
+            onMouseMove={handleMouseMove}
         >
-            {/*<Stage width={window.innerWidth} height={window.innerHeight}>*/}
-            {/*    <ShapesLayer/>*/}
-            {/*</Stage>*/}
+            <StageWithReduxBridge
+                width={window.innerWidth}
+                height={window.innerHeight}
+            >
+                <ShapesLayer/>
+            </StageWithReduxBridge>
         </CanvasRoot>
     )
 })

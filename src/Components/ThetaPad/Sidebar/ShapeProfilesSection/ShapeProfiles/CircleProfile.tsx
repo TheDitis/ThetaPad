@@ -1,16 +1,16 @@
 export {}
 ///** CircleProfile.tsx
-// * @file A profile specifically for CircleType shapes
+// * @file A profile specifically for Circle shapes
 // * @author Ryan McKay <ryanscottmckay@gmail.com>
 // */
 //import React from "react";
-//import {CircleType} from "../../../types/shapes";
+//import {Circle} from "../../../types/shapes";
 //import ShapeProfileBase from "./ShapeProfileBase";
 //import ShapeInfoItem from "./ShapeInfoItem";
 //import uuid from "react-uuid";
 //
 //
-//const CircleInfoItems: React.FC<{shape: CircleType}> = (props) => (
+//const CircleInfoItems: React.FC<{shape: Circle}> = (props) => (
 //    <>
 //        {['radius'].map(propName => (
 //            <ShapeInfoItem
@@ -24,7 +24,7 @@ export {}
 //
 //
 //interface CircleProfileProps {
-//    circle: CircleType;
+//    circle: Circle;
 //    index: number;
 //}
 //

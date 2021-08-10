@@ -1,35 +1,38 @@
-export {}
-///** DrawnShape.tsx
-// * @file Component that returns the relevant Konva shape to shape passed
-// * @author Ryan McKay <ryanscottmckay@gmail.com>
-// */
-//import {Line as KonvaLine} from "react-konva";
-//import {Circle as KonvaCircle} from "react-konva";
-//import React from "react";
-//import {ShapeType} from "../../../types/shapes";
-//
-//
-//interface DrawnShapeProps {
-//    shape: ShapeType;
-//}
-//
-//
-///**
-// * Returns a Konva shape with the passed ShapeType object
-// * @param {ShapeType} shape - the shape you want drawn on the canvas
-// */
-//const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
-//    if (shape.isLine()) {
-//        return (
-//            <KonvaLine
-//                x={0}
-//                y={0}
-//                points={shape.canvasPoints}
-//                stroke={shape.color}
-//                strokeWidth={2}
-//            />
-//        )
-//    }
+//export {}
+/** DrawnShape.tsx
+ * @file Component that returns the relevant Konva shape to shape passed
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
+import {Line as KonvaLine} from "react-konva";
+import React, {useContext} from "react";
+import {LineUtils, Line, ShapeKind, Shape} from "../../../types/shapes";
+import {SizeContext} from "../../../../App/AppContextProvider";
+
+
+interface DrawnShapeProps {
+    shape: Shape;
+}
+
+
+/**
+ * Returns a Konva shape with the passed Shape object
+ * @param {Shape} shape - the shape you want drawn on the canvas
+ */
+const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
+    const {navbar, sidebar} = useContext(SizeContext)
+
+    if (shape.kind === ShapeKind.Line) {
+        const line: Line = shape as Line;
+        return (
+            <KonvaLine
+                x={0}
+                y={0}
+                points={LineUtils.pointsTranslated(line, -sidebar, -navbar)}
+                stroke={line.color}
+                strokeWidth={2}
+            />
+        )
+    }
 //    if (shape.isPoly()) {
 //        return (
 //            <KonvaLine
@@ -52,7 +55,7 @@ export {}
 //            />
 //        )
 //    }
-//    return null;
-//}
-//
-//export default DrawnShape;
+    return null;
+}
+
+export default DrawnShape;

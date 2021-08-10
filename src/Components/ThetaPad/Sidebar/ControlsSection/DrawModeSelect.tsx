@@ -18,26 +18,18 @@ const DrawModeSelectRoot = styled.div<DrawModeSelectStyleProps>`
   justify-content: center;
 `
 
-interface DrawModeSelectProps {
-    drawMode: ShapeKind,
-    onChange: (ShapeKind) => void,
-}
+interface DrawModeSelectProps {}
 
-/**
- * A set of buttons for selecting the drawing mode
- * @param {ShapeKind} drawMode - the current drawing mode
- * @param {(ShapeKind) => void} onChange - function to call on click
- */
-const DrawModeSelect: React.FC<DrawModeSelectProps> = (
-    {drawMode, onChange}
-) => (
+
+const DrawModeSelect: React.FC<DrawModeSelectProps> = (props) => (
+
     <DrawModeSelectRoot>
         {['Line', 'Poly', 'Circle'].map(label => (
             <SelectButton
                 key={uuid()}
                 width={60}
-                onClick={() => onChange(label)}
-                selected={label === drawMode}
+                onClick={() => null}
+                selected={true}
             >
                 {label}
             </SelectButton>

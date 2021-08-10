@@ -8,7 +8,7 @@ export {}
 //import styled from "styled-components";
 //import LengthIcon from "../../../../Icons/LengthIcon";
 //import AngleIcon from "../../../../Icons/AngleIcon";
-//import {ShapeType} from "../../../types/shapes";
+//import {Shape} from "../../../types/shapes";
 //import {UnitContext} from "../../../ThetaPad";
 //import RadiusIcon from "../../../../Icons/RadiusIcon";
 //
@@ -58,13 +58,13 @@ export {}
 //
 //
 //interface ShapeInfoItemProps {
-//    shape: ShapeType;
+//    shape: Shape;
 //    property: string;
 //}
 //
 ///**
 // * Theses are the individual info items in ShapeProfiles as an icon/value pair
-// * @param {ShapeType} shape - the shape you're getting info from
+// * @param {Shape} shape - the shape you're getting info from
 // * @param {string} property - the property of 'shape' you are interested in
 // */
 //const ShapeInfoItem: React.FC<ShapeInfoItemProps> = ({shape, property}) => {
