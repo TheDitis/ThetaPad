@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {MAX_SIDEBAR_WIDTH, MIN_SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../constants";
-import {Point} from "./types/shapes";
+//import {Point} from "./types/shapes";
 import {Dimensions} from "../App/AppContextProvider";
 
 const useAppDimensions = () => {
@@ -20,9 +20,9 @@ const useAppDimensions = () => {
             let sidebarWidth = width / 3;
             sidebarWidth = Math.min(MAX_SIDEBAR_WIDTH, sidebarWidth);
             sidebarWidth = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth)
-            if (sidebarWidth !== dimensions.sidebar) {
-                Point.xOffset = sidebarWidth
-            }
+//            if (sidebarWidth !== dimensions.sidebar) {
+//                Point.xOffset = sidebarWidth
+//            }
             setDimensions({
                 navbar: dimensions.navbar,
                 sidebar: sidebarWidth,

@@ -5,9 +5,9 @@
 import React, {useContext, useEffect} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
-import useThetaPadState from "./useThetaPadState";
-import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
-import Sidebar from "./Sidebar/Sidebar";
+//import useThetaPadState from "./useThetaPadState";
+import {ShapeMap, ShapeKind, ShapeType} from "./types/shapes";
+//import Sidebar from "./Sidebar/Sidebar";
 import {Action} from "./types/actions";
 import {SizeContext} from "../App/AppContextProvider";
 import store from "../../redux/store";
@@ -46,7 +46,7 @@ export interface ThetaPadStateType {
     handleMouseMove;
     drawMode: ShapeKind;
     shapes: ShapeMap;
-    tempShape: Shape | null;
+    tempShape: ShapeType | null;
 }
 
 
@@ -60,7 +60,7 @@ export const UnitContext = React.createContext(1)
 
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
-    const thetaPadState = useThetaPadState();
+//    const thetaPadState = useThetaPadState();
 
 //    useEffect(() => {
 //        console.log("Rerendering")
@@ -81,8 +81,8 @@ const ThetaPad: React.FC = () => {
                         {/*/>*/}
                         <Canvas
 //                            tempShape={thetaPadState.tempShape}
-                            onClick={thetaPadState.handleCanvasClick}
-                            onMouseMove={thetaPadState.handleMouseMove}
+//                            onClick={thetaPadState.handleCanvasClick}
+//                            onMouseMove={thetaPadState.handleMouseMove}
 //                            shapes={thetaPadState.shapes}
                         />
                     </ThetaPadRoot>

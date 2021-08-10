@@ -1,43 +1,43 @@
 import {CaseReducer, createSlice, SliceCaseReducers, createAction} from "@reduxjs/toolkit";
-import {
-    CancelTempShapeAction, CompleteTempShapeAction,
-    CreateTempShapeAction,
-    TempShapeUpdateAction,
-    TempShapeUpdateActionKind,
-    UpdateTempShapeAction
-} from "../../Components/ThetaPad/types/actions";
-import {Shape} from "../../Components/ThetaPad/types/shapes";
+//import {
+//    CancelTempShapeAction, CompleteTempShapeAction,
+//    CreateTempShapeAction,
+//    TempShapeUpdateAction,
+//    TempShapeUpdateActionKind,
+//    UpdateTempShapeAction
+//} from "../../Components/ThetaPad/types/actions";
+import {ShapeType} from "../../Components/ThetaPad/types/shapes";
 
-export enum TempShapeActionKinds {
-    Create = "Create",
-    Update = "Update",
-    Reset = "Reset"
-}
-
-const createTempShape = createAction<Shape>(TempShapeActionKinds.Create);
-const updateTempShape = createAction<Partial<Shape>>(TempShapeActionKinds.Update);
-const resetTempShape = createAction(TempShapeActionKinds.Reset);
+//export enum TempShapeActionKinds {
+//    Create = "Create",
+//    Update = "Update",
+//    Reset = "Reset"
+//}
+//
+//export const createTempShape = createAction<ShapeType>(TempShapeActionKinds.Create);
+//export const updateTempShape = createAction<Partial<ShapeType>>(TempShapeActionKinds.Update);
+//export const resetTempShape = createAction(TempShapeActionKinds.Reset);
 
 const tempShapeSlice = createSlice<
-        null | Shape,
-        SliceCaseReducers<Shape | null>,
+        null | ShapeType,
+        SliceCaseReducers<ShapeType | null>,
         "tempShape"
     >(
         {
             name: 'tempShape',
             initialState: null,
             reducers: {
-                [TempShapeActionKinds.Create]: (
+                createTempShape: (
                     state,
                     action
                 ) => action.payload,
 
-                [TempShapeActionKinds.Update]: (
+                updateTempShape: (
                     state,
                     action
                 ) => Object.assign({}, state, action.payload),
 
-                [TempShapeActionKinds.Reset]: (
+                clearTempShape: (
                     state
                 ) => null
             },
@@ -45,7 +45,10 @@ const tempShapeSlice = createSlice<
 //                [TempShapeUpdateActionKind.Create]: (
 //                    state,
 //                    action: CreateTempShapeAction
-//                ) => action.payload,
+//                ) => {
+//                    console.log("TEMPSHAPE CREATE ACTION!")
+//                    return action.payload
+//                },
 //
 //                [TempShapeUpdateActionKind.Update]: (
 //                    state,
@@ -65,4 +68,5 @@ const tempShapeSlice = createSlice<
         }
 )
 
+export const {createTempShape, updateTempShape, clearTempShape} = tempShapeSlice.actions;
 export default tempShapeSlice.reducer;

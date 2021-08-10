@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {PrimaryDispatch} from "../../ThetaPad";
-import {Shape, ShapeKind} from "../../types/shapes";
+import {ShapeType, ShapeKind} from "../../types/shapes";
 import DrawModeSelect from "./DrawModeSelect";
 import {ChangeDrawModeAction} from "../../types/actions";
 
@@ -21,7 +21,7 @@ const styles: {[property: string]: string} = {
 interface ControlsProps {
     drawMode: ShapeKind,
     dispatch: PrimaryDispatch,
-    tempShape: Shape | null
+    tempShape: ShapeType | null
 }
 
 /**

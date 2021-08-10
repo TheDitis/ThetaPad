@@ -2,7 +2,7 @@
  * @file Type & Class declarations for state-manipulation actions
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {Shape, ShapeKind} from "./shapes";
+import {ShapeType, ShapeKind} from "./shapes";
 import {Action as ReduxAction} from "@reduxjs/toolkit";
 import {getOwnPropertyDescriptors} from "immer/dist/utils/common";
 
@@ -41,7 +41,7 @@ export abstract class Action implements ReduxAction {
         return this.target === ActionTarget.Unit;
     }
 
-    get toRedux(): {} {
+    get asObject(): {} {
         const keys = Object.getOwnPropertyNames(this);
         const newObj =  keys.reduce((classAsObj, key) => {
             if (key === "payload") {
@@ -53,7 +53,6 @@ export abstract class Action implements ReduxAction {
             return classAsObj
         }, {})
         newObj["type"] = this.type;
-        console.log("toRedux result: ", newObj)
         return newObj
     }
 
@@ -108,17 +107,17 @@ export abstract class ShapesUpdateAction extends Action {
  */
 export class CreateShapeAction extends ShapesUpdateAction {
     kind = ShapesUpdateActionKind.Create;
-    payload: Shape;
+    payload: ShapeType;
 
     /**
      * Create a new CreateShapeAction
-     * @param {Shape} newShape - The new shape that you want added to state
+     * @param {ShapeType} newShape - The new shape that you want added to state
      */
-    constructor(newShape: Shape) {
+    constructor(newShape: ShapeType) {
         super();
         this.payload = newShape
     }
-//    get toRedux(): {} {
+//    get asObject(): {} {
 //        return {type: `${this.target}/${this.kind}`, payload: this.payload}
 //    }
 }
@@ -130,14 +129,14 @@ export class CreateShapeAction extends ShapesUpdateAction {
 export class UpdateShapeAction extends ShapesUpdateAction {
     kind = ShapesUpdateActionKind.Update;
     targetShape: string;
-    payload: Partial<Shape>
+    payload: Partial<ShapeType>
 
     /**
      * Create a new UpdateShapeAction
      * @param {string} shapeId - the ID of the shape you need to update
-     * @param {Partial<Shape>} updateValues - the partial shape with new values
+     * @param {Partial<ShapeType>} updateValues - the partial shape with new values
      */
-    constructor(shapeId: string, updateValues: Partial<Shape>) {
+    constructor(shapeId: string, updateValues: Partial<ShapeType>) {
         super();
         this.targetShape = shapeId;
         this.payload = updateValues;
@@ -217,9 +216,9 @@ export abstract class TempShapeUpdateAction extends Action {
 
 export class CreateTempShapeAction extends TempShapeUpdateAction {
     kind = TempShapeUpdateActionKind.Create;
-    payload: Shape;
+    payload: ShapeType;
 
-    constructor(newShape: Shape) {
+    constructor(newShape: ShapeType) {
         super();
         this.payload = newShape;
     }
@@ -227,9 +226,9 @@ export class CreateTempShapeAction extends TempShapeUpdateAction {
 
 export class UpdateTempShapeAction extends TempShapeUpdateAction {
     kind = TempShapeUpdateActionKind.Update;
-    payload: Partial<Shape>;
+    payload: Partial<ShapeType>;
 
-    constructor(updateValues: Partial<Shape>) {
+    constructor(updateValues: Partial<ShapeType>) {
         super();
         this.payload = updateValues;
     }

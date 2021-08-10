@@ -1,4 +1,4 @@
-import {Shape, ShapeKind, ShapeMap} from "../Components/ThetaPad/types/shapes";
+import {ShapeType, ShapeKind, ShapeMap} from "../Components/ThetaPad/types/shapes";
 import {configureStore, createStore} from "@reduxjs/toolkit";
 import {
     Action,
@@ -13,7 +13,7 @@ import tempShapeReducer from "./slices/tempShapeSlice";
 
 export interface AppState {
     shapes: ShapeMap;
-    tempShape: (Shape | null);
+    tempShape: (ShapeType | null);
     unit: number;
     drawMode: ShapeKind
 }
@@ -34,7 +34,7 @@ export type AppDispatch = typeof store.dispatch;
 //    shapes: {},
 //    tempShape: null,
 //    unit: 1,
-//    drawMode: ShapeKind.Line,
+//    drawMode: ShapeKind.LineType,
 //}
 //
 //const primaryReducer = (state = initialState, action: Action) => {
@@ -96,9 +96,9 @@ export type AppDispatch = typeof store.dispatch;
 //
 //
 //const tempShapeReducer = (
-//    tempShape: Shape | null,
+//    tempShape: ShapeType | null,
 //    action: TempShapeUpdateAction
-//): Shape | null => {
+//): ShapeType | null => {
 //    if (action.isCreateKind() && tempShape === null) {
 //        return action.payload;
 //    }

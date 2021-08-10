@@ -5,11 +5,14 @@
 import {Stage} from "react-konva";
 import React, {MouseEventHandler, useContext} from "react";
 import styled from "styled-components";
-import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {Line, Shape, ShapeKind, ShapeMap} from "../types/shapes";
+//import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
+import {Line} from "../types/shapes";
+//import type {LineType, ShapeType, ShapeKind, ShapeMap} from "../types/shapes";
 import {Dimensions, SizeContext} from "../../App/AppContextProvider";
 import {useDispatch} from "react-redux";
-import {CreateShapeAction} from "../types/actions";
+//import {CreateShapeAction, CreateTempShapeAction} from "../types/actions";
+import {AppDispatch} from "../../../redux/store";
+import {createTempShape} from "../../../redux/slices/tempShapeSlice";
 
 interface CanvasStyleProps {
     dimensions: Dimensions
@@ -22,16 +25,18 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
 `
 
 interface CanvasProps {
-    onClick;
-    onMouseMove;
+//    onClick;
+//    onMouseMove;
 }
 
 const Canvas: React.FC<CanvasProps> = ((props) => {
     const dimensions = useContext(SizeContext);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleClick = (e: MouseEvent) => {
-        dispatch(new CreateShapeAction(new Line(0, 0)).toRedux)
+        if (e.type === "mousedown") {
+            dispatch(createTempShape(Line.new(e.x, e.y)))
+        }
     }
 
     return (
@@ -40,7 +45,6 @@ const Canvas: React.FC<CanvasProps> = ((props) => {
             dimensions={dimensions}
             onMouseDown={handleClick}
             onMouseUp={handleClick}
-            onMouseMove={props.onMouseMove}
         >
             {/*<Stage width={window.innerWidth} height={window.innerHeight}>*/}
             {/*    <ShapesLayer/>*/}
