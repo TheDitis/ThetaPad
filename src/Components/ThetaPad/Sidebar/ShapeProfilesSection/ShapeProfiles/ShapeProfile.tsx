@@ -4,7 +4,7 @@
  */
 import React from "react";
 import LineProfile from "./LineProfile";
-import {Line, ShapeKind, Shape, LineUtils} from "../../../types/shapes";
+import {Line, Shape, ShapeKind} from "../../../../../types/shapes";
 
 
 interface ShapeProfileProps {

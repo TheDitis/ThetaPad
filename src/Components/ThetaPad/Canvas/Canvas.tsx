@@ -2,15 +2,12 @@
  * @file The drawing & image area component
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {Stage} from "react-konva";
-import React, {MouseEventHandler, useContext} from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {LineUtils} from "../types/shapes";
-//import type {Line, Shape, ShapeKind, ShapeMap} from "../types/shapes";
+import {LineUtils} from "../../../types/shapes";
 import {Dimensions, SizeContext} from "../../App/AppContextProvider";
-import {useDispatch, useSelector} from "react-redux";
-//import {CreateShapeAction, CreateTempShapeAction} from "../types/actions";
+import {useDispatch} from "react-redux";
 import store, {AppDispatch} from "../../../redux/store";
 import {clearTempShape, createTempShape, updateTempShape} from "../../../redux/slices/tempShapeSlice";
 import {createShape} from "../../../redux/slices/shapesSlice";
@@ -41,9 +38,10 @@ const handleMouseMove = (e) => {
     }
 }
 
-interface CanvasProps {}
+interface CanvasProps {
+}
 
-const Canvas: React.FC<CanvasProps> = ((props) => {
+const Canvas: React.FC<CanvasProps> = (() => {
     const dimensions = useContext(SizeContext);
     const dispatch = useDispatch<AppDispatch>();
 

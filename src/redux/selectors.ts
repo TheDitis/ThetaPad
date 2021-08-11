@@ -1,6 +1,6 @@
 import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "./store";
-import {Shape, ShapeMap} from "../Components/ThetaPad/types/shapes";
+import {Shape, ShapeMap} from "../types/shapes";
 import {UnitState} from "./slices/unitSlice";
 
 type ShapesSelectorType = (RootState) => ShapeMap;

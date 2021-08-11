@@ -1,4 +1,3 @@
-import {Shape, ShapeKind, ShapeMap} from "../Components/ThetaPad/types/shapes";
 import {configureStore} from "@reduxjs/toolkit";
 import shapesReducer from "./slices/shapesSlice";
 import tempShapeReducer from "./slices/tempShapeSlice";

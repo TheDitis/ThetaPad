@@ -4,7 +4,7 @@
  */
 import React from "react";
 import styled from "styled-components";
-import {Shape} from "../../../types/shapes";
+import {Shape} from "../../../../../types/shapes";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";

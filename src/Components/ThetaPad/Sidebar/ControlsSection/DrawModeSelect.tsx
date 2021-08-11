@@ -4,12 +4,12 @@
  */
 import React from "react";
 import styled from "styled-components";
-import {ShapeKind} from "../../types/shapes";
 import SelectButton from "../ControlsSection/Controls/SelectButton";
 import uuid from "react-uuid";
 
 
-interface DrawModeSelectStyleProps {}
+interface DrawModeSelectStyleProps {
+}
 
 const DrawModeSelectRoot = styled.div<DrawModeSelectStyleProps>`
   width: 100%;
@@ -18,10 +18,11 @@ const DrawModeSelectRoot = styled.div<DrawModeSelectStyleProps>`
   justify-content: center;
 `
 
-interface DrawModeSelectProps {}
+interface DrawModeSelectProps {
+}
 
 
-const DrawModeSelect: React.FC<DrawModeSelectProps> = (props) => (
+const DrawModeSelect: React.FC<DrawModeSelectProps> = () => (
 
     <DrawModeSelectRoot>
         {['Line', 'Poly', 'Circle'].map(label => (

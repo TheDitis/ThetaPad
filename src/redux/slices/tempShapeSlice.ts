@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Shape} from "../../Components/ThetaPad/types/shapes";
+import {Shape} from "../../types/shapes";
 
 const initialTempShape: Shape | null = null;
 
-const tempShapeSlice = createSlice(     {
+const tempShapeSlice = createSlice({
     name: 'tempShape',
     initialState: initialTempShape,
     reducers: {
@@ -17,7 +17,7 @@ const tempShapeSlice = createSlice(     {
             action
         ) => Object.assign({}, state, action.payload),
 
-        clearTempShape: (state) => null
+        clearTempShape: () => null
     }
 })
 

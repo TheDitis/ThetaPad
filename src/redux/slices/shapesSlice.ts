@@ -1,5 +1,5 @@
-import {createSelector, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
-import {ShapeMap} from "../../Components/ThetaPad/types/shapes";
+import {createSelector, createSlice} from "@reduxjs/toolkit";
+import {ShapeMap} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
 
 const initialState: ShapeMap = {};
@@ -11,7 +11,9 @@ const shapesSlice = createSlice({
         createShape(
             shapes,
             action
-        ) { shapes[action.payload.id] = action.payload },
+        ) {
+            shapes[action.payload.id] = action.payload
+        },
 
         updateShape(
             shapes,
@@ -27,7 +29,9 @@ const shapesSlice = createSlice({
         removeShape(
             shapes,
             action
-        ) { delete shapes[action.payload] },
+        ) {
+            delete shapes[action.payload]
+        },
     }
 })
 
@@ -41,7 +45,7 @@ const makeUniqueShapeSelector = () => createSelector(
     (shapes, shapeId) => shapes[shapeId]
 );
 
-export const mapShapeToPropsWithSelector = (state) => {
+export const mapShapeToPropsWithSelector = () => {
     const uniqueShapeSelector = makeUniqueShapeSelector();
 
     return (state, ownProps) => {

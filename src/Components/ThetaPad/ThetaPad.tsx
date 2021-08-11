@@ -5,10 +5,7 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
-import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
 import {SizeContext} from "../App/AppContextProvider";
-import store from "../../redux/store";
-import {Provider} from "react-redux";
 import Sidebar from "./Sidebar/Sidebar";
 
 /////---------------------------------------------------------------------------

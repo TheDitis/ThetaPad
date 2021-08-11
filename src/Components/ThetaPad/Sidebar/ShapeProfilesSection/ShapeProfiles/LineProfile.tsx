@@ -3,19 +3,19 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {Line, LineUtils} from "../../../types/shapes";
+import {Line, LineUtils} from "../../../../../types/shapes";
 import ShapeProfileBase from "./ShapeProfileBase";
 import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";
 
 
-const LineInfoItems: React.FC<{shape: Line}> = ({shape}) => {
+const LineInfoItems: React.FC<{ shape: Line }> = ({shape}) => {
     const properties = {
         'length': LineUtils.length_(shape),
         'angle': LineUtils.angle(shape)
     }
 
-    return(
+    return (
         <>
             {Object.entries(properties).map(([propName, value]) => (
 

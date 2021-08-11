@@ -4,14 +4,14 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Line as KonvaLine} from "react-konva";
-import React, {useContext} from "react";
-import {LineUtils, Line, ShapeKind, Shape} from "../../../types/shapes";
-import {SizeContext} from "../../../../App/AppContextProvider";
+import React from "react";
+import {Line, LineUtils, Shape, ShapeKind} from "../../../../../types/shapes";
 
 
 interface DrawnShapeProps {
     shape: Shape;
 }
+
 // points={LineUtils.pointsTranslated(line, -sidebar, -navbar)}
 
 /**

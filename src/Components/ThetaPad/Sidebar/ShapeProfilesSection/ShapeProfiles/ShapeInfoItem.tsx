@@ -2,11 +2,11 @@
  * @file A single piece of information shown in ShapeProfileBase. An icon/value pair
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import LengthIcon from "../../../../Icons/LengthIcon";
 import AngleIcon from "../../../../Icons/AngleIcon";
-import {Shape} from "../../../types/shapes";
+import {Shape} from "../../../../../types/shapes";
 import RadiusIcon from "../../../../Icons/RadiusIcon";
 import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../redux/selectors";
