@@ -60,12 +60,24 @@ export abstract class LineUtils {
         color: string = "black"
     ): Line {
         const base = newShapeBase(x, y, ShapeKind.Line, color);
-        const end = (x2 && y2) ? {x: x2, y: y2} : base.origin;
+
+        let end = base.origin;
+        let length = 0;
+        let angle = 0;
+
+        if (x2 && y2) {
+            end = {x: x2, y: y2}
+            length = PointUtils.distance(base.origin, end);
+            angle = PointUtils.angle(base.origin, end);
+        }
+//        const end = (x2 && y2) ? {x: x2, y: y2} : base.origin;
 
         return {
             ...base,
             start: base.origin,
             end,
+            length,
+            angle,
         }
     }
 
@@ -96,6 +108,8 @@ export abstract class LineUtils {
 export interface Line extends Shape {
     start: Point;
     end: Point;
+    length: number;
+    angle: number;
 }
 
 /** represents a line path with more than 2 points */

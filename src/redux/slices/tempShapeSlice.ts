@@ -1,7 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {Shape} from "../../types/shapes";
 
-const initialTempShape: Shape | null = null;
+export type TempShapeType = (Shape | null);
+
+const initialTempShape: TempShapeType = null;
 
 const tempShapeSlice = createSlice({
     name: 'tempShape',

@@ -11,8 +11,8 @@ import uuid from "react-uuid";
 
 const LineInfoItems: React.FC<{ shape: Line }> = ({shape}) => {
     const properties = {
-        'length': LineUtils.length_(shape),
-        'angle': LineUtils.angle(shape)
+        'length': shape.length,
+        'angle': shape.angle,
     }
 
     return (

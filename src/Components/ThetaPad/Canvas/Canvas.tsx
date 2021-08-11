@@ -8,11 +8,11 @@ import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {LineUtils} from "../../../types/shapes";
 import {Dimensions} from "../../../redux/slices/dimensionsSlice";
 import {useDispatch, useSelector} from "react-redux";
-import store, {AppDispatch} from "../../../redux/store";
-import {clearTempShape, createTempShape, updateTempShape} from "../../../redux/slices/tempShapeSlice";
-import {createShape} from "../../../redux/slices/shapesSlice";
+import {AppDispatch} from "../../../redux/store";
+import {createTempShape} from "../../../redux/slices/tempShapeSlice";
 import StageWithReduxBridge from "./Layers/ShapesLayer/StageWithReduxBridge";
 import {dimensionsSelector} from "../../../redux/selectors";
+import {completeTempShape, handleMouseMove} from "./canvasClickHandlers";
 
 interface CanvasStyleProps {
     dimensions: Dimensions
@@ -24,20 +24,7 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
   background: rgb(156, 231, 255);
 `
 
-const completeTempShape = () => {
-    const tempShape = store.getState().tempShape;
-    if (tempShape) {
-        store.dispatch(createShape(tempShape));
-        store.dispatch(clearTempShape());
-    }
-}
 
-const handleMouseMove = (e) => {
-    const tempShape = store.getState().tempShape;
-    if (tempShape) {
-        store.dispatch(updateTempShape({end: {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}}))
-    }
-}
 
 interface CanvasProps {
 }
@@ -48,7 +35,9 @@ const Canvas: React.FC<CanvasProps> = (() => {
 
     const handleClick = (e) => {
         if (e.type === "mousedown") {
-            dispatch(createTempShape(LineUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)));
+            dispatch(createTempShape(
+                LineUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
+            ));
         }
         if (e.type === "mouseup") {
             completeTempShape();
