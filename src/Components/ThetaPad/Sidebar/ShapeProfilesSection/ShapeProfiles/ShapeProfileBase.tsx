@@ -2,17 +2,17 @@
  * @file The base component for shape profiles in the sidebar
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import {Shape} from "../../../types/shapes";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
-//import {DispatchContext, UnitContext} from "../../../ThetaPad";
-import {SetUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
 import CircleIcon from "../../../../Icons/CircleIcon";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeShape} from "../../../../../redux/slices/shapesSlice";
+import {unitSelector} from "../../../../../redux/selectors";
+import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 
 
 interface ShapeProfileStyleProps {
@@ -113,37 +113,34 @@ interface ShapeProfileProps {
     index: number;
     unitValue: number;
     InfoItems?: React.FC;
-    children?: React.FC<{key: string}>[];
+    children?: React.FC<{ key: string }>[];
 }
 
 /**
  * Basic profile to show info about a given shape
  * @param {Shape} shape - the shape to show info for
  * @param {number} index - its index in the list
- * @param {number} unitValue - the value to set the unit to on unit button click
+ * @param {number} unitValue - the value to set the value to on value button click
  * @param InfoItems - The info component to show in the lower row if any
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
-    {shape, index, unitValue, InfoItems= () => null}
+    {shape, index, unitValue, InfoItems = () => null}
 ) => {
-    console.log("SHAPE: ", shape)
-//    const unit = useContext(UnitContext);
-//    const dispatch = useContext(DispatchContext);
+    const unit = useSelector(unitSelector);
+
     const dispatch = useDispatch();
     const Icon = shapeIcons[shape.kind];
 
     const toggleUnit = () => {
-//        if (unit !== unitValue) {
-//            dispatch(new SetUnitAction(unitValue));
-//            Shape.unitShape = shape.id;
-//        } else {
-//            dispatch(new ResetUnitAction());
-//            Shape.unitShape = null;
-//        }
+        if (shape.id !== unit.unitShape) {
+            dispatch(setUnit({value: unitValue, id: shape.id}));
+        } else {
+            dispatch(resetUnit());
+        }
     }
 
-    return ( // TODO: re-implement isUnit
-        <ShapeProfileRoot isUnit={false}>
+    return (
+        <ShapeProfileRoot isUnit={shape.id === unit.unitShape}>
             <div className={"leftSection"}>
 
             </div>
@@ -157,7 +154,8 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         <button
                             className={"unitButton"}
                             onClick={toggleUnit}
-                        >Unit</button>
+                        >Unit
+                        </button>
 
                         <h5
                             className={"xButton"}

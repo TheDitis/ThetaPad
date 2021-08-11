@@ -3,18 +3,17 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-//import {ShapeMap} from "../../types/shapes";
 import uuid from "react-uuid";
 import ShapeProfile from "./ShapeProfiles/ShapeProfile";
-//import _ from "lodash";
 import {useSelector} from "react-redux";
-import {RootState} from "../../../../redux/store";
+import {shapesSelector} from "../../../../redux/selectors";
 
+//const CompletedShapeProfile = connect(mapShapeToPropsWithSelector)(ShapeProfile);
 
 interface CompletedShapesProfilesProps {}
 
 const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = (props) => {
-    const shapes = useSelector((state: RootState) => state.shapes);
+    const shapes = useSelector(shapesSelector);
 
     return (
         <>

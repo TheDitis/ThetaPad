@@ -4,29 +4,11 @@
  */
 import React from "react";
 import styled from "styled-components";
-import {Shape, ShapeMap} from "../../types/shapes";
 import CompletedShapesProfiles from "./CompletedShapesProfiles";
-//import ShapeProfile from "./ShapeProfiles/ShapeProfile";
 import {SHAPE_PROFILE_HEIGHT} from "../../../constants";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../../redux/store";
-import ShapeProfile from "./ShapeProfiles/ShapeProfile";
+import TempShapeProfile from "./TempShapeProfile";
 
-
-const TempShapeProfile = (props) => {
-    const tempShape = useSelector((state: RootState) => state.tempShape);
-    const numShapes = useSelector((state: RootState) => (
-        Object.keys(state.shapes).length
-    ))
-    return tempShape !== null ? (
-        <ShapeProfile shape={tempShape} index={numShapes + 1}/>
-    ) : null
-}
-
-
-interface ShapeProfilesSectionStyleProps {
-
-}
+interface ShapeProfilesSectionStyleProps {}
 
 const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
   width: 100%;

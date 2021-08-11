@@ -48,7 +48,6 @@ const Canvas: React.FC<CanvasProps> = ((props) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleClick = (e) => {
-        console.log("e: ", e);
         if (e.type === "mousedown") {
             dispatch(createTempShape(LineUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)));
         }

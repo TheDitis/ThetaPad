@@ -1,22 +1,22 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-interface UnitState {
-    unit: number,
+export interface UnitState {
+    value: number,
     unitShape: string | null,
 }
 
-const initialState: UnitState = { unit: 1, unitShape: null }
+const initialState: UnitState = { value: 1, unitShape: null }
 
 const unitSlice = createSlice( {
     name: "unit",
     initialState,
     reducers: {
         setUnit(state, action) {
-            state.unit = action.payload.value;
+            state.value = action.payload.value;
             state.unitShape = action.payload.id;
         },
         resetUnit(state) {
-            state.unit = 1;
+            state.value = 1;
             state.unitShape = null;
         }
     }

@@ -8,6 +8,8 @@ import Navbar from "../Navbar/Navbar";
 import React from "react";
 import AppContextProvider from "./AppContextProvider";
 import LogRocket from "logrocket";
+import store from "../../redux/store";
+import {Provider} from "react-redux";
 
 LogRocket.init('ixpzlp/thetapad-2');
 
@@ -15,10 +17,12 @@ LogRocket.init('ixpzlp/thetapad-2');
 const App = () => {
     return (
         <AppContextProvider>
-            <div className="App">
-                <Navbar/>
-                <ThetaPad/>
-            </div>
+            <Provider store={store}>
+                <div className="App">
+                    <Navbar/>
+                    <ThetaPad/>
+                </div>
+            </Provider>
         </AppContextProvider>
     );
 }

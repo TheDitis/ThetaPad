@@ -3,9 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import {Shape, ShapeKind, ShapeMap} from "../types/shapes";
 import React, {useContext} from "react";
-import {PrimaryDispatch} from "../ThetaPad";
 import {SizeContext} from "../../App/AppContextProvider";
 import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";

@@ -79,6 +79,7 @@ export abstract class LineUtils {
     ): Line {
         const base = newShapeBase(x, y, ShapeKind.Line, color);
         const end = (x2 && y2) ? {x: x2, y: y2} : base.origin;
+
         return {
             ...base,
             start: base.origin,

@@ -8,6 +8,8 @@ import LengthIcon from "../../../../Icons/LengthIcon";
 import AngleIcon from "../../../../Icons/AngleIcon";
 import {Shape} from "../../../types/shapes";
 import RadiusIcon from "../../../../Icons/RadiusIcon";
+import {useSelector} from "react-redux";
+import {unitValSelector} from "../../../../../redux/selectors";
 
 // The icon to display for each property
 const iconMap = {
@@ -19,7 +21,7 @@ const iconMap = {
     diameter: null,
 }
 
-// The unit character that should be displayed for each property
+// The value character that should be displayed for each property
 const unitMap = {
     length: '',
     totalLength: '',
@@ -68,14 +70,14 @@ interface ShapeInfoItemProps {
  * @param {number} [value] - optional pre-calculated value for this property
  */
 const ShapeInfoItem: React.FC<ShapeInfoItemProps> = ({shape, property, value}) => {
-    const unit = 1 // TODO: reimplement unit here
+    const unit = useSelector(unitValSelector);
 
     /** @return {string} - A readable representation of shape[property] */
     const getFormattedValue = (): string => {
 
         let val = value === undefined ? shape[property] : value;
         if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
-            val = val / 1;
+            val = val / unit;
             return val.toFixed(unit === 1 ? 0 : 2)
         }
         return val.toFixed(1);

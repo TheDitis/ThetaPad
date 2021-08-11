@@ -3,10 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {PrimaryDispatch} from "../../ThetaPad";
-import {Shape, ShapeKind} from "../../types/shapes";
 import DrawModeSelect from "./DrawModeSelect";
-import {ChangeDrawModeAction} from "../../types/actions";
 
 // Component style properties
 const styles: {[property: string]: string} = {

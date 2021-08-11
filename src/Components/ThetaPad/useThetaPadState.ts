@@ -59,10 +59,10 @@ export {}
 // */
 //const useThetaPadState = () => {
 //    const [tempShape, setTempShape] = useState<Shape | null>(null);
-//    const [unit, setUnit] = useState<number>(1);
+//    const [value, setUnit] = useState<number>(1);
 //    const [drawMode, setDrawMode] = useState<ShapeKind>(ShapeKind.LineUtils)
 //    const [shapes, updateShapes] = useReducer(shapesReducer, {});
-////    const undoBuffer: Action[] = []; // TODO: IMPLEMENT THIS
+////    const undoBuffer: Action[] = [];
 //
 //    /**
 //     * The highest-level state-update dispatch function
@@ -253,7 +253,7 @@ export {}
 //    return {
 //        dispatch,
 //        tempShape,
-//        unit,
+//        value,
 //        handleCanvasClick,
 //        handleMouseMove,
 //        drawMode,

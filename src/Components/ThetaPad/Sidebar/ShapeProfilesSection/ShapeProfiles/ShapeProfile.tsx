@@ -4,7 +4,7 @@
  */
 import React from "react";
 import LineProfile from "./LineProfile";
-import {Line, ShapeKind, Shape} from "../../../types/shapes";
+import {Line, ShapeKind, Shape, LineUtils} from "../../../types/shapes";
 
 
 interface ShapeProfileProps {
@@ -13,6 +13,9 @@ interface ShapeProfileProps {
 }
 
 const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
+//    console.log("thisShapeSelector: ", thisShapeSelector)
+//    const shape = useSelector(thisShapeSelector);
+
     if (shape.kind === ShapeKind.Line) {
         const line = shape as Line;
         return <LineProfile line={line} index={index}/>
@@ -26,4 +29,17 @@ const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
     return null;
 }
 
+
 export default ShapeProfile;
+
+//export default React.memo(
+//    ShapeProfile,
+//    (prev, next) => {
+//        console.log("length: ", LineUtils.length_(prev.shape as Line))
+//        console.log("prev: ", prev);
+//        console.log("next: ", next);
+//        console.log("prev.shape === next.shape: ", prev.shape === next.shape);
+//
+//        return prev.shape === next.shape && prev.shapeId === next.shapeId && prev.index === next.index
+//    }
+//);

@@ -7,7 +7,7 @@ import unitReducer from "./slices/unitSlice";
 //export interface AppState {
 //    shapes: ShapeMap;
 //    tempShape: (Shape | null);
-//    unit: number;
+//    value: number;
 //    drawMode: ShapeKind
 //}
 

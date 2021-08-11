@@ -2,13 +2,10 @@
  * @file The root component for the actual drawing portion of the app
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
-//import useThetaPadState from "./useThetaPadState";
 import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
-//import Sidebar from "./Sidebar/Sidebar";
-import {Action} from "./types/actions";
 import {SizeContext} from "../App/AppContextProvider";
 import store from "../../redux/store";
 import {Provider} from "react-redux";
@@ -33,58 +30,19 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 `;
 
 
-/////---------------------------------------------------------------------------
-///     PRIMARY STATE TYPE:
-/////---------------------------------------------------------------------------
-
-export type PrimaryDispatch = (action: Action) => void
-
-
-export interface ThetaPadStateType {
-    dispatch: PrimaryDispatch;
-    unit: number;
-    handleCanvasClick;
-    handleMouseMove;
-    drawMode: ShapeKind;
-    shapes: ShapeMap;
-    tempShape: Shape | null;
-}
-
-
 
 /////---------------------------------------------------------------------------
 ///     COMPONENT DEFINITION:
 /////---------------------------------------------------------------------------
 
-//export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
-//export const UnitContext = React.createContext(1)
-
 const ThetaPad: React.FC = () => {
     const {height} = useContext(SizeContext);
-//    const thetaPadState = useThetaPadState();
-
-//    useEffect(() => {
-//        console.log("Rerendering")
-//        console.log(thetaPadState)
-//    }, [thetaPadState]);
-
 
     return (
-        <Provider store={store}>
-            {/*<DispatchContext.Provider value={thetaPadState.dispatch}>*/}
-            {/*    <UnitContext.Provider value={thetaPadState.unit}>*/}
-                    <ThetaPadRoot height={height}>
-                        <Sidebar/>
-                        <Canvas
-//                            tempShape={thetaPadState.tempShape}
-//                            onClick={thetaPadState.handleCanvasClick}
-//                            onMouseMove={thetaPadState.handleMouseMove}
-//                            shapes={thetaPadState.shapes}
-                        />
-                    </ThetaPadRoot>
-            {/*    </UnitContext.Provider>*/}
-            {/*</DispatchContext.Provider>*/}
-        </Provider>
+        <ThetaPadRoot height={height}>
+            <Sidebar/>
+            <Canvas/>
+        </ThetaPadRoot>
     )
 }
 
