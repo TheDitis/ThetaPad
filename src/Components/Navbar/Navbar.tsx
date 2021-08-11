@@ -19,6 +19,7 @@ const NavbarRoot = styled.div`
   h1 {
     margin: 0 20px;
     color: white;
+    font-size: 20pt;
   }
 `
 

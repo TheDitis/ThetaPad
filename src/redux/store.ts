@@ -1,27 +1,21 @@
 import {Shape, ShapeKind, ShapeMap} from "../Components/ThetaPad/types/shapes";
-import {configureStore, createStore} from "@reduxjs/toolkit";
-import {
-    Action,
-    ActionTarget,
-    CreateShapeAction,
-    ShapesUpdateAction,
-    TempShapeUpdateAction
-} from "../Components/ThetaPad/types/actions";
+import {configureStore} from "@reduxjs/toolkit";
 import shapesReducer from "./slices/shapesSlice";
 import tempShapeReducer from "./slices/tempShapeSlice";
-//import
+import unitReducer from "./slices/unitSlice";
 
-export interface AppState {
-    shapes: ShapeMap;
-    tempShape: (Shape | null);
-    unit: number;
-    drawMode: ShapeKind
-}
+//export interface AppState {
+//    shapes: ShapeMap;
+//    tempShape: (Shape | null);
+//    unit: number;
+//    drawMode: ShapeKind
+//}
 
 const store = configureStore({
     reducer: {
         shapes: shapesReducer,
         tempShape: tempShapeReducer,
+        unit: unitReducer,
     }
 })
 

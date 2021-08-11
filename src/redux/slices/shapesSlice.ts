@@ -1,80 +1,34 @@
-import {createAction, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
-import {ShapeMap, Shape} from "../../Components/ThetaPad/types/shapes";
-import {
-    CreateShapeAction,
-    RemoveShapeAction,
-    ShapesUpdateActionKind,
-    UpdateShapeAction
-} from "../../Components/ThetaPad/types/actions";
+import {createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
+import {ShapeMap} from "../../Components/ThetaPad/types/shapes";
 
-//export enum ShapesActionKind {
-//    Create = "Create",
-//    Update = "Update",
-//    Remove = "Remove",
-//}
+const initialState: ShapeMap = {};
 
-//export const createShape = createAction<Shape>(ShapesActionKind.Create);
-//export const updateShape = createAction<
-//    { target: string, payload: Partial<Shape> }
-//    >(ShapesActionKind.Update);
-//export const removeShape = createAction<string>(ShapesActionKind.Remove);
+const shapesSlice = createSlice({
+    name: "shapes",
+    initialState,
+    reducers: {
+        createShape(
+            shapes,
+            action
+        ) { shapes[action.payload.id] = action.payload },
 
-
-const shapesSlice = createSlice<
-        ShapeMap,
-        SliceCaseReducers<ShapeMap>,
-        "shapes"
-    >(
-    {
-        name: "shapes",
-        initialState: {},
-        reducers: {
-            createShape(
-                shapes,
-                action
-            ) { shapes[action.payload.id] = action.payload },
-
-            updateShape(
-                shapes,
-                action
-            ) {
-                shapes[action.payload.target] = Object.assign(
-                    {},
-                    shapes[action.payload.payload],
-                    action.payload,
-                )
-            },
-
-            removeShape(
-                shapes,
-                action
-            ) { delete shapes[action.payload] },
+        updateShape(
+            shapes,
+            action
+        ) {
+            shapes[action.payload.target] = Object.assign(
+                {},
+                shapes[action.payload.payload],
+                action.payload,
+            )
         },
-//        extraReducers: {
-//            [ShapesUpdateActionKind.Create]: (
-//                shapes,
-//                action: CreateShapeAction
-//            ) => { shapes[action.payload.id] = action.payload },
-//
-//            [ShapesUpdateActionKind.Update]: (
-//                shapes,
-//                action: UpdateShapeAction
-//            ) => {
-//                shapes[action.targetShape] = Object.assign(
-//                    {},
-//                    shapes[action.targetShape],
-//                    action.payload,
-//                )
-//            } ,
-//            //{ shapes[action.targetShape].update(action.payload) },
-//
-//            [ShapesUpdateActionKind.Remove]: (
-//                shapes,
-//                action: RemoveShapeAction
-//            ) => { delete shapes[action.targetShape] },
-//        }
+
+        removeShape(
+            shapes,
+            action
+        ) { delete shapes[action.payload] },
     }
-)
+})
 
 export const {createShape, updateShape, removeShape} = shapesSlice.actions;
 export default shapesSlice.reducer;

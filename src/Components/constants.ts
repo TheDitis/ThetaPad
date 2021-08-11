@@ -4,7 +4,7 @@
  */
 
 // Height of the navbar in px
-export const NAVBAR_HEIGHT = 70;
+export const NAVBAR_HEIGHT = 45;
 
 // Maximum width of the sidebar
 export const MAX_SIDEBAR_WIDTH = 450;

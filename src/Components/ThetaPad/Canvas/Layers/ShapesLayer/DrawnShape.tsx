@@ -12,14 +12,13 @@ import {SizeContext} from "../../../../App/AppContextProvider";
 interface DrawnShapeProps {
     shape: Shape;
 }
-
+// points={LineUtils.pointsTranslated(line, -sidebar, -navbar)}
 
 /**
  * Returns a Konva shape with the passed Shape object
  * @param {Shape} shape - the shape you want drawn on the canvas
  */
 const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
-    const {navbar, sidebar} = useContext(SizeContext)
 
     if (shape.kind === ShapeKind.Line) {
         const line: Line = shape as Line;
@@ -27,7 +26,7 @@ const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
             <KonvaLine
                 x={0}
                 y={0}
-                points={LineUtils.pointsTranslated(line, -sidebar, -navbar)}
+                points={LineUtils.points(line)}
                 stroke={line.color}
                 strokeWidth={2}
             />
