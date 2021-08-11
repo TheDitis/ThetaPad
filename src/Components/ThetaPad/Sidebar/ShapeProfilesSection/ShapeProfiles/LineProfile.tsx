@@ -5,21 +5,32 @@
 import React from "react";
 import {Line, LineUtils} from "../../../types/shapes";
 import ShapeProfileBase from "./ShapeProfileBase";
-//import ShapeInfoItem from "./ShapeInfoItem";
+import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";
 
 
-const LineInfoItems: React.FC<{shape: Line}> = (props) => (
-    <>
-{/*        {['length', 'angle'].map(propName => (*/}
-{/*//            <ShapeInfoItem*/}
-{/*//                key={uuid()}*/}
-{/*//                shape={props.shape}*/}
-{/*//                property={propName}*/}
-{/*//            />*/}
-{/*        ))}*/}
-    </>
-)
+const LineInfoItems: React.FC<{shape: Line}> = ({shape}) => {
+    const properties = {
+        'length': LineUtils.length_(shape),
+        'angle': LineUtils.angle(shape)
+    }
+
+    console.log("properties: ", properties)
+
+    return(
+        <>
+            {Object.entries(properties).map(([propName, value]) => (
+//            <div>hi</div>
+                <ShapeInfoItem
+                    key={uuid()}
+                    shape={shape}
+                    value={value}
+                    property={propName}
+                />
+            ))}
+        </>
+    )
+}
 
 
 interface LineProfileProps {
@@ -31,7 +42,7 @@ const LineProfile: React.FC<LineProfileProps> = ({line, index}) => (
     <ShapeProfileBase
         shape={line}
         index={index}
-        unitValue={LineUtils.getLength(line)}
+        unitValue={LineUtils.length_(line)}
         InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
     >
     </ShapeProfileBase>

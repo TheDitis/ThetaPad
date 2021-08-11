@@ -101,7 +101,7 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
 `
 
 const shapeIcons = {
-    "LineUtils": StraightLineIcon,
+    "Line": StraightLineIcon,
     "Poly": PolyLineIcon,
     "Circle": CircleIcon,
 }
@@ -124,6 +124,7 @@ interface ShapeProfileProps {
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {shape, index, unitValue, InfoItems= () => null}
 ) => {
+    console.log("SHAPE: ", shape)
 //    const unit = useContext(UnitContext);
 //    const dispatch = useContext(DispatchContext);
     const dispatch = useDispatch();

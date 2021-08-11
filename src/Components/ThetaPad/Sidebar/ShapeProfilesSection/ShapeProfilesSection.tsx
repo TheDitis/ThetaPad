@@ -18,9 +18,9 @@ const TempShapeProfile = (props) => {
     const numShapes = useSelector((state: RootState) => (
         Object.keys(state.shapes).length
     ))
-    return tempShape !== null && (
+    return tempShape !== null ? (
         <ShapeProfile shape={tempShape} index={numShapes + 1}/>
-    )
+    ) : null
 }
 
 
@@ -47,9 +47,8 @@ interface ShapeProfilesSectionProps {}
 const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (props) => {
     return (
         <ShapeProfilesSectionRoot>
-            {/*<CompletedShapesProfiles/>*/}
-            {/*{tempShape !== null && <ShapeProfile shape={tempShape} index={Object.keys(shapes).length}/>}*/}
-
+            <CompletedShapesProfiles/>
+            <TempShapeProfile/>
         </ShapeProfilesSectionRoot>
     )
 }

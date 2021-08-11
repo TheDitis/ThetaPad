@@ -3,10 +3,10 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {ShapeMap} from "../../types/shapes";
+//import {ShapeMap} from "../../types/shapes";
 import uuid from "react-uuid";
 import ShapeProfile from "./ShapeProfiles/ShapeProfile";
-import _ from "lodash";
+//import _ from "lodash";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
 

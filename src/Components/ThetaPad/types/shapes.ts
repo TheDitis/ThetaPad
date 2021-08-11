@@ -100,7 +100,11 @@ export abstract class LineUtils {
         ]
     }
 
-    static getLength(line: Line): number {
+    static length_(line: Line): number {
+        return PointUtils.distance(line.start, line.end)
+    }
+
+    static angle(line: Line): number {
         return PointUtils.distance(line.start, line.end)
     }
 }
