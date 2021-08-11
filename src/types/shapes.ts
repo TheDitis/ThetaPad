@@ -1,5 +1,4 @@
-
-export type ShapeMap = { [id: string]: Shape}
+export type ShapeMap = { [id: string]: Shape }
 
 // Subtypes of shape
 export enum ShapeKind {
@@ -7,12 +6,6 @@ export enum ShapeKind {
     Poly = "Poly",
     Circle = "Circle",
 }
-
-//export const ShapeKindOptions: {[label: string]: ShapeKind} = {
-//    Line: ShapeKind.Line,
-//    Poly: ShapeKind.Poly,
-//    Circle: ShapeKind.Circle,
-//}
 
 /** Represents a 2D point */
 export interface Point {
@@ -35,17 +28,6 @@ export abstract class PointUtils {
         ) * 180 / Math.PI
     )
 }
-
-//namespace PointManipulation {
-//    export const translate = (pt: Point, x: number, y: number) => {
-//        pt.x += x;
-//        pt.y += y;
-//    }
-//
-//    export const translated = (pt: Point, x: number, y: number): Point => {
-//        return {x: pt.x + x, y: pt.y + y};
-//    }
-//}
 
 const newShapeBase = (
     x: number,

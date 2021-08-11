@@ -2,10 +2,12 @@ import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "./store";
 import {Shape, ShapeMap} from "../types/shapes";
 import {UnitState} from "./slices/unitSlice";
+import {Dimensions} from "./slices/dimensionsSlice";
 
 type ShapesSelectorType = (RootState) => ShapeMap;
 type TempShapeSelectorType = (RootState) => Shape | null;
 type UnitSelectorType = (RootState) => UnitState;
+type DimensionsSelectorType = (RootState) => Dimensions
 
 export const shapesSelector: ShapesSelectorType = (state: RootState) =>
     state.shapes;
@@ -35,4 +37,23 @@ export const unitShapeSelector = createSelector(
 export const shapeCountSelector = createSelector(
     shapesSelector,
     (shapes) => Object.keys(shapes).length
+)
+
+
+export const dimensionsSelector: DimensionsSelectorType = (state: RootState) =>
+    state.dimensions
+
+export const appWidthSelector = createSelector(
+    dimensionsSelector,
+    (dimensions) => dimensions.width
+)
+
+export const appHeightSelector = createSelector(
+    dimensionsSelector,
+    (dimensions) => dimensions.height
+)
+
+export const sidebarWidthSelector = createSelector(
+    dimensionsSelector,
+    (dimensions) => dimensions.sidebar
 )

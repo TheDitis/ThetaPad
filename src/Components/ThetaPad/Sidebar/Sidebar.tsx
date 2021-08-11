@@ -3,10 +3,11 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React, {useContext} from "react";
-import {SizeContext} from "../../App/AppContextProvider";
+import React from "react";
 import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
+import {useSelector} from "react-redux";
+import {appWidthSelector} from "../../../redux/selectors";
 
 
 /////---------------------------------------------------------------------------
@@ -29,10 +30,11 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
 ///     COMPONENT:
 /////---------------------------------------------------------------------------
 
-interface SideBarProps {}
+interface SideBarProps {
+}
 
 const Sidebar: React.FC<SideBarProps> = (props) => {
-    const {width} = useContext(SizeContext);
+    const width = useSelector(appWidthSelector);
 
     return (
         <SidebarRoot width={width}>

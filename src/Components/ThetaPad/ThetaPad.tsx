@@ -2,11 +2,12 @@
  * @file The root component for the actual drawing portion of the app
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
-import {SizeContext} from "../App/AppContextProvider";
 import Sidebar from "./Sidebar/Sidebar";
+import {useSelector} from "react-redux";
+import {appHeightSelector} from "../../redux/selectors";
 
 /////---------------------------------------------------------------------------
 ///     STYLE:
@@ -33,7 +34,7 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 /////---------------------------------------------------------------------------
 
 const ThetaPad: React.FC = () => {
-    const {height} = useContext(SizeContext);
+    const height = useSelector(appHeightSelector);
 
     return (
         <ThetaPadRoot height={height}>

@@ -5,13 +5,18 @@ export interface UnitState {
     unitShape: string | null,
 }
 
-const initialState: UnitState = { value: 1, unitShape: null }
+const initialState: UnitState = {value: 1, unitShape: null}
 
-const unitSlice = createSlice( {
+interface SetUnitAction {
+    value: number,
+    id: string | null,
+}
+
+const unitSlice = createSlice({
     name: "unit",
     initialState,
     reducers: {
-        setUnit(state, action) {
+        setUnit(state, action: { payload: SetUnitAction }) {
             state.value = action.payload.value;
             state.unitShape = action.payload.id;
         },
@@ -22,5 +27,5 @@ const unitSlice = createSlice( {
     }
 })
 
-export const { setUnit, resetUnit } = unitSlice.actions;
+export const {setUnit, resetUnit} = unitSlice.actions;
 export default unitSlice.reducer;

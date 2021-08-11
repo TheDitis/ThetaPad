@@ -2,16 +2,17 @@
  * @file The drawing & image area component
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {LineUtils} from "../../../types/shapes";
-import {Dimensions, SizeContext} from "../../App/AppContextProvider";
-import {useDispatch} from "react-redux";
+import {Dimensions} from "../../../redux/slices/dimensionsSlice";
+import {useDispatch, useSelector} from "react-redux";
 import store, {AppDispatch} from "../../../redux/store";
 import {clearTempShape, createTempShape, updateTempShape} from "../../../redux/slices/tempShapeSlice";
 import {createShape} from "../../../redux/slices/shapesSlice";
 import StageWithReduxBridge from "./Layers/ShapesLayer/StageWithReduxBridge";
+import {dimensionsSelector} from "../../../redux/selectors";
 
 interface CanvasStyleProps {
     dimensions: Dimensions
@@ -42,7 +43,7 @@ interface CanvasProps {
 }
 
 const Canvas: React.FC<CanvasProps> = (() => {
-    const dimensions = useContext(SizeContext);
+    const dimensions = useSelector(dimensionsSelector);
     const dispatch = useDispatch<AppDispatch>();
 
     const handleClick = (e) => {

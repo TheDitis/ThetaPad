@@ -2,19 +2,15 @@ import {configureStore} from "@reduxjs/toolkit";
 import shapesReducer from "./slices/shapesSlice";
 import tempShapeReducer from "./slices/tempShapeSlice";
 import unitReducer from "./slices/unitSlice";
+import dimensionsReducer from "./slices/dimensionsSlice";
 
-//export interface AppState {
-//    shapes: ShapeMap;
-//    tempShape: (Shape | null);
-//    value: number;
-//    drawMode: ShapeKind
-//}
 
 const store = configureStore({
     reducer: {
         shapes: shapesReducer,
         tempShape: tempShapeReducer,
         unit: unitReducer,
+        dimensions: dimensionsReducer,
     }
 })
 
