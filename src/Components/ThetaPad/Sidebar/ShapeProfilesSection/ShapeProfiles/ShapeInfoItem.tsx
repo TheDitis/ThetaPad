@@ -44,12 +44,13 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
 
   .valueContainer {
     background-color: white;
-    width: 65px;
+    width: 55px;
     border-radius: 5px;
     margin-left: 8px;
     float: bottom;
+    font-size: 10pt;
     padding: 0;
-    padding-top: 2px;
+    //padding-top: 2px;
   }
 `
 
@@ -86,7 +87,7 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = ({shape, property, value}) =
 
     return (
         <ShapeInfoItemRoot>
-            <Icon size={0.23}/>
+            <Icon size={0.21}/>
             <div className={"valueContainer"}>
                 <p className={"value"}>{val}{unitChar}</p>
             </div>

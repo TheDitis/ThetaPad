@@ -13,4 +13,4 @@ export const MAX_SIDEBAR_WIDTH = 450;
 export const MIN_SIDEBAR_WIDTH = 300;
 
 // Height of the shape profiles when closed
-export const SHAPE_PROFILE_HEIGHT = 80;
+export const SHAPE_PROFILE_HEIGHT = 65;

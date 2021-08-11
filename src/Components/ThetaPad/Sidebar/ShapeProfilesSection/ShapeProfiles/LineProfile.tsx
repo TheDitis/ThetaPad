@@ -15,12 +15,10 @@ const LineInfoItems: React.FC<{shape: Line}> = ({shape}) => {
         'angle': LineUtils.angle(shape)
     }
 
-    console.log("properties: ", properties)
-
     return(
         <>
             {Object.entries(properties).map(([propName, value]) => (
-//            <div>hi</div>
+
                 <ShapeInfoItem
                     key={uuid()}
                     shape={shape}

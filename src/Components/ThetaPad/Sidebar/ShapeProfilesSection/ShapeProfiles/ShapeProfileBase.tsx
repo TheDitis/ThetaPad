@@ -65,19 +65,21 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-left: 20px;
+        padding-left: 15px;
         padding-right: 10px;
 
         .unitButton {
           color: ${props => props.isUnit ? "white" : "black"};
+          display: flex;
+          font-size: 9pt;
           border: 1px solid gray;
-          padding: 5px 10px;
+          padding: 4px 8px 2px 8px;
           border-radius: 8px;
           background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
         }
 
         .xButton {
-          font-size: 18pt;
+          font-size: 15pt;
           position: relative;
           top: -5px;
           line-height: 18pt;
@@ -140,7 +142,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
 //        }
     }
 
-    return ( // TODO: implement isUnit
+    return ( // TODO: re-implement isUnit
         <ShapeProfileRoot isUnit={false}>
             <div className={"leftSection"}>
 

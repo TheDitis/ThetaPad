@@ -105,7 +105,7 @@ export abstract class LineUtils {
     }
 
     static angle(line: Line): number {
-        return PointUtils.distance(line.start, line.end)
+        return PointUtils.angle(line.start, line.end)
     }
 }
 

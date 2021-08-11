@@ -7,8 +7,8 @@ import {Button, makeStyles} from "@material-ui/core";
 
 
 interface SelectButtonStyleProps {
-    width: number | undefined;
-    height: number | undefined;
+    width?: number;
+    height?: number;
 }
 
 // Get the base style that the button will have in either state
@@ -18,7 +18,8 @@ const selectButtonBase = (props: SelectButtonStyleProps) => ({
     color: "black",
     background: "white",
     margin: 10,
-    padding: "5px 25px",
+    padding: "3px 0px",
+    fontSize: "9pt",
 
     "&:hover": {
         background: "rgba(0, 255, 255, 0.6)",

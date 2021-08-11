@@ -41,16 +41,11 @@ const handleMouseMove = (e) => {
     }
 }
 
-interface CanvasProps {
-//    onClick;
-//    onMouseMove;
-}
+interface CanvasProps {}
 
 const Canvas: React.FC<CanvasProps> = ((props) => {
     const dimensions = useContext(SizeContext);
     const dispatch = useDispatch<AppDispatch>();
-
-//    const tempShape = useSelector<AppState>(state => state.tempShape)
 
     const handleClick = (e) => {
         console.log("e: ", e);
@@ -61,8 +56,6 @@ const Canvas: React.FC<CanvasProps> = ((props) => {
             completeTempShape();
         }
     }
-
-
 
     return (
         <CanvasRoot

@@ -8,7 +8,6 @@ import React from "react";
 import DrawnShape from "./DrawnShape";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
-import {Shape} from "../../../types/shapes";
 import {shapesSelector} from "../../../../../redux/selectors";
 
 const DrawnShapes = (props) => {

@@ -27,7 +27,7 @@ const DrawModeSelect: React.FC<DrawModeSelectProps> = (props) => (
         {['Line', 'Poly', 'Circle'].map(label => (
             <SelectButton
                 key={uuid()}
-                width={60}
+                width={50}
                 onClick={() => null}
                 selected={true}
             >
