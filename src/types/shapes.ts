@@ -7,6 +7,35 @@ export enum ShapeKind {
     Circle = "Circle",
 }
 
+
+
+export abstract class ShapeUtils {
+    static isLine(shape: Shape): shape is Line {
+        return shape.kind === ShapeKind.Line;
+    }
+
+    static isPoly(shape: Shape): shape is Poly {
+        return shape.kind === ShapeKind.Poly;
+    }
+
+    static isCircle(shape: Shape): shape is Circle {
+        return shape.kind === ShapeKind.Circle;
+    }
+
+    static newShapeTemplate = (
+        x: number,
+        y: number,
+        kind: ShapeKind,
+        color: string = "black"
+    ) => ({
+        id: Date.now().toString(),
+        kind,
+        origin: {x, y},
+        color
+    })
+}
+
+
 /** Represents a 2D point */
 export interface Point {
     x: number;
@@ -29,17 +58,6 @@ export abstract class PointUtils {
     )
 }
 
-const newShapeBase = (
-    x: number,
-    y: number,
-    kind: ShapeKind,
-    color: string = "black"
-): Shape => ({
-    id: Date.now().toString(),
-    kind,
-    origin: {x, y},
-    color
-})
 
 /** Base for all shape types */
 export interface Shape {
@@ -49,6 +67,7 @@ export interface Shape {
     color: string;
 }
 
+/** Utility class for Line Shapes */
 export abstract class LineUtils {
     static new(x: number, y: number): Line;
     static new(x: number, y: number, x2?: number, y2?: number): Line;
@@ -59,7 +78,7 @@ export abstract class LineUtils {
         y2?: number,
         color: string = "black"
     ): Line {
-        const base = newShapeBase(x, y, ShapeKind.Line, color);
+        const base = ShapeUtils.newShapeTemplate(x, y, ShapeKind.Line, color);
 
         let end = base.origin;
         let length = 0;
@@ -70,7 +89,6 @@ export abstract class LineUtils {
             length = PointUtils.distance(base.origin, end);
             angle = PointUtils.angle(base.origin, end);
         }
-//        const end = (x2 && y2) ? {x: x2, y: y2} : base.origin;
 
         return {
             ...base,
@@ -85,13 +103,6 @@ export abstract class LineUtils {
         return [
             line.start.x, line.start.y,
             line.end.x, line.end.y
-        ]
-    }
-
-    static pointsTranslated(line: Line, xAmt: number = 0, yAmt: number = 0) {
-        return [
-            line.start.x + xAmt, line.start.y + yAmt,
-            line.end.x + xAmt, line.end.y + yAmt
         ]
     }
 

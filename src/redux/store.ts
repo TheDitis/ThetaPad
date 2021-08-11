@@ -3,12 +3,14 @@ import shapesReducer from "./slices/shapesSlice";
 import tempShapeReducer from "./slices/tempShapeSlice";
 import unitReducer from "./slices/unitSlice";
 import dimensionsReducer from "./slices/dimensionsSlice";
+import drawModeReducer from "./slices/drawModeSlice";
 
 
 const store = configureStore({
     reducer: {
         shapes: shapesReducer,
         tempShape: tempShapeReducer,
+        drawMode: drawModeReducer,
         unit: unitReducer,
         dimensions: dimensionsReducer,
     }

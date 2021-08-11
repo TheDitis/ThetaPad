@@ -34,6 +34,9 @@ export const unitShapeSelector = createSelector(
 )
 
 
+export const drawModeSelector = (state) => state.drawMode;
+
+
 export const shapeCountSelector = createSelector(
     shapesSelector,
     (shapes) => Object.keys(shapes).length
@@ -57,3 +60,4 @@ export const sidebarWidthSelector = createSelector(
     dimensionsSelector,
     (dimensions) => dimensions.sidebar
 )
+
