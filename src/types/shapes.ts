@@ -1,3 +1,5 @@
+import {randomColor} from "../utils";
+
 export type ShapeMap = { [id: string]: Shape }
 
 // Subtypes of shape
@@ -7,33 +9,6 @@ export enum ShapeKind {
     Circle = "Circle",
 }
 
-
-
-export abstract class ShapeUtils {
-    static isLine(shape: Shape): shape is Line {
-        return shape.kind === ShapeKind.Line;
-    }
-
-    static isPoly(shape: Shape): shape is Poly {
-        return shape.kind === ShapeKind.Poly;
-    }
-
-    static isCircle(shape: Shape): shape is Circle {
-        return shape.kind === ShapeKind.Circle;
-    }
-
-    static newShapeTemplate = (
-        x: number,
-        y: number,
-        kind: ShapeKind,
-        color: string = "black"
-    ) => ({
-        id: Date.now().toString(),
-        kind,
-        origin: {x, y},
-        color
-    })
-}
 
 
 /** Represents a 2D point */
@@ -59,12 +34,52 @@ export abstract class PointUtils {
 }
 
 
+
 /** Base for all shape types */
 export interface Shape {
     id: string;
     kind: ShapeKind;
     origin: Point;
     color: string;
+}
+
+export abstract class ShapeUtils {
+    static isLine(shape: Shape): shape is Line {
+        return shape.kind === ShapeKind.Line;
+    }
+
+    static isPoly(shape: Shape): shape is Poly {
+        return shape.kind === ShapeKind.Poly;
+    }
+
+    static isCircle(shape: Shape): shape is Circle {
+        return shape.kind === ShapeKind.Circle;
+    }
+
+    static newShapeTemplate = (
+        x: number,
+        y: number,
+        kind: ShapeKind,
+        color?: string
+    ) => {
+        if (color === undefined) color = randomColor();
+        return {
+            id: Date.now().toString(),
+            kind,
+            origin: {x, y},
+            color
+        }
+    }
+}
+
+
+
+/** Represents a 2D line segment */
+export interface Line extends Shape {
+    start: Point;
+    end: Point;
+    length: number;
+    angle: number;
 }
 
 /** Utility class for Line Shapes */
@@ -76,7 +91,7 @@ export abstract class LineUtils {
         y: number,
         x2?: number,
         y2?: number,
-        color: string = "black"
+        color?: string
     ): Line {
         const base = ShapeUtils.newShapeTemplate(x, y, ShapeKind.Line, color);
 
@@ -115,18 +130,21 @@ export abstract class LineUtils {
     }
 }
 
-/** Represents a 2D line segment */
-export interface Line extends Shape {
-    start: Point;
-    end: Point;
-    length: number;
-    angle: number;
-}
+
 
 /** represents a line path with more than 2 points */
 export interface Poly extends Shape {
     points: Point[];
 }
+
+//export abstract class PolyUtils {
+//    static new(x: Point | Point[]): Poly;
+//    static new(x: Point | Point[], color?: string): Poly {
+//
+//    }
+//}
+
+
 
 /** represents a circle */
 export interface Circle extends Shape {

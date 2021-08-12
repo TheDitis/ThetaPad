@@ -5,17 +5,14 @@
 import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {LineUtils} from "../../../types/shapes";
 import {Dimensions} from "../../../redux/slices/dimensionsSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch} from "../../../redux/store";
-import {createTempShape} from "../../../redux/slices/tempShapeSlice";
+import {useSelector} from "react-redux";
 import StageWithReduxBridge from "./Layers/ShapesLayer/StageWithReduxBridge";
 import {dimensionsSelector} from "../../../redux/selectors";
-import {completeTempShape, handleMouseMove} from "./canvasClickHandlers";
+import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 
 interface CanvasStyleProps {
-    dimensions: Dimensions
+    dimensions: Dimensions;
 }
 
 const CanvasRoot = styled.div<CanvasStyleProps>`
@@ -31,29 +28,29 @@ interface CanvasProps {
 
 const Canvas: React.FC<CanvasProps> = (() => {
     const dimensions = useSelector(dimensionsSelector);
-    const dispatch = useDispatch<AppDispatch>();
+//    const dispatch = useDispatch<AppDispatch>();
 
-    const handleClick = (e) => {
-        if (e.type === "mousedown") {
-            dispatch(createTempShape(
-                LineUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
-            ));
-        }
-        if (e.type === "mouseup") {
-            completeTempShape();
-        }
-    }
+//    const handleClick = (e) => {
+//        if (e.type === "mousedown") {
+//            dispatch(createTempShape(
+//                LineUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
+//            ));
+//        }
+//        if (e.type === "mouseup") {
+//            completeTempShape();
+//        }
+//    }
 
     return (
         <CanvasRoot
             dimensions={dimensions}
-            onMouseDown={handleClick}
-            onMouseUp={handleClick}
+            onMouseDown={handleCanvasClick}
+            onMouseUp={handleCanvasClick}
             onMouseMove={handleMouseMove}
         >
             <StageWithReduxBridge
-                width={window.innerWidth}
-                height={window.innerHeight}
+                width={dimensions.width - dimensions.sidebar}
+                height={dimensions.height - dimensions.navbar}
             >
                 <ShapesLayer/>
             </StageWithReduxBridge>

@@ -4,7 +4,7 @@ import {ShapeKind} from "../../types/shapes";
 
 export type DrawModeType = ShapeKind.Line | ShapeKind.Poly | ShapeKind.Circle;
 
-const initialState: DrawModeType = ShapeKind.Line;
+let initialState: DrawModeType = ShapeKind.Line;
 
 //export const setDrawMode = createAction('drawMode/setDrawMode');
 

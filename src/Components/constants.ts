@@ -14,3 +14,30 @@ export const MIN_SIDEBAR_WIDTH = 300;
 
 // Height of the shape profiles when closed
 export const SHAPE_PROFILE_HEIGHT = 65;
+
+
+export const COLORS = [
+    "red",
+    "crimson",
+    "orangered",
+    "darkorange",
+    "orange",
+    "gold",
+    "yellow",
+    "greenyellow",
+    "lawngreen",
+    "limegreen",
+    "springgreen",
+    "mediumspringgreen",
+    "aquamarine",
+    "turquoise",
+    "aqua",
+    "deepskyblue",
+    "dodgerblue",
+    "mediumslateblue",
+    "mediumpurple",
+    "blueviolet",
+    "darkviolet",
+    "purple",
+    "mediumvioletred"
+]
