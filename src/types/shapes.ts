@@ -19,6 +19,10 @@ export interface Point {
 
 
 export abstract class PointUtils {
+    static new(x: number, y: number): Point {
+        return {x, y}
+    }
+
     static distance = (pt1: Point, pt2: Point): number => {
         const yDist = Math.abs(pt1.y - pt2.y);
         const xDist = Math.abs(pt1.x - pt2.x);
@@ -31,6 +35,13 @@ export abstract class PointUtils {
             pt2.x - pt1.x
         ) * 180 / Math.PI
     )
+
+    static isPoint = (pt: any): pt is Point => {
+        const keys = Object.keys(pt)
+        return keys.length == 2 && keys.includes('x') && keys.includes('y')
+    }
+
+    static copy = (pt: Point): Point => ({x: pt.x, y: pt.y})
 }
 
 
@@ -137,12 +148,25 @@ export interface Poly extends Shape {
     points: Point[];
 }
 
-//export abstract class PolyUtils {
-//    static new(x: Point | Point[]): Poly;
-//    static new(x: Point | Point[], color?: string): Poly {
-//
-//    }
-//}
+export abstract class PolyUtils {
+    static new(point: Point): Poly
+    static new(points: Point | Point[]): Poly;
+    static new(points: Point | Point[], color?: string): Poly {
+        if (PointUtils.isPoint(points)) points = [points];
+        if (points.length === 1) points.push({...points[0]})
+
+        const base = ShapeUtils.newShapeTemplate(
+            points[0].x, points[0].y,
+            ShapeKind.Poly,
+            color
+        )
+
+        return {
+            ...base,
+            points
+        }
+    }
+}
 
 
 
