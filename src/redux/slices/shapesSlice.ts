@@ -1,5 +1,5 @@
 import {createSelector, createSlice} from "@reduxjs/toolkit";
-import {ShapeMap} from "../../types/shapes";
+import {ShapeMap, ShapeUtils} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
 
 const initialState: ShapeMap = {};
@@ -12,7 +12,7 @@ const shapesSlice = createSlice({
             shapes,
             action
         ) {
-            shapes[action.payload.id] = action.payload
+            shapes[action.payload.id] = action.payload;
         },
 
         updateShape(
@@ -26,16 +26,28 @@ const shapesSlice = createSlice({
             )
         },
 
+        removePolyPoint(
+            shapes,
+            action: { payload: { target: string, index: number } }
+        ) {
+            const targetShape = shapes[action.payload.target];
+            if (ShapeUtils.isPoly(targetShape)) {
+                targetShape.points.splice(action.payload.index, 1);
+            } else {
+                console.error("removePolyPoint action dispatched on non-poly shape!");
+            }
+        },
+
         removeShape(
             shapes,
             action
         ) {
-            delete shapes[action.payload]
+            delete shapes[action.payload];
         },
     }
 })
 
-export const {createShape, updateShape, removeShape} = shapesSlice.actions;
+export const {createShape, updateShape, removePolyPoint, removeShape} = shapesSlice.actions;
 export default shapesSlice.reducer;
 
 const shapeIdSelector = (state, shapeId) => shapeId;

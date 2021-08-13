@@ -6,11 +6,13 @@ import './App.css';
 import ThetaPad from "../ThetaPad/ThetaPad";
 import Navbar from "../Navbar/Navbar";
 import React, {useEffect} from "react";
-import LogRocket from "logrocket";
 import {useDispatch} from "react-redux";
 import {setWindowDimensions} from "../../redux/slices/dimensionsSlice";
+import KeyListenerContainer from "../KeyListenerContainer";
+//import keyboardEventHandler from "../ThetaPad/keyboardEventHandler";
 
-LogRocket.init('ixpzlp/thetapad-2');
+//import LogRocket from "logrocket";
+//LogRocket.init('ixpzlp/thetapad-2');
 
 
 const App = () => {
@@ -29,20 +31,21 @@ const App = () => {
         }
 
         window.addEventListener('resize', updateDimensions);
+//        window.addEventListener('keydown', keyboardEventHandler);
 
         return () => {
             window.removeEventListener('resize', updateDimensions);
+//            window.removeEventListener('keydown', keyboardEventHandler);
         }
     }, [dispatch]);
 
 
     return (
-//        <AppContextProvider>
         <div className="App">
             <Navbar/>
             <ThetaPad/>
+            <KeyListenerContainer/>
         </div>
-//        </AppContextProvider>
     );
 }
 

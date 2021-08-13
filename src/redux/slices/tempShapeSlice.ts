@@ -27,6 +27,14 @@ const tempShapeSlice = createSlice({
             }
         },
 
+//        removePolyPoint(state: TempShapeType, action: { payload: number }) {
+//            if (state !== null && ShapeUtils.isPoly(state)) {
+//                state.points.splice(action.payload, 1);
+//            } else if (state !== null) {
+//                console.error("addPolyPoint action dispatched with non-poly tempShape");
+//            }
+//        },
+
         continuePolyDraw(state: TempShapeType, action: { payload: Point }) {
             if (state !== null && ShapeUtils.isPoly(state)) {
                 state.points[state.points.length - 1] = action.payload;

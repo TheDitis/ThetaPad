@@ -43,13 +43,9 @@ const handlePolyClick = (e) => {
                 PolyUtils.new({x: e.nativeEvent.layerX, y: e.nativeEvent.layerY})
             ))
         } else if (ShapeUtils.isPoly(tempShape)) {
-            store.dispatch(addPolyPoint({x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}))
-//            store.dispatch(updateTempShape({
-//                points: (tempShape as Poly).points.concat([
-//                    PointUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
-//                ])
-//            }))
-
+            store.dispatch(addPolyPoint(
+                {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
+            ))
         } else {
             store.dispatch(clearTempShape());
         }
@@ -59,12 +55,20 @@ const handlePolyClick = (e) => {
 export const moveTempShapeToShapes = () => {
     let tempShape: TempShapeType = store.getState().tempShape;
     if (tempShape !== null && shapeIsValid(tempShape)) {
+//        let shape: Shape = {...tempShape};
+//        if (ShapeUtils.isPoly(tempShape)) {
+//            Poly = {...(tempShape as Poly)};
+//            tempShape.points.splice()
+//        }
         store.dispatch(createShape(tempShape));
     }
     store.dispatch(clearTempShape());
 }
 
-const shapeIsValid = (shape: Shape): boolean => {
+export const shapeIsValid = (shape: TempShapeType): shape is Shape => {
+    if (shape === null) {
+        return false;
+    }
     if (ShapeUtils.isLine(shape)) {
         return shape.length >= MIN_LINE_LENGTH;
     }
