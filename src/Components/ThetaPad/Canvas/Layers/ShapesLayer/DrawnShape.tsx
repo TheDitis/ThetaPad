@@ -5,14 +5,13 @@
  */
 import {Line as KonvaLine} from "react-konva";
 import React from "react";
-import {Line, LineUtils, Shape, ShapeKind} from "../../../../../types/shapes";
+import {LineUtils, PolyUtils, Shape, ShapeUtils} from "../../../../../types/shapes";
 
 
 interface DrawnShapeProps {
     shape: Shape;
 }
 
-// points={LineUtils.pointsTranslated(line, -sidebar, -navbar)}
 
 /**
  * Returns a Konva shape with the passed Shape object
@@ -20,29 +19,28 @@ interface DrawnShapeProps {
  */
 const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
 
-    if (shape.kind === ShapeKind.Line) {
-        const line: Line = shape as Line;
+    if (ShapeUtils.isLine(shape)) {
         return (
             <KonvaLine
                 x={0}
                 y={0}
-                points={LineUtils.points(line)}
-                stroke={line.color}
+                points={LineUtils.points(shape)}
+                stroke={shape.color}
                 strokeWidth={2}
             />
         )
     }
-//    if (shape.isPoly()) {
-//        return (
-//            <KonvaLine
-//                x={0}
-//                y={0}
-//                points={shape.canvasPoints}
-//                stroke={shape.color}
-//                strokeWidth={2}
-//            />
-//        )
-//    }
+    if (ShapeUtils.isPoly(shape)) {
+        return (
+            <KonvaLine
+                x={0}
+                y={0}
+                points={PolyUtils.points(shape)}
+                stroke={shape.color}
+                strokeWidth={2}
+            />
+        )
+    }
 //    if (shape.isCircle()) {
 //        return (
 //            <KonvaCircle

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Shape} from "../../types/shapes";
+import {Point, Shape, ShapeUtils} from "../../types/shapes";
 
 export type TempShapeType = (Shape | null);
 
@@ -19,6 +19,22 @@ const tempShapeSlice = createSlice({
             action
         ) => Object.assign({}, state, action.payload),
 
+        addPolyPoint(state: TempShapeType, action: { payload: Point }) {
+            if (state !== null && ShapeUtils.isPoly(state)) {
+                state.points.push(action.payload);
+            } else if (state !== null) {
+                console.error("addPolyPoint action dispatched with non-poly tempShape");
+            }
+        },
+
+        continuePolyDraw(state: TempShapeType, action: { payload: Point }) {
+            if (state !== null && ShapeUtils.isPoly(state)) {
+                state.points[state.points.length - 1] = action.payload;
+            } else if (state !== null) {
+                console.error("continuePolyDraw action dispatched with non-poly tempShape");
+            }
+        },
+
         clearTempShape: () => null
     }
 })
@@ -26,6 +42,8 @@ const tempShapeSlice = createSlice({
 export const {
     createTempShape,
     updateTempShape,
+    addPolyPoint,
+    continuePolyDraw,
     clearTempShape
 } = tempShapeSlice.actions;
 

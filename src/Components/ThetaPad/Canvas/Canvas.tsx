@@ -30,16 +30,6 @@ const Canvas: React.FC<CanvasProps> = (() => {
     const dimensions = useSelector(dimensionsSelector);
 //    const dispatch = useDispatch<AppDispatch>();
 
-//    const handleClick = (e) => {
-//        if (e.type === "mousedown") {
-//            dispatch(createTempShape(
-//                LineUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
-//            ));
-//        }
-//        if (e.type === "mouseup") {
-//            completeTempShape();
-//        }
-//    }
 
     return (
         <CanvasRoot

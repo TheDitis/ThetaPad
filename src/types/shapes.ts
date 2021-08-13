@@ -1,4 +1,5 @@
 import {randomColor} from "../utils";
+import _ from "lodash";
 
 export type ShapeMap = { [id: string]: Shape }
 
@@ -26,7 +27,7 @@ export abstract class PointUtils {
     static distance = (pt1: Point, pt2: Point): number => {
         const yDist = Math.abs(pt1.y - pt2.y);
         const xDist = Math.abs(pt1.x - pt2.x);
-        return Math.sqrt((yDist ** 2) + (xDist ** 2))
+        return Math.sqrt((yDist ** 2) + (xDist ** 2));
     }
 
     static angle = (pt1: Point, pt2: Point): number => (
@@ -37,8 +38,8 @@ export abstract class PointUtils {
     )
 
     static isPoint = (pt: any): pt is Point => {
-        const keys = Object.keys(pt)
-        return keys.length == 2 && keys.includes('x') && keys.includes('y')
+        const keys = Object.keys(pt);
+        return keys.length === 2 && keys.includes('x') && keys.includes('y');
     }
 
     static copy = (pt: Point): Point => ({x: pt.x, y: pt.y})
@@ -165,6 +166,12 @@ export abstract class PolyUtils {
             ...base,
             points
         }
+    }
+
+    static points(poly: Poly): number[] {
+        return _.flatMap(poly.points, (pt) => {
+            return [pt.x, pt.y];
+        })
     }
 }
 

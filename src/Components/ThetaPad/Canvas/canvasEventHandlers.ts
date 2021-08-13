@@ -1,15 +1,26 @@
-import {clearTempShape, createTempShape, TempShapeType, updateTempShape} from "../../../redux/slices/tempShapeSlice";
+import {
+    addPolyPoint,
+    clearTempShape,
+    continuePolyDraw,
+    createTempShape,
+    TempShapeType,
+    updateTempShape
+} from "../../../redux/slices/tempShapeSlice";
 import store from "../../../redux/store";
 import {createShape} from "../../../redux/slices/shapesSlice";
-import {Line, LineUtils, Point, PointUtils, Poly, PolyUtils, ShapeKind, ShapeUtils} from "../../../types/shapes";
+import {Line, LineUtils, Poly, PolyUtils, Shape, ShapeKind, ShapeUtils} from "../../../types/shapes";
 import {DrawModeType} from "../../../redux/slices/drawModeSlice";
 import {MouseEventHandler} from "react";
+import {MIN_CIRCLE_RADIUS, MIN_LINE_LENGTH, MIN_POLY_POINTS} from "../../constants";
 
 
 export const handleCanvasClick: MouseEventHandler = (e) => {
-    console.log(e)
     const drawMode: DrawModeType = store.getState().drawMode;
-    if (drawMode === ShapeKind.Line) handleLineClick(e);
+    if (drawMode === ShapeKind.Line) {
+        handleLineClick(e);
+    } else if (drawMode === ShapeKind.Poly) {
+        handlePolyClick(e);
+    }
 }
 
 const handleLineClick = (e) => {
@@ -19,23 +30,25 @@ const handleLineClick = (e) => {
         ));
     }
     if (e.type === "mouseup") {
-        completeTempShape();
+        moveTempShapeToShapes();
     }
 }
 
 const handlePolyClick = (e) => {
+    console.log(e)
     let tempShape: TempShapeType = store.getState().tempShape;
-    if (e.type === "mouseDown") {
+    if (e.type === "mousedown") {
         if (tempShape === null) {
             store.dispatch(createTempShape(
                 PolyUtils.new({x: e.nativeEvent.layerX, y: e.nativeEvent.layerY})
             ))
         } else if (ShapeUtils.isPoly(tempShape)) {
-            store.dispatch(updateTempShape({
-                points: (tempShape as Poly).points.concat([
-                    PointUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
-                ])
-            }))
+            store.dispatch(addPolyPoint({x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}))
+//            store.dispatch(updateTempShape({
+//                points: (tempShape as Poly).points.concat([
+//                    PointUtils.new(e.nativeEvent.layerX, e.nativeEvent.layerY)
+//                ])
+//            }))
 
         } else {
             store.dispatch(clearTempShape());
@@ -43,14 +56,26 @@ const handlePolyClick = (e) => {
     }
 }
 
-const completeTempShape = () => {
+export const moveTempShapeToShapes = () => {
     let tempShape: TempShapeType = store.getState().tempShape;
-    if (tempShape !== null) {
+    if (tempShape !== null && shapeIsValid(tempShape)) {
         store.dispatch(createShape(tempShape));
-        store.dispatch(clearTempShape());
     }
+    store.dispatch(clearTempShape());
 }
 
+const shapeIsValid = (shape: Shape): boolean => {
+    if (ShapeUtils.isLine(shape)) {
+        return shape.length >= MIN_LINE_LENGTH;
+    }
+    if (ShapeUtils.isPoly(shape)) {
+        return shape.points.length > MIN_POLY_POINTS;
+    }
+    if (ShapeUtils.isCircle(shape)) {
+        return shape.r > MIN_CIRCLE_RADIUS;
+    }
+    return false;
+}
 
 
 export const handleMouseMove = (e) => {
@@ -73,10 +98,7 @@ export const handleLineMouseMove = (e, tempShape: Line) => {
 }
 
 export const handlePolyMouseMove = (e, tempShape: Poly) => {
-    const oldPoints: Point[] = (tempShape as Poly).points;
-    oldPoints[oldPoints.length - 1] = {
-        x: e.nativeEvent.layerX,
-        y: e.nativeEvent.layerY
-    };
-    store.dispatch(updateTempShape({points: oldPoints}));
+    store.dispatch(continuePolyDraw(
+        {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
+    ))
 }

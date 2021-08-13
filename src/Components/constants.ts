@@ -41,3 +41,12 @@ export const COLORS = [
     "purple",
     "mediumvioletred"
 ]
+
+// Minimum length of line in px to be valid
+export const MIN_LINE_LENGTH = 8;
+
+// Minimum number of points in a poly line for it to be valid
+export const MIN_POLY_POINTS = 2;
+
+// Minimum radius of circle in px to be valid
+export const MIN_CIRCLE_RADIUS = 5;
