@@ -34,7 +34,7 @@ const shapesSlice = createSlice({
             if (ShapeUtils.isPoly(targetShape)) {
                 targetShape.points.splice(action.payload.index, 1);
             }
-            {
+            else {
                 console.error("removePolyPoint action dispatched on non-poly shape!");
             }
         },

@@ -150,8 +150,6 @@ export interface Poly extends Shape {
 }
 
 export abstract class PolyUtils {
-    static new(point: Point): Poly
-    static new(points: Point | Point[]): Poly;
     static new(points: Point | Point[], color?: string): Poly {
         if (PointUtils.isPoint(points)) points = [points];
         if (points.length === 1) points.push({...points[0]})
@@ -180,4 +178,18 @@ export abstract class PolyUtils {
 /** represents a circle */
 export interface Circle extends Shape {
     r: number;
+}
+
+export abstract class CircleUtils {
+    static new(center: Point, color?: string): Circle {
+        const base = ShapeUtils.newShapeTemplate(
+            center.x, center.y,
+            ShapeKind.Circle,
+            color
+        );
+        return {
+            ...base,
+            r: 0
+        }
+    }
 }
