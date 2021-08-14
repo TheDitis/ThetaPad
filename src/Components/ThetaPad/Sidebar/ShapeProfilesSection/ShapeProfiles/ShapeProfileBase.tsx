@@ -134,7 +134,8 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     const toggleUnit = () => {
         if (shape.id !== unit.unitShape) {
             dispatch(setUnit({value: unitValue, id: shape.id}));
-        } else {
+        }
+        else {
             dispatch(resetUnit());
         }
     }
