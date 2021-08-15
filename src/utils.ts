@@ -5,3 +5,6 @@ export const randomItem = <T>(array: T[]): T => (
 )
 
 export const randomColor = (): string => randomItem(COLORS);
+
+
+export const sum = (arr: number[]) => arr.reduce((acc, val) => acc + val)

@@ -151,7 +151,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         <Icon/>
                     </div>
                     <div className={"labelAndControls"}>
-                        <h3>{shape.kind} {index}</h3>
+                        <h3>{shape.kind} {index + 1}</h3>
                         <button
                             className={"unitButton"}
                             onClick={toggleUnit}

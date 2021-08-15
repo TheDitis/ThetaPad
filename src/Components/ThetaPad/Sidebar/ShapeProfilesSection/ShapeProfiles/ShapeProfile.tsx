@@ -4,8 +4,9 @@
  */
 import React from "react";
 import LineProfile from "./LineProfile";
-import {Line, Shape, ShapeKind} from "../../../../../types/shapes";
-
+import {Line, Shape, ShapeUtils} from "../../../../../types/shapes";
+import PolyLineProfile from "./PolyLineProfile";
+import CircleProfile from "./CircleProfile";
 
 interface ShapeProfileProps {
     shape: Shape;
@@ -16,16 +17,16 @@ const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
 //    console.log("thisShapeSelector: ", thisShapeSelector)
 //    const shape = useSelector(thisShapeSelector);
 
-    if (shape.kind === ShapeKind.Line) {
+    if (ShapeUtils.isLine(shape)) {
         const line = shape as Line;
         return <LineProfile line={line} index={index}/>
     }
-//    if (shape.isPoly()) {
-//        return <PolyLineProfile line={shape} index={index}/>
-//    }
-//    if (shape.isCircle()) {
-//        return <CircleProfile circle={shape} index={index}/>
-//    }
+    if (ShapeUtils.isPoly(shape)) {
+        return <PolyLineProfile line={shape} index={index}/>
+    }
+    if (ShapeUtils.isCircle(shape)) {
+        return <CircleProfile circle={shape} index={index}/>;
+    }
     return null;
 }
 

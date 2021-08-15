@@ -18,6 +18,7 @@ const iconMap = {
     angle: AngleIcon,
     averageAngle: AngleIcon,
     radius: RadiusIcon,
+    r: RadiusIcon,
     diameter: null,
 }
 
@@ -28,6 +29,7 @@ const unitMap = {
     averageAngle: '°',
     angle: '°',
     radius: '',
+    r: '',
     diameter: '',
 }
 

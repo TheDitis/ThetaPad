@@ -6,11 +6,10 @@ import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {Dimensions} from "../../../redux/slices/dimensionsSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import StageWithReduxBridge from "./Layers/ShapesLayer/StageWithReduxBridge";
 import {dimensionsSelector} from "../../../redux/selectors";
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
-import {AppDispatch} from "../../../redux/store";
 
 interface CanvasStyleProps {
     dimensions: Dimensions;
@@ -29,15 +28,14 @@ interface CanvasProps {
 
 const Canvas: React.FC<CanvasProps> = (() => {
     const dimensions = useSelector(dimensionsSelector);
-    const dispatch = useDispatch<AppDispatch>();
 
 
     return (
         <CanvasRoot
             dimensions={dimensions}
-            onMouseDown={handleCanvasClick(dispatch)}
-            onMouseUp={handleCanvasClick(dispatch)}
-            onMouseMove={handleMouseMove(dispatch)}
+            onMouseDown={handleCanvasClick}
+            onMouseUp={handleCanvasClick}
+            onMouseMove={handleMouseMove}
         >
             <StageWithReduxBridge
                 width={dimensions.width - dimensions.sidebar}

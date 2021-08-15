@@ -1,4 +1,4 @@
-import {randomColor} from "../utils";
+import {randomColor, sum} from "../utils";
 import _ from "lodash";
 
 export type ShapeMap = { [id: string]: Shape }
@@ -147,12 +147,19 @@ export abstract class LineUtils {
 /** represents a line path with more than 2 points */
 export interface Poly extends Shape {
     points: Point[];
+    lengths: number[];
+    totalLength: number;
+    angles: number[];
 }
 
 export abstract class PolyUtils {
     static new(points: Point | Point[], color?: string): Poly {
         if (PointUtils.isPoint(points)) points = [points];
         if (points.length === 1) points.push({...points[0]})
+
+        const lengths = PolyUtils.calcLengths(points);
+        const angles = PolyUtils.calcAngles(points);
+
 
         const base = ShapeUtils.newShapeTemplate(
             points[0].x, points[0].y,
@@ -162,7 +169,10 @@ export abstract class PolyUtils {
 
         return {
             ...base,
-            points
+            points,
+            lengths,
+            totalLength: sum(lengths),
+            angles
         }
     }
 
@@ -171,6 +181,25 @@ export abstract class PolyUtils {
             return [pt.x, pt.y];
         })
     }
+
+    static calcLengths = (points: Point[]): number[] => (
+        points.reduce((acc: number[], pt: Point, i: number, arr: Point[]) => {
+            if (i < arr.length - 1) {
+                acc.push(PointUtils.distance(pt, arr[i + 1]))
+            }
+            return acc;
+        }, [])
+    )
+
+    static calcAngles = (points: Point[]): number[] => (
+        points.reduce((acc: number[], pt: Point, i: number, arr: Point[]) => {
+            console.error("HERE")
+            if (i < arr.length - 1) {
+                acc.push(PointUtils.angle(pt, arr[i + i]));
+            }
+            return acc;
+        }, [])
+    )
 }
 
 
