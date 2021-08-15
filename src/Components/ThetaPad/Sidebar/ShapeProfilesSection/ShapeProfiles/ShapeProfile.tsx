@@ -14,8 +14,6 @@ interface ShapeProfileProps {
 }
 
 const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
-//    console.log("thisShapeSelector: ", thisShapeSelector)
-//    const shape = useSelector(thisShapeSelector);
 
     if (ShapeUtils.isLine(shape)) {
         const line = shape as Line;
@@ -32,15 +30,3 @@ const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
 
 
 export default ShapeProfile;
-
-//export default React.memo(
-//    ShapeProfile,
-//    (prev, next) => {
-//        console.log("length: ", LineUtils.length_(prev.shape as Line))
-//        console.log("prev: ", prev);
-//        console.log("next: ", next);
-//        console.log("prev.shape === next.shape: ", prev.shape === next.shape);
-//
-//        return prev.shape === next.shape && prev.shapeId === next.shapeId && prev.index === next.index
-//    }
-//);

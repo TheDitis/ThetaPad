@@ -9,9 +9,10 @@ import DrawnShape from "./DrawnShape";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 import {shapesSelector} from "../../../../../redux/selectors";
+import {ShapeMap} from "../../../../../redux/slices/shapesSlice";
 
 const DrawnShapes = (props) => {
-    const shapes = useSelector(shapesSelector);
+    const shapes: ShapeMap = useSelector(shapesSelector);
     return (
         <>
             {Object.values(shapes).map((shape) => (

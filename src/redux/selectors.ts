@@ -1,8 +1,9 @@
 import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "./store";
-import {Shape, ShapeMap} from "../types/shapes";
+import {Shape} from "../types/shapes";
 import {UnitState} from "./slices/unitSlice";
 import {Dimensions} from "./slices/dimensionsSlice";
+import {ShapeMap} from "./slices/shapesSlice";
 
 type ShapesSelectorType = (RootState) => ShapeMap;
 type TempShapeSelectorType = (RootState) => Shape | null;

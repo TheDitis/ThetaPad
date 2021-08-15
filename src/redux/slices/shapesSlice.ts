@@ -1,6 +1,8 @@
 import {createSelector, createSlice} from "@reduxjs/toolkit";
-import {ShapeMap, ShapeUtils} from "../../types/shapes";
+import {Shape, ShapeUtils} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
+
+export type ShapeMap = { [id: string]: Shape }
 
 const initialState: ShapeMap = {};
 

@@ -8,11 +8,12 @@ import ShapeProfile from "./ShapeProfiles/ShapeProfile";
 import {useSelector} from "react-redux";
 import {shapesSelector} from "../../../../redux/selectors";
 
-//const CompletedShapeProfile = connect(mapShapeToPropsWithSelector)(ShapeProfile);
 
-interface CompletedShapesProfilesProps {}
+interface CompletedShapesProfilesProps {
+}
 
-const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = (props) => {
+
+const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = () => {
     const shapes = useSelector(shapesSelector);
 
     return (
@@ -26,24 +27,3 @@ const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = (props) 
 
 
 export default CompletedShapesProfiles;
-
-
-//export default React.memo(
-//    CompletedShapesProfiles,
-//    (prev, next) => {
-//        const prevIds = Object.keys(prev.shapes);
-//        const nextIds = Object.keys(prev.shapes);
-//        console.log(prevIds)
-//        console.log(nextIds)
-//        if (prevIds.length !== nextIds.length) {
-//            console.log("shape added or removed")
-//            return false;
-//        }
-//        for (let [id1, id2] of _.zip(prevIds, nextIds)) {
-//            console.log(id1, id2)
-//            console.log(id1 === id2)
-//            if (id1 !== id2) return false;
-//        }
-//        return true;
-//    }
-//);
