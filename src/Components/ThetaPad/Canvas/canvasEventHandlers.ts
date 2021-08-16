@@ -1,3 +1,7 @@
+/** canvasEventHandlers.ts
+ * @file Holds mouse-event handlers for the Canvas component
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {
     addPolyPoint,
     clearTempShape,
@@ -28,6 +32,10 @@ import {MIN_CIRCLE_RADIUS, MIN_LINE_LENGTH, MIN_POLY_POINTS} from "../../constan
 ///     CLICK HANDLERS:
 /////---------------------------------------------------------------------------
 
+/**
+ * Primary click handler switch for both mousedown and mouseup events
+ * @param {React.MouseEvent<Element>} e - mousedown or mouseup click event
+ */
 export const handleCanvasClick: MouseEventHandler = (e) => {
     const drawMode: DrawModeType = store.getState().drawMode;
     if (drawMode === ShapeKind.Line) {
@@ -41,6 +49,10 @@ export const handleCanvasClick: MouseEventHandler = (e) => {
     }
 }
 
+/**
+ * Handles click events when in 'Line' drawMode
+ * @param e - React synthetic click event
+ */
 const handleLineClick = (e) => {
     if (e.type === "mousedown") {
         store.dispatch(createTempShape(
@@ -48,10 +60,14 @@ const handleLineClick = (e) => {
         ));
     }
     if (e.type === "mouseup") {
-        moveTempShapeToShapes();
+        endTempShapeDraw();
     }
 }
 
+/**
+ * Handles click events when in 'Poly' drawMode
+ * @param e - React synthetic click event
+ */
 const handlePolyClick = (e) => {
     let tempShape: TempShapeType = store.getState().tempShape;
     if (e.type === "mousedown") {
@@ -71,18 +87,25 @@ const handlePolyClick = (e) => {
     }
 }
 
+/**
+ * Handles click events when in 'Circle' drawMode
+ * @param e - React synthetic click event
+ */
 const handleCircleClick = (e) => {
     const point = {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
     if (e.type === "mousedown") {
         store.dispatch(createTempShape(CircleUtils.new(point)))
     }
     else {
-        moveTempShapeToShapes()
+        endTempShapeDraw()
     }
 }
 
-
-export const moveTempShapeToShapes = () => {
+/**
+ * Checks if the tempShape is substantial, and if so, moves it to shapes. It
+ * resets tempShape to null in either case
+ */
+export const endTempShapeDraw = () => {
     let tempShape: TempShapeType = store.getState().tempShape;
     if (tempShape !== null && shapeIsValid(tempShape)) {
         store.dispatch(createShape(tempShape));
@@ -90,6 +113,12 @@ export const moveTempShapeToShapes = () => {
     store.dispatch(clearTempShape());
 }
 
+/**
+ * Checks if the passed shape is a shape at all, and if its substantial if it is
+ * @param {TempShapeType} shape - the Shape (or null) to check for validity
+ * @return {shape is Shape} - whether or not the shape is a valid and
+ *      substantial shape
+ */
 export const shapeIsValid = (shape: TempShapeType): shape is Shape => {
     if (shape === null) {
         return false;
@@ -113,6 +142,10 @@ export const shapeIsValid = (shape: TempShapeType): shape is Shape => {
 /////---------------------------------------------------------------------------
 
 
+/**
+ * Primary mouse-event handler switch for movement events
+ * @param e - mouse event
+ */
 export const handleMouseMove = (e) => {
     const tempShape = store.getState().tempShape;
     if (tempShape !== null) {
@@ -128,7 +161,11 @@ export const handleMouseMove = (e) => {
     }
 }
 
-
+/**
+ * Handles mouse-move events when in 'Line' drawMode
+ * @param e - mouse event
+ * @param {Line} tempShape - the current tempShape being drawn
+ */
 const handleLineMouseMove = (e, tempShape: Line) => {
     store.dispatch(updateTempShape({
         end: {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY},
@@ -137,12 +174,21 @@ const handleLineMouseMove = (e, tempShape: Line) => {
     }))
 }
 
+/**
+ * Handles mouse-move events when in 'Poly' drawMode
+ * @param e - mouse event
+ */
 const handlePolyMouseMove = (e) => {
     store.dispatch(continuePolyDraw(
         {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
     ))
 }
 
+/**
+ * Handles mouse-move events when in 'Circle' drawMode
+ * @param e - mouse event
+ * @param {Circle} tempShape - the current tempShape being drawn
+ */
 const handleCircleMouseMove = (e, tempShape: Circle) => {
     const newPt = {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
     store.dispatch(updateTempShape(

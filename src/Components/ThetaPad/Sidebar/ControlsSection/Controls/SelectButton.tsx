@@ -27,6 +27,7 @@ const selectButtonBase = (props: SelectButtonStyleProps) => ({
     }
 })
 
+// create style hook for the Button in SelectButton below
 const useStyles = makeStyles({
     // Unselected styles, no different from base
     SelectButton: selectButtonBase,
@@ -44,7 +45,6 @@ const useStyles = makeStyles({
 })
 
 
-
 interface SelectButtonProps {
     onClick: () => void;
     selected: boolean;
@@ -54,8 +54,13 @@ interface SelectButtonProps {
 
 
 /**
- * A button that indicates whether or not it's selected
- * @param {React.PropsWithChildren<SelectButtonProps>} props
+ * Wrapper for Material UI Button with conditional styling based on 'selected'
+ * prop. Used in ControlsSection in the Sidebar
+ * @param {boolean} selected - whether or not this button is 'selected'
+ * @param {() => void} onClick - function to run when the button is clicked
+ * @param {number | undefined} [width] - width of the button
+ * @param {number | undefined} [height] - height of the button
+ * @return {JSX.Element} - Material UI Button styled based on selected prop
  */
 const SelectButton: React.FC<SelectButtonProps> = (
     {selected, onClick, width, height, children}

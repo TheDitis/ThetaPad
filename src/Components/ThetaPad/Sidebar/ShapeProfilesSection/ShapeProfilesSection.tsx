@@ -8,9 +8,7 @@ import CompletedShapesProfiles from "./CompletedShapesProfiles";
 import {SHAPE_PROFILE_HEIGHT} from "../../../constants";
 import TempShapeProfile from "./TempShapeProfile";
 
-interface ShapeProfilesSectionStyleProps {}
-
-const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
+const ShapeProfilesSectionRoot = styled.div`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -24,9 +22,12 @@ const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
 `
 
 
-interface ShapeProfilesSectionProps {}
-
-const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (props) => {
+/**
+ * Section of the Sidebar that holds the profiles for all shapes
+ * @return {JSX.Element} - a flex-column div taking up most of the Sidebar that
+ *      holds all of the shape profiles
+ */
+const ShapeProfilesSection: React.FC = () => {
     return (
         <ShapeProfilesSectionRoot>
             <CompletedShapesProfiles/>

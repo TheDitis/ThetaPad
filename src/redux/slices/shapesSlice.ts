@@ -1,33 +1,39 @@
+/** shapesSlice.ts
+ * @file Redux slice containing map of drawn shapes
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {createSelector, createSlice} from "@reduxjs/toolkit";
-import {Shape, ShapeUtils} from "../../types/shapes";
+import {PartialShape, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
 
 export type ShapeMap = { [id: string]: Shape }
 
 const initialState: ShapeMap = {};
 
+/** Slice containing an object full of completed shapes */
 const shapesSlice = createSlice({
     name: "shapes",
     initialState,
     reducers: {
+        /** Add a new Shape */
         createShape(
-            shapes,
-            action
+            shapes: ShapeMap,
+            action: { payload: ValidShape }
         ) {
             shapes[action.payload.id] = action.payload;
         },
-
+        /** Update an existing Shape */
         updateShape(
-            shapes,
-            action
+            shapes: ShapeMap,
+            action: { payload: { target: string, newValues: PartialShape } }
         ) {
             shapes[action.payload.target] = Object.assign(
                 {},
-                shapes[action.payload.payload],
-                action.payload,
+                shapes[action.payload.target],
+                action.payload.newValues,
             )
         },
-
+        /** Remove a point from a poly line by index */
         removePolyPoint(
             shapes,
             action: { payload: { target: string, index: number } }
@@ -40,7 +46,7 @@ const shapesSlice = createSlice({
                 console.error("removePolyPoint action dispatched on non-poly shape!");
             }
         },
-
+        /** Remove a shape by id */
         removeShape(
             shapes,
             action

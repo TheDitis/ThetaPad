@@ -8,25 +8,35 @@ import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";
 import {Circle} from "../../../../../types/shapes";
 
-
-const CircleInfoItems: React.FC<{ shape: Circle }> = (props) => (
+/**
+ * Renders information items relevant to Circle objects. Used in CircleProfile
+ * only, passed as a prop to ShapeProfileBase
+ * @param {Circle} shape - Circle to get the info from
+ * @return {JSX.Element} - fragment of ShapeInfoItems
+ */
+const CircleInfoItems: React.FC<{ shape: Circle }> = ({shape}) => (
     <>
         {['r'].map(propName => (
             <ShapeInfoItem
                 key={uuid()}
-                shape={props.shape}
+                shape={shape}
                 property={propName}
             />
         ))}
     </>
 )
 
-
 interface CircleProfileProps {
     circle: Circle;
     index: number;
 }
 
+/**
+ * ShapeProfile subtype specific to Circle objects
+ * @param {Circle} circle - Circle object this profile will be linked to
+ * @param {number} index - the index of this ShapeProfile in the rendered array
+ * @return {JSX.Element} - profile for the given Circle object
+ */
 const CircleProfile: React.FC<CircleProfileProps> = ({circle, index}) => (
     <ShapeProfileBase
         shape={circle}

@@ -15,7 +15,7 @@ export const MIN_SIDEBAR_WIDTH = 300;
 // Height of the shape profiles when closed
 export const SHAPE_PROFILE_HEIGHT = 65;
 
-
+// Static default color options
 export const COLORS = [
     "red",
     "crimson",

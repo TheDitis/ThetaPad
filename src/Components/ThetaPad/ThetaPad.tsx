@@ -9,9 +9,6 @@ import Sidebar from "./Sidebar/Sidebar";
 import {useSelector} from "react-redux";
 import {appHeightSelector} from "../../redux/selectors";
 
-/////---------------------------------------------------------------------------
-///     STYLE:
-/////---------------------------------------------------------------------------
 
 interface ThetaPadStyleProps {
     height: number;
@@ -28,11 +25,10 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 `;
 
 
-
-/////---------------------------------------------------------------------------
-///     COMPONENT DEFINITION:
-/////---------------------------------------------------------------------------
-
+/**
+ * The main section of the app with all the drawing functionality
+ * @return {JSX.Element} -  full-width div containing the Sidebar and Canvas
+ */
 const ThetaPad: React.FC = () => {
     const height = useSelector(appHeightSelector);
 

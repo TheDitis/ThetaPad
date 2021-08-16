@@ -1,3 +1,7 @@
+/** store.ts
+ * @file Redux store for the app
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {configureStore} from "@reduxjs/toolkit";
 import shapesReducer from "./slices/shapesSlice";
 import tempShapeReducer from "./slices/tempShapeSlice";

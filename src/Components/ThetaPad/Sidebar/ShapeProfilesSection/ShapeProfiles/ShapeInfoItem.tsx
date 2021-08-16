@@ -34,7 +34,6 @@ const unitMap = {
 }
 
 interface ShapeInfoItemStyleProps {
-
 }
 
 const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
@@ -54,7 +53,6 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
     float: bottom;
     font-size: 10pt;
     padding: 0;
-    //padding-top: 2px;
   }
 `
 
@@ -71,14 +69,18 @@ interface ShapeInfoItemProps {
  * @param {string} property - the property of 'shape' you are interested in
  * @param {number} [value] - optional pre-calculated value for this property
  */
-const ShapeInfoItem: React.FC<ShapeInfoItemProps> = ({shape, property, value}) => {
+const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
+    {shape, property, value}
+) => {
     const unit = useSelector(unitValSelector);
 
     /** @return {string} - A readable representation of shape[property] */
     const getFormattedValue = (): string => {
 
         let val = value === undefined ? shape[property] : value;
-        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
+        if (
+            ['length', 'totalLength', 'radius', 'diameter'].includes(property)
+        ) {
             val = val / unit;
             return val.toFixed(unit === 1 ? 0 : 2)
         }

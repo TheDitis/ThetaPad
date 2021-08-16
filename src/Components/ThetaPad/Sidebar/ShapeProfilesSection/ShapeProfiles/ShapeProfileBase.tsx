@@ -113,15 +113,14 @@ interface ShapeProfileProps {
     index: number;
     unitValue: number;
     InfoItems?: React.FC;
-    children?: React.FC<{ key: string }>[];
 }
 
 /**
- * Basic profile to show info about a given shape
+ * Basic profile to show info about a given shape.
  * @param {Shape} shape - the shape to show info for
  * @param {number} index - its index in the list
- * @param {number} unitValue - the value to set the value to on value button click
- * @param InfoItems - The info component to show in the lower row if any
+ * @param {number} unitValue - the value to set the unit to on unit button click
+ * @param {React.FC} [InfoItems] - The info component to show in the lower roW
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {shape, index, unitValue, InfoItems = () => null}

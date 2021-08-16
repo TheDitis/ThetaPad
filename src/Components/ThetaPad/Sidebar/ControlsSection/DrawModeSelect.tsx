@@ -22,11 +22,13 @@ const DrawModeSelectRoot = styled.div<DrawModeSelectStyleProps>`
   justify-content: center;
 `
 
-interface DrawModeSelectProps {
-}
 
-
-const DrawModeSelect: React.FC<DrawModeSelectProps> = () => {
+/**
+ * Horizontal array of SelectButtons linked to draw-mode (which shape type to
+ * draw on next click
+ * @return {JSX.Element} - flex-row div with a select button for each draw-mode
+ */
+const DrawModeSelect: React.FC = () => {
     const drawMode = useSelector(drawModeSelector)
     const dispatch = useDispatch<AppDispatch>();
 

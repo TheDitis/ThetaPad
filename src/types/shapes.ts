@@ -1,6 +1,9 @@
+/** shapes.ts
+ * @file Type declarations for all Shape types and corresponding class
+ *      definitions for the utility-class of each Shape type
+ */
 import {randomColor, sum} from "../utils";
 import _ from "lodash";
-
 
 
 // Subtypes of shape
@@ -78,7 +81,13 @@ export abstract class PointUtils {
 
 
 
-/** Base for all shape types */
+/** Base for all shape types
+ * @interface Shape
+ * @property {string} id - id of this shape
+ * @property {ShapeKind} kind - subtype of shape
+ * @property {Point} origin - origination point of the shape
+ * @property {string} color - color the shape should be drawn in
+ */
 export interface Shape {
     id: string;
     kind: ShapeKind;
@@ -131,7 +140,14 @@ export abstract class ShapeUtils {
 
 
 
-/** Represents a 2D line segment */
+/** Represents a 2D line segment
+ * @interface Line
+ * @extends Shape
+ * @property {Point} start - starting point of the line
+ * @property {Point} end - ending point of the line
+ * @property {number} length - the length of the line
+ * @property {number} angle - the angle of the line
+ */
 export interface Line extends Shape {
     start: Point;
     end: Point;
@@ -211,7 +227,14 @@ export abstract class LineUtils {
 
 
 
-/** represents a line path with more than 2 points */
+/** represents a line path with more than 2 points
+ * @interface Poly
+ * @extends Shape
+ * @property {Point[]} points - all points that make up the poly-line
+ * @property {number[]} lengths - array of distances between each pair of points
+ * @property {number} totalLength - total length of the line (sum of 'lengths')
+ * @property {number[]} angles - array of angles between each pair of points
+ */
 export interface Poly extends Shape {
     points: Point[];
     lengths: number[];
@@ -233,8 +256,6 @@ export abstract class PolyUtils {
 
         const lengths = PolyUtils.calcLengths(points);
         const angles = PolyUtils.calcAngles(points);
-
-
         const base = ShapeUtils.newShapeTemplate(
             points[0].x, points[0].y,
             ShapeKind.Poly,
@@ -282,7 +303,6 @@ export abstract class PolyUtils {
      */
     static calcAngles = (points: Point[]): number[] => (
         points.reduce((acc: number[], pt: Point, i: number, arr: Point[]) => {
-            console.error("HERE")
             if (i < arr.length - 1) {
                 acc.push(PointUtils.angle(pt, arr[i + i]));
             }
@@ -293,7 +313,11 @@ export abstract class PolyUtils {
 
 
 
-/** represents a circle */
+/** represents a circle
+ * @interface Circle
+ * @extends Shape
+ * @property {number} r - radius of the circle
+ */
 export interface Circle extends Shape {
     r: number;
 }
@@ -318,3 +342,9 @@ export abstract class CircleUtils {
         }
     }
 }
+
+// Drawable subtypes of Shape
+export type ValidShape = (Line | Poly | Circle);
+
+// Incomplete shape used for updating shape values
+export type PartialShape = Partial<ValidShape>;

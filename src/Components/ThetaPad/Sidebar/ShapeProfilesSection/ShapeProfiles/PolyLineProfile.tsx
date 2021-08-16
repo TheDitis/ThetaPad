@@ -9,6 +9,12 @@ import {Poly} from "../../../../../types/shapes";
 import React from "react";
 
 
+/**
+ * Renders information items relevant to Poly objects. Used only in
+ * PolyLineProfile below, passed as prop to ShapeProfileBase
+ * @param {Poly} shape - Poly object to get the info from
+ * @return {JSX.Element} - fragment of ShapeInfoItems
+ */
 const PolyLineInfoItems: React.FC<{ shape: Poly }> = ({shape}) => (
     <>
         {['totalLength'].map(propName => (
@@ -23,6 +29,12 @@ interface PolyLineProfileProps {
     index: number;
 }
 
+/**
+ * ShapeProfile subtype specific to Poly objects
+ * @param {Poly} line - Poly line object this profile will be linked to
+ * @param {number} index - index of this ShapeProfile in the rendered array
+ * @return {JSX.Element} - profile for the given Poly object
+ */
 const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index}) => (
     <ShapeProfileBase
         shape={line}

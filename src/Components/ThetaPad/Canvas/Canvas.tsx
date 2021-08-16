@@ -7,7 +7,7 @@ import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {Dimensions} from "../../../redux/slices/dimensionsSlice";
 import {useSelector} from "react-redux";
-import StageWithReduxBridge from "./Layers/ShapesLayer/StageWithReduxBridge";
+import KonvaStageWithReduxBridge from "./Layers/ShapesLayer/KonvaStageWithReduxBridge";
 import {dimensionsSelector} from "../../../redux/selectors";
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 
@@ -22,13 +22,13 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
 `
 
 
-
-interface CanvasProps {
-}
-
-const Canvas: React.FC<CanvasProps> = (() => {
+/**
+ * Contains the image and the shapes. This is the drawing area
+ * @return {JSX.Element} - Container For
+ * @constructor
+ */
+const Canvas: React.FC = () => {
     const dimensions = useSelector(dimensionsSelector);
-
 
     return (
         <CanvasRoot
@@ -37,15 +37,15 @@ const Canvas: React.FC<CanvasProps> = (() => {
             onMouseUp={handleCanvasClick}
             onMouseMove={handleMouseMove}
         >
-            <StageWithReduxBridge
+            <KonvaStageWithReduxBridge
                 width={dimensions.width - dimensions.sidebar}
                 height={dimensions.height - dimensions.navbar}
             >
                 <ShapesLayer/>
-            </StageWithReduxBridge>
+            </KonvaStageWithReduxBridge>
         </CanvasRoot>
     )
-})
+}
 
 
 export default Canvas;

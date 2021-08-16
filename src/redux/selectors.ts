@@ -1,3 +1,7 @@
+/** selectors.ts
+ * @file selectors for the redux store
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "./store";
 import {Shape} from "../types/shapes";

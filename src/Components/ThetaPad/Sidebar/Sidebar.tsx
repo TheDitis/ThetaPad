@@ -7,12 +7,8 @@ import React from "react";
 import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
 import {useSelector} from "react-redux";
-import {appWidthSelector} from "../../../redux/selectors";
+import {sidebarWidthSelector} from "../../../redux/selectors";
 
-
-/////---------------------------------------------------------------------------
-///     STYLE:
-/////---------------------------------------------------------------------------
 
 interface SidebarStyleProps {
     width: number,
@@ -24,17 +20,13 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
   background: #282c34;
 `
 
-
-
-/////---------------------------------------------------------------------------
-///     COMPONENT:
-/////---------------------------------------------------------------------------
-
-interface SideBarProps {
-}
-
-const Sidebar: React.FC<SideBarProps> = (props) => {
-    const width = useSelector(appWidthSelector);
+/**
+ * Main sidebar of the app. Holds controls, shape-profiles, and tools
+ * @return {JSX.Element} - Sidebar div containing ControlsSection and
+ *      ShapeProfilesSection
+ */
+const Sidebar: React.FC = () => {
+    const width = useSelector(sidebarWidthSelector);
 
     return (
         <SidebarRoot width={width}>

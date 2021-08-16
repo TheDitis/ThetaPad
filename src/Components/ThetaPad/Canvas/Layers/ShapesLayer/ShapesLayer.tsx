@@ -1,4 +1,3 @@
-//export {}
 /** ShapesLayer.tsx
  * @file The layer in Canvas that holds the drawn konva shapes
  * @author Ryan McKay <ryanscottmckay@gmail.com>
@@ -11,7 +10,11 @@ import {RootState} from "../../../../../redux/store";
 import {shapesSelector} from "../../../../../redux/selectors";
 import {ShapeMap} from "../../../../../redux/slices/shapesSlice";
 
-const DrawnShapes = (props) => {
+/**
+ * Fragment of DrawShapes for all completed shapes
+ * @return {JSX.Element} - Fragment of DrawShapes for all completed shapes
+ */
+const DrawnShapes: React.FC = () => {
     const shapes: ShapeMap = useSelector(shapesSelector);
     return (
         <>
@@ -22,22 +25,21 @@ const DrawnShapes = (props) => {
     )
 }
 
-const DrawnTempShape = (props) => {
+/**
+ * DrawnShape for the tempShape being drawn, or null if none is
+ * @return {JSX.Element | null} -DrawnShape for the tempShape being drawn, or
+ *      null if none is
+ */
+const DrawnTempShape: React.FC = () => {
     const tempShape = useSelector((state: RootState) => state.tempShape)
     return tempShape !== null ? (
         <DrawnShape shape={tempShape}/>
     ) : null;
 }
 
-interface ShapesLayerProps {
-}
 
-
-/**
- * The Konva layer that holds the drawn shapes
- * @param {React.PropsWithChildren<ShapesLayerProps>} props
- */
-const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
+/** The Konva layer that holds the drawn shapes */
+const ShapesLayer: React.FC = () => {
     return (
         <Layer>
             <DrawnShapes/>

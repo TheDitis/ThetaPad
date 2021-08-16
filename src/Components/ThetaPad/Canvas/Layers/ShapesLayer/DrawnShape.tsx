@@ -1,4 +1,3 @@
-//export {}
 /** DrawnShape.tsx
  * @file Component that returns the relevant Konva shape to shape passed
  * @author Ryan McKay <ryanscottmckay@gmail.com>

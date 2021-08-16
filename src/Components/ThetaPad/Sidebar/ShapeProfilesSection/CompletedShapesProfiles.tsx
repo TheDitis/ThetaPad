@@ -9,11 +9,8 @@ import {useSelector} from "react-redux";
 import {shapesSelector} from "../../../../redux/selectors";
 
 
-interface CompletedShapesProfilesProps {
-}
-
-
-const CompletedShapesProfiles: React.FC<CompletedShapesProfilesProps> = () => {
+/** Fragment of ShapeProfiles for all completed shapes */
+const CompletedShapesProfiles: React.FC = () => {
     const shapes = useSelector(shapesSelector);
 
     return (

@@ -1,9 +1,20 @@
+/** KeyListenerContainer.tsx
+ * @file A null component that holds key-listeners
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {useDispatch, useSelector} from "react-redux";
 import {tempShapeSelector} from "../redux/selectors";
 import React, {useEffect} from "react";
 import keyboardEventHandler from "./ThetaPad/keyboardEventHandler";
 
-
+/**
+ * Component that manages key-listeners. The component returns null, so why not
+ * just use a hook? This is mainly because I wanted this to sit in the top level
+ * (App component), but I didn't want to trigger any re-renders when dispatch
+ * or tempShape updated, so instead I made it its own dom branch within App, but
+ * with no children to rerender
+ * @return {null} - nothing (:
+ */
 const KeyListenerContainer: React.FC = () => {
     const dispatch = useDispatch();
     const tempShape = useSelector(tempShapeSelector);
@@ -17,7 +28,7 @@ const KeyListenerContainer: React.FC = () => {
         }
     }, [dispatch, tempShape]);
 
-    return null
+    return null;
 }
 
 export default KeyListenerContainer;

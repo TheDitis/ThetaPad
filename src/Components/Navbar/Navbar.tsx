@@ -1,3 +1,7 @@
+/** Navbar.tsx
+ * @file Navbar component of the app
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import React from "react";
 import styled from "styled-components";
 import {NAVBAR_HEIGHT} from "../constants";
@@ -23,9 +27,12 @@ const NavbarRoot = styled.div`
   }
 `
 
-
-const Navbar: React.FC = (props) => {
-    return  (
+/**
+ * Navbar for the app
+ * @return {JSX.Element} - flex-row div with app title
+ */
+const Navbar: React.FC = () => {
+    return (
         <NavbarRoot>
             <h1>ThetaPad</h1>
         </NavbarRoot>
