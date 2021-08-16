@@ -2,7 +2,7 @@
  * @file contains key-event handler function and its helper functions
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {ShapeKind, ShapeUtils} from "../../types/shapes";
+import {LineUtils, ShapeKind, ShapeUtils} from "../../types/shapes";
 import {shapeIsValid} from "./Canvas/canvasEventHandlers";
 import {createShape} from "../../redux/slices/shapesSlice";
 import {clearTempShape, TempShapeType} from "../../redux/slices/tempShapeSlice";
@@ -23,7 +23,7 @@ const keyboardEventHandler = (
         console.log("key pressed: ", e.key.toLowerCase());
         switch (e.key.toLowerCase()) {
             case "escape":
-                cancelDraw(dispatch, tempShape);
+                escapeDraw(dispatch, tempShape);
                 break;
             case "p":
                 switchDrawMode(dispatch, ShapeKind.Poly);
@@ -42,7 +42,7 @@ const keyboardEventHandler = (
 export default keyboardEventHandler;
 
 
-const cancelDraw = (dispatch, tempShape) => {
+const escapeDraw = (dispatch, tempShape) => {
     if (tempShape !== null && ShapeUtils.isPoly(tempShape)) {
         if (shapeIsValid(tempShape)) {
             let shape = tempShape;
@@ -50,7 +50,18 @@ const cancelDraw = (dispatch, tempShape) => {
                 shape = {...tempShape};
                 shape.points = shape.points.slice(0, shape.points.length - 1)
             }
-            dispatch(createShape(shape));
+            if (shape.points.length > 2) {
+                dispatch(createShape(shape));
+            }
+            else {
+                dispatch(createShape(LineUtils.new(
+                    shape.points[0].x,
+                    shape.points[0].y,
+                    shape.points[1].x,
+                    shape.points[1].y,
+                    shape.color
+                )));
+            }
         }
     }
     dispatch(clearTempShape())
