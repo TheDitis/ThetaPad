@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const StraightLineIcon = () => {
+const StraightLineIcon = ({size = 100}) => {
 
     const width = 458 / 12;
     const height = 358 / 12;

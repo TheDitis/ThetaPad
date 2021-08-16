@@ -15,6 +15,26 @@ body {
   user-select: none;
 }
 
+h1 {
+  font-size: 20pt;
+}
+
+h2 {
+  font-size: 17pt;
+}
+
+h3 {
+  font-size: 12pt;
+}
+
+h4 {
+  font-size: 10pt;
+}
+
+h5 {
+  font-size: 8pt;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

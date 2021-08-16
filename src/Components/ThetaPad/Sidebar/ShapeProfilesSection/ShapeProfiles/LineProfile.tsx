@@ -3,23 +3,37 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {Line} from "../../../types/shapes";
+import {Line, LineUtils} from "../../../../../types/shapes";
 import ShapeProfileBase from "./ShapeProfileBase";
 import ShapeInfoItem from "./ShapeInfoItem";
 import uuid from "react-uuid";
 
+/**
+ * Renders information items relevant to Line objects. Used only in LineProfile
+ * below, passed as a prop to ShapeProfileBase
+ * @param {Line} shape - Line object to get the info from
+ * @return {JSX.Element} - fragment of ShapeInfoItems
+ */
+const LineInfoItems: React.FC<{ shape: Line }> = ({shape}) => {
+    const properties = {
+        'length': shape.length,
+        'angle': shape.angle,
+    }
 
-const LineInfoItems: React.FC<{shape: Line}> = (props) => (
-    <>
-        {['length', 'angle'].map(propName => (
-            <ShapeInfoItem
-                key={uuid()}
-                shape={props.shape}
-                property={propName}
-            />
-        ))}
-    </>
-)
+    return (
+        <>
+            {Object.entries(properties).map(([propName, value]) => (
+
+                <ShapeInfoItem
+                    key={uuid()}
+                    shape={shape}
+                    value={value}
+                    property={propName}
+                />
+            ))}
+        </>
+    )
+}
 
 
 interface LineProfileProps {
@@ -27,14 +41,19 @@ interface LineProfileProps {
     index: number,
 }
 
+/**
+ * ShapeProfile subtype specific to Line objects
+ * @param {Line} line - Line object this profile will be linked to
+ * @param {number} index - index of this ShapeProfile in the rendered array
+ * @return {JSX.Element} - profile for the given Line object
+ */
 const LineProfile: React.FC<LineProfileProps> = ({line, index}) => (
     <ShapeProfileBase
         shape={line}
         index={index}
-        unitValue={line.length}
+        unitValue={LineUtils.length_(line)}
         InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
-    >
-    </ShapeProfileBase>
+    />
 )
 
 

@@ -3,17 +3,12 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import {Shape, ShapeKind, ShapeMap} from "../types/shapes";
-import React, {useContext} from "react";
-import {PrimaryDispatch} from "../ThetaPad";
-import {SizeContext} from "../../App/AppContextProvider";
+import React from "react";
 import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
+import {useSelector} from "react-redux";
+import {sidebarWidthSelector} from "../../../redux/selectors";
 
-
-/////---------------------------------------------------------------------------
-///     STYLE:
-/////---------------------------------------------------------------------------
 
 interface SidebarStyleProps {
     width: number,
@@ -25,39 +20,18 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
   background: #282c34;
 `
 
-
-
-/////---------------------------------------------------------------------------
-///     COMPONENT:
-/////---------------------------------------------------------------------------
-
-interface SideBarProps {
-    drawMode: ShapeKind,
-    dispatch: PrimaryDispatch,
-    shapes: ShapeMap,
-    tempShape: Shape | null,
-}
-
 /**
- * The main Sidebar of the app
- * @param {number} width - The calculated width of the sidebar in px
- * @param {ShapeKind} drawMode - the current shape-drawing mode
- * @param {PrimaryDispatch} dispatch - the primary dispatch function
- * @param {ShapeMap} shapes - the object of all shapes
+ * Main sidebar of the app. Holds controls, shape-profiles, and tools
+ * @return {JSX.Element} - Sidebar div containing ControlsSection and
+ *      ShapeProfilesSection
  */
-const Sidebar: React.FC<SideBarProps> = (
-    {drawMode, dispatch, shapes, tempShape}
-) => {
-    const {width} = useContext(SizeContext);
+const Sidebar: React.FC = () => {
+    const width = useSelector(sidebarWidthSelector);
 
     return (
         <SidebarRoot width={width}>
-            <ControlsSection
-                drawMode={drawMode}
-                dispatch={dispatch}
-                tempShape={tempShape}
-            />
-            <ShapeProfilesSection shapes={shapes} tempShape={tempShape}/>
+            <ControlsSection/>
+            <ShapeProfilesSection/>
         </SidebarRoot>
     )
 }

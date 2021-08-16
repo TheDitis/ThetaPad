@@ -2,15 +2,17 @@
  * @file The base component for shape profiles in the sidebar
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
-import {Shape} from "../../../types/shapes";
+import {Shape} from "../../../../../types/shapes";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
-import {DispatchContext, UnitContext} from "../../../ThetaPad";
-import {ChangeUnitAction, RemoveShapeAction, ResetUnitAction} from "../../../types/actions";
 import CircleIcon from "../../../../Icons/CircleIcon";
+import {useDispatch, useSelector} from "react-redux";
+import {removeShape} from "../../../../../redux/slices/shapesSlice";
+import {unitSelector} from "../../../../../redux/selectors";
+import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 
 
 interface ShapeProfileStyleProps {
@@ -63,19 +65,21 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-left: 20px;
+        padding-left: 15px;
         padding-right: 10px;
 
         .unitButton {
           color: ${props => props.isUnit ? "white" : "black"};
+          display: flex;
+          font-size: 9pt;
           border: 1px solid gray;
-          padding: 5px 10px;
+          padding: 4px 8px 2px 8px;
           border-radius: 8px;
           background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
         }
 
         .xButton {
-          font-size: 18pt;
+          font-size: 15pt;
           position: relative;
           top: -5px;
           line-height: 18pt;
@@ -109,35 +113,34 @@ interface ShapeProfileProps {
     index: number;
     unitValue: number;
     InfoItems?: React.FC;
-    children?: React.FC<{key: string}>[];
 }
 
 /**
- * Basic profile to show info about a given shape
+ * Basic profile to show info about a given shape.
  * @param {Shape} shape - the shape to show info for
  * @param {number} index - its index in the list
  * @param {number} unitValue - the value to set the unit to on unit button click
- * @param InfoItems - The info component to show in the lower row if any
+ * @param {React.FC} [InfoItems] - The info component to show in the lower roW
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
-    {shape, index, unitValue, InfoItems= () => null}
+    {shape, index, unitValue, InfoItems = () => null}
 ) => {
-    const unit = useContext(UnitContext);
-    const dispatch = useContext(DispatchContext);
+    const unit = useSelector(unitSelector);
+
+    const dispatch = useDispatch();
     const Icon = shapeIcons[shape.kind];
 
     const toggleUnit = () => {
-        if (unit !== unitValue) {
-            dispatch(new ChangeUnitAction(unitValue));
-            Shape.unitShape = shape.id;
-        } else {
-            dispatch(new ResetUnitAction());
-            Shape.unitShape = null;
+        if (shape.id !== unit.unitShape) {
+            dispatch(setUnit({value: unitValue, id: shape.id}));
+        }
+        else {
+            dispatch(resetUnit());
         }
     }
 
     return (
-        <ShapeProfileRoot isUnit={shape.isUnit}>
+        <ShapeProfileRoot isUnit={shape.id === unit.unitShape}>
             <div className={"leftSection"}>
 
             </div>
@@ -147,17 +150,16 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         <Icon/>
                     </div>
                     <div className={"labelAndControls"}>
-                        <h3>{shape.kind} {index}</h3>
+                        <h3>{shape.kind} {index + 1}</h3>
                         <button
                             className={"unitButton"}
                             onClick={toggleUnit}
-                        >Unit</button>
+                        >Unit
+                        </button>
 
                         <h5
                             className={"xButton"}
-                            onClick={() => dispatch(
-                                new RemoveShapeAction(shape.id)
-                            )}
+                            onClick={() => dispatch(removeShape(shape.id))}
                         >×</h5>
                     </div>
                 </div>

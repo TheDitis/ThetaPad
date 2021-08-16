@@ -5,21 +5,41 @@
 import './App.css';
 import ThetaPad from "../ThetaPad/ThetaPad";
 import Navbar from "../Navbar/Navbar";
-import React from "react";
-import AppContextProvider from "./AppContextProvider";
-import LogRocket from "logrocket";
-
-LogRocket.init('ixpzlp/thetapad-2');
+import React, {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {setWindowDimensions} from "../../redux/slices/dimensionsSlice";
+import KeyListenerContainer from "../KeyListenerContainer";
 
 
 const App = () => {
+    const dispatch = useDispatch();
+
+    /**
+     * ON MOUNT: add a window-resize event listener that updates dimensions
+     * ON UNMOUNT: remove that event listener
+     */
+    useEffect(() => {
+        const updateDimensions = (e) => {
+            dispatch(setWindowDimensions({
+                width: e.target.innerWidth,
+                height: e.target.innerHeight
+            }))
+        }
+
+        window.addEventListener('resize', updateDimensions);
+
+        return () => {
+            window.removeEventListener('resize', updateDimensions);
+        }
+    }, [dispatch]);
+
+
     return (
-        <AppContextProvider>
-            <div className="App">
-                <Navbar/>
-                <ThetaPad/>
-            </div>
-        </AppContextProvider>
+        <div className="App">
+            <Navbar/>
+            <ThetaPad/>
+            <KeyListenerContainer/>
+        </div>
     );
 }
 

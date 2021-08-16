@@ -2,19 +2,13 @@
  * @file The root component for the actual drawing portion of the app
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas/Canvas";
-import useThetaPadState from "./useThetaPadState";
-import {ShapeMap, ShapeKind, Shape} from "./types/shapes";
 import Sidebar from "./Sidebar/Sidebar";
-import {Action} from "./types/actions";
-import {SizeContext} from "../App/AppContextProvider";
+import {useSelector} from "react-redux";
+import {appHeightSelector} from "../../redux/selectors";
 
-
-/////---------------------------------------------------------------------------
-///     STYLE:
-/////---------------------------------------------------------------------------
 
 interface ThetaPadStyleProps {
     height: number;
@@ -31,61 +25,18 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
 `;
 
 
-/////---------------------------------------------------------------------------
-///     PRIMARY STATE TYPE:
-/////---------------------------------------------------------------------------
-
-export type PrimaryDispatch = (action: Action) => void
-
-
-export interface ThetaPadStateType {
-    dispatch: PrimaryDispatch;
-    unit: number;
-    handleCanvasClick;
-    handleMouseMove;
-    drawMode: ShapeKind;
-    shapes: ShapeMap;
-    tempShape: Shape | null;
-}
-
-
-
-/////---------------------------------------------------------------------------
-///     COMPONENT DEFINITION:
-/////---------------------------------------------------------------------------
-
-export const DispatchContext = React.createContext<PrimaryDispatch>(() => {});
-export const UnitContext = React.createContext(1)
-
+/**
+ * The main section of the app with all the drawing functionality
+ * @return {JSX.Element} -  full-width div containing the Sidebar and Canvas
+ */
 const ThetaPad: React.FC = () => {
-    const {height} = useContext(SizeContext);
-    const thetaPadState = useThetaPadState();
-
-//    useEffect(() => {
-//        console.log("Rerendering")
-//        console.log(thetaPadState)
-//    }, [thetaPadState]);
-
+    const height = useSelector(appHeightSelector);
 
     return (
-        <DispatchContext.Provider value={thetaPadState.dispatch}>
-            <UnitContext.Provider value={thetaPadState.unit}>
-                <ThetaPadRoot height={height}>
-                    <Sidebar
-                        dispatch={thetaPadState.dispatch}
-                        tempShape={thetaPadState.tempShape}
-                        drawMode={thetaPadState.drawMode}
-                        shapes={thetaPadState.shapes}
-                    />
-                    <Canvas
-                        tempShape={thetaPadState.tempShape}
-                        onClick={thetaPadState.handleCanvasClick}
-                        onMouseMove={thetaPadState.handleMouseMove}
-                        shapes={thetaPadState.shapes}
-                    />
-                </ThetaPadRoot>
-            </UnitContext.Provider>
-        </DispatchContext.Provider>
+        <ThetaPadRoot height={height}>
+            <Sidebar/>
+            <Canvas/>
+        </ThetaPadRoot>
     )
 }
 

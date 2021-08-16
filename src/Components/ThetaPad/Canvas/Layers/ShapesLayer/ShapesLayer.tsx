@@ -4,30 +4,46 @@
  */
 import {Layer} from "react-konva";
 import React from "react";
-import {Shape, ShapeMap} from "../../../types/shapes";
 import DrawnShape from "./DrawnShape";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../../redux/store";
+import {shapesSelector} from "../../../../../redux/selectors";
+import {ShapeMap} from "../../../../../redux/slices/shapesSlice";
 
+/**
+ * Fragment of DrawShapes for all completed shapes
+ * @return {JSX.Element} - Fragment of DrawShapes for all completed shapes
+ */
+const DrawnShapes: React.FC = () => {
+    const shapes: ShapeMap = useSelector(shapesSelector);
+    return (
+        <>
+            {Object.values(shapes).map((shape) => (
+                <DrawnShape key={shape.id} shape={shape}/>
+            ))}
+        </>
+    )
+}
 
-
-interface ShapesLayerProps {
-    shapes: ShapeMap;
-    tempShape: Shape | null;
+/**
+ * DrawnShape for the tempShape being drawn, or null if none is
+ * @return {JSX.Element | null} -DrawnShape for the tempShape being drawn, or
+ *      null if none is
+ */
+const DrawnTempShape: React.FC = () => {
+    const tempShape = useSelector((state: RootState) => state.tempShape)
+    return tempShape !== null ? (
+        <DrawnShape shape={tempShape}/>
+    ) : null;
 }
 
 
-/**
- * The Konva layer that holds the drawn shapes
- * @param {React.PropsWithChildren<ShapesLayerProps>} props
- */
-const ShapesLayer: React.FC<ShapesLayerProps> = (props) => {
-    const {shapes, tempShape} = props
-
+/** The Konva layer that holds the drawn shapes */
+const ShapesLayer: React.FC = () => {
     return (
         <Layer>
-            {Object.values(shapes).map(shape => (
-                <DrawnShape key={shape.id} shape={shape}/>
-            ))}
-            {tempShape !== null && <DrawnShape shape={tempShape}/>}
+            <DrawnShapes/>
+            <DrawnTempShape/>
         </Layer>
     )
 }

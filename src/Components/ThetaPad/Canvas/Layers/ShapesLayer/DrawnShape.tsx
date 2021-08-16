@@ -2,10 +2,9 @@
  * @file Component that returns the relevant Konva shape to shape passed
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {Line as KonvaLine} from "react-konva";
-import {Circle as KonvaCircle} from "react-konva";
+import {Circle as KonvaCircle, Line as KonvaLine} from "react-konva";
 import React from "react";
-import {Shape} from "../../../types/shapes";
+import {LineUtils, PolyUtils, Shape, ShapeUtils} from "../../../../../types/shapes";
 
 
 interface DrawnShapeProps {
@@ -18,33 +17,34 @@ interface DrawnShapeProps {
  * @param {Shape} shape - the shape you want drawn on the canvas
  */
 const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
-    if (shape.isLine()) {
+
+    if (ShapeUtils.isLine(shape)) {
         return (
             <KonvaLine
                 x={0}
                 y={0}
-                points={shape.canvasPoints}
+                points={LineUtils.points(shape)}
                 stroke={shape.color}
                 strokeWidth={2}
             />
         )
     }
-    if (shape.isPoly()) {
+    if (ShapeUtils.isPoly(shape)) {
         return (
             <KonvaLine
                 x={0}
                 y={0}
-                points={shape.canvasPoints}
+                points={PolyUtils.points(shape)}
                 stroke={shape.color}
                 strokeWidth={2}
             />
         )
     }
-    if (shape.isCircle()) {
+    if (ShapeUtils.isCircle(shape)) {
         return (
             <KonvaCircle
-                x={shape.origin.canvasX}
-                y={shape.origin.canvasY}
+                x={shape.origin.x}
+                y={shape.origin.y}
                 radius={shape.r}
                 stroke={shape.color}
                 strokeWidth={2}

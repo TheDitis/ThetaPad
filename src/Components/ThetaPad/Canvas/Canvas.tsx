@@ -2,15 +2,17 @@
  * @file The drawing & image area component
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {Stage} from "react-konva";
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {Shape, ShapeMap} from "../types/shapes";
-import {Dimensions, SizeContext} from "../../App/AppContextProvider";
+import {Dimensions} from "../../../redux/slices/dimensionsSlice";
+import {useSelector} from "react-redux";
+import KonvaStageWithReduxBridge from "./Layers/ShapesLayer/KonvaStageWithReduxBridge";
+import {dimensionsSelector} from "../../../redux/selectors";
+import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 
 interface CanvasStyleProps {
-    dimensions: Dimensions
+    dimensions: Dimensions;
 }
 
 const CanvasRoot = styled.div<CanvasStyleProps>`
@@ -19,31 +21,31 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
   background: rgb(156, 231, 255);
 `
 
-interface CanvasProps {
-    onClick;
-    onMouseMove;
-    shapes: ShapeMap;
-    tempShape: Shape | null;
-}
 
-const Canvas: React.FC<CanvasProps> = ((props) => {
-    const dimensions = useContext(SizeContext);
+/**
+ * Contains the image and the shapes. This is the drawing area
+ * @return {JSX.Element} - Container For
+ * @constructor
+ */
+const Canvas: React.FC = () => {
+    const dimensions = useSelector(dimensionsSelector);
+
     return (
         <CanvasRoot
             dimensions={dimensions}
-            onMouseDown={props.onClick}
-            onMouseUp={props.onClick}
-            onMouseMove={props.onMouseMove}
+            onMouseDown={handleCanvasClick}
+            onMouseUp={handleCanvasClick}
+            onMouseMove={handleMouseMove}
         >
-            <Stage width={window.innerWidth} height={window.innerHeight}>
-                <ShapesLayer
-                    shapes={props.shapes}
-                    tempShape={props.tempShape}
-                />
-            </Stage>
+            <KonvaStageWithReduxBridge
+                width={dimensions.width - dimensions.sidebar}
+                height={dimensions.height - dimensions.navbar}
+            >
+                <ShapesLayer/>
+            </KonvaStageWithReduxBridge>
         </CanvasRoot>
     )
-})
+}
 
 
 export default Canvas;

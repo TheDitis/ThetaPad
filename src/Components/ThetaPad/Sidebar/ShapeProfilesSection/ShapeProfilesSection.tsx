@@ -4,17 +4,11 @@
  */
 import React from "react";
 import styled from "styled-components";
-import {Shape, ShapeMap} from "../../types/shapes";
 import CompletedShapesProfiles from "./CompletedShapesProfiles";
-import ShapeProfile from "./ShapeProfiles/ShapeProfile";
 import {SHAPE_PROFILE_HEIGHT} from "../../../constants";
+import TempShapeProfile from "./TempShapeProfile";
 
-
-interface ShapeProfilesSectionStyleProps {
-
-}
-
-const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
+const ShapeProfilesSectionRoot = styled.div`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -28,18 +22,16 @@ const ShapeProfilesSectionRoot = styled.div<ShapeProfilesSectionStyleProps>`
 `
 
 
-interface ShapeProfilesSectionProps {
-    shapes: ShapeMap;
-    tempShape: Shape | null;
-}
-
-const ShapeProfilesSection: React.FC<ShapeProfilesSectionProps> = (
-    {shapes, tempShape}
-) => {
+/**
+ * Section of the Sidebar that holds the profiles for all shapes
+ * @return {JSX.Element} - a flex-column div taking up most of the Sidebar that
+ *      holds all of the shape profiles
+ */
+const ShapeProfilesSection: React.FC = () => {
     return (
         <ShapeProfilesSectionRoot>
-            <CompletedShapesProfiles shapes={shapes}/>
-            {tempShape !== null && <ShapeProfile shape={tempShape} index={Object.keys(shapes).length}/>}
+            <CompletedShapesProfiles/>
+            <TempShapeProfile/>
         </ShapeProfilesSectionRoot>
     )
 }
