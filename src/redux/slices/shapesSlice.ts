@@ -53,10 +53,18 @@ const shapesSlice = createSlice({
         ) {
             delete shapes[action.payload];
         },
+        /** Reset shapes to an empty object */
+        clearShapes: () => ({})
     }
 })
 
-export const {createShape, updateShape, removePolyPoint, removeShape} = shapesSlice.actions;
+export const {
+    createShape,
+    updateShape,
+    removePolyPoint,
+    removeShape,
+    clearShapes,
+} = shapesSlice.actions;
 export default shapesSlice.reducer;
 
 const shapeIdSelector = (state, shapeId) => shapeId;

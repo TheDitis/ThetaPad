@@ -66,3 +66,21 @@ export const sidebarWidthSelector = createSelector(
     (dimensions) => dimensions.sidebar
 )
 
+export const imageLayerDimensionsSelector = createSelector(
+    dimensionsSelector,
+    (dimensions) => dimensions.image
+)
+
+
+
+export const imageSelector = (state) => state.image;
+
+export const imageSrcSelector = createSelector(
+    imageSelector,
+    (imageData) => imageData.uri
+)
+
+export const imageOriginalDimensionsSelector = createSelector(
+    imageSelector,
+    (imageData) => ({width: imageData.width, height: imageData.height})
+)

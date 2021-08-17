@@ -42,8 +42,8 @@ const Canvas: React.FC = () => {
                 width={dimensions.width - dimensions.sidebar}
                 height={dimensions.height - dimensions.navbar}
             >
-                <ShapesLayer/>
                 <ImageLayer/>
+                <ShapesLayer/>
             </KonvaStageWithReduxBridge>
         </CanvasRoot>
     )

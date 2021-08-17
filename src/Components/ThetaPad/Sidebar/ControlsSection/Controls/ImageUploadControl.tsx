@@ -8,13 +8,16 @@ import ImageUploader from "react-images-upload";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../../../../redux/store";
 import {setImage} from "../../../../../redux/slices/imageSlice";
+import {clearShapes} from "../../../../../redux/slices/shapesSlice";
+import {calculateImageDims} from "../../../../../redux/slices/dimensionsSlice";
+import _ from "lodash";
 
 interface ImageUploadControlStyleProps {
 
 }
 
 const ImageUploadControlRoot = styled.div<ImageUploadControlStyleProps>`
-  display: flex;
+
 `
 
 
@@ -40,6 +43,10 @@ const ImageUploadControl: React.FC = () => {
             width: image.width,
             height: image.height
         }))
+
+        dispatch(calculateImageDims(_.pick(image, "width", "height")))
+
+        dispatch(clearShapes())
     }
 
     return (
