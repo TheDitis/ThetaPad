@@ -1,11 +1,11 @@
-/** KeyListenerContainer.tsx
+/** KeyListener.tsx
  * @file A null component that holds key-listeners
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {useDispatch, useSelector} from "react-redux";
-import {tempShapeSelector} from "../redux/selectors";
 import React, {useEffect} from "react";
-import keyboardEventHandler from "./ThetaPad/keyboardEventHandler";
+import {tempShapeSelector} from "../../../redux/selectors";
+import keyboardEventHandler from "../../ThetaPad/keyboardEventHandler";
 
 /**
  * Component that manages key-listeners. The component returns null, so why not
@@ -15,7 +15,7 @@ import keyboardEventHandler from "./ThetaPad/keyboardEventHandler";
  * with no children to rerender
  * @return {null} - nothing (:
  */
-const KeyListenerContainer: React.FC = () => {
+const KeyListener: React.FC = () => {
     const dispatch = useDispatch();
     const tempShape = useSelector(tempShapeSelector);
 
@@ -31,4 +31,4 @@ const KeyListenerContainer: React.FC = () => {
     return null;
 }
 
-export default KeyListenerContainer;
+export default KeyListener;
