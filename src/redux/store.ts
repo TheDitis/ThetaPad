@@ -8,6 +8,7 @@ import tempShapeReducer from "./slices/tempShapeSlice";
 import unitReducer from "./slices/unitSlice";
 import dimensionsReducer from "./slices/dimensionsSlice";
 import drawModeReducer from "./slices/drawModeSlice";
+import imageReducer from "./slices/imageSlice";
 
 
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
         drawMode: drawModeReducer,
         unit: unitReducer,
         dimensions: dimensionsReducer,
+        image: imageReducer,
     }
 })
 

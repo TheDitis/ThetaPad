@@ -6,13 +6,13 @@ import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "./store";
 import {Shape} from "../types/shapes";
 import {UnitState} from "./slices/unitSlice";
-import {Dimensions} from "./slices/dimensionsSlice";
+import {AppDimensions} from "./slices/dimensionsSlice";
 import {ShapeMap} from "./slices/shapesSlice";
 
 type ShapesSelectorType = (RootState) => ShapeMap;
 type TempShapeSelectorType = (RootState) => Shape | null;
 type UnitSelectorType = (RootState) => UnitState;
-type DimensionsSelectorType = (RootState) => Dimensions
+type DimensionsSelectorType = (RootState) => AppDimensions
 
 export const shapesSelector: ShapesSelectorType = (state: RootState) =>
     state.shapes;

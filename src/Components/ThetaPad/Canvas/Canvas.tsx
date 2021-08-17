@@ -5,14 +5,15 @@
 import React from "react";
 import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
-import {Dimensions} from "../../../redux/slices/dimensionsSlice";
+import {AppDimensions} from "../../../redux/slices/dimensionsSlice";
 import {useSelector} from "react-redux";
 import KonvaStageWithReduxBridge from "./Layers/ShapesLayer/KonvaStageWithReduxBridge";
 import {dimensionsSelector} from "../../../redux/selectors";
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
+import ImageLayer from "./Layers/ImageLayer";
 
 interface CanvasStyleProps {
-    dimensions: Dimensions;
+    dimensions: AppDimensions;
 }
 
 const CanvasRoot = styled.div<CanvasStyleProps>`
@@ -42,6 +43,7 @@ const Canvas: React.FC = () => {
                 height={dimensions.height - dimensions.navbar}
             >
                 <ShapesLayer/>
+                <ImageLayer/>
             </KonvaStageWithReduxBridge>
         </CanvasRoot>
     )

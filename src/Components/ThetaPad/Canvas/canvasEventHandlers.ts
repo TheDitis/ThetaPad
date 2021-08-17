@@ -24,7 +24,7 @@ import {
     ShapeUtils
 } from "../../../types/shapes";
 import {DrawModeType} from "../../../redux/slices/drawModeSlice";
-import {MouseEventHandler} from "react";
+import React, {MouseEventHandler} from "react";
 import {MIN_CIRCLE_RADIUS, MIN_LINE_LENGTH, MIN_POLY_POINTS} from "../../constants";
 
 
@@ -146,7 +146,7 @@ export const shapeIsValid = (shape: TempShapeType): shape is Shape => {
  * Primary mouse-event handler switch for movement events
  * @param e - mouse event
  */
-export const handleMouseMove = (e) => {
+export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const tempShape = store.getState().tempShape;
     if (tempShape !== null) {
         if (ShapeUtils.isLine(tempShape)) {
