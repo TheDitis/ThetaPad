@@ -4,6 +4,7 @@
  */
 import React from "react";
 import DrawModeSelect from "./DrawModeSelect";
+import ImageUploadControl from "./Controls/ImageUploadControl";
 
 // Component style properties
 const styles: { [property: string]: string } = {
@@ -22,6 +23,7 @@ const styles: { [property: string]: string } = {
 const ControlsSection: React.FC = () => {
     return (
         <div style={styles}>
+            <ImageUploadControl/>
             <DrawModeSelect/>
         </div>
     )
