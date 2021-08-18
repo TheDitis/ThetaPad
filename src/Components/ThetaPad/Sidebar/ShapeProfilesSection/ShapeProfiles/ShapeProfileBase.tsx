@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {removeShape} from "../../../../../redux/slices/shapesSlice";
 import {unitSelector} from "../../../../../redux/selectors";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
+import ColorSwatch from "../../../../Color/ColorSwatch";
 
 
 interface ShapeProfileStyleProps {
@@ -34,8 +35,11 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
   .leftSection {
     height: ${SHAPE_PROFILE_HEIGHT}px;
     max-width: ${SHAPE_PROFILE_HEIGHT}px;
-
     min-width: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-right: 1px solid ${borderColor};
   }
 
@@ -142,7 +146,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     return (
         <ShapeProfileRoot isUnit={shape.id === unit.unitShape}>
             <div className={"leftSection"}>
-
+                <ColorSwatch color={shape.color}/>
             </div>
             <div className={"rightSection"}>
                 <div className={"topSection"}>
