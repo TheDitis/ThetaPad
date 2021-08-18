@@ -1,0 +1,135 @@
+.overlay {
+  position: fixed;
+  z-index: 20;
+}
+
+.colorBubbleContainer {
+  position: relative;
+  left: 90px;
+  bottom: 56px;
+}
+
+.colorBubble {
+  position: relative;
+  display: flex;
+  //background: rgba(255, 255, 255, 1);
+  height: 50px;
+  ///*width: 200px;*/
+  border-radius: 0 .4em .4em 0;
+
+}
+
+.colorBubble:after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 40px solid transparent;
+  border-right-color: rgba(255, 255, 255, 1);
+  border-left: 0;
+  margin-top: -40px;
+  margin-left: -40px;
+}
+
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width:  $circle-size;
+  height: $circle-size;
+  padding: 0;
+  border-radius: 50% 50% 50% 0%;
+  list-style: none;
+
+  > * {
+    display: block;
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    width:  $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+
+    $angle: (360 / $item-count);
+    $rot: 0;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform:
+                rotate($rot * 1deg)
+                translate($circle-size / 2)
+                rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}
+
+
+
+.swatchList {
+  @include on-circle($item-count: 23, $circle-size: 9em, $item-size: 1.2em);
+  margin: -10em auto 0;
+  background-color: white;
+  border: solid 30px white;
+  box-shadow: 3px 3px 20px black;
+  list-style-type: none;
+  position: relative;
+  top: 57px;
+}
+
+.colorSwatch {
+  display: block;
+  max-width: 100%;
+  border-radius: 50%;
+  //filter: grayscale(100%);
+  //border: solid 1px black;
+  transition: .15s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+
+  height: 1.2em;
+  width: 1.2em;
+  alignItems: center;
+
+  &:hover,
+  &:active {
+    transform: scale(1.2);
+  }
+}
+$BnWSize: 1.4em;
+
+.blackWhiteContainer {
+  position: relative;
+  //bottom: 2px;
+  right: 0.9em;
+  bottom: $BnWSize * 0.6;
+  width: 50px;
+  display: flex;
+}
+
+
+.blackSwatch {
+  background-color: black;
+  border: 1px solid black;
+  display: block;
+  //border-radius: 50% 0 0 50%;
+  height: $BnWSize * 2;
+  width: $BnWSize;
+  border-bottom-left-radius: $BnWSize * 2;
+  border-top-left-radius: $BnWSize * 2;
+  margin-right: 2px;
+}
+
+.whiteSwatch {
+  background-color: white;
+  border: 1px solid black;
+  display: block;
+  border-radius: 0 50% 50% 0;
+  height: $BnWSize * 2;
+  width: $BnWSize;
+  border-bottom-right-radius: $BnWSize * 2;
+  border-top-right-radius: $BnWSize * 2;
+  margin-left: 2px;
+}
