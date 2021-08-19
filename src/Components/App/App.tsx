@@ -9,7 +9,6 @@ import React from "react";
 import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
 
-// TODO: Add color picker
 // TODO: Show line lengths on canvas (optional?)
 // TODO: Show angles on canvas (optional?)
 // TODO: Resize shapes with image
