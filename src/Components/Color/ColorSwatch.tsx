@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React from "react";
+import React, {ChangeEvent, useRef, useState} from "react";
 
 
 interface ColorSwatchStyleProps {
@@ -12,7 +12,6 @@ interface ColorSwatchStyleProps {
 }
 
 const ColorSwatchRoot = styled.div<ColorSwatchStyleProps>`
-  //margin: 5px;
   width: 85%;
   height: 85%;
   border-radius: 15%;
@@ -25,18 +24,43 @@ const ColorSwatchRoot = styled.div<ColorSwatchStyleProps>`
 
 interface ColorSwatchProps {
     color: string;
-    onClick?: (e) => void;
+    onChange?: (color: string) => void;
 }
 
-const ColorSwatch: React.FC<ColorSwatchProps> = ({onClick, color}) => {
+/**
+ * Color swatch that allows the user to select a new color if onChange is passed
+ * @param {string} color - The current color of the swatch
+ * @param {(string) => void} [onChange] - function that takes the new color as an argument, run on change
+ * @return {JSX.Element} - colored div with a nested input with type="color"
+ */
+const ColorSwatch: React.FC<ColorSwatchProps> = ({onChange, color}) => {
+    const colorInputRef = useRef<HTMLInputElement>(null);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const open = () => {
+        if (colorInputRef.current !== null && !isOpen) {
+            colorInputRef.current.click();
+            setIsOpen(true);
+        }
+    }
+
+    const onChangeWrapper = (e: ChangeEvent<HTMLInputElement>) => {
+        const newCol: string = e.target.value;
+        if (onChange) {
+            onChange(newCol);
+        }
+    }
+
     return (
         <ColorSwatchRoot
-            onClick={onClick}
+            onClick={onChange !== undefined ? open : () => null}
             color={color}
-            clickable={onClick !== undefined && onClick !== null}
-        />
+            clickable={onChange !== undefined && onChange !== null}
+        >
+            <input type={"color"} value={color} ref={colorInputRef} style={{opacity: 0}} onChange={onChangeWrapper}/>
+        </ColorSwatchRoot>
     )
 }
 
 
-export default ColorSwatch;
+export default React.memo(ColorSwatch);

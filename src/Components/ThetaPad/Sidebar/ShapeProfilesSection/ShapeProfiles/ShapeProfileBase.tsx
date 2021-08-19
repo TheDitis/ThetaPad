@@ -10,7 +10,7 @@ import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import CircleIcon from "../../../../Icons/CircleIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {removeShape} from "../../../../../redux/slices/shapesSlice";
+import {removeShape, updateShape} from "../../../../../redux/slices/shapesSlice";
 import {unitSelector} from "../../../../../redux/selectors";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 import ColorSwatch from "../../../../Color/ColorSwatch";
@@ -143,10 +143,14 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
         }
     }
 
+    const changeColor = (color: string) => {
+        dispatch(updateShape({target: shape.id, newValues: {color}}))
+    }
+
     return (
         <ShapeProfileRoot isUnit={shape.id === unit.unitShape}>
             <div className={"leftSection"}>
-                <ColorSwatch color={shape.color}/>
+                <ColorSwatch color={shape.color} onChange={changeColor}/>
             </div>
             <div className={"rightSection"}>
                 <div className={"topSection"}>
