@@ -8,6 +8,7 @@ import {Line as KonvaLine, Group as KonvaGroup, Text as KonvaText} from "react-k
 import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../../redux/selectors";
 import _ from "lodash";
+import {LINE_INFO_TEXT_OFFSET} from "../../../../../constants";
 
 interface DrawnLineProps {
     line: Line
@@ -25,6 +26,10 @@ const DrawnLine: React.FC<DrawnLineProps> = ({line}) => {
         lengthText = _.dropRightWhile(lengthText, (char) => ['.', '0'].includes(char)).join("")
     }
 
+    let angle = LineUtils.angle(line);
+    const flipText = angle < -90 || angle > 90;
+    if (flipText) angle += 180
+
     return (
         <>
             <KonvaLine
@@ -37,11 +42,11 @@ const DrawnLine: React.FC<DrawnLineProps> = ({line}) => {
             <KonvaGroup
                 x={midPoint.x}
                 y={midPoint.y}
-                rotation={LineUtils.angle(line)}
+                rotation={angle}
             >
                 <KonvaText
                     x={-10}
-                    y={5}
+                    y={LINE_INFO_TEXT_OFFSET}
                     text={lengthText}
                     fontSize={15}
                     fill={line.color}
