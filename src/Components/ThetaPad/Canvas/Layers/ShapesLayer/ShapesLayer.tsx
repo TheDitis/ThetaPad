@@ -4,7 +4,7 @@
  */
 import {Layer} from "react-konva";
 import React from "react";
-import DrawnShape from "./DrawnShape";
+import DrawnShape from "./DrawnShapes/DrawnShape";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 import {shapesSelector} from "../../../../../redux/selectors";

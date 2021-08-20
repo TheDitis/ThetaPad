@@ -50,3 +50,6 @@ export const MIN_POLY_POINTS = 2;
 
 // Minimum radius of circle in px to be valid
 export const MIN_CIRCLE_RADIUS = 5;
+
+// Distance from the line and the length-info of that line in px
+export const LINE_INFO_TEXT_OFFSET = 15;

@@ -234,6 +234,17 @@ export abstract class LineUtils {
     static angle(line: Line): number {
         return PointUtils.angle(line.start, line.end)
     }
+
+    /**
+     * Get midpoint of a given line
+     * @param {Line} line - line you want the midpoint of
+     * @return {Point} - midpoint of the line
+     */
+    static midPoint = (line: Line): Point => PointUtils.midPoint(line.start, line.end);
+
+    // static infoTextLocation = (point: Point): Point => {
+    //
+    // }
 }
 
 
