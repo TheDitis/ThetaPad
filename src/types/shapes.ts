@@ -77,6 +77,17 @@ export abstract class PointUtils {
      * @return {Point} - new Point object
      */
     static copy = (pt: Point): Point => ({x: pt.x, y: pt.y})
+
+    /**
+     * Creates a new Point at the midpoint between pt1 and pt2
+     * @param {Point} pt1 - any Point
+     * @param {Point} pt2 - another Point
+     * @return {Point} - new Point halfway between the two
+     */
+    static midPoint = (pt1: Point, pt2: Point): Point => ({
+        x: (pt1.x + pt2.x) / 2,
+        y: (pt1.y + pt2.y) / 2,
+    })
 }
 
 

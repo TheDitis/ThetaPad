@@ -18,7 +18,6 @@ import ResizeListener from "./EventListenerComponents/ResizeListener";
 
 
 const App = () => {
-
     return (
         <div className="App">
             <Navbar/>
