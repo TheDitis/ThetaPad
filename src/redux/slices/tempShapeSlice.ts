@@ -4,7 +4,7 @@
  */
 import {createSlice} from "@reduxjs/toolkit";
 import {Point, PointUtils, Shape, ShapeUtils} from "../../types/shapes";
-import {sum} from "../../utils";
+import {sum} from "../../utils/utils";
 
 export type TempShapeType = (Shape | null);
 

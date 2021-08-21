@@ -2,7 +2,7 @@
  * @file Type declarations for all Shape types and corresponding class
  *      definitions for the utility-class of each Shape type
  */
-import {randomColor, sum} from "../utils";
+import {chunkSiblings, randomColor, sum} from "../utils/utils";
 import _ from "lodash";
 
 
@@ -264,6 +264,13 @@ export interface Poly extends Shape {
     angles: number[];
 }
 
+interface PolySegment {
+    start: Point,
+    end: Point,
+    angle: number,
+    length: number,
+}
+
 /** Holds useful utility functions for creating and updating Poly shapes */
 export abstract class PolyUtils {
     /**
@@ -331,6 +338,32 @@ export abstract class PolyUtils {
             return acc;
         }, [])
     )
+
+    /**
+     * Get an array of point pairs (lineSegments)
+     * @param {Poly} poly
+     * @return {Point[][]} - array of point pairs [[pt0, pt1], [pt1, pt2], [pt2, pt3]...]
+     */
+    static asPointPairs = (poly: Poly): Point[][] => chunkSiblings(poly.points);
+
+    /**
+     * Returns array of sub-segments of the Poly-line
+     * @param {Poly} poly - the poly to split into segments
+     * @return {PolySegment[]} - array of the segments within 'poly'
+     */
+    static asSegments = (poly: Poly): PolySegment[] => {
+        const pairs = PolyUtils.asPointPairs(poly);
+        const segmentArray = _.zip(pairs, poly.lengths, poly.angles);
+        return segmentArray.reduce((acc, [pts, len, ang]) => {
+            acc.push({
+                start: pts[0],
+                end: pts[1],
+                length: len,
+                angle: ang,
+            })
+            return acc;
+        }, [])
+    }
 }
 
 
