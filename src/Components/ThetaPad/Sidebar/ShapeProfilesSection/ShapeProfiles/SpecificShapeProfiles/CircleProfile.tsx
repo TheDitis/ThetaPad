@@ -3,10 +3,10 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import ShapeProfileBase from "./ShapeProfileBase";
-import ShapeInfoItem from "./ShapeInfoItem";
+import ShapeProfileBase from "../ShapeProfileBase";
+import ShapeInfoItem from "../ShapeInfoItem";
 import uuid from "react-uuid";
-import {Circle} from "../../../../../types/shapes";
+import {Circle} from "../../../../../../types/shapes";
 
 /**
  * Renders information items relevant to Circle objects. Used in CircleProfile

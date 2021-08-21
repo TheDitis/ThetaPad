@@ -2,7 +2,7 @@
  * @file The base component for shape profiles in the sidebar
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {Shape} from "../../../../../types/shapes";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
@@ -14,6 +14,7 @@ import {removeShape, updateShape} from "../../../../../redux/slices/shapesSlice"
 import {unitSelector} from "../../../../../redux/selectors";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 import ColorSwatch from "../../../../Color/ColorSwatch";
+import {AnimatePresence, motion, useCycle} from "framer-motion";
 
 
 interface ShapeProfileStyleProps {
@@ -25,7 +26,7 @@ const borderColor = "rgba(0, 0, 0, 0.3)";
 
 const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
   box-sizing: border-box;
-  height: ${SHAPE_PROFILE_HEIGHT}px;
+  //height: ${SHAPE_PROFILE_HEIGHT}px;
   background: white;
   border-radius: 10px;
   display: flex;
@@ -99,9 +100,19 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
       box-sizing: border-box;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       padding-left: 5px;
       background: rgba(0, 0, 0, 0.13);
+      
+      .infoRow {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+    
+    .detailsSectionContainer {
+      width: 100%;
     }
   }
 `
@@ -117,6 +128,7 @@ interface ShapeProfileProps {
     index: number;
     unitValue: number;
     InfoItems?: React.FC;
+    DetailsSection?: React.FC;
 }
 
 /**
@@ -127,10 +139,10 @@ interface ShapeProfileProps {
  * @param {React.FC} [InfoItems] - The info component to show in the lower roW
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
-    {shape, index, unitValue, InfoItems = () => null}
+    {shape, index, unitValue, InfoItems = () => null, DetailsSection}
 ) => {
     const unit = useSelector(unitSelector);
-
+    const [showDetails, setShowDetails] = useState(false);
     const dispatch = useDispatch();
     const Icon = shapeIcons[shape.kind];
 
@@ -172,8 +184,30 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     </div>
                 </div>
                 <div className={"bottomSection"}>
-                    <InfoItems/>
+                    <div className={"infoRow"}>
+                        <InfoItems/>
+                    </div>
+                    {DetailsSection !== undefined && (
+                        <motion.p
+                            animate={{rotate : showDetails ? 180 : -90}}
+                            onClick={() => setShowDetails(!showDetails)}
+                        >
+                            ▲
+                        </motion.p>
+                    )}
                 </div>
+                {DetailsSection !== undefined && (
+                    <AnimatePresence>
+                        {showDetails && (
+                            <motion.div
+                                className={"detailsSectionContainer"}
+                                transition={{ ease: "easeInOut", duration: 0.5 }}
+                            >
+                                <DetailsSection/>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                )}
             </div>
         </ShapeProfileRoot>
     );

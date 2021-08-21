@@ -2,11 +2,12 @@
  * @file A Profile specific to they Poly line type
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import ShapeProfileBase from "./ShapeProfileBase";
-import ShapeInfoItem from "./ShapeInfoItem";
+import ShapeProfileBase from "../../ShapeProfileBase";
+import ShapeInfoItem from "../../ShapeInfoItem";
 import uuid from "react-uuid";
-import {Poly} from "../../../../../types/shapes";
+import {Poly} from "../../../../../../../types/shapes";
 import React from "react";
+import PolyProfileDetailsSection from "./PolyProfileDetailsSection";
 
 
 /**
@@ -41,6 +42,7 @@ const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index}) => (
         index={index}
         unitValue={line.totalLength}
         InfoItems={React.memo(() => <PolyLineInfoItems shape={line}/>)}
+        DetailsSection={React.memo(() => <PolyProfileDetailsSection line={line}/>)}
     >
     </ShapeProfileBase>
 )

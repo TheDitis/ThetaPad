@@ -3,10 +3,10 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import LineProfile from "./LineProfile";
+import LineProfile from "./SpecificShapeProfiles/LineProfile";
 import {Line, Shape, ShapeUtils} from "../../../../../types/shapes";
-import PolyLineProfile from "./PolyLineProfile";
-import CircleProfile from "./CircleProfile";
+import PolyLineProfile from "./SpecificShapeProfiles/PolyLineProfile/PolyLineProfile";
+import CircleProfile from "./SpecificShapeProfiles/CircleProfile";
 
 interface ShapeProfileProps {
     shape: Shape;

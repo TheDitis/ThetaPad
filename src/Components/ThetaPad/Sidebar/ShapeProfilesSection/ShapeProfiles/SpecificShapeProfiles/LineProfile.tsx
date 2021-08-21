@@ -3,9 +3,9 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {Line, LineUtils} from "../../../../../types/shapes";
-import ShapeProfileBase from "./ShapeProfileBase";
-import ShapeInfoItem from "./ShapeInfoItem";
+import {Line, LineUtils} from "../../../../../../types/shapes";
+import ShapeProfileBase from "../ShapeProfileBase";
+import ShapeInfoItem from "../ShapeInfoItem";
 import uuid from "react-uuid";
 
 /**
