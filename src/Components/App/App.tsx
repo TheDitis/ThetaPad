@@ -9,7 +9,9 @@ import React from "react";
 import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
 
-// TODO: Show line lengths on canvas (optional?)
+// TODO: Add settings menu to navbar
+// TODO: Add radius line to circles with outer point
+// TODO: Add ability to name Shapes
 // TODO: Show angles on canvas (optional?)
 // TODO: Resize shapes with image
 // TODO: Add segment dropdown for poly shapes
