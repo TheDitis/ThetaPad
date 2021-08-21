@@ -10,7 +10,6 @@ import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
 
 // TODO: Add settings menu to navbar
-// TODO: Add radius line to circles with outer point
 // TODO: Add ability to name Shapes
 // TODO: Show angles on canvas (optional?)
 // TODO: Resize shapes with image

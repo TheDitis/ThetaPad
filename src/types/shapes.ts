@@ -409,8 +409,15 @@ export abstract class CircleUtils {
         }
     }
 
-    static sizeLinePoints = (circle: Circle, diameter: boolean = false) => {
-        let pt1 = circle.origin
+    /**
+     * Create new line object representing either the radius or diameter
+     * @param {Circle} circle - the circle to get the radius/diameter line of
+     * @param {boolean} [diameter=false] - if true, the line will span the diameter rather than the radius of the circle
+     * @return {Line} - Line object spanning either the radius or the diameter of the circle
+     */
+    static sizeLine = (circle: Circle, diameter: boolean = false): Line => {
+        let pt1 = circle.origin;
+        const pt2 = circle.edgePoint;
         if (diameter) {
             const relativeCenter = PointUtils.translate(circle.origin, circle.edgePoint)
             pt1 = {
@@ -418,7 +425,7 @@ export abstract class CircleUtils {
                 y: circle.origin.y + relativeCenter.y,
             }
         }
-        return [pt1.x, pt1.y, circle.edgePoint.x, circle.edgePoint.y]
+        return LineUtils.new(pt1.x, pt1.y, pt2.x, pt2.y, circle.color);
     }
 }
 

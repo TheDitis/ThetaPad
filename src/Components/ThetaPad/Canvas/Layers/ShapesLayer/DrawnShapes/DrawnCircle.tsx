@@ -4,15 +4,21 @@
  */
 import React from "react";
 import {Circle, CircleUtils} from "../../../../../../types/shapes";
-import {Circle as KonvaCircle, Line as KonvaLine, Group as KonvaGroup} from "react-konva";
+import {Circle as KonvaCircle} from "react-konva";
+import DrawnLine from "./DrawnLine";
 
 
 interface DrawnCircleProps {
     circle: Circle;
 }
 
+/**
+ * Konva Circle with radius/diameter line
+ * @param {Circle} circle - Circle to draw
+ * @return {JSX.Element} - fragment containing Konva Circle and DrawnLine
+ */
 const DrawnCircle: React.FC<DrawnCircleProps> = ({circle}) => {
-    const sizeLinePoints = CircleUtils.sizeLinePoints(circle, false);
+    const sizeLine = CircleUtils.sizeLine(circle, true);
 
     return (
         <>
@@ -23,17 +29,7 @@ const DrawnCircle: React.FC<DrawnCircleProps> = ({circle}) => {
                 stroke={circle.color}
                 strokeWidth={2}
             />
-            <KonvaLine
-                x={0}
-                y={0}
-                points={sizeLinePoints}
-                stroke={circle.color}
-                strokeWidth={2}
-            />
-            <KonvaGroup
-            >
-
-            </KonvaGroup>
+            <DrawnLine line={sizeLine}/>
         </>
     )
 }

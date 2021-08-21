@@ -16,6 +16,12 @@ interface DrawnPolyProps {
     line: Poly;
 }
 
+/**
+ * Konva Line and map of segment-length text items
+ * @param {Poly} line - Poly line to render
+ * @return {JSX.Element} - fragment with Konva Line and map of Konva Groups with Konva Text elements to display the
+ *      the length of each segment of the line
+ */
 const DrawnPoly: React.FC<DrawnPolyProps> = ({line}) => {
     const unit = useSelector(unitValSelector);
 

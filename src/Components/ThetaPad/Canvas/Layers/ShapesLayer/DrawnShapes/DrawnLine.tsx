@@ -14,6 +14,11 @@ interface DrawnLineProps {
     line: Line
 }
 
+/**
+ * Konva Line with length text
+ * @param {Line} line - Line object to render
+ * @return {JSX.Element} - fragment containing Konva Line and a Konva Group with nested Konva Text element
+ */
 const DrawnLine: React.FC<DrawnLineProps> = ({line}) => {
     const unit = useSelector(unitValSelector);
     const midPoint = LineUtils.midPoint(line);
