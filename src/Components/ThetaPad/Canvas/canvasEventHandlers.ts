@@ -190,8 +190,8 @@ const handlePolyMouseMove = (e) => {
  * @param {Circle} tempShape - the current tempShape being drawn
  */
 const handleCircleMouseMove = (e, tempShape: Circle) => {
-    const newPt = {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
+    const edgePoint = {x: e.nativeEvent.layerX, y: e.nativeEvent.layerY}
     store.dispatch(updateTempShape(
-        {r: PointUtils.distance(tempShape.origin, newPt)}
+        {r: PointUtils.distance(tempShape.origin, edgePoint), edgePoint}
     ))
 }

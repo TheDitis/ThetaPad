@@ -375,6 +375,7 @@ export abstract class PolyUtils {
  */
 export interface Circle extends Shape {
     r: number;
+    edgePoint: Point;
 }
 
 /** Holds useful utility functions for creating and updating Circle shapes */
@@ -393,7 +394,8 @@ export abstract class CircleUtils {
         );
         return {
             ...base,
-            r: 0
+            r: 0,
+            edgePoint: base.origin,
         }
     }
 }
