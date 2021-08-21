@@ -4,11 +4,11 @@
  */
 import React from "react";
 import {Line, LineUtils} from "../../../../../../types/shapes";
-import {Line as KonvaLine, Group as KonvaGroup, Text as KonvaText} from "react-konva";
+import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-konva";
 import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../../redux/selectors";
-import _ from "lodash";
 import {LINE_INFO_TEXT_OFFSET} from "../../../../../constants";
+import {formatLengthText} from "../../../../../../utils/utils";
 
 interface DrawnLineProps {
     line: Line
@@ -18,13 +18,7 @@ const DrawnLine: React.FC<DrawnLineProps> = ({line}) => {
     const unit = useSelector(unitValSelector);
     const midPoint = LineUtils.midPoint(line);
 
-    let lengthText = (LineUtils.length_(line) / unit)
-        .toFixed(unit === 1 ? 0 : 2);
-
-    // Remove unnecessary trailing decimal places
-    if (lengthText.includes('.')) {
-        lengthText = _.dropRightWhile(lengthText, (char) => ['.', '0'].includes(char)).join("")
-    }
+    let lengthText = formatLengthText((LineUtils.length_(line) / unit), unit !== 1, 2)
 
     let angle = LineUtils.angle(line);
     const flipText = angle < -90 || angle > 90;

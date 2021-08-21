@@ -1,4 +1,5 @@
 import {COLORS} from "../Components/constants";
+import _ from "lodash";
 
 export const randomItem = <T>(array: T[]): T => (
     array[Math.floor(Math.random() * array.length)]
@@ -17,3 +18,13 @@ export const chunkSiblings = <T>(arr: T[]): T[][] => arr.reduce(
 )
 
 export const sum = (arr: number[]) => arr.reduce((acc, val) => acc + val)
+
+// TODO: Test
+export const formatLengthText = (length: number, asDecimal: boolean = false, decimalPlaces: number = 2): string => {
+    let lengthText = length.toFixed(asDecimal ? decimalPlaces : 0);
+    // Remove unnecessary trailing decimal places
+    if (lengthText.includes('.')) {
+        lengthText = _.dropRightWhile(lengthText, (char) => ['.', '0'].includes(char)).join("")
+    }
+    return lengthText;
+}

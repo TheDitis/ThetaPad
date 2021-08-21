@@ -2,10 +2,11 @@
  * @file Component that returns the relevant Konva shape to shape passed
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {Circle as KonvaCircle, Line as KonvaLine, Text as KonvaText, Group as KonvaGroup} from "react-konva";
+import {Circle as KonvaCircle} from "react-konva";
 import React from "react";
-import {PolyUtils, Shape, ShapeUtils} from "../../../../../../types/shapes";
+import {Shape, ShapeUtils} from "../../../../../../types/shapes";
 import DrawnLine from "./DrawnLine";
+import DrawnPoly from "./DrawnPoly";
 
 
 interface DrawnShapeProps {
@@ -23,15 +24,7 @@ const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
         return <DrawnLine line={shape}/>
     }
     if (ShapeUtils.isPoly(shape)) {
-        return (
-            <KonvaLine
-                x={0}
-                y={0}
-                points={PolyUtils.points(shape)}
-                stroke={shape.color}
-                strokeWidth={2}
-            />
-        )
+        return <DrawnPoly line={shape}/>
     }
     if (ShapeUtils.isCircle(shape)) {
         return (

@@ -48,7 +48,9 @@ const escapeDraw = (dispatch, tempShape) => {
             let shape = tempShape;
             if (ShapeUtils.isPoly(tempShape)) {
                 shape = {...tempShape};
-                shape.points = shape.points.slice(0, shape.points.length - 1)
+                shape.points = shape.points.slice(0, shape.points.length - 1);
+                shape.lengths = shape.lengths.slice(0, shape.lengths.length - 1);
+                shape.angles = shape.angles.slice(0, shape.angles.length - 1)
             }
             if (shape.points.length > 2) {
                 dispatch(createShape(shape));
