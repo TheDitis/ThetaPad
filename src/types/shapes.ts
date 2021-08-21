@@ -49,6 +49,16 @@ export abstract class PointUtils {
     }
 
     /**
+     * Get new Point representing 'pt' translated by 'by'
+     * @param {Point} pt - point to get translated version of
+     * @param {Point} by - amounts to translate by as point (x and y)
+     * @return {Point} - new Point translated by x & y values in 'by'
+     */
+    static translate = (pt: Point, by: Point): Point => {
+        return {x: pt.x - by.x, y: pt.y - by.y};
+    }
+
+    /**
      * Calculates the angle in degrees between 2 points
      * @param {Point} pt1 - one of the 2 points
      * @param {Point} pt2 - the other of the 2 points
@@ -397,6 +407,18 @@ export abstract class CircleUtils {
             r: 0,
             edgePoint: base.origin,
         }
+    }
+
+    static sizeLinePoints = (circle: Circle, diameter: boolean = false) => {
+        let pt1 = circle.origin
+        if (diameter) {
+            const relativeCenter = PointUtils.translate(circle.origin, circle.edgePoint)
+            pt1 = {
+                x: circle.origin.x + relativeCenter.x,
+                y: circle.origin.y + relativeCenter.y,
+            }
+        }
+        return [pt1.x, pt1.y, circle.edgePoint.x, circle.edgePoint.y]
     }
 }
 
