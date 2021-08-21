@@ -18,7 +18,7 @@ interface DrawnCircleProps {
  * @return {JSX.Element} - fragment containing Konva Circle and DrawnLine
  */
 const DrawnCircle: React.FC<DrawnCircleProps> = ({circle}) => {
-    const sizeLine = CircleUtils.sizeLine(circle, true);
+    const sizeLine = CircleUtils.sizeLine(circle, false);
 
     return (
         <>
