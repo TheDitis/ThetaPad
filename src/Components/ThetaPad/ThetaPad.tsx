@@ -8,6 +8,7 @@ import Canvas from "./Canvas/Canvas";
 import Sidebar from "./Sidebar/Sidebar";
 import {useSelector} from "react-redux";
 import {appHeightSelector} from "../../redux/selectors";
+import Overlays from "./Overlays/Overlays";
 
 
 interface ThetaPadStyleProps {
@@ -22,6 +23,7 @@ const ThetaPadRoot = styled.div<ThetaPadStyleProps>`
   z-index: 100;
   background: white;
   display: flex;
+  overflow: hidden;
 `;
 
 
@@ -36,6 +38,7 @@ const ThetaPad: React.FC = () => {
         <ThetaPadRoot height={height}>
             <Sidebar/>
             <Canvas/>
+            <Overlays/>
         </ThetaPadRoot>
     )
 }
