@@ -6,10 +6,11 @@ import React from "react";
 import styled from "styled-components";
 import LengthIcon from "../../../../Icons/LengthIcon";
 import AngleIcon from "../../../../Icons/AngleIcon";
-import {Shape} from "../../../../../types/shapes";
+import {PolySegment, Shape} from "../../../../../types/shapes";
 import RadiusIcon from "../../../../Icons/RadiusIcon";
 import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../redux/selectors";
+import {formatLengthText} from "../../../../../utils/utils";
 
 // The icon to display for each property
 const iconMap = {
@@ -58,7 +59,7 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
 
 
 interface ShapeInfoItemProps {
-    shape: Shape;
+    shape: Shape | PolySegment;
     property: string;
     value?: number;
 }
@@ -82,7 +83,7 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
             ['length', 'totalLength', 'radius', 'diameter'].includes(property)
         ) {
             val = val / unit;
-            return val.toFixed(unit === 1 ? 0 : 2)
+            return formatLengthText(val, true);
         }
         return val.toFixed(1);
     }

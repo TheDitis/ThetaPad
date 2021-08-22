@@ -274,7 +274,7 @@ export interface Poly extends Shape {
     angles: number[];
 }
 
-interface PolySegment {
+export interface PolySegment {
     start: Point,
     end: Point,
     angle: number,

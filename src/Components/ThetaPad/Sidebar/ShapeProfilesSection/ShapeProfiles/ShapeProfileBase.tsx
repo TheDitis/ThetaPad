@@ -24,93 +24,110 @@ interface ShapeProfileStyleProps {
 
 const borderColor = "rgba(0, 0, 0, 0.3)";
 
+
+
+
 const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
   box-sizing: border-box;
-  //height: ${SHAPE_PROFILE_HEIGHT}px;
   background: white;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   margin: 5px 4px;
   color: black;
-
-  .leftSection {
-    height: ${SHAPE_PROFILE_HEIGHT}px;
-    max-width: ${SHAPE_PROFILE_HEIGHT}px;
-    min-width: 40px;
-    width: 100%;
+  overflow: hidden;
+  min-height: ${SHAPE_PROFILE_HEIGHT}px;
+  
+  .main {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-right: 1px solid ${borderColor};
-  }
-
-  .rightSection {
     height: ${SHAPE_PROFILE_HEIGHT}px;
-    width: 100%;
-
-    .topSection {
-      position: relative;
-      height: ${SHAPE_PROFILE_HEIGHT * 0.55}px;
+    
+    .leftSection {
+      height: ${SHAPE_PROFILE_HEIGHT}px;
+      max-width: ${SHAPE_PROFILE_HEIGHT}px;
+      min-width: 40px;
       width: 100%;
-      border-bottom: 1px solid ${borderColor};
       display: flex;
       align-items: center;
+      justify-content: center;
+      border-right: 1px solid ${borderColor};
+    }
 
-      .icon {
+    .rightSection {
+      height: ${SHAPE_PROFILE_HEIGHT}px;
+      width: 100%;
+
+      .topSection {
+        position: relative;
+        height: ${SHAPE_PROFILE_HEIGHT * 0.55}px;
+        width: 100%;
+        border-bottom: 1px solid ${borderColor};
         display: flex;
         align-items: center;
-        justify-content: center;
-        border-right: 1px solid ${borderColor};
-        height: 100%;
+
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-right: 1px solid ${borderColor};
+          height: 100%;
+        }
+
+        .labelAndControls {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-left: 15px;
+          padding-right: 10px;
+
+          .unitButton {
+            color: ${props => props.isUnit ? "white" : "black"};
+            display: flex;
+            font-size: 9pt;
+            border: 1px solid gray;
+            padding: 4px 8px 2px 8px;
+            border-radius: 8px;
+            background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
+          }
+
+          .xButton {
+            font-size: 15pt;
+            position: relative;
+            top: -5px;
+            line-height: 18pt;
+            cursor: pointer;
+            transition: transform 80ms ease-in-out;
+          }
+        }
       }
 
-      .labelAndControls {
+      .bottomSection {
         width: 100%;
-        height: 100%;
+        height: ${SHAPE_PROFILE_HEIGHT * 0.45}px;
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-left: 15px;
+        padding-left: 5px;
         padding-right: 10px;
+        background: rgba(0, 0, 0, 0.13);
 
-        .unitButton {
-          color: ${props => props.isUnit ? "white" : "black"};
+        .infoRow {
           display: flex;
-          font-size: 9pt;
-          border: 1px solid gray;
-          padding: 4px 8px 2px 8px;
-          border-radius: 8px;
-          background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
-        }
-
-        .xButton {
-          font-size: 15pt;
-          position: relative;
-          top: -5px;
-          line-height: 18pt;
-          cursor: pointer;
-          transition: transform 80ms ease-in-out;
+          align-items: center;
+          justify-content: flex-start;
         }
       }
     }
+  }
 
-    .bottomSection {
-      width: 100%;
-      height: ${SHAPE_PROFILE_HEIGHT * 0.45}px;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-left: 5px;
-      background: rgba(0, 0, 0, 0.13);
-      
-      .infoRow {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-      }
-    }
-    
+  .details {
+    //height: 200px;
+    max-height: ${SHAPE_PROFILE_HEIGHT * 3}px;
+    overflow: scroll;
+
     .detailsSectionContainer {
       width: 100%;
     }
@@ -162,47 +179,51 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
 
     return (
         <ShapeProfileRoot isUnit={shape.id === unit.unitShape}>
-            <div className={"leftSection"}>
-                <ColorSwatch color={shape.color} onChange={changeColor}/>
-            </div>
-            <div className={"rightSection"}>
-                <div className={"topSection"}>
-                    <div className={"icon"}>
-                        <Icon/>
-                    </div>
-                    <div className={"labelAndControls"}>
-                        <h3>{shape.kind} {index + 1}</h3>
-                        <button
-                            className={"unitButton"}
-                            onClick={toggleUnit}
-                        >Unit
-                        </button>
+            <div className={"main"}>
+                <div className={"leftSection"}>
+                    <ColorSwatch color={shape.color} onChange={changeColor}/>
+                </div>
+                <div className={"rightSection"}>
+                    <div className={"topSection"}>
+                        <div className={"icon"}>
+                            <Icon/>
+                        </div>
+                        <div className={"labelAndControls"}>
+                            <h3>{shape.kind} {index + 1}</h3>
+                            <button
+                                className={"unitButton"}
+                                onClick={toggleUnit}
+                            >Unit
+                            </button>
 
-                        <h5
-                            className={"xButton"}
-                            onClick={() => dispatch(removeShape(shape.id))}
-                        >×</h5>
+                            <h5
+                                className={"xButton"}
+                                onClick={() => dispatch(removeShape(shape.id))}
+                            >×</h5>
+                        </div>
+                    </div>
+                    <div className={"bottomSection"}>
+                        <div className={"infoRow"}>
+                            <InfoItems/>
+                        </div>
+                        {DetailsSection !== undefined && (
+                            <motion.p
+                                animate={{rotate: showDetails ? 180 : -90}}
+                                onClick={() => setShowDetails(!showDetails)}
+                            >
+                                ▲
+                            </motion.p>
+                        )}
                     </div>
                 </div>
-                <div className={"bottomSection"}>
-                    <div className={"infoRow"}>
-                        <InfoItems/>
-                    </div>
-                    {DetailsSection !== undefined && (
-                        <motion.p
-                            animate={{rotate : showDetails ? 180 : -90}}
-                            onClick={() => setShowDetails(!showDetails)}
-                        >
-                            ▲
-                        </motion.p>
-                    )}
-                </div>
+            </div>
+            <div className={"details"}>
                 {DetailsSection !== undefined && (
                     <AnimatePresence>
                         {showDetails && (
                             <motion.div
                                 className={"detailsSectionContainer"}
-                                transition={{ ease: "easeInOut", duration: 0.5 }}
+                                transition={{ease: "easeInOut", duration: 0.5}}
                             >
                                 <DetailsSection/>
                             </motion.div>

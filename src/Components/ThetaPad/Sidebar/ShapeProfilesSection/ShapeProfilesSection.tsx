@@ -19,6 +19,11 @@ const ShapeProfilesSectionRoot = styled.div`
   flex-flow: column nowrap;
   align-items: stretch;
   padding-bottom: ${SHAPE_PROFILE_HEIGHT * 3}px;
+  
+  .profilesContainer {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 
@@ -30,8 +35,10 @@ const ShapeProfilesSectionRoot = styled.div`
 const ShapeProfilesSection: React.FC = () => {
     return (
         <ShapeProfilesSectionRoot>
-            <CompletedShapesProfiles/>
-            <TempShapeProfile/>
+            <div className={"profilesContainer"}>
+                <CompletedShapesProfiles/>
+                <TempShapeProfile/>
+            </div>
         </ShapeProfilesSectionRoot>
     )
 }
