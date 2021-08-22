@@ -14,7 +14,7 @@ import {removeShape, updateShape} from "../../../../../redux/slices/shapesSlice"
 import {unitSelector} from "../../../../../redux/selectors";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 import ColorSwatch from "../../../../Color/ColorSwatch";
-import {AnimatePresence, motion, useCycle} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 
 
 interface ShapeProfileStyleProps {
@@ -136,7 +136,8 @@ interface ShapeProfileProps {
  * @param {Shape} shape - the shape to show info for
  * @param {number} index - its index in the list
  * @param {number} unitValue - the value to set the unit to on unit button click
- * @param {React.FC} [InfoItems] - The info component to show in the lower roW
+ * @param {React.FC} [InfoItems] - the info component to show in the lower row
+ * @param {React.FC} [DetailsSection] - component to render in the dropdown, showing more details/controls for the shape
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {shape, index, unitValue, InfoItems = () => null, DetailsSection}

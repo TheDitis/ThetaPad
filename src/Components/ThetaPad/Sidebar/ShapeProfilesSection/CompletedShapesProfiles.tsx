@@ -3,20 +3,19 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import uuid from "react-uuid";
-import ShapeProfile from "./ShapeProfiles/ShapeProfile";
+import {MemoizedShapeProfile} from "./ShapeProfiles/ShapeProfile";
 import {useSelector} from "react-redux";
-import {shapesSelector} from "../../../../redux/selectors";
+import {shapesIdsSelector} from "../../../../redux/selectors";
 
 
 /** Fragment of ShapeProfiles for all completed shapes */
 const CompletedShapesProfiles: React.FC = () => {
-    const shapes = useSelector(shapesSelector);
+    const shapeIds = useSelector(shapesIdsSelector);
 
     return (
         <>
-            {Object.entries(shapes).map(([id, shape], index) => (
-                <ShapeProfile key={uuid()} shape={shape} index={index}/>
+            {shapeIds.map((id, index) => (
+                <MemoizedShapeProfile key={id} shapeId={id} index={index}/>
             ))}
         </>
     )

@@ -7,9 +7,12 @@ import LineProfile from "./SpecificShapeProfiles/LineProfile";
 import {Line, Shape, ShapeUtils} from "../../../../../types/shapes";
 import PolyLineProfile from "./SpecificShapeProfiles/PolyLineProfile/PolyLineProfile";
 import CircleProfile from "./SpecificShapeProfiles/CircleProfile";
+import {connect} from "react-redux";
+import {mapShapeToPropsWithSelector} from "../../../../../redux/slices/shapesSlice";
 
 interface ShapeProfileProps {
     shape: Shape;
+    shapeId?: string;
     index: number;
 }
 
@@ -21,7 +24,7 @@ interface ShapeProfileProps {
  * @return {JSX.Element | null} - LineProfile, PolyLineProfile, or CircleProfile
  *      based on the type of 'shape', null if the shape is an invalid type
  */
-const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
+const ShapeProfile: React.FC<ShapeProfileProps> = ({index, shape}) => {
     if (ShapeUtils.isLine(shape)) {
         const line = shape as Line;
         return <LineProfile line={line} index={index}/>
@@ -36,4 +39,16 @@ const ShapeProfile: React.FC<ShapeProfileProps> = ({shape, index}) => {
 }
 
 
-export default ShapeProfile;
+/**
+ * Memoized version that takes the passed id (shapeId) and tacks on the corresponding Shape in props
+ * This keeps every profile from re-rendering every time a new shape is added or removed
+ */
+export const MemoizedShapeProfile = React.memo(
+    connect(mapShapeToPropsWithSelector())(ShapeProfile),
+    (prev, next) => (
+        prev.index === next.index && prev.shapeId === next.shapeId
+    )
+)
+
+
+export default ShapeProfile

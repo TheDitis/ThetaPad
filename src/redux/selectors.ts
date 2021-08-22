@@ -17,6 +17,11 @@ type DimensionsSelectorType = (RootState) => AppDimensions
 export const shapesSelector: ShapesSelectorType = (state: RootState) =>
     state.shapes;
 
+export const shapesIdsSelector = createSelector(
+    shapesSelector,
+    (shapes) => Object.keys(shapes)
+);
+
 export const tempShapeSelector: TempShapeSelectorType = (state: RootState) =>
     state.tempShape;
 
