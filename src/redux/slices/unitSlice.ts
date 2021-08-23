@@ -6,17 +6,17 @@ import {createSlice} from "@reduxjs/toolkit";
 
 /**
  * @interface UnitState
- * @property {number} value - value all lengths will be measured relative to. 1
+ * @property {number} unit - value all lengths will be measured relative to. 1
  *      means measurements will be made in pixels
  * @property {string | null} unitShape - id of the shape that the current value
  *      linked to, or null if there isn't one
  */
 export interface UnitState {
-    value: number,
+    unit: number,
     unitShape: string | null,
 }
 
-const initialState: UnitState = {value: 1, unitShape: null}
+const initialState: UnitState = {unit: 1, unitShape: null}
 
 interface SetUnitAction {
     value: number,
@@ -30,12 +30,12 @@ const unitSlice = createSlice({
     reducers: {
         /** Set unit to the value tied to a particular shape */
         setUnit(state, action: { payload: SetUnitAction }) {
-            state.value = action.payload.value;
+            state.unit = action.payload.value;
             state.unitShape = action.payload.id;
         },
         /** Reset unit to 1 */
         resetUnit(state) {
-            state.value = 1;
+            state.unit = 1;
             state.unitShape = null;
         }
     }

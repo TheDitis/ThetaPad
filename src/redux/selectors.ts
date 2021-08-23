@@ -29,7 +29,7 @@ export const unitSelector: UnitSelectorType = (state: RootState) => state.unit;
 
 export const unitValSelector = createSelector(
     unitSelector,
-    (unitState) => unitState.value
+    (unitState) => unitState.unit
 )
 export const unitShapeIdSelector = createSelector(
     unitSelector,

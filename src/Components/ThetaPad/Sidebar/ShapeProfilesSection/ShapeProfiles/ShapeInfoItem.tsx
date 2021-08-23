@@ -53,7 +53,7 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
     margin-left: 8px;
     float: bottom;
     font-size: 10pt;
-    padding: 0;
+    padding: 2px 0;
   }
 `
 
@@ -79,11 +79,8 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
     const getFormattedValue = (): string => {
 
         let val = value === undefined ? shape[property] : value;
-        if (
-            ['length', 'totalLength', 'radius', 'diameter'].includes(property)
-        ) {
-            val = val / unit;
-            return formatLengthText(val, true);
+        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
+            return formatLengthText(val / unit, unit > 1);
         }
         return val.toFixed(1);
     }

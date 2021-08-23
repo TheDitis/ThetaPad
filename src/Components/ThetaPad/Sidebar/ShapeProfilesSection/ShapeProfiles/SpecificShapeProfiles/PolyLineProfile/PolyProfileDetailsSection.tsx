@@ -26,7 +26,7 @@ const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({li
     return (
         <PolyProfileDetailsSectionRoot>
             {PolyUtils.asSegments(line).map((segment, index) => (
-                <PolySegmentProfile segment={segment} index={index}/>
+                <PolySegmentProfile segment={segment} index={index} shapeId={line.id}/>
             ))}
         </PolyProfileDetailsSectionRoot>
     )
