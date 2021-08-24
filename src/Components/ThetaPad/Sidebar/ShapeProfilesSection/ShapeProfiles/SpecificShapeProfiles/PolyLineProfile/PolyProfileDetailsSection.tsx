@@ -7,6 +7,8 @@ import React from "react";
 import {Poly, PolyUtils} from "../../../../../../../types/shapes";
 import PolySegmentProfile from "./PolySegmentProfile";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../constants";
+import {useDispatch} from "react-redux";
+import {removePolyPoint} from "../../../../../../../redux/slices/shapesSlice";
 
 
 interface PolyProfileDetailsSectionStyleProps {
@@ -43,23 +45,52 @@ interface LineNodeSvgProps {
     line: Poly
 }
 const LineNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
+    const dispatch = useDispatch();
     const height = POLY_SEGMENT_HEIGHT * (line.angles.length + 1);
     const width = POLY_SEGMENT_HEIGHT;
     const xLoc = POLY_SEGMENT_HEIGHT / 2;
     const yOffset = 15;
     const nodeRadius = 10;
 
-    const yLoc = (index) => (POLY_SEGMENT_HEIGHT * index) + yOffset + nodeRadius
+    const yLoc = (index) => (POLY_SEGMENT_HEIGHT * index) + yOffset + nodeRadius;
+
+    const removePoint = (index) => () => {
+        if (line.points.length > 2) {
+            dispatch(removePolyPoint({target: line.id, index}))
+        }
+    }
 
 
     return (
-        <svg style={{position: "absolute", right: 0, top: -nodeRadius}} width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+        <svg
+            style={{position: "absolute", right: 0, top: -nodeRadius}}
+            width={width}
+            height={height}
+            viewBox={`0 0 ${width} ${height}`}
+        >
             {line.lengths.map((pt, index) => {
-                return <line x1={xLoc} y1={yLoc(index)} x2={xLoc} y2={yLoc(index + 1)} stroke={"rgb(110, 100, 100)"} strokeWidth={2} />
+                return <line
+                    key={"line" + index.toString()}
+                    x1={xLoc}
+                    y1={yLoc(index)}
+                    x2={xLoc}
+                    y2={yLoc(index + 1)}
+                    stroke={"rgb(110, 100, 100)"}
+                    strokeWidth={2}
+                />
             })}
             {line.points.map((pt, index) => {
                 return (
-                    <circle cx={xLoc} cy={yLoc(index)} r={nodeRadius} stroke={"rgb(110, 110, 110)"} strokeWidth={2} fill={"white"}/>
+                    <circle
+                        key={"circle" + index.toString()}
+                        onClick={removePoint(index)}
+                        cx={xLoc}
+                        cy={yLoc(index)}
+                        r={nodeRadius}
+                        stroke={"rgb(110, 110, 110)"}
+                        strokeWidth={2}
+                        fill={"white"}
+                    />
                 )
             })}
         </svg>

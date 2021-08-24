@@ -7,15 +7,16 @@ export const randomItem = <T>(array: T[]): T => (
 
 export const randomColor = (): string => randomItem(COLORS);
 
-export const chunkSiblings = <T>(arr: T[]): T[][] => arr.reduce(
-    (acc: T[][], val, i, array) => {
+export const chunkSiblings = <T>(arr: T[]): [T, T][] => arr.reduce(
+    (acc: T[][], val: T, i, array: T[]) => {
         if (i < array.length - 1) {
-            acc.push([val, array[i + 1]])
+            const pair: [T, T] = [val, array[i + 1]]
+            acc.push(pair)
         }
         return acc;
     },
     []
-)
+) as [T, T][]
 
 export const sum = (arr: number[]) => arr.reduce((acc, val) => acc + val)
 

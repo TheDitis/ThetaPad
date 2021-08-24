@@ -3,8 +3,9 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSelector, createSlice} from "@reduxjs/toolkit";
-import {PartialShape, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
+import {PartialShape, Point, PointUtils, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
+import {chunkSiblings, sum} from "../../utils/utils";
 
 export type ShapeMap = { [id: string]: Shape }
 
@@ -39,8 +40,16 @@ const shapesSlice = createSlice({
             action: { payload: { target: string, index: number } }
         ) {
             const targetShape = shapes[action.payload.target];
-            if (ShapeUtils.isPoly(targetShape)) {
-                targetShape.points.splice(action.payload.index, 1);
+            if (ShapeUtils.isPoly(targetShape) && targetShape.points.length > 2) {
+                const {index} = action.payload;
+
+                targetShape.points.splice(index, 1);
+
+                const pointPairs: [Point, Point][] = chunkSiblings(targetShape.points);
+                targetShape.angles = pointPairs.map((ptPair) => PointUtils.angle(...ptPair))
+                targetShape.lengths = pointPairs.map((ptPair) => PointUtils.distance(...ptPair))
+
+                targetShape.totalLength = sum(targetShape.lengths);
             }
             else {
                 console.error("removePolyPoint action dispatched on non-poly shape!");

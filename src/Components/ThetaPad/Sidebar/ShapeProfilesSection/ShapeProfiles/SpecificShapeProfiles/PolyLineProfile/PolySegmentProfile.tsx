@@ -107,7 +107,7 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
             </div>
             <div className={"infoSection"}>
                 {properties.map((property) => (
-                    <ShapeInfoItem shape={segment} property={property}/>
+                    <ShapeInfoItem key={property} shape={segment} property={property}/>
                 ))}
             </div>
             <div className={"nodesSection"}>
