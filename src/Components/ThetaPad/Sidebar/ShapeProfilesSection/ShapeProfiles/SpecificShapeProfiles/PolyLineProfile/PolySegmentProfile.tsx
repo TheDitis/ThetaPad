@@ -9,9 +9,10 @@ import ShapeInfoItem from "../../ShapeInfoItem";
 import {useDispatch, useSelector} from "react-redux";
 import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
 import {unitSelector} from "../../../../../../../redux/selectors";
+import {POLY_SEGMENT_HEIGHT} from "../../../../../../constants";
 
 
-const SEGMENT_HEIGHT = 50;
+
 
 interface PolySegmentProfileStyleProps {
     isUnit: boolean;
@@ -22,7 +23,7 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-  height: ${SEGMENT_HEIGHT}px;
+  height: ${POLY_SEGMENT_HEIGHT}px;
   border-top: 1px solid rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   
@@ -32,7 +33,7 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
     justify-content: center;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    height: ${SEGMENT_HEIGHT / 2}px;
+    height: ${POLY_SEGMENT_HEIGHT / 2}px;
     width: 25px;
     background: ${props => props.isUnit ? 'white' : 'rgba(0, 0, 0, 0.2)'};
     box-shadow: ${props => props.isUnit ? "0 0 10px white" : "none"};
@@ -58,10 +59,14 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
     z-index: 500;
     
     .nodesSvg {
+      border: 2px solid orange;
+      position: relative;
       line {
+        position: relative;
         z-index: 10;
       }
       circle {
+        position: relative;
         z-index: 8;
       }
     }
@@ -81,8 +86,9 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
     const dispatch = useDispatch();
     const properties = ['length', 'angle'];
     const isUnit = unitShape === shapeId && unit === segment.length;
-    const isEven = index % 2 === 0;
-    const xOffset = isEven ? 10 : -10;
+    // const isEven = index % 2 === 0;
+    // const xOffset = isEven ? 10 : -10;
+
 
     const onSelect = () => {
         if (isUnit) {
@@ -106,16 +112,17 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
             </div>
             <div className={"nodesSection"}>
 
-                <svg className={"nodesSvg"} height={SEGMENT_HEIGHT * 2} width={SEGMENT_HEIGHT * 2}>
-                    {isEven
-                        ? <line x1={SEGMENT_HEIGHT + xOffset} y1={25} x2={SEGMENT_HEIGHT - xOffset} y2={SEGMENT_HEIGHT * 1.5} stroke={"black"} strokeWidth={2}/>
-                        : <line/>
-                    }
-                    {index === 0 && (
-                        <circle cx={SEGMENT_HEIGHT + xOffset} cy={25} r={10} fill={"white"} stroke={"black"} strokeWidth={4}/>
-                    )}
-                    <circle cx={SEGMENT_HEIGHT - xOffset} cy={SEGMENT_HEIGHT * 1.5} r={10} fill={"white"} stroke={"black"} strokeWidth={4}/>
-                </svg>
+                {/*<svg className={"nodesSvg"} height={POLY_SEGMENT_HEIGHT * 2} width={POLY_SEGMENT_HEIGHT}>*/}
+                {/*    {isEven*/}
+                {/*        ? <line x1={POLY_SEGMENT_HEIGHT + xOffset} y1={25} x2={POLY_SEGMENT_HEIGHT - xOffset} y2={POLY_SEGMENT_HEIGHT * 1.5} stroke={"black"} strokeWidth={2}/>*/}
+                {/*        : <line x1={POLY_SEGMENT_HEIGHT - xOffset} y1={POLY_SEGMENT_HEIGHT * 1.5} x2={POLY_SEGMENT_HEIGHT + xOffset} y2={25} stroke={"black"} strokeWidth={2}/>*/}
+                {/*    }*/}
+                {/*    {index === 0*/}
+                {/*        ? <circle cx={POLY_SEGMENT_HEIGHT + xOffset} cy={25} r={10} fill={"white"} stroke={"black"} strokeWidth={4}/>*/}
+                {/*        : <use xlinkHref={"circle" + (index - 1).toString()}/>*/}
+                {/*    }*/}
+                {/*    <circle id={"circle" + index.toString()} cx={POLY_SEGMENT_HEIGHT - xOffset} cy={POLY_SEGMENT_HEIGHT * 1.5} r={10} fill={"white"} stroke={"black"} strokeWidth={4}/>*/}
+                {/*</svg>*/}
             </div>
         </PolySegmentProfileRoot>
     );

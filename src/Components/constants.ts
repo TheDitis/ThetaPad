@@ -15,6 +15,9 @@ export const MIN_SIDEBAR_WIDTH = 300;
 // Height of the shape profiles when closed
 export const SHAPE_PROFILE_HEIGHT = 65;
 
+// Height of individual Poly segment profiles in the Poly profile dropdown
+export const POLY_SEGMENT_HEIGHT = 50;
+
 // Static default color options
 export const COLORS = [
     "#FF0000", // "red",
