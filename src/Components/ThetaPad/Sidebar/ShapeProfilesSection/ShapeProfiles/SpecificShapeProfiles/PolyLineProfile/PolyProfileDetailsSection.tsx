@@ -15,7 +15,8 @@ const PolyProfileDetailsSectionRoot = styled.div<PolyProfileDetailsSectionStyleP
   width: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
+  padding-top: 10px;
+  background: rgba(0, 0, 0, 0.13);
 `
 
 interface PolyProfileDetailsSectionProps {
@@ -26,7 +27,7 @@ const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({li
     return (
         <PolyProfileDetailsSectionRoot>
             {PolyUtils.asSegments(line).map((segment, index) => (
-                <PolySegmentProfile segment={segment} index={index} shapeId={line.id}/>
+                <PolySegmentProfile key={index} segment={segment} index={index} shapeId={line.id}/>
             ))}
         </PolyProfileDetailsSectionRoot>
     )

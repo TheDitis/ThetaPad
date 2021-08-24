@@ -127,6 +127,7 @@ const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
     //height: 200px;
     max-height: ${SHAPE_PROFILE_HEIGHT * 3}px;
     overflow: scroll;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
 
     .detailsSectionContainer {
       width: 100%;
