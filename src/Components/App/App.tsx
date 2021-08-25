@@ -13,9 +13,9 @@ import ResizeListener from "./EventListenerComponents/ResizeListener";
 // TODO: Add ability to name Shapes
 // TODO: Show angles on canvas (optional?)
 // TODO: Resize shapes with image
-// TODO: Add segment dropdown for poly shapes
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
+// TODO: Add Layer to highlight 'selected' shapes
 
 
 const App = () => {
