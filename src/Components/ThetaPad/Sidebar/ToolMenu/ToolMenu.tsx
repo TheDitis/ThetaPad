@@ -9,16 +9,19 @@ import GridTool from "./Tools/GridTool";
 
 const TAB_HEIGHT = 40;
 const MENU_HEIGHT = 400;
+const SPRING_BUFFER = 60;
 
 interface ToolsStyleProps {
 }
 
 const ToolsRoot = styled(motion.div)<ToolsStyleProps>`
   position: absolute;
-  bottom: ${-MENU_HEIGHT + TAB_HEIGHT}px;
+  bottom: ${-MENU_HEIGHT + TAB_HEIGHT - SPRING_BUFFER}px;
   display: flex;
   flex-direction: column;
   width: 100%;
+  box-sizing: content-box;
+  //border-bottom: 40px solid #282c34;
   
   .tabSection {
     //display: flex;
@@ -59,9 +62,12 @@ const ToolsRoot = styled(motion.div)<ToolsStyleProps>`
     align-items: center;
     z-index: 3;
     background: #282c34;
-    height ${MENU_HEIGHT}px;
+    height: ${MENU_HEIGHT + SPRING_BUFFER}px;
+    padding-bottom: ${SPRING_BUFFER * 3}px;
     border-top: 2px solid white;
+    overflow-y: scroll;
   }
+  
 
 `
 
@@ -99,7 +105,6 @@ const ToolMenu: React.FC = () => {
             variants={variants}
             animate={isOpen ? "open" : "closed"}
             whileHover={doneClosing ? "hover" : "none"}
-            transition={{duration: 0.3, ease: "easeOut"}}
         >
             <motion.div className={"tabSection"}>
                 <div
