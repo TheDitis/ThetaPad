@@ -53,24 +53,6 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
   .infoSection {
     display: flex;
   }
-  
-  .nodesSection {
-    position: relative;
-    z-index: 500;
-    
-    .nodesSvg {
-      border: 2px solid orange;
-      position: relative;
-      line {
-        position: relative;
-        z-index: 10;
-      }
-      circle {
-        position: relative;
-        z-index: 8;
-      }
-    }
-  }
 `
 
 
@@ -86,8 +68,6 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
     const dispatch = useDispatch();
     const properties = ['length', 'angle'];
     const isUnit = unitShape === shapeId && unit === segment.length;
-    // const isEven = index % 2 === 0;
-    // const xOffset = isEven ? 10 : -10;
 
 
     const onSelect = () => {
@@ -109,20 +89,6 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                 {properties.map((property) => (
                     <ShapeInfoItem key={property} shape={segment} property={property}/>
                 ))}
-            </div>
-            <div className={"nodesSection"}>
-
-                {/*<svg className={"nodesSvg"} height={POLY_SEGMENT_HEIGHT * 2} width={POLY_SEGMENT_HEIGHT}>*/}
-                {/*    {isEven*/}
-                {/*        ? <line x1={POLY_SEGMENT_HEIGHT + xOffset} y1={25} x2={POLY_SEGMENT_HEIGHT - xOffset} y2={POLY_SEGMENT_HEIGHT * 1.5} stroke={"black"} strokeWidth={2}/>*/}
-                {/*        : <line x1={POLY_SEGMENT_HEIGHT - xOffset} y1={POLY_SEGMENT_HEIGHT * 1.5} x2={POLY_SEGMENT_HEIGHT + xOffset} y2={25} stroke={"black"} strokeWidth={2}/>*/}
-                {/*    }*/}
-                {/*    {index === 0*/}
-                {/*        ? <circle cx={POLY_SEGMENT_HEIGHT + xOffset} cy={25} r={10} fill={"white"} stroke={"black"} strokeWidth={4}/>*/}
-                {/*        : <use xlinkHref={"circle" + (index - 1).toString()}/>*/}
-                {/*    }*/}
-                {/*    <circle id={"circle" + index.toString()} cx={POLY_SEGMENT_HEIGHT - xOffset} cy={POLY_SEGMENT_HEIGHT * 1.5} r={10} fill={"white"} stroke={"black"} strokeWidth={4}/>*/}
-                {/*</svg>*/}
             </div>
         </PolySegmentProfileRoot>
     );

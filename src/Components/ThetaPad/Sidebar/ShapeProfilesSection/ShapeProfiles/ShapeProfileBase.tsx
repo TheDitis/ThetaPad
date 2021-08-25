@@ -27,7 +27,7 @@ const borderColor = "rgba(0, 0, 0, 0.3)";
 
 
 
-const ShapeProfileRoot = styled.div<ShapeProfileStyleProps>`
+const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
   box-sizing: border-box;
   background: white;
   border-radius: 10px;
@@ -144,6 +144,14 @@ const shapeIcons = {
 }
 
 const variants = {
+    main: {
+        visible: {
+            opacity: 1,
+        },
+        hidden: {
+            opacity: 0,
+        }
+    },
     dropdownArrow: {
         closed: {
             rotate: -90
@@ -192,7 +200,14 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     }
 
     return (
-        <ShapeProfileRoot isUnit={shape.id === unit.unitShape}>
+        <ShapeProfileRoot
+            isUnit={shape.id === unit.unitShape}
+            variants={variants.main}
+            initial={"hidden"}
+            exit={"hidden"}
+            animate={"visible"}
+            transition={{duration: 0.2}}
+        >
             <div className={"main"}>
                 <div className={"leftSection"}>
                     <ColorSwatch color={shape.color} onChange={changeColor}/>
