@@ -21,6 +21,8 @@ export interface Point {
     y: number;
 }
 
+export type PointPair = [Point, Point]
+
 /**
  * Holds useful utility functions for creating and measuring relationships
  * between points
@@ -354,7 +356,7 @@ export abstract class PolyUtils {
      * @param {Poly} poly
      * @return {Point[][]} - array of point pairs [[pt0, pt1], [pt1, pt2], [pt2, pt3]...]
      */
-    static asPointPairs = (poly: Poly): Point[][] => chunkSiblings(poly.points);
+    static asPointPairs = (poly: Poly): PointPair[] => chunkSiblings(poly.points);
 
     /**
      * Returns array of sub-segments of the Poly-line
@@ -363,14 +365,10 @@ export abstract class PolyUtils {
      */
     static asSegments = (poly: Poly): PolySegment[] => {
         const pairs = PolyUtils.asPointPairs(poly);
-        const segmentArray = _.zip(pairs, poly.lengths, poly.angles);
-        return segmentArray.reduce((acc, [pts, len, ang]) => {
-            acc.push({
-                start: pts[0],
-                end: pts[1],
-                length: len,
-                angle: ang,
-            })
+        const zipped = _.zip(pairs, poly.lengths, poly.angles);
+        return zipped.reduce((acc, [pts, len, ang]) => {
+            // @ts-ignore  // zipped arrays will always be the same size
+            acc.push({start: pts[0], end: pts[1], length: len, angle: ang})
             return acc;
         }, [])
     }

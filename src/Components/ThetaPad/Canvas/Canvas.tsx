@@ -8,9 +8,10 @@ import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {AppDimensions} from "../../../redux/slices/dimensionsSlice";
 import {useSelector} from "react-redux";
 import KonvaStageWithReduxBridge from "./Layers/ShapesLayer/KonvaStageWithReduxBridge";
-import {dimensionsSelector} from "../../../redux/selectors";
+import {dimensionsSelector, gridIsActiveSelector} from "../../../redux/selectors";
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 import ImageLayer from "./Layers/ImageLayer";
+import GridLayer from "./Layers/GridLayer";
 
 interface CanvasStyleProps {
     dimensions: AppDimensions;
@@ -30,6 +31,7 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
  */
 const Canvas: React.FC = () => {
     const dimensions = useSelector(dimensionsSelector);
+    const gridIsActive = useSelector(gridIsActiveSelector);
 
     return (
         <CanvasRoot
@@ -43,6 +45,7 @@ const Canvas: React.FC = () => {
                 height={dimensions.height - dimensions.navbar}
             >
                 <ImageLayer/>
+                {gridIsActive && <GridLayer/>}
                 <ShapesLayer/>
             </KonvaStageWithReduxBridge>
         </CanvasRoot>

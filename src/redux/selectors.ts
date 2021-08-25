@@ -8,6 +8,7 @@ import {Shape} from "../types/shapes";
 import {UnitState} from "./slices/unitSlice";
 import {AppDimensions} from "./slices/dimensionsSlice";
 import {ShapeMap} from "./slices/shapesSlice";
+import _ from "lodash";
 
 type ShapesSelectorType = (RootState) => ShapeMap;
 type TempShapeSelectorType = (RootState) => Shape | null;
@@ -88,4 +89,27 @@ export const imageSrcSelector = createSelector(
 export const imageOriginalDimensionsSelector = createSelector(
     imageSelector,
     (imageData) => ({width: imageData.width, height: imageData.height})
+)
+
+
+export const gridSelector = (state) => state.grid;
+
+export const gridIsActiveSelector = createSelector(
+    gridSelector,
+    (gridState) => gridState.active
+)
+
+export const gridParamsSelector = createSelector(
+    gridSelector,
+    (gridState) => gridState.params
+)
+
+export const gridStructuralParamsSelector = createSelector(
+    gridParamsSelector,
+    (gridParams) => _.pick(gridParams, 'diagonals', 'nColumns', 'nRows', 'width', 'height')
+)
+
+export const gridStyleParamsSelector = createSelector(
+    gridParamsSelector,
+    (gridParams) => _.pick(gridParams, 'color', 'strokeWidth', 'opacity')
 )

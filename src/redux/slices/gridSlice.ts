@@ -3,8 +3,17 @@ import {SIDEBAR_WIDTH} from "../../Components/constants";
 
 // type GridParamName = 'color' | 'nColumns' | 'nRows' | 'width' | 'height' | 'strokeWidth' | 'opacity'
 
-interface GridParamsType {
+export interface StructuralGridParamsType {
+    diagonals: false;
+    nColumns: number;
+    nRows: number;
+    width: number;
+    height: number;
+}
+
+export interface GridParamsType {
     color: string;
+    diagonals: false;
     nColumns: number;
     nRows: number;
     width: number;
@@ -22,6 +31,7 @@ const initialState: GridStateType = {
     active: true,
     params: {
         color: 'black',
+        diagonals: false,
         nColumns: 8,
         nRows: 12,
         width: window.innerWidth - SIDEBAR_WIDTH,
@@ -35,7 +45,6 @@ const initialState: GridStateType = {
 type UpdateGridParamsAction = { payload: Partial<GridParamsType> }
 
 
-
 const gridSlice = createSlice({
     name: "grid",
     initialState,
@@ -45,6 +54,9 @@ const gridSlice = createSlice({
         },
         showGrid(state) {
             state.active = true;
+        },
+        hideGrid(state) {
+            state.active = false;
         },
         updateGridParams(state, action: UpdateGridParamsAction) {
             Object.entries(action.payload).forEach(([param, value]) => {
@@ -56,4 +68,4 @@ const gridSlice = createSlice({
 
 
 export default gridSlice.reducer;
-export const { toggleGrid, showGrid, updateGridParams } = gridSlice.actions;
+export const { toggleGrid, showGrid, hideGrid, updateGridParams } = gridSlice.actions;
