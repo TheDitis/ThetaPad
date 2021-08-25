@@ -7,10 +7,10 @@
 export const NAVBAR_HEIGHT = 45;
 
 // Maximum width of the sidebar
-export const MAX_SIDEBAR_WIDTH = 350;
+export const MAX_SIDEBAR_WIDTH = 350; // Disabled for now
 
 // Minimum width of the sidebar
-export const MIN_SIDEBAR_WIDTH = 320;
+export const SIDEBAR_WIDTH = 320;
 
 // Height of the shape profiles when closed
 export const SHAPE_PROFILE_HEIGHT = 65;

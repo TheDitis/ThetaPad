@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice} from "@reduxjs/toolkit";
-import {MIN_SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../Components/constants";
+import {SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../Components/constants";
 import {Dimensions} from "./imageSlice";
 
 /**
@@ -33,7 +33,7 @@ export interface AppDimensions extends WindowDimensions {
 
 const initialState: AppDimensions = {
     navbar: NAVBAR_HEIGHT,
-    sidebar: MIN_SIDEBAR_WIDTH,
+    sidebar: SIDEBAR_WIDTH,
     image: {width: 0, height: 0},
     width: window.innerWidth,
     height: window.innerHeight,
