@@ -53,6 +53,10 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
   .infoSection {
     display: flex;
   }
+  
+  .nodesSpacer {
+    //width: 20px;
+  }
 `
 
 
@@ -79,7 +83,6 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
         }
     }
 
-    console.log()
     return (
         <PolySegmentProfileRoot isUnit={isUnit}>
             <div className={"indexSection"} onClick={onSelect}>
@@ -90,6 +93,7 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                     <ShapeInfoItem key={property} shape={segment} property={property}/>
                 ))}
             </div>
+            <div className={"nodesSpacer"}/>
         </PolySegmentProfileRoot>
     );
 }

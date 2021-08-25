@@ -124,14 +124,12 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
   }
 
   .details {
-    //height: 200px;
     max-height: ${SHAPE_PROFILE_HEIGHT * 3}px;
     overflow: scroll;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
-
     background: rgba(0, 0, 0, 0.13);
     
-    .detailsSectionContainer {
+    .detailsScrollContainer {
       width: 100%;
     }
   }
@@ -158,6 +156,14 @@ const variants = {
         },
         open: {
             rotate: -180
+        }
+    },
+    details: {
+        open: {
+            height: SHAPE_PROFILE_HEIGHT * 3
+        },
+        closed: {
+            height: 0
         }
     }
 }
@@ -249,20 +255,24 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     </div>
                 </div>
             </div>
-            <div className={"details"}>
-                {DetailsSection !== undefined && (
-                    <AnimatePresence>
-                        {showDetails && (
-                            <motion.div
-                                className={"detailsSectionContainer"}
-                                transition={{ease: "easeInOut", duration: 0.5}}
-                            >
+            {DetailsSection !== undefined && (
+                <AnimatePresence>
+                    {showDetails && (
+                        <motion.div
+                            className={"details"}
+                            transition={{ease: "easeInOut", duration: 0.5}}
+                            variants={variants.details}
+                            initial={"closed"}
+                            exit={"closed"}
+                            animate={"open"}
+                        >
+                            <div className={"detailsScrollContainer"}>
                                 <DetailsSection/>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                )}
-            </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            )}
         </ShapeProfileRoot>
     );
 }
