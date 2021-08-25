@@ -143,6 +143,17 @@ const shapeIcons = {
     "Circle": CircleIcon,
 }
 
+const variants = {
+    dropdownArrow: {
+        closed: {
+            rotate: -90
+        },
+        open: {
+            rotate: -180
+        }
+    }
+}
+
 interface ShapeProfileProps {
     shape: Shape;
     index: number;
@@ -211,8 +222,10 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         </div>
                         {DetailsSection !== undefined && (
                             <motion.p
-                                style={{transform: "rotate(-90deg)"}}
-                                animate={{rotate: showDetails ? 180 : -90}}
+                                variants={variants.dropdownArrow}
+                                initial={"closed"}
+                                animate={showDetails ? "open" : "closed"}
+                                transition={{ease: "easeInOut"}}
                                 onClick={() => setShowDetails(!showDetails)}
                             >
                                 ▲
