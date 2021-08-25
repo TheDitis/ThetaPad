@@ -5,6 +5,7 @@
 import styled from "styled-components";
 import React, {useState} from "react";
 import {motion} from "framer-motion";
+import GridTool from "./Tools/GridTool";
 
 const TAB_HEIGHT = 40;
 const MENU_HEIGHT = 400;
@@ -53,6 +54,9 @@ const ToolsRoot = styled(motion.div)<ToolsStyleProps>`
   }
   
   .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 3;
     background: #282c34;
     height ${MENU_HEIGHT}px;
@@ -98,17 +102,15 @@ const ToolMenu: React.FC = () => {
             transition={{duration: 0.3, ease: "easeOut"}}
         >
             <motion.div className={"tabSection"}>
-                {/*<div className={"tabSpacer"}/>*/}
                 <div
                     className={"tab"}
                     onClick={toggleIsOpen}
                 >
                     <h3>Tools</h3>
                 </div>
-                {/*<div className={"tabSpacer"}/>*/}
             </motion.div>
             <motion.div className={"main"}>
-
+                <GridTool/>
             </motion.div>
         </ToolsRoot>
     )

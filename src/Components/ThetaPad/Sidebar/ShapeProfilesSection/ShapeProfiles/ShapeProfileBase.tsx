@@ -15,6 +15,7 @@ import {unitSelector} from "../../../../../redux/selectors";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 import ColorSwatch from "../../../../Color/ColorSwatch";
 import {AnimatePresence, motion} from "framer-motion";
+import ShowMoreButton from "../../../../General/ShowMoreButton";
 
 
 interface ShapeProfileStyleProps {
@@ -150,14 +151,6 @@ const variants = {
             opacity: 0,
         }
     },
-    dropdownArrow: {
-        closed: {
-            rotate: -90
-        },
-        open: {
-            rotate: -180
-        }
-    },
     details: {
         open: {
             height: SHAPE_PROFILE_HEIGHT * 3
@@ -242,15 +235,10 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             <InfoItems/>
                         </div>
                         {DetailsSection !== undefined && (
-                            <motion.p
-                                variants={variants.dropdownArrow}
-                                initial={"closed"}
-                                animate={showDetails ? "open" : "closed"}
-                                transition={{ease: "easeInOut"}}
+                            <ShowMoreButton
                                 onClick={() => setShowDetails(!showDetails)}
-                            >
-                                ▲
-                            </motion.p>
+                                isOpen={showDetails}
+                            />
                         )}
                     </div>
                 </div>
