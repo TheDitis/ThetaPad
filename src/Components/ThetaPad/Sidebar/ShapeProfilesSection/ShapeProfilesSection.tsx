@@ -18,7 +18,7 @@ const ShapeProfilesSectionRoot = styled.div`
   flex-direction: column;
   flex-flow: column nowrap;
   align-items: stretch;
-  padding-bottom: ${SHAPE_PROFILE_HEIGHT * 3}px;
+  padding-bottom: ${SHAPE_PROFILE_HEIGHT * 3.5}px;
   
   .profilesContainer {
     display: flex;
