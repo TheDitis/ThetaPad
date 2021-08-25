@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice} from "@reduxjs/toolkit";
-import {MAX_SIDEBAR_WIDTH, MIN_SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../Components/constants";
+import {MIN_SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../Components/constants";
 import {Dimensions} from "./imageSlice";
 
 /**
@@ -55,16 +55,18 @@ const dimensionsSlice = createSlice({
         setWindowDimensions(state, action: { payload: WindowDimensions }) {
             const {width, height} = action.payload;
             state.height = height
+            state.width = width
 
-            if (width !== state.width) {
-                state.width = width;
+            // if (width !== state.width) {
+            //     state.width = width;
+            //
+            //     let sidebarWidth = width / 4;
+            //     sidebarWidth = Math.min(MAX_SIDEBAR_WIDTH, sidebarWidth);
+            //     sidebarWidth = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth);
+            //
+            //     state.sidebar = sidebarWidth;
+            // }
 
-                let sidebarWidth = width / 3;
-                sidebarWidth = Math.min(MAX_SIDEBAR_WIDTH, sidebarWidth);
-                sidebarWidth = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth);
-
-                state.sidebar = sidebarWidth;
-            }
         },
         /** Manually sets the sidebar width */
         setSidebarWidth(state, action: { payload: number }) {

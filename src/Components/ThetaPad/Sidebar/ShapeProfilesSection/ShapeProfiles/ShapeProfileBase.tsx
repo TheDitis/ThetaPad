@@ -211,6 +211,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         </div>
                         {DetailsSection !== undefined && (
                             <motion.p
+                                style={{transform: "rotate(-90deg)"}}
                                 animate={{rotate: showDetails ? 180 : -90}}
                                 onClick={() => setShowDetails(!showDetails)}
                             >
