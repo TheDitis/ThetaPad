@@ -4,6 +4,8 @@
  */
 import React from "react";
 import ToolProfileBase from "../ToolProfileBase";
+import {Button} from "@material-ui/core";
+import GridIcon from "../../../../Icons/GridIcon";
 
 
 const GridTool: React.FC = () => {
@@ -22,7 +24,10 @@ const GridTooMain = () => {
 
     return (
         <>
-            <h1>grid</h1>
+            <Button
+            >
+                <GridIcon color={"black"}/>
+            </Button>
         </>
     )
 }

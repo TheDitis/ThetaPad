@@ -14,6 +14,7 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
   width: 95%;
   margin-top: 16px;
   border-radius: 10px;
+  padding: 10px;
 `
 
 interface ToolProfileBaseProps {
