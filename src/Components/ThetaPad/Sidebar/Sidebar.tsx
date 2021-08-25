@@ -8,7 +8,7 @@ import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
 import {useSelector} from "react-redux";
 import {sidebarWidthSelector} from "../../../redux/selectors";
-import Tools from "./Tools/Tools";
+import ToolMenu from "./ToolMenu/ToolMenu";
 
 
 interface SidebarStyleProps {
@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
         <SidebarRoot width={width}>
             <ControlsSection/>
             <ShapeProfilesSection/>
-            <Tools/>
+            <ToolMenu/>
         </SidebarRoot>
     )
 }

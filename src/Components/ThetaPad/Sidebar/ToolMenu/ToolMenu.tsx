@@ -1,4 +1,4 @@
-/** Tools.tsx
+/** ToolMenu.tsx
  * @file menu in the sidebar containing additional tools
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
@@ -75,7 +75,7 @@ const variants = {
 }
 
 
-const Tools: React.FC = () => {
+const ToolMenu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [doneClosing, setDoneClosing] = useState(true); // keeps whileHover from activating while closing
 
@@ -115,4 +115,4 @@ const Tools: React.FC = () => {
 }
 
 
-export default Tools;
+export default ToolMenu;
