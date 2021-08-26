@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {SIDEBAR_WIDTH} from "../../Components/constants";
+import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../Components/constants";
 
 // type GridParamName = 'color' | 'nColumns' | 'nRows' | 'width' | 'height' | 'strokeWidth' | 'opacity'
 
@@ -35,7 +35,7 @@ const initialState: GridStateType = {
         nColumns: 8,
         nRows: 12,
         width: window.innerWidth - SIDEBAR_WIDTH,
-        height: window.innerHeight,
+        height: window.innerHeight - NAVBAR_HEIGHT,
         strokeWidth: 1,
         opacity: 0.8
     }
