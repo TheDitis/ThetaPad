@@ -20,7 +20,14 @@ export const chunkSiblings = <T>(arr: T[]): [T, T][] => arr.reduce(
 
 export const sum = (arr: number[]) => arr.reduce((acc, val) => acc + val)
 
-// TODO: Test
+/**
+ * Formats length values for ideal display
+ * @param {number} length - the numeric length value
+ * @param {boolean} [asDecimal=false] - if true, decimal places will be shown
+ * @param {number} [decimalPlaces=2] - the maximum number of decimal places to
+ *      show if asDecimal is true
+ * @return {string} - length in a nice, readable string format
+ */
 export const formatLengthText = (length: number, asDecimal: boolean = false, decimalPlaces: number = 2): string => {
     let lengthText = length.toFixed(asDecimal ? decimalPlaces : 0);
     // Remove unnecessary trailing decimal places
@@ -29,3 +36,16 @@ export const formatLengthText = (length: number, asDecimal: boolean = false, dec
     }
     return lengthText;
 }
+
+/**
+ * Takes a value and 'compresses' it between lower and upper limits
+ * @param {number} value - the value to get limited version of
+ * @param {number} lowerLimit - lowest value that can be returned
+ * @param {number} upperLimit - highest value that is returned
+ * @return {number} - value if value is between upperLimit and lowerLimit,
+ *      lowerLimit if value is less than lowerLimit, or upperLimit if value
+ *      is greater than upperLimit
+ */
+export const limitValue = (value: number, lowerLimit: number, upperLimit: number): number => (
+    Math.min(upperLimit, Math.max(lowerLimit, value))
+)

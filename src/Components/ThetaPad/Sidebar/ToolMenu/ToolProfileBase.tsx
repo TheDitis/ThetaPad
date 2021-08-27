@@ -3,7 +3,8 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React from "react";
+import React, {ReactNode, useState} from "react";
+import ShowMoreButton from "../../../General/ShowMoreButton";
 
 
 interface ToolProfileBaseStyleProps {
@@ -22,6 +23,7 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
   padding: 10px;
   
   .mainSection {
+    position: relative;
     display: flex;
     align-items: center;
     width: 100%;
@@ -37,10 +39,9 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
   }
   
   .numericInputContainer {
-    color: rgb(70, 70, 70);
     margin-left: 10px;
     input {
-      width: 50px;
+      width: 40px;
     }
     label {
       vertical-align: text-after-edge;
@@ -53,12 +54,28 @@ interface ToolProfileBaseProps {
 }
 
 const ToolProfileBase: React.FC<ToolProfileBaseProps> = ({active, children}) => {
+    const [showMore, setShowMore] = useState(false);
 
+    let Main = children;
+    let DropdownContent: ReactNode | null = null;
+    if ((!React.isValidElement(children)) && Array.isArray(children)) {
+        Main = children[0];
+        if (children.length > 1) {
+            DropdownContent = children[1]
+        }
+    }
+    console.log(children)
+    console.log(React.isValidElement(children))
 
     return (
         <ToolProfileBaseRoot active={active}>
-            {/*<MainContent/>*/}
-            {children}
+            <div className={"mainSection"}>
+                {Main}
+                {DropdownContent && (
+                    <ShowMoreButton onClick={() => {setShowMore(!showMore)}} isOpen={showMore}/>
+                )}
+            </div>
+            {/*{children}*/}
         </ToolProfileBaseRoot>
     )
 }

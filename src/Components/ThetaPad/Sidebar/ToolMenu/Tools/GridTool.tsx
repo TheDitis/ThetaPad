@@ -25,7 +25,7 @@ const GridTool: React.FC = () => {
         //     MainContent={() => <GridToolMain active={active} initialColor={params.color} initialNRows={params.nRows}/>}
         // />
         <ToolProfileBase active={active}>
-            <motion.div className={"mainSection"}>
+            <>
                 <Button
                     className={"toolToggleButton"}
                     onClick={() => dispatch(toggleGrid())}
@@ -42,7 +42,7 @@ const GridTool: React.FC = () => {
                     <NumericInput
                         label={"Rows"}
                         onChange={(value) => dispatch(updateGridParams({nRows: value}))}
-                        defaultValue={params.nRows}
+                        value={params.nRows}
                     />
                 </div>
                 <div className={"numericInputContainer"}>
@@ -52,6 +52,9 @@ const GridTool: React.FC = () => {
                         value={params.nColumns}
                     />
                 </div>
+            </>
+            <motion.div className={"dropdownSection"}>
+                <p>hi</p>
             </motion.div>
         </ToolProfileBase>
     )
