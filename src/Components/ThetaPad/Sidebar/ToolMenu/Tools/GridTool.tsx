@@ -48,6 +48,7 @@ const GridTool: React.FC = () => {
                     />
                 </div>
             </>
+
             <>
                 <div style={{width: "90%"}}>
                     <NumericSlider

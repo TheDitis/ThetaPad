@@ -91,6 +91,13 @@ interface ToolProfileBaseProps {
     active?: boolean;
 }
 
+/**
+ * A framework for Tools in the ToolMenu
+ * @param {boolean | undefined} active - Whether or not a given tool is 'on'
+ * @param children - Content of the tool. The first child will occupy the main area,
+ *      and if there are more root-level children, they will occupy the dropdown
+ * @return {JSX.Element} - styled div with child component(s) placed accordingly
+ */
 const ToolProfileBase: React.FC<ToolProfileBaseProps> = ({active, children}) => {
     const [showMore, setShowMore] = useState(false);
 
@@ -99,7 +106,7 @@ const ToolProfileBase: React.FC<ToolProfileBaseProps> = ({active, children}) => 
     if ((!React.isValidElement(children)) && Array.isArray(children)) {
         Main = children[0];
         if (children.length > 1) {
-            DropdownContent = children[1]
+            DropdownContent = children.slice(1)
         }
     }
 

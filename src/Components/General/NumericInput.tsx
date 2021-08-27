@@ -24,6 +24,18 @@ interface NumericInputProps {
     max?: number;
 }
 
+
+/**
+ * A wrapper for MUI TextField that only accepts numeric values
+ * @param {string} label - label for this control
+ * @param {(v: number) => void} onChange - function to handle new value change
+ * @param {number} [value] - current value of this control
+ * @param {number} [defaultValue] - default value of this control
+ * @param {boolean} [integer=false] - if true, decimal places will be disallowed
+ * @param {number} [min=-Infinity] - minimum value allowed
+ * @param {number} [max=Infinity] - maximum value allowed
+ * @return {JSX.Element} - wrapped and stylized NumericInputRoot
+ */
 const NumericInput: React.FC<NumericInputProps> = (
     {
         label,

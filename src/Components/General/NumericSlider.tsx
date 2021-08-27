@@ -21,6 +21,16 @@ interface NumericSliderProps {
     step?: number;
 }
 
+/**
+ * Wraps MUI Slider and makes its use in this app less bulky
+ * @param {number} value - value that this slider controls
+ * @param {(val: number) => void} onChange - function to call on change
+ * @param {string} label - the name of the control
+ * @param {number | undefined} min - minimum possible value
+ * @param {number | undefined} max - maximum possible value
+ * @param {number | undefined} step - smallest increments the slider can move in
+ * @return {JSX.Element} - div containing MUI slider and its label
+ */
 const NumericSlider: React.FC<NumericSliderProps> = ({value, onChange, label, min = 0, max = 1, step = 0.02}) => {
 
     const onChangeWrapper = (e: ChangeEvent<{}>, val: number | number[]) => {
