@@ -5,6 +5,7 @@
 import styled from "styled-components";
 import React, {ReactNode, useState} from "react";
 import ShowMoreButton from "../../../General/ShowMoreButton";
+import {AnimatePresence, motion} from "framer-motion";
 
 
 interface ToolProfileBaseStyleProps {
@@ -21,12 +22,15 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
   margin-top: 16px;
   border-radius: 10px;
   padding: 10px;
+  color: black;
+  text-align: left;
   
   .mainSection {
     position: relative;
     display: flex;
     align-items: center;
     width: 100%;
+    color: black;
   }
 
   .toolToggleButton {
@@ -38,16 +42,50 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
     }
   }
   
+  .showMoreButtonContainer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  
   .numericInputContainer {
     margin-left: 10px;
     input {
-      width: 40px;
+      width: 45px;
     }
     label {
       vertical-align: text-after-edge;
     }
   }
+  
+  .dropdownSection {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
+    background: rgba(0, 0, 0, 0.13);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
+
+const variants = {
+    dropdown: {
+        open: {
+            height: "auto",
+            marginTop: 10,
+        },
+        closed: {
+            height: 0,
+            marginTop: 0,
+        }
+    }
+}
+
 
 interface ToolProfileBaseProps {
     active?: boolean;
@@ -64,18 +102,33 @@ const ToolProfileBase: React.FC<ToolProfileBaseProps> = ({active, children}) => 
             DropdownContent = children[1]
         }
     }
-    console.log(children)
-    console.log(React.isValidElement(children))
 
     return (
         <ToolProfileBaseRoot active={active}>
             <div className={"mainSection"}>
                 {Main}
                 {DropdownContent && (
-                    <ShowMoreButton onClick={() => {setShowMore(!showMore)}} isOpen={showMore}/>
+                    <div className={"showMoreButtonContainer"}>
+                        <ShowMoreButton
+                            onClick={() => {setShowMore(!showMore)}}
+                            isOpen={showMore}
+                        />
+                    </div>
                 )}
             </div>
-            {/*{children}*/}
+            <AnimatePresence>
+                {showMore && (
+                    <motion.div
+                        className={"dropdownSection"}
+                        variants={variants.dropdown}
+                        initial={"closed"}
+                        animate={"open"}
+                        exit={"closed"}
+                    >
+                        {DropdownContent}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </ToolProfileBaseRoot>
     )
 }

@@ -30,14 +30,14 @@ interface GridStateType {
 const initialState: GridStateType = {
     active: true,
     params: {
-        color: 'black',
+        color: '#000000',
         diagonals: false,
         nColumns: 8,
         nRows: 12,
         width: window.innerWidth - SIDEBAR_WIDTH,
         height: window.innerHeight - NAVBAR_HEIGHT,
         strokeWidth: 1,
-        opacity: 0.8
+        opacity: 1
     }
 }
 

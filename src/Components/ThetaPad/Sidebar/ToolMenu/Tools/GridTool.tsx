@@ -4,14 +4,13 @@
  */
 import React from "react";
 import ToolProfileBase from "../ToolProfileBase";
-import {Button} from "@material-ui/core";
+import {Button, Slider, Typography} from "@material-ui/core";
 import GridIcon from "../../../../Icons/GridIcon";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleGrid, updateGridParams} from "../../../../../redux/slices/gridSlice";
 import {gridSelector} from "../../../../../redux/selectors";
 import ColorSwatch from "../../../../Color/ColorSwatch";
 import NumericInput from "../../../../General/NumericInput";
-import { motion } from "framer-motion";
 
 
 const GridTool: React.FC = () => {
@@ -19,11 +18,6 @@ const GridTool: React.FC = () => {
     const dispatch = useDispatch();
 
     return (
-        // <ToolProfileBase
-        //     key={"GridTool"}
-        //     active={active}
-        //     MainContent={() => <GridToolMain active={active} initialColor={params.color} initialNRows={params.nRows}/>}
-        // />
         <ToolProfileBase active={active}>
             <>
                 <Button
@@ -35,8 +29,8 @@ const GridTool: React.FC = () => {
                 <ColorSwatch
                     color={params.color}
                     onChange={(newColor) => dispatch(updateGridParams({color: newColor}))}
-                    width={50}
-                    height={50}
+                    width={45}
+                    height={45}
                 />
                 <div className={"numericInputContainer"}>
                     <NumericInput
@@ -53,9 +47,24 @@ const GridTool: React.FC = () => {
                     />
                 </div>
             </>
-            <motion.div className={"dropdownSection"}>
-                <p>hi</p>
-            </motion.div>
+            <>
+                <div style={{width: "90%"}}>
+                    <Typography id={"opacitySlider"} gutterBottom>Opacity</Typography>
+                    <Slider
+                        value={params.opacity}
+                        onChange={(e, val) => {
+                            console.log(val)
+                            dispatch(updateGridParams({
+                                opacity: Array.isArray(val) ? val[0] : val
+                            }))
+                        }}
+                        aria-labelledby={"opacitySlider"}
+                        min={0}
+                        max={1}
+                        step={0.02}
+                    />
+                </div>
+            </>
         </ToolProfileBase>
     )
 }
