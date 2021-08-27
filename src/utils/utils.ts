@@ -46,6 +46,12 @@ export const formatLengthText = (length: number, asDecimal: boolean = false, dec
  *      lowerLimit if value is less than lowerLimit, or upperLimit if value
  *      is greater than upperLimit
  */
-export const limitValue = (value: number, lowerLimit: number, upperLimit: number): number => (
-    Math.min(upperLimit, Math.max(lowerLimit, value))
-)
+export const limitValue = (value: number, lowerLimit: number, upperLimit: number): number => {
+    if (upperLimit < lowerLimit) {
+        console.warn("upperLimit passed to limitValue is less than lowerLimit. They were swapped automatically")
+        let tempUpper = lowerLimit;
+        lowerLimit = upperLimit
+        upperLimit = tempUpper;
+    }
+    return Math.min(upperLimit, Math.max(lowerLimit, value))
+}
