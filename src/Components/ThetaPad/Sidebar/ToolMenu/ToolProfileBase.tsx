@@ -77,11 +77,16 @@ const variants = {
     dropdown: {
         open: {
             height: "auto",
+            margin: 0,
             marginTop: 10,
+            opacity: 1,
         },
         closed: {
+            margin: 0,
+            padding: 0,
             height: 0,
             marginTop: 0,
+            opacity: 0,
         }
     }
 }
@@ -112,7 +117,7 @@ const ToolProfileBase: React.FC<ToolProfileBaseProps> = ({active, children}) => 
 
     return (
         <ToolProfileBaseRoot active={active}>
-            <div className={"mainSection"}>
+            <motion.div className={"mainSection"}>
                 {Main}
                 {DropdownContent && (
                     <div className={"showMoreButtonContainer"}>
@@ -122,7 +127,7 @@ const ToolProfileBase: React.FC<ToolProfileBaseProps> = ({active, children}) => 
                         />
                     </div>
                 )}
-            </div>
+            </motion.div>
             <AnimatePresence>
                 {showMore && (
                     <motion.div

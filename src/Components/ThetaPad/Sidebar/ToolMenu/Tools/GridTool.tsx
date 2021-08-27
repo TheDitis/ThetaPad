@@ -12,6 +12,7 @@ import {gridSelector} from "../../../../../redux/selectors";
 import ColorSwatch from "../../../../Color/ColorSwatch";
 import NumericInput from "../../../../General/NumericInput";
 import NumericSlider from "../../../../General/NumericSlider";
+import { motion } from "framer-motion";
 
 
 const GridTool: React.FC = () => {
@@ -49,22 +50,22 @@ const GridTool: React.FC = () => {
                 </div>
             </>
 
-            <>
-                <div style={{width: "90%"}}>
-                    <NumericSlider
-                        value={params.opacity}
-                        onChange={(val) => dispatch(updateGridParams({opacity: val}))}
-                        label={"Opacity"}
-                    />
-                    <NumericSlider
-                        value={params.strokeWidth}
-                        onChange={(val) => dispatch(updateGridParams({strokeWidth: val}))}
-                        label={"Thickness"}
-                        min={1}
-                        max={100}
-                    />
-                </div>
-            </>
+
+            <motion.div style={{width: "90%", marginTop: 10}}>
+                <NumericSlider
+                    value={params.opacity}
+                    onChange={(val) => dispatch(updateGridParams({opacity: val}))}
+                    label={"Opacity"}
+                />
+                <NumericSlider
+                    value={params.strokeWidth}
+                    onChange={(val) => dispatch(updateGridParams({strokeWidth: val}))}
+                    label={"Thickness"}
+                    min={1}
+                    max={100}
+                />
+            </motion.div>
+
         </ToolProfileBase>
     )
 }
