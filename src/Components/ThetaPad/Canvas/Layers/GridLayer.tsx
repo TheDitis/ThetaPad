@@ -13,15 +13,15 @@ import _ from "lodash";
 type BasicLine = [number, number, number, number]
 
 
-const createVerticalLines = ({width, height, nRows}: StructuralGridParamsType): BasicLine[] => {
-    const xs = _.range(0, width + 1, width / nRows);
+const createVerticalLines = ({width, height, nColumns}: StructuralGridParamsType): BasicLine[] => {
+    const xs = _.range(0, width + 1, width / nColumns);
     return xs.map((x) => (
         [x, 0, x, Math.round(height)]
     ))
 }
 
-const createHorizontalLines = ({width, height, nColumns}: StructuralGridParamsType): BasicLine[] => {
-    const ys = _.range(0, height + 1, height / nColumns);
+const createHorizontalLines = ({width, height, nRows}: StructuralGridParamsType): BasicLine[] => {
+    const ys = _.range(0, height + 1, height / nRows);
     return ys.map((y) => (
         [0, y, width, y]
     ))
