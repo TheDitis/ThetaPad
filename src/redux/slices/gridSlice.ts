@@ -1,8 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../Components/constants";
 
-// type GridParamName = 'color' | 'nColumns' | 'nRows' | 'width' | 'height' | 'strokeWidth' | 'opacity'
-export type GridOrientation = keyof GridActiveOrientationsType;
+/**
+ * @interface GridActiveOrientationsType
+ * Each orientation of grid lines pointing to a boolean representing whether
+ * or not those lines should be rendered
+ */
 export interface GridActiveOrientationsType {
     vertical: boolean;
     horizontal: boolean;
@@ -10,6 +13,17 @@ export interface GridActiveOrientationsType {
     decline: boolean;
 }
 
+export type GridOrientation = keyof GridActiveOrientationsType;
+
+/**
+ * @interface StructuralGridParamsType
+ * @property {GridActiveOrientationsType} orientations - map of which grid-line
+ *      orientations to render
+ * @property {number} nColumns - number of columns in the grid
+ * @property {number} nRows - number of rows in the grid
+ * @property {number} width - width the grid should span
+ * @property {number} height - height the grid should span
+ */
 export interface StructuralGridParamsType {
     orientations: GridActiveOrientationsType;
     nColumns: number;
@@ -18,6 +32,18 @@ export interface StructuralGridParamsType {
     height: number;
 }
 
+/**
+ * @interface GridParamsType
+ * @property {string} color - color of the grid lines
+ * @property {GridActiveOrientationsType} orientations - map of which grid-line
+ *      orientations to render
+ * @property {number} nColumns - number of columns in the grid
+ * @property {number} nRows - number of rows in the grid
+ * @property {number} width - width the grid should span
+ * @property {number} height - height the grid should span
+ * @property {number} strokeWidth - width of the rendered grid-lines
+ * @property {number} opacity - opacity of the grid lines
+ */
 export interface GridParamsType {
     color: string;
     orientations: GridActiveOrientationsType;
@@ -29,13 +55,19 @@ export interface GridParamsType {
     opacity: number;
 }
 
+/**
+ * @interface GridStateType
+ * @property {boolean} active - whether or not the grid is turned on
+ * @property {GridParamsType} params - object of structural and style parameters
+ *      defining the grid
+ */
 interface GridStateType {
     active: boolean;
     params: GridParamsType;
 }
 
 const initialState: GridStateType = {
-    active: true,
+    active: false,
     params: {
         color: '#000000',
         orientations: {
@@ -70,6 +102,7 @@ const gridSlice = createSlice({
         hideGrid(state) {
             state.active = false;
         },
+        /** set only a few specific grid parameters */
         updateGridParams(state, action: UpdateGridParamsAction) {
             Object.entries(action.payload).forEach(([param, value]) => {
                 state.params[param] = value;

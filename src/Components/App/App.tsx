@@ -9,7 +9,7 @@ import React from "react";
 import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
 import {createTheme, ThemeProvider} from "@material-ui/core";
-import {blueGrey, teal} from "@material-ui/core/colors";
+import {blueGrey, grey, teal} from "@material-ui/core/colors";
 
 // TODO: Add settings menu to navbar
 // TODO: Add ability to name Shapes
@@ -24,6 +24,7 @@ import {blueGrey, teal} from "@material-ui/core/colors";
 // FIX TODOS:
 // TODO: Fix color picker not opening on second click
 // TODO: make ShapeProfileBase dropdown animation match that of ToolProfileBase
+// TODO: make grid snap to image on upload, not just on resize
 
 
 const theme = createTheme({
@@ -34,6 +35,9 @@ const theme = createTheme({
             dark: blueGrey[900]
         },
         secondary: teal,
+        text: {
+            disabled: grey[700]
+        }
     }
 })
 

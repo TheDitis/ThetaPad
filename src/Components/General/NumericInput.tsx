@@ -19,6 +19,7 @@ interface NumericInputProps {
     onChange: (v: number) => void;
     value?: number;
     defaultValue?: number;
+    disabled?: boolean;
     integer?: boolean;
     min?: number;
     max?: number;
@@ -31,6 +32,7 @@ interface NumericInputProps {
  * @param {(v: number) => void} onChange - function to handle new value change
  * @param {number} [value] - current value of this control
  * @param {number} [defaultValue] - default value of this control
+ * @param {boolean} [disabled=false] - if true, the input will be disabled
  * @param {boolean} [integer=false] - if true, decimal places will be disallowed
  * @param {number} [min=-Infinity] - minimum value allowed
  * @param {number} [max=Infinity] - maximum value allowed
@@ -42,6 +44,7 @@ const NumericInput: React.FC<NumericInputProps> = (
         onChange,
         value,
         defaultValue,
+        disabled = false,
         integer = false,
         min = -Infinity,
         max = Infinity
@@ -70,6 +73,7 @@ const NumericInput: React.FC<NumericInputProps> = (
             onChange={onChangeWrapper}
             value={value}
             defaultValue={defaultValue}
+            disabled={disabled}
         />
 
     )

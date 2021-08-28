@@ -35,9 +35,13 @@ const DetailsSectionRoot = styled.div`
       }
     }
   }
+  
 `
 
-
+/**
+ * Tool with all grid controls
+ * @return {JSX.Element} - ToolProfileBase with nested Grid parameters
+ */
 const GridTool: React.FC = () => {
     const {params, active} = useAppSelector(gridSelector);
     const dispatch = useAppDispatch();
@@ -71,6 +75,7 @@ const GridTool: React.FC = () => {
                         label={"Rows"}
                         onChange={(value) => dispatch(updateGridParams({nRows: value}))}
                         value={params.nRows}
+                        disabled={!active}
                     />
                 </div>
                 <div className={"numericInputContainer"}>
@@ -78,6 +83,7 @@ const GridTool: React.FC = () => {
                         label={"Cols"}
                         onChange={(value) => dispatch(updateGridParams({nColumns: value}))}
                         value={params.nColumns}
+                        disabled={!active}
                     />
                 </div>
             </>
@@ -88,11 +94,13 @@ const GridTool: React.FC = () => {
                     value={params.opacity}
                     onChange={(val) => dispatch(updateGridParams({opacity: val}))}
                     label={"Opacity"}
+                    disabled={!active}
                 />
                 <NumericSlider
                     value={params.strokeWidth}
                     onChange={(val) => dispatch(updateGridParams({strokeWidth: val}))}
                     label={"Thickness"}
+                    disabled={!active}
                     min={1}
                     max={10}
                 />
@@ -103,6 +111,7 @@ const GridTool: React.FC = () => {
                             <ToggleButton
                                 key={orientation + "GridToggleButton"}
                                 active={params.orientations[orientation]}
+                                disabled={!active}
                                 onClick={() => toggleOrientation(orientation as GridOrientation)}
                                 style={{width: 30, height: 30}}
                             >

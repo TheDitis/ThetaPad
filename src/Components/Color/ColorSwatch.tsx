@@ -27,6 +27,7 @@ const ColorSwatchRoot = styled.div<ColorSwatchStyleProps>`
 interface ColorSwatchProps {
     color: string;
     onChange?: (color: string) => void;
+    disabled?: boolean;
     style?: object;
     width?: number;
     height?: number;
@@ -37,12 +38,13 @@ interface ColorSwatchProps {
  * Color swatch that allows the user to select a new color if onChange is passed
  * @param {string} color - The current color of the swatch
  * @param {(string) => void} [onChange] - function that takes the new color as an argument, run on change
+ * @param {boolean} [disabled]
  * @param {object} [style] - any extra styles to apply
  * @param {number | undefined} width - width in px if you want to specify
  * @param {number | undefined} height - height in px if you want to specify
  * @return {JSX.Element} - colored div with a nested input with type="color"
  */
-const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width, height}) => {
+const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width, height, disabled}) => {
     const colorInputRef = useRef<HTMLInputElement>(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -75,6 +77,7 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width,
                 ref={colorInputRef}
                 style={{opacity: 0}}
                 onChange={onChangeWrapper}
+                disabled={disabled}
             />
         </ColorSwatchRoot>
     )

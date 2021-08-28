@@ -90,6 +90,11 @@ const createDeclineDiagonalLines = (lines1: BasicLine[], lines2: BasicLine[]) =>
     }) as BasicLine[];
 }
 
+
+/**
+ * Konva Layer containing all grid lines
+ * @return {JSX.Element} - Konva Layer containing all grid lines
+ */
 const GridLayer: React.FC = () => {
     const gridStructure = useAppSelector(gridStructuralParamsSelector);
     const gridStyle = useAppSelector(gridStyleParamsSelector)

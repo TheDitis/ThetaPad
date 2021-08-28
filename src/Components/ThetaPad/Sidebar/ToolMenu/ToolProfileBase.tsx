@@ -71,6 +71,22 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
     justify-content: center;
     align-items: center;
   }
+
+  .Mui-disabled {
+    .MuiSlider-rail {
+      color: hsl(0, 0%, 52%);
+    }
+
+    .MuiSlider-track {
+      color: hsl(0, 0%, 52%);
+    }
+
+    .MuiSlider-thumb {
+      color: hsl(0, 0%, 52%);
+    }
+
+    color: hsl(0, 0%, 52%);
+  }
 `
 
 const variants = {
