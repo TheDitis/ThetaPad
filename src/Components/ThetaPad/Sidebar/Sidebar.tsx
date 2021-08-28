@@ -6,9 +6,9 @@ import styled from "styled-components";
 import React from "react";
 import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
-import {useSelector} from "react-redux";
 import {sidebarWidthSelector} from "../../../redux/selectors";
 import ToolMenu from "./ToolMenu/ToolMenu";
+import {useAppSelector} from "../../../redux/hooks";
 
 
 interface SidebarStyleProps {
@@ -28,7 +28,7 @@ const SidebarRoot = styled.div<SidebarStyleProps>`
  *      ShapeProfilesSection
  */
 const Sidebar: React.FC = () => {
-    const width = useSelector(sidebarWidthSelector);
+    const width = useAppSelector(sidebarWidthSelector);
 
     return (
         <SidebarRoot width={width}>

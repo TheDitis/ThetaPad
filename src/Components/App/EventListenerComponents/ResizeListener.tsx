@@ -3,14 +3,14 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {recalculateDimensions} from "../../../redux/slices/dimensionsSlice";
 import {imageSelector} from "../../../redux/selectors";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 
 
 const ResizeListener: React.FC = () => {
-    const dispatch = useDispatch();
-    const image = useSelector(imageSelector)
+    const dispatch = useAppDispatch();
+    const image = useAppSelector(imageSelector)
 
     useEffect(() => {
         const updateDimensions = (e) => {

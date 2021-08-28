@@ -4,10 +4,10 @@
  */
 import React, {useEffect, useState} from "react";
 import {Layer as KonvaLayer, Line as KonvaLine} from "react-konva";
-import {useSelector} from "react-redux";
 import {gridStructuralParamsSelector, gridStyleParamsSelector} from "../../../../redux/selectors";
 import {StructuralGridParamsType} from "../../../../redux/slices/gridSlice";
 import _ from "lodash";
+import {useAppSelector} from "../../../../redux/hooks";
 
 // Points of line   x1      y1      x2      y2
 type BasicLine = [number, number, number, number];
@@ -91,8 +91,8 @@ const createDeclineDiagonalLines = (lines1: BasicLine[], lines2: BasicLine[]) =>
 }
 
 const GridLayer: React.FC = () => {
-    const gridStructure = useSelector(gridStructuralParamsSelector);
-    const gridStyle = useSelector(gridStyleParamsSelector)
+    const gridStructure = useAppSelector(gridStructuralParamsSelector);
+    const gridStyle = useAppSelector(gridStyleParamsSelector)
     const [gridLines, setGridLines] = useState<BasicLine[]>([]);
 
     /** Recalculate grid every time structural params change */
@@ -100,9 +100,18 @@ const GridLayer: React.FC = () => {
         let tempGridLines: BasicLine[] = []
         const vertical = createVerticalLines(gridStructure);
         const horizontal = createHorizontalLines(gridStructure);
-        const incline = createInclineDiagonalLines(horizontal, vertical);
-        const decline = createDeclineDiagonalLines(horizontal, vertical);
-        tempGridLines.push(...vertical, ...horizontal, ...incline, ...decline);
+        if (gridStructure.orientations.vertical) {
+            tempGridLines.push(...vertical);
+        }
+        if (gridStructure.orientations.horizontal) {
+            tempGridLines.push(...horizontal);
+        }
+        if (gridStructure.orientations.incline) {
+            tempGridLines.push(...createInclineDiagonalLines(horizontal, vertical));
+        }
+        if (gridStructure.orientations.decline) {
+            tempGridLines.push(...createDeclineDiagonalLines(horizontal, vertical));
+        }
         setGridLines(tempGridLines);
     }, [gridStructure])
 

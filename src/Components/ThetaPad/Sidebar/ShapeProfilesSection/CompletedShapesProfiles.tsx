@@ -4,13 +4,13 @@
  */
 import React from "react";
 import {MemoizedShapeProfile} from "./ShapeProfiles/ShapeProfile";
-import {useSelector} from "react-redux";
 import {shapesIdsSelector} from "../../../../redux/selectors";
+import {useAppSelector} from "../../../../redux/hooks";
 
 
 /** Fragment of ShapeProfiles for all completed shapes */
 const CompletedShapesProfiles: React.FC = () => {
-    const shapeIds = useSelector(shapesIdsSelector);
+    const shapeIds = useAppSelector(shapesIdsSelector);
 
     return (
         <>

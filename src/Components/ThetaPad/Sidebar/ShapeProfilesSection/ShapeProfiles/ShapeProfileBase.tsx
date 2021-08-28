@@ -9,13 +9,13 @@ import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import StraightLineIcon from "../../../../Icons/StraightLineIcon";
 import PolyLineIcon from "../../../../Icons/PolyLineIcon";
 import CircleIcon from "../../../../Icons/CircleIcon";
-import {useDispatch, useSelector} from "react-redux";
 import {removeShape, updateShape} from "../../../../../redux/slices/shapesSlice";
 import {unitSelector} from "../../../../../redux/selectors";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 import ColorSwatch from "../../../../Color/ColorSwatch";
 import {AnimatePresence, motion} from "framer-motion";
 import ShowMoreButton from "../../../../General/ShowMoreButton";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 
 
 interface ShapeProfileStyleProps {
@@ -180,9 +180,9 @@ interface ShapeProfileProps {
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {shape, index, unitValue, InfoItems = () => null, DetailsSection}
 ) => {
-    const unit = useSelector(unitSelector);
+    const unit = useAppSelector(unitSelector);
     const [showDetails, setShowDetails] = useState(false);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const Icon = shapeIcons[shape.kind];
 
     const toggleUnit = () => {

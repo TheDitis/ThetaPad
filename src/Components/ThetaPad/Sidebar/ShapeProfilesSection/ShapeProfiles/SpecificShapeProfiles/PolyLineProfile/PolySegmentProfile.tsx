@@ -6,12 +6,10 @@ import styled from "styled-components";
 import React from "react";
 import {PolySegment} from "../../../../../../../types/shapes";
 import ShapeInfoItem from "../../ShapeInfoItem";
-import {useDispatch, useSelector} from "react-redux";
 import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
 import {unitSelector} from "../../../../../../../redux/selectors";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../constants";
-
-
+import {useAppDispatch, useAppSelector} from "../../../../../../../redux/hooks";
 
 
 interface PolySegmentProfileStyleProps {
@@ -68,8 +66,8 @@ interface PolySegmentProfileProps {
 
 
 const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, shapeId}) => {
-    const {unit, unitShape} = useSelector(unitSelector);
-    const dispatch = useDispatch();
+    const {unit, unitShape} = useAppSelector(unitSelector);
+    const dispatch = useAppDispatch();
     const properties = ['length', 'angle'];
     const isUnit = unitShape === shapeId && unit === segment.length;
 

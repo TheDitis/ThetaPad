@@ -5,10 +5,10 @@
 import React from "react";
 import {Line, LineUtils} from "../../../../../../types/shapes";
 import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-konva";
-import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../../redux/selectors";
 import {LINE_INFO_TEXT_OFFSET} from "../../../../../constants";
 import {formatLengthText} from "../../../../../../utils/utils";
+import {useAppSelector} from "../../../../../../redux/hooks";
 
 interface DrawnLineProps {
     line: Line
@@ -20,7 +20,7 @@ interface DrawnLineProps {
  * @return {JSX.Element} - fragment containing Konva Line and a Konva Group with nested Konva Text element
  */
 const DrawnLine: React.FC<DrawnLineProps> = ({line}) => {
-    const unit = useSelector(unitValSelector);
+    const unit = useAppSelector(unitValSelector);
     const midPoint = LineUtils.midPoint(line);
 
     let lengthText = formatLengthText((LineUtils.length_(line) / unit), unit !== 1, 2)

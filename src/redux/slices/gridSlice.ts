@@ -2,9 +2,16 @@ import {createSlice} from "@reduxjs/toolkit";
 import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../Components/constants";
 
 // type GridParamName = 'color' | 'nColumns' | 'nRows' | 'width' | 'height' | 'strokeWidth' | 'opacity'
+export type GridOrientation = keyof GridActiveOrientationsType;
+export interface GridActiveOrientationsType {
+    vertical: boolean;
+    horizontal: boolean;
+    incline: boolean;
+    decline: boolean;
+}
 
 export interface StructuralGridParamsType {
-    diagonals: false;
+    orientations: GridActiveOrientationsType;
     nColumns: number;
     nRows: number;
     width: number;
@@ -13,7 +20,7 @@ export interface StructuralGridParamsType {
 
 export interface GridParamsType {
     color: string;
-    diagonals: false;
+    orientations: GridActiveOrientationsType;
     nColumns: number;
     nRows: number;
     width: number;
@@ -31,7 +38,12 @@ const initialState: GridStateType = {
     active: true,
     params: {
         color: '#000000',
-        diagonals: false,
+        orientations: {
+            vertical: true,
+            horizontal: true,
+            incline: true,
+            decline: true,
+        },
         nColumns: 8,
         nRows: 12,
         width: window.innerWidth - SIDEBAR_WIDTH,

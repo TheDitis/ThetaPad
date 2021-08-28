@@ -1,11 +1,11 @@
 import {Poly} from "../../../../../../../types/shapes";
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {unitSelector} from "../../../../../../../redux/selectors";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../constants";
 import {resetUnit} from "../../../../../../../redux/slices/unitSlice";
 import {removePolyPoint} from "../../../../../../../redux/slices/shapesSlice";
 import {motion} from "framer-motion";
+import {useAppDispatch, useAppSelector} from "../../../../../../../redux/hooks";
 
 const crossVariants = {
     hidden: {
@@ -23,8 +23,8 @@ interface LineNodeSvgProps {
 }
 const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
     const [focus, setFocus] = useState<null | number>(null);
-    const dispatch = useDispatch();
-    const unitData = useSelector(unitSelector);
+    const dispatch = useAppDispatch();
+    const unitData = useAppSelector(unitSelector);
     const height = POLY_SEGMENT_HEIGHT * (line.angles.length + 1);
     const width = POLY_SEGMENT_HEIGHT;
     const xLoc = POLY_SEGMENT_HEIGHT / 2;

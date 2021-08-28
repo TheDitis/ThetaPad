@@ -6,10 +6,9 @@ import React from "react";
 import styled from "styled-components";
 import SelectButton from "../ControlsSection/Controls/SelectButton";
 import uuid from "react-uuid";
-import {useDispatch, useSelector} from "react-redux";
 import {drawModeSelector} from "../../../../redux/selectors";
-import {AppDispatch} from "../../../../redux/store";
 import {setDrawMode} from "../../../../redux/slices/drawModeSlice";
+import {useAppDispatch, useAppSelector} from "../../../../redux/hooks";
 
 
 interface DrawModeSelectStyleProps {
@@ -29,8 +28,8 @@ const DrawModeSelectRoot = styled.div<DrawModeSelectStyleProps>`
  * @return {JSX.Element} - flex-row div with a select button for each draw-mode
  */
 const DrawModeSelect: React.FC = () => {
-    const drawMode = useSelector(drawModeSelector)
-    const dispatch = useDispatch<AppDispatch>();
+    const drawMode = useAppSelector(drawModeSelector)
+    const dispatch = useAppDispatch();
 
     return (
         <DrawModeSelectRoot>

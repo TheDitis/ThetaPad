@@ -4,13 +4,13 @@
  */
 
 import React from "react";
-import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../../redux/selectors";
 import {PointUtils, Poly, PolyUtils} from "../../../../../../types/shapes";
 import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-konva";
 import {LINE_INFO_TEXT_OFFSET} from "../../../../../constants";
 import uuid from "react-uuid";
 import {formatLengthText} from "../../../../../../utils/utils";
+import {useAppSelector} from "../../../../../../redux/hooks";
 
 interface DrawnPolyProps {
     line: Poly;
@@ -23,7 +23,7 @@ interface DrawnPolyProps {
  *      the length of each segment of the line
  */
 const DrawnPoly: React.FC<DrawnPolyProps> = ({line}) => {
-    const unit = useSelector(unitValSelector);
+    const unit = useAppSelector(unitValSelector);
 
     const segments = PolyUtils.asSegments(line);
 

@@ -5,17 +5,17 @@
 import {Layer} from "react-konva";
 import React from "react";
 import DrawnShape from "./DrawnShapes/DrawnShape";
-import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 import {shapesSelector} from "../../../../../redux/selectors";
 import {ShapeMap} from "../../../../../redux/slices/shapesSlice";
+import {useAppSelector} from "../../../../../redux/hooks";
 
 /**
  * Fragment of DrawShapes for all completed shapes
  * @return {JSX.Element} - Fragment of DrawShapes for all completed shapes
  */
 const DrawnShapes: React.FC = () => {
-    const shapes: ShapeMap = useSelector(shapesSelector);
+    const shapes: ShapeMap = useAppSelector(shapesSelector);
     return (
         <>
             {Object.values(shapes).map((shape) => (
@@ -31,7 +31,7 @@ const DrawnShapes: React.FC = () => {
  *      null if none is
  */
 const DrawnTempShape: React.FC = () => {
-    const tempShape = useSelector((state: RootState) => state.tempShape)
+    const tempShape = useAppSelector((state: RootState) => state.tempShape)
     return tempShape !== null ? (
         <DrawnShape shape={tempShape}/>
     ) : null;

@@ -16,12 +16,12 @@ import ResizeListener from "./EventListenerComponents/ResizeListener";
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
 // TODO: Add Layer to highlight 'selected' shapes
+// TODO: Image filters
 // TODO: Grid tool
 
 
 // BRANCH TODOS
 // TODO: options for which line orientations to show
-// TODO: scale lines with image/screen
 
 
 const App = () => {

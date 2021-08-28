@@ -3,11 +3,11 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import {useSelector} from "react-redux";
 import {tempShapeSelector} from "../../../redux/selectors";
 import {ShapeKind} from "../../../types/shapes";
 import {AnimatePresence, motion} from "framer-motion";
 import {Button, makeStyles} from "@material-ui/core";
+import {useAppSelector} from "../../../redux/hooks";
 
 const useStyles = makeStyles({
     EndPolyDrawButton: {
@@ -40,7 +40,7 @@ const variants = {
 
 
 const EndPolyDrawButton: React.FC = () => {
-    const tempShape = useSelector(tempShapeSelector);
+    const tempShape = useAppSelector(tempShapeSelector);
     const classes = useStyles();
 
     const dispatchEscapeEvent = () => {

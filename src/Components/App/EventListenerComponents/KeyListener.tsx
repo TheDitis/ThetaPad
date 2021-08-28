@@ -2,10 +2,10 @@
  * @file A null component that holds key-listeners
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {tempShapeSelector} from "../../../redux/selectors";
 import keyboardEventHandler from "../../ThetaPad/keyboardEventHandler";
+import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
 
 /**
  * Component that manages key-listeners. The component returns null, so why not
@@ -16,8 +16,8 @@ import keyboardEventHandler from "../../ThetaPad/keyboardEventHandler";
  * @return {null} - nothing (:
  */
 const KeyListener: React.FC = () => {
-    const dispatch = useDispatch();
-    const tempShape = useSelector(tempShapeSelector);
+    const dispatch = useAppDispatch();
+    const tempShape = useAppSelector(tempShapeSelector);
 
     useEffect(() => {
         const handleKeyEvent = keyboardEventHandler(dispatch, tempShape);

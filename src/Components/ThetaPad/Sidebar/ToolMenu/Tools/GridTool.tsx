@@ -6,28 +6,63 @@ import React from "react";
 import ToolProfileBase from "../ToolProfileBase";
 import {Button} from "@material-ui/core";
 import GridIcon from "../../../../Icons/GridIcon";
-import {useDispatch, useSelector} from "react-redux";
-import {toggleGrid, updateGridParams} from "../../../../../redux/slices/gridSlice";
+import {GridOrientation, toggleGrid, updateGridParams} from "../../../../../redux/slices/gridSlice";
 import {gridSelector} from "../../../../../redux/selectors";
 import ColorSwatch from "../../../../Color/ColorSwatch";
 import NumericInput from "../../../../General/NumericInput";
 import NumericSlider from "../../../../General/NumericSlider";
-import { motion } from "framer-motion";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import styled from "styled-components";
+import ToggleButton from "../../../../General/ToggleButton";
+
+
+// const gridOrientationIcons = {
+//     vertical: GridVerticalIcon,
+//     horizontal: GridHorizontalIcon,
+//     incline: GridInclineIcon,
+//     decline: GridDeclineIcon,
+// }
+
+const DetailsSectionRoot = styled.div`
+  width: 90%;
+  margin-top: 10px;
+  
+  .orientationButtonSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+    .toggleButton {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      //margin: 20px;
+    }
+  }
+`
 
 
 const GridTool: React.FC = () => {
-    const {params, active} = useSelector(gridSelector);
-    const dispatch = useDispatch();
+    const {params, active} = useAppSelector(gridSelector);
+    const dispatch = useAppDispatch();
+
+    const toggleOrientation = (orientation: GridOrientation) => {
+        dispatch(updateGridParams({
+            orientations: {...params.orientations, [orientation]: !params.orientations[orientation]}
+        }))
+        console.log(params.orientations)
+    }
 
     return (
         <ToolProfileBase active={active}>
             <>
-                <Button
-                    className={"toolToggleButton"}
-                    onClick={() => dispatch(toggleGrid())}
-                >
-                    <GridIcon color={active ? "white" : "black"}/>
-                </Button>
+                <ToggleButton active={active} onClick={() => dispatch(toggleGrid())} style={{marginRight: 10}}>
+                    <GridIcon
+                        color={active ? "white" : "black"}
+                        allOrientations={false}
+                        {...params.orientations}
+                    />
+                </ToggleButton>
                 <ColorSwatch
                     color={params.color}
                     onChange={(newColor) => dispatch(updateGridParams({color: newColor}))}
@@ -51,7 +86,7 @@ const GridTool: React.FC = () => {
             </>
 
 
-            <motion.div style={{width: "90%", marginTop: 10}}>
+            <DetailsSectionRoot>
                 <NumericSlider
                     value={params.opacity}
                     onChange={(val) => dispatch(updateGridParams({opacity: val}))}
@@ -64,7 +99,44 @@ const GridTool: React.FC = () => {
                     min={1}
                     max={100}
                 />
-            </motion.div>
+                <div className={"orientationButtonSection"}>
+                    {Object.keys(params.orientations).map((orientation) => (
+                        // <Button
+                        //     key={orientation + "GridToggleButton"}
+                        //     className={"toggleButton"}
+                        //     style={{
+                        //         backgroundColor: params.orientations[orientation] ? "hsl(197,16%,18%)" : "white",
+                        //     }}
+                        //     onClick={() => toggleOrientation(orientation as GridOrientation)}
+                        // >
+                        //     <GridIcon
+                        //         color={params.orientations[orientation] ? "white" : "black"}
+                        //         width={25}
+                        //         height={25}
+                        //         allOrientations={false}
+                        //         {...{[orientation]: true}}
+                        //         strokeWidth={50}
+                        //     />
+                        // </Button>
+                        <ToggleButton
+                            key={orientation + "GridToggleButton"}
+                            active={params.orientations[orientation]}
+                            onClick={() => toggleOrientation(orientation as GridOrientation)}
+                            // style={{width: 30, height: 30}}
+                        >
+                            {/*{orientation}*/}
+                            <GridIcon
+                                color={params.orientations[orientation] ? "white" : "black"}
+                                width={25}
+                                height={25}
+                                allOrientations={false}
+                                {...{[orientation]: true}}
+                                strokeWidth={50}
+                            />
+                        </ToggleButton>
+                    ))}
+                </div>
+            </DetailsSectionRoot>
 
         </ToolProfileBase>
     )

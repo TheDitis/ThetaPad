@@ -106,7 +106,7 @@ export const gridParamsSelector = createSelector(
 
 export const gridStructuralParamsSelector = createSelector(
     gridParamsSelector,
-    (gridParams) => _.pick(gridParams, 'diagonals', 'nColumns', 'nRows', 'width', 'height')
+    (gridParams) => _.pick(gridParams, 'orientations', 'nColumns', 'nRows', 'width', 'height')
 )
 
 export const gridStyleParamsSelector = createSelector(

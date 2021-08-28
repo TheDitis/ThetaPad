@@ -8,9 +8,9 @@ import LengthIcon from "../../../../Icons/LengthIcon";
 import AngleIcon from "../../../../Icons/AngleIcon";
 import {PolySegment, Shape} from "../../../../../types/shapes";
 import RadiusIcon from "../../../../Icons/RadiusIcon";
-import {useSelector} from "react-redux";
 import {unitValSelector} from "../../../../../redux/selectors";
 import {formatLengthText} from "../../../../../utils/utils";
+import {useAppSelector} from "../../../../../redux/hooks";
 
 // The icon to display for each property
 const iconMap = {
@@ -73,7 +73,7 @@ interface ShapeInfoItemProps {
 const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
     {shape, property, value}
 ) => {
-    const unit = useSelector(unitValSelector);
+    const unit = useAppSelector(unitValSelector);
 
     /** @return {string} - A readable representation of shape[property] */
     const getFormattedValue = (): string => {
