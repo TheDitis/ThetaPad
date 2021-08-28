@@ -49,7 +49,7 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width,
     const [isOpen, setIsOpen] = useState(false);
 
     const open = () => {
-        if (colorInputRef.current !== null && !isOpen) {
+        if (colorInputRef.current !== null) {
             colorInputRef.current.click();
             setIsOpen(true);
         }

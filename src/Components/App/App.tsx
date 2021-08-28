@@ -22,7 +22,6 @@ import {blueGrey, grey, teal} from "@material-ui/core/colors";
 // TODO: Grid tool
 
 // FIX TODOS:
-// TODO: Fix color picker not opening on second click
 // TODO: make ShapeProfileBase dropdown animation match that of ToolProfileBase
 // TODO: make grid snap to image on upload, not just on resize
 
