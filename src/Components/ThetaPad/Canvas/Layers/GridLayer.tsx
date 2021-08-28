@@ -125,6 +125,7 @@ const GridLayer: React.FC = () => {
                     strokeWidth={gridStyle.strokeWidth}
                     stroke={gridStyle.color}
                     opacity={gridStyle.opacity}
+                    lineCap={"round"}
                 />
             ))}
         </KonvaLayer>

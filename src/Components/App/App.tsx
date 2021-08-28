@@ -8,6 +8,8 @@ import Navbar from "../Navbar/Navbar";
 import React from "react";
 import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
+import {createTheme, ThemeProvider} from "@material-ui/core";
+import {blueGrey, teal} from "@material-ui/core/colors";
 
 // TODO: Add settings menu to navbar
 // TODO: Add ability to name Shapes
@@ -19,19 +21,33 @@ import ResizeListener from "./EventListenerComponents/ResizeListener";
 // TODO: Image filters
 // TODO: Grid tool
 
+// FIX TODOS:
+// TODO: Fix color picker not opening on second click
+// TODO: make ShapeProfileBase dropdown animation match that of ToolProfileBase
 
-// BRANCH TODOS
-// TODO: options for which line orientations to show
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            light: blueGrey[200],
+            main: blueGrey[800],
+            dark: blueGrey[900]
+        },
+        secondary: teal,
+    }
+})
 
 
 const App = () => {
     return (
-        <div className="App">
-            <Navbar/>
-            <ThetaPad/>
-            <ResizeListener/>
-            <KeyListener/>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className="App">
+                <Navbar/>
+                <ThetaPad/>
+                <ResizeListener/>
+                <KeyListener/>
+            </div>
+        </ThemeProvider>
     );
 }
 

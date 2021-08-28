@@ -15,13 +15,6 @@ import styled from "styled-components";
 import ToggleButton from "../../../../General/ToggleButton";
 
 
-// const gridOrientationIcons = {
-//     vertical: GridVerticalIcon,
-//     horizontal: GridHorizontalIcon,
-//     incline: GridInclineIcon,
-//     decline: GridDeclineIcon,
-// }
-
 const DetailsSectionRoot = styled.div`
   width: 90%;
   margin-top: 10px;
@@ -39,7 +32,6 @@ const DetailsSectionRoot = styled.div`
         width: 30px;
         height: 30px;
         padding: 0;
-        //margin: 20px;
       }
     }
   }
@@ -102,7 +94,7 @@ const GridTool: React.FC = () => {
                     onChange={(val) => dispatch(updateGridParams({strokeWidth: val}))}
                     label={"Thickness"}
                     min={1}
-                    max={100}
+                    max={10}
                 />
                 <div className={"orientationsControl"}>
                     <p>Orientations</p>
