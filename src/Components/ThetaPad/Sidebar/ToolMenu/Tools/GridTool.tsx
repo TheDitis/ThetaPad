@@ -4,7 +4,6 @@
  */
 import React from "react";
 import ToolProfileBase from "../ToolProfileBase";
-import {Button} from "@material-ui/core";
 import GridIcon from "../../../../Icons/GridIcon";
 import {GridOrientation, toggleGrid, updateGridParams} from "../../../../../redux/slices/gridSlice";
 import {gridSelector} from "../../../../../redux/selectors";
@@ -27,16 +26,21 @@ const DetailsSectionRoot = styled.div`
   width: 90%;
   margin-top: 10px;
   
-  .orientationButtonSection {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  .orientationsControl {
+    margin: 10px 0;
     
-    .toggleButton {
-      width: 30px;
-      height: 30px;
-      padding: 0;
-      //margin: 20px;
+    .orientationButtonRow {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin: 15px 0;
+
+      .toggleButton {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        //margin: 20px;
+      }
     }
   }
 `
@@ -61,6 +65,7 @@ const GridTool: React.FC = () => {
                         color={active ? "white" : "black"}
                         allOrientations={false}
                         {...params.orientations}
+                        strokeWidth={23}
                     />
                 </ToggleButton>
                 <ColorSwatch
@@ -99,42 +104,27 @@ const GridTool: React.FC = () => {
                     min={1}
                     max={100}
                 />
-                <div className={"orientationButtonSection"}>
-                    {Object.keys(params.orientations).map((orientation) => (
-                        // <Button
-                        //     key={orientation + "GridToggleButton"}
-                        //     className={"toggleButton"}
-                        //     style={{
-                        //         backgroundColor: params.orientations[orientation] ? "hsl(197,16%,18%)" : "white",
-                        //     }}
-                        //     onClick={() => toggleOrientation(orientation as GridOrientation)}
-                        // >
-                        //     <GridIcon
-                        //         color={params.orientations[orientation] ? "white" : "black"}
-                        //         width={25}
-                        //         height={25}
-                        //         allOrientations={false}
-                        //         {...{[orientation]: true}}
-                        //         strokeWidth={50}
-                        //     />
-                        // </Button>
-                        <ToggleButton
-                            key={orientation + "GridToggleButton"}
-                            active={params.orientations[orientation]}
-                            onClick={() => toggleOrientation(orientation as GridOrientation)}
-                            // style={{width: 30, height: 30}}
-                        >
-                            {/*{orientation}*/}
-                            <GridIcon
-                                color={params.orientations[orientation] ? "white" : "black"}
-                                width={25}
-                                height={25}
-                                allOrientations={false}
-                                {...{[orientation]: true}}
-                                strokeWidth={50}
-                            />
-                        </ToggleButton>
-                    ))}
+                <div className={"orientationsControl"}>
+                    <p>Orientations</p>
+                    <div className={"orientationButtonRow"}>
+                        {Object.keys(params.orientations).map((orientation) => (
+                            <ToggleButton
+                                key={orientation + "GridToggleButton"}
+                                active={params.orientations[orientation]}
+                                onClick={() => toggleOrientation(orientation as GridOrientation)}
+                                style={{width: 30, height: 30}}
+                            >
+                                <GridIcon
+                                    color={params.orientations[orientation] ? "white" : "black"}
+                                    width={25}
+                                    height={25}
+                                    allOrientations={false}
+                                    {...{[orientation]: true}}
+                                    strokeWidth={50}
+                                />
+                            </ToggleButton>
+                        ))}
+                    </div>
                 </div>
             </DetailsSectionRoot>
 

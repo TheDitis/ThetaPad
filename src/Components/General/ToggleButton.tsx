@@ -4,9 +4,7 @@
  */
 import styled from "styled-components";
 import React from "react";
-import {Button} from "@material-ui/core";
 import chroma from "chroma-js";
-import _ from "lodash";
 
 
 interface ToggleButtonStyleProps {
@@ -17,22 +15,26 @@ interface ToggleButtonStyleProps {
     colorInactive: string;
 }
 
-const ToggleButtonRoot = styled.div<ToggleButtonStyleProps>`
+const StyledButton = styled.div<ToggleButtonStyleProps>`
   
-  .toggleButton {
-    background-color: ${({active, backgroundActive, backgroundInactive}) => active ? backgroundActive : backgroundInactive};
-    color: ${({active, colorActive, colorInactive}) => active ? colorActive : colorInactive};
-    //padding: 0;
-    
-    
-    * {
-      //margin: 0;
-      padding: 0;
-      filter: ${({active, colorActive}) => active ? `drop-shadow(0 0 6px ${chroma(colorActive).alpha(0.3)})` : "none"};
-      text-shadow: ${({active, colorActive}) => active ? `0 0 8px ${chroma(colorActive).alpha(0.5)}` : "none"};
-    }
-  }
 
+  background-color: ${({active, backgroundActive, backgroundInactive}) => active ? backgroundActive : backgroundInactive};
+  color: ${({active, colorActive, colorInactive}) => active ? colorActive : colorInactive};
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-sizing: content-box;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    
+    
+  * {
+    padding: 0;
+    filter: ${({active, colorActive}) => active ? `drop-shadow(0 0 6px ${chroma(colorActive).alpha(0.5)})` : "none"};
+    text-shadow: ${({active, colorActive}) => active ? `0 0 8px ${chroma(colorActive).alpha(0.5)}` : "none"};
+  }
 `
 
 interface ToggleButtonProps {
@@ -55,26 +57,20 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
     colorInactive = "black",
     style = {},
     children
-}) => {
-    return (
-        <ToggleButtonRoot
-            active={active}
-            backgroundActive={backgroundActive}
-            backgroundInactive={backgroundInactive}
-            colorActive={colorActive}
-            colorInactive={colorInactive}
-            style={style}
-        >
-            <Button
-                className={"toggleButton"}
-                onClick={onClick}
-                style={style}
-            >
-                {children}
-            </Button>
-        </ToggleButtonRoot>
-    )
-}
+}) => (
+    <StyledButton
+        active={active}
+        backgroundActive={backgroundActive}
+        backgroundInactive={backgroundInactive}
+        colorActive={colorActive}
+        colorInactive={colorInactive}
+        onClick={onClick}
+        style={style}
+    >
+        {children}
+    </StyledButton>
+)
+
 
 
 export default ToggleButton;
