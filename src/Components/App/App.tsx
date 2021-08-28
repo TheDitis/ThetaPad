@@ -19,6 +19,11 @@ import ResizeListener from "./EventListenerComponents/ResizeListener";
 // TODO: Grid tool
 
 
+// BRANCH TODOS
+// TODO: options for which line orientations to show
+// TODO: scale lines with image/screen
+
+
 const App = () => {
     return (
         <div className="App">
