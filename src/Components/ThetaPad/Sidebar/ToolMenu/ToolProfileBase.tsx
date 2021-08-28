@@ -49,7 +49,7 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
   }
   
   .numericInputContainer {
-    margin-left: 10px;
+    margin-left: 15px;
     input {
       width: 45px;
     }

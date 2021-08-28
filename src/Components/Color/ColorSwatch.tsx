@@ -3,12 +3,13 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useRef} from "react";
 
 
 interface ColorSwatchStyleProps {
     clickable?: boolean;
     color: string;
+    disabled?: boolean;
     width?: number;
     height?: number;
 }
@@ -19,8 +20,15 @@ const ColorSwatchRoot = styled.div<ColorSwatchStyleProps>`
   border-radius: 15%;
   background-color: ${props => props.color};
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
-  
   cursor: pointer;
+  opacity: ${({disabled}) => disabled ? 0.6 : 1};
+  position: relative;
+  
+  input {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+  }
 `
 
 
@@ -46,12 +54,10 @@ interface ColorSwatchProps {
  */
 const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width, height, disabled}) => {
     const colorInputRef = useRef<HTMLInputElement>(null);
-    const [isOpen, setIsOpen] = useState(false);
 
     const open = () => {
-        if (colorInputRef.current !== null) {
+        if (colorInputRef.current !== null && !disabled) {
             colorInputRef.current.click();
-            setIsOpen(true);
         }
     }
 
@@ -66,6 +72,7 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width,
         <ColorSwatchRoot
             onClick={onChange !== undefined ? open : () => null}
             color={color}
+            disabled={disabled}
             clickable={onChange !== undefined && onChange !== null}
             width={width}
             height={height}

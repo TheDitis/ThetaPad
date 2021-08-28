@@ -20,6 +20,7 @@ const StyledButton = styled.div<ToggleButtonStyleProps>`
   
   background-color: ${({active, backgroundActive, backgroundInactive}) => 
           active ? backgroundActive : backgroundInactive};
+  transition-duration: 500ms;
   
   color: ${({active, colorActive, colorInactive}) => 
           active ? colorActive : colorInactive};
@@ -35,12 +36,18 @@ const StyledButton = styled.div<ToggleButtonStyleProps>`
   cursor: ${({disabled}) => disabled ? "default" : "pointer"};
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   
+  &:hover {
+    transition: filter 200ms;
+    filter: contrast(1.1);
+  }
+  
   * {
     padding: 0;
     filter: ${({active, colorActive}) => 
             active ? `drop-shadow(0 0 6px ${chroma(colorActive).alpha(0.5)})` : "none"};
     text-shadow: ${({active, colorActive}) => 
             active ? `0 0 8px ${chroma(colorActive).alpha(0.5)}` : "none"};
+    transition-duration: 1s;
   }
 `
 

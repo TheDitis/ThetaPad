@@ -69,6 +69,7 @@ const GridTool: React.FC = () => {
                     onChange={(newColor) => dispatch(updateGridParams({color: newColor}))}
                     width={45}
                     height={45}
+                    disabled={!active}
                 />
                 <div className={"numericInputContainer"}>
                     <NumericInput
