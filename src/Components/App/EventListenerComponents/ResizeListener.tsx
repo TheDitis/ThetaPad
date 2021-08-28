@@ -4,9 +4,8 @@
  */
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {calculateImageDims, setWindowDimensions} from "../../../redux/slices/dimensionsSlice";
+import {recalculateDimensions} from "../../../redux/slices/dimensionsSlice";
 import {imageSelector} from "../../../redux/selectors";
-import _ from "lodash";
 
 
 const ResizeListener: React.FC = () => {
@@ -15,13 +14,10 @@ const ResizeListener: React.FC = () => {
 
     useEffect(() => {
         const updateDimensions = (e) => {
-            dispatch(setWindowDimensions({
+            dispatch(recalculateDimensions({
                 width: e.target.innerWidth,
-                height: e.target.innerHeight
+                height: e.target.innerHeight,
             }))
-            if (image.uri !== null) {
-                dispatch(calculateImageDims(_.pick(image, "width", "height")))
-            }
         }
 
         window.addEventListener('resize', updateDimensions);

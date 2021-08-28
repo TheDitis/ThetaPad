@@ -3,8 +3,11 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice} from "@reduxjs/toolkit";
-import {SIDEBAR_WIDTH, NAVBAR_HEIGHT} from "../../Components/constants";
+import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../Components/constants";
 import {Dimensions} from "./imageSlice";
+import {AppDispatch, RootState} from "../store";
+import _ from "lodash";
+import {updateGridParams} from "./gridSlice";
 
 /**
  * @interface WindowDimensions
@@ -56,17 +59,6 @@ const dimensionsSlice = createSlice({
             const {width, height} = action.payload;
             state.height = height
             state.width = width
-
-            // if (width !== state.width) {
-            //     state.width = width;
-            //
-            //     let sidebarWidth = width / 4;
-            //     sidebarWidth = Math.min(MAX_SIDEBAR_WIDTH, sidebarWidth);
-            //     sidebarWidth = Math.max(MIN_SIDEBAR_WIDTH, sidebarWidth);
-            //
-            //     state.sidebar = sidebarWidth;
-            // }
-
         },
         /** Manually sets the sidebar width */
         setSidebarWidth(state, action: { payload: number }) {
@@ -77,11 +69,9 @@ const dimensionsSlice = createSlice({
             const imgDims = action.payload;
             const canvasWidth = state.width - state.sidebar;
             const canvasHeight = state.height - state.navbar;
-            const wDiff = imgDims.width - canvasWidth;
-            const hDiff = imgDims.height - canvasHeight;
-            const scaleRatio = (wDiff > hDiff)
-                ? (canvasWidth / imgDims.width)
-                : (canvasHeight / imgDims.height)
+            const wRatio = canvasWidth / imgDims.width;
+            const hRatio = canvasHeight / imgDims.height;
+            const scaleRatio = Math.min(wRatio, hRatio)
             state.image = {
                 width: imgDims.width * scaleRatio,
                 height: imgDims.height * scaleRatio
@@ -98,3 +88,21 @@ export const {
     calculateImageDims,
 } = dimensionsSlice.actions;
 export default dimensionsSlice.reducer;
+
+
+export const recalculateDimensions = (windowDims: Dimensions) => (
+    (dispatch: AppDispatch, getState: () => RootState) => {
+        dispatch(setWindowDimensions(windowDims));
+        const image = getState().image;
+        if (image.uri !== null) {
+            console.log("HERE")
+            dispatch(calculateImageDims(_.pick(image, "width", "height")));
+        }
+        if (getState().grid.active) {
+            let dims = getState().dimensions
+            const gridSize = image.uri
+                ? dims.image
+                : {width: dims.width - dims.sidebar, height: dims.height - dims.navbar}
+            dispatch(updateGridParams(gridSize))
+        }
+    })
