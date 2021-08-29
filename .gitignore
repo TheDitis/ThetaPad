@@ -26,3 +26,11 @@ yarn-error.log*
 .idea/codeStyles/
 .idea/inspectionProfiles/
 .idea/sonarlint/
+
+#firebase
+/firebase-debug.log
+/storage.rules
+/firestore.rules
+/.env
+/ui-debug.log
+/firestore-debug.log

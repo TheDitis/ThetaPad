@@ -6,7 +6,12 @@
     "@material-ui/core": "^4.12.1",
     "@types/chroma-js": "^2.1.3",
     "@types/lodash": "^4.14.172",
+    "brunch": "^4.0.0",
     "chroma-js": "^2.1.2",
+    "firebase": "^9.0.0",
+    "firebase-admin": "^9.11.1",
+    "firebase-functions": "^3.15.4",
+    "firebase-tools": "^9.16.6",
     "framer-motion": "^4.1.17",
     "konva": "^8.1.1",
     "react": "^17.0.2",
@@ -15,10 +20,14 @@
     "react-konva": "^17.0.2-4",
     "react-scripts": "4.0.3",
     "react-uuid": "^1.0.2",
+    "reactfire": "^4.0.0",
     "styled-components": "^5.3.0",
     "typescript": "^4.1.2",
     "use-image": "^1.0.8",
     "web-vitals": "^1.0.1"
+  },
+  "engines": {
+    "node": "16"
   },
   "scripts": {
     "start": "react-scripts start",
