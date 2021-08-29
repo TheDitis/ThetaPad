@@ -18,6 +18,7 @@ interface CanvasStyleProps {
 }
 
 const CanvasRoot = styled.div<CanvasStyleProps>`
+  position: relative;
   width: ${props => props.dimensions.width - props.dimensions.sidebar}px;
   height: ${props => props.dimensions.height - props.dimensions.navbar};
   background: rgb(156, 231, 255);
@@ -43,8 +44,15 @@ const Canvas: React.FC = () => {
             <KonvaStageWithReduxBridge
                 width={dimensions.width - dimensions.sidebar}
                 height={dimensions.height - dimensions.navbar}
+                style={{position: "absolute", filter: ""}}
             >
                 <ImageLayer/>
+            </KonvaStageWithReduxBridge>
+
+            <KonvaStageWithReduxBridge
+                width={dimensions.width - dimensions.sidebar}
+                height={dimensions.height - dimensions.navbar}
+            >
                 {gridIsActive && <GridLayer/>}
                 <ShapesLayer/>
             </KonvaStageWithReduxBridge>

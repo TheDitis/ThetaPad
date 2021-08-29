@@ -14,6 +14,7 @@ const ImageLayer: React.FC = () => {
     const dimensions = useAppSelector(imageLayerDimensionsSelector);
     const [image] = useImage(imageData.uri);
 
+
     return (
         <KonvaLayer>
             <KonvaImage image={image} width={dimensions.width} height={dimensions.height}/>
