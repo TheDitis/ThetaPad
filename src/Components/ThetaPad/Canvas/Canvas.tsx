@@ -12,7 +12,6 @@ import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 import ImageLayer from "./Layers/ImageLayer";
 import GridLayer from "./Layers/GridLayer";
 import {useAppSelector} from "../../../redux/hooks";
-import {useSelector} from "react-redux";
 
 interface CanvasStyleProps {
     dimensions: AppDimensions;
@@ -33,7 +32,7 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
 const Canvas: React.FC = () => {
     const dimensions = useAppSelector(dimensionsSelector);
     const gridIsActive = useAppSelector(gridIsActiveSelector);
-    const imageFilter = useSelector(filtersCssString);
+    const imageFilter = useAppSelector(filtersCssString);
 
     return (
         <CanvasRoot

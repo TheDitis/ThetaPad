@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
-export interface FiltersStateType {
+export interface FiltersType {
     contrast: number;
     brightness: number;
     saturation: number;
@@ -11,15 +11,23 @@ export interface FiltersStateType {
     hue: number;
 }
 
+export interface FiltersStateType {
+    active: boolean;
+    params: FiltersType
+}
+
 
 const initialState: FiltersStateType = {
-    contrast: 1,
-    brightness: 1,
-    saturation: 1,
-    grayscale: 0,
-    sepia: 0,
-    blur: 0,
-    hue: 0,
+    active: true,
+    params: {
+        contrast: 1,
+        brightness: 1,
+        saturation: 1,
+        grayscale: 0,
+        sepia: 0,
+        blur: 0,
+        hue: 0,
+    }
 }
 
 
@@ -28,6 +36,9 @@ const filtersSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
+        toggleFilter(state) {
+            state.active = !(state.active)
+        },
         updateFilterValues(state, action: PayloadAction<Partial<FiltersStateType>>) {
             Object.entries(action.payload).forEach(([param, value]) => {
                 state[param] = value;
@@ -35,11 +46,11 @@ const filtersSlice = createSlice({
         },
         resetFilterValues(state, action: PayloadAction<(keyof FiltersStateType)[]>) {
             for (const param of action.payload) {
-                state[param] = initialState[param];
+                state.params[param] = initialState[param];
             }
         },
         resetFilterValue(state, action: PayloadAction<keyof FiltersStateType>) {
-            state[action.payload] = initialState[action.payload];
+            state.params[action.payload] = initialState[action.payload];
         },
         resetAllFilters() {
             return initialState

@@ -118,9 +118,20 @@ export const gridStyleParamsSelector = createSelector(
 
 export const filtersSelector = (state) => state.filters;
 
-export const filtersCssString = createSelector(
+export const filterIsActiveSelector = createSelector(
     filtersSelector,
-    (filters) => (
+    (filterState) => filterState.active
+)
+
+export const filterParamsSelector = createSelector(
+    filtersSelector,
+    (filterState) => filterState.params
+)
+
+export const filtersCssString = createSelector(
+    filterIsActiveSelector,
+    filterParamsSelector,
+    (active, filters) => active ? (
         `contrast(${filters.contrast}) brightness(${filters.brightness}) saturate(${filters.saturation}) grayscale(${filters.grayscale}) sepia(${filters.sepia}) blur(${filters.blur}px) hue-rotate(${filters.hue}deg)`
-    )
+    ) : "none"
 )
