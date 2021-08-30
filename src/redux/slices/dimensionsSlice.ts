@@ -95,7 +95,6 @@ export const recalculateDimensions = (windowDims: Dimensions) => (
         dispatch(setWindowDimensions(windowDims));
         const image = getState().image;
         if (image.uri !== null) {
-            console.log("HERE")
             dispatch(calculateImageDims(_.pick(image, "width", "height")));
         }
         if (getState().grid.active) {

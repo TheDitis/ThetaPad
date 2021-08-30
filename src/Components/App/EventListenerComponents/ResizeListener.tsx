@@ -4,20 +4,18 @@
  */
 import React, {useEffect} from "react";
 import {recalculateDimensions} from "../../../redux/slices/dimensionsSlice";
-import {imageSelector} from "../../../redux/selectors";
-import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
+import {useAppDispatch} from "../../../redux/hooks";
 
 
 const ResizeListener: React.FC = () => {
     const dispatch = useAppDispatch();
-    const image = useAppSelector(imageSelector)
 
     useEffect(() => {
         const updateDimensions = (e) => {
             dispatch(recalculateDimensions({
                 width: e.target.innerWidth,
                 height: e.target.innerHeight,
-            }))
+            }));
         }
 
         window.addEventListener('resize', updateDimensions);
@@ -25,7 +23,7 @@ const ResizeListener: React.FC = () => {
         return () => {
             window.removeEventListener('resize', updateDimensions);
         }
-    }, [dispatch, image]);
+    }, [dispatch]);
 
 
     return null;

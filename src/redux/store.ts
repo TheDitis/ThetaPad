@@ -10,6 +10,7 @@ import dimensionsReducer from "./slices/dimensionsSlice";
 import drawModeReducer from "./slices/drawModeSlice";
 import imageReducer from "./slices/imageSlice";
 import gridReducer from "./slices/gridSlice";
+import filtersReducer from "./slices/filtersSlice";
 
 
 const store = configureStore({
@@ -21,6 +22,7 @@ const store = configureStore({
         dimensions: dimensionsReducer,
         image: imageReducer,
         grid: gridReducer,
+        filters: filtersReducer,
     }
 })
 
