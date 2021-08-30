@@ -17,6 +17,7 @@ interface SidebarStyleProps {
 
 const SidebarRoot = styled.div<SidebarStyleProps>`
   position: relative;
+  z-index: 9000;
   width: ${props => props.width}px;
   height: 100%;
   background: #282c34;

@@ -7,18 +7,18 @@ import styled from "styled-components";
 import ShapesLayer from "./Layers/ShapesLayer/ShapesLayer";
 import {AppDimensions} from "../../../redux/slices/dimensionsSlice";
 import KonvaStageWithReduxBridge from "./Layers/ShapesLayer/KonvaStageWithReduxBridge";
-import {dimensionsSelector, gridIsActiveSelector} from "../../../redux/selectors";
+import {dimensionsSelector, filtersCssString, gridIsActiveSelector} from "../../../redux/selectors";
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 import ImageLayer from "./Layers/ImageLayer";
 import GridLayer from "./Layers/GridLayer";
 import {useAppSelector} from "../../../redux/hooks";
+import {useSelector} from "react-redux";
 
 interface CanvasStyleProps {
     dimensions: AppDimensions;
 }
 
 const CanvasRoot = styled.div<CanvasStyleProps>`
-  position: relative;
   width: ${props => props.dimensions.width - props.dimensions.sidebar}px;
   height: ${props => props.dimensions.height - props.dimensions.navbar};
   background: rgb(156, 231, 255);
@@ -33,6 +33,7 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
 const Canvas: React.FC = () => {
     const dimensions = useAppSelector(dimensionsSelector);
     const gridIsActive = useAppSelector(gridIsActiveSelector);
+    const imageFilter = useSelector(filtersCssString);
 
     return (
         <CanvasRoot
@@ -44,7 +45,10 @@ const Canvas: React.FC = () => {
             <KonvaStageWithReduxBridge
                 width={dimensions.width - dimensions.sidebar}
                 height={dimensions.height - dimensions.navbar}
-                style={{position: "absolute", filter: ""}}
+                style={{
+                    position: "absolute",
+                    filter: imageFilter //+ " saturate(1)",
+                }}
             >
                 <ImageLayer/>
             </KonvaStageWithReduxBridge>

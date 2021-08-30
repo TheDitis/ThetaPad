@@ -5,20 +5,20 @@ export interface FiltersStateType {
     contrast: number;
     brightness: number;
     saturation: number;
-    value: number;
-    luminance: number;
-    blurRadius: number
+    grayscale: number;
+    sepia: number;
+    blur: number
     hue: number;
 }
 
 
 const initialState: FiltersStateType = {
-    contrast: 0,
-    brightness: 0,
-    saturation: 0,
-    value: 0,
-    luminance: 0,
-    blurRadius: 0,
+    contrast: 1,
+    brightness: 1,
+    saturation: 1,
+    grayscale: 0,
+    sepia: 0,
+    blur: 0,
     hue: 0,
 }
 

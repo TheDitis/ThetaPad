@@ -113,3 +113,14 @@ export const gridStyleParamsSelector = createSelector(
     gridParamsSelector,
     (gridParams) => _.pick(gridParams, 'color', 'strokeWidth', 'opacity')
 )
+
+
+
+export const filtersSelector = (state) => state.filters;
+
+export const filtersCssString = createSelector(
+    filtersSelector,
+    (filters) => (
+        `contrast(${filters.contrast}) brightness(${filters.brightness}) saturate(${filters.saturation}) grayscale(${filters.grayscale}) sepia(${filters.sepia}) blur(${filters.blur}px) hue-rotate(${filters.hue}deg)`
+    )
+)
