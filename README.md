@@ -1,7 +1,6 @@
 # ThetaPad
-**note:** this is a rewrite of my original ThetaPad Project, and it is in  the early stages of construction. The functional site is V1, and that repo be found
-[here](https://github.com/user/repo/blob/branch/other_file.md) (*warning*: poor code quality lies that way. Protect yourself.)
+### Version 2 is live! Check it out at [**ThetaPad.art**](https://thetapad.art/)!
 
-Here is the [Live V1 Site](https://ryan-s-cool-drawing-tool.firebaseapp.com/)
+*Note: This project is still under construction. I'm in the process of adding new features, and there are still few minor bugs to iron out.*
 
-And here is the [Original Repo](https://github.com/user/repo/blob/branch/other_file.md)
+
