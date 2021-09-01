@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.1",
+    "@material-ui/icons": "^4.11.2",
     "@types/chroma-js": "^2.1.3",
     "@types/lodash": "^4.14.172",
     "brunch": "^4.0.0",
@@ -14,6 +15,7 @@
     "firebase-tools": "^9.16.6",
     "framer-motion": "^4.1.17",
     "konva": "^8.1.1",
+    "konva-node": "^0.11.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-images-upload": "^1.2.8",
@@ -32,7 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \\\"node_modules/(?!konva)/\\\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -62,14 +64,17 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^27.0.1",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/styled-components": "^5.1.11",
+    "babel-jest": "26.6.0",
     "immer": "^9.0.5",
+    "jest": "26.6.0",
     "logrocket": "^2.0.0",
     "react-redux": "^7.2.4",
-    "react-test-renderer": "^17.0.2"
+    "react-test-renderer": "^17.0.2",
+    "ts-jest": "^27.0.5"
   }
 }

@@ -1,4 +1,4 @@
-import {COLORS} from "../Components/constants";
+import {COLORS} from "../constants";
 import _ from "lodash";
 
 export const randomItem = <T>(array: T[]): T => (

@@ -7,7 +7,7 @@ import React from "react";
 import {unitValSelector} from "../../../../../../redux/selectors";
 import {PointUtils, Poly, PolyUtils} from "../../../../../../types/shapes";
 import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-konva";
-import {LINE_INFO_TEXT_OFFSET} from "../../../../../constants";
+import {LINE_INFO_TEXT_OFFSET} from "../../../../../../constants";
 import uuid from "react-uuid";
 import {formatLengthText} from "../../../../../../utils/utils";
 import {useAppSelector} from "../../../../../../redux/hooks";

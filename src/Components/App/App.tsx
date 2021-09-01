@@ -9,7 +9,9 @@ import React from "react";
 import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
 import {createTheme, ThemeProvider} from "@material-ui/core";
-import {blueGrey, grey, teal} from "@material-ui/core/colors";
+import {THEME} from "../../constants";
+import store from "../../redux/store";
+import {Provider} from "react-redux";
 
 // TODO: Add settings menu to navbar
 // TODO: Add ability to name Shapes
@@ -27,30 +29,23 @@ import {blueGrey, grey, teal} from "@material-ui/core/colors";
 
 
 const theme = createTheme({
-    palette: {
-        primary: {
-            light: blueGrey[200],
-            main: blueGrey[800],
-            dark: blueGrey[900]
-        },
-        secondary: teal,
-        text: {
-            disabled: grey[700]
-        }
-    }
+    palette: THEME,
 })
 
 
 const App = () => {
     return (
-        <ThemeProvider theme={theme}>
-            <div className="App">
-                <Navbar/>
-                <ThetaPad/>
-                <ResizeListener/>
-                <KeyListener/>
-            </div>
-        </ThemeProvider>
+
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+                    <Navbar/>
+                    <ThetaPad/>
+                    <ResizeListener/>
+                    <KeyListener/>
+                </div>
+            </ThemeProvider>
+        </Provider>
     );
 }
 

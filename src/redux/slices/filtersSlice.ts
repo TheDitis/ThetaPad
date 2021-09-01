@@ -1,4 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {limitValue} from "../../utils/utils";
+
+type FilterLimits = [number, number];
+
+type FilterLimitsMap = { [key in keyof FiltersType]: FilterLimits }
 
 
 export interface FiltersType {
@@ -11,23 +16,35 @@ export interface FiltersType {
     hue: number;
 }
 
+export const filterLimits: FilterLimitsMap = {
+    contrast: [0.5, 3],
+    brightness: [0.5, 1.5],
+    saturation: [0, 3],
+    grayscale: [0, 1],
+    sepia: [0, 1],
+    blur: [0, 50],
+    hue: [-180, 180],
+}
+
 export interface FiltersStateType {
     active: boolean;
     params: FiltersType
 }
 
+export const filterDefaults = {
+    contrast: 1,
+    brightness: 1,
+    saturation: 1,
+    grayscale: 0,
+    sepia: 0,
+    blur: 0,
+    hue: 0,
+}
+
 
 const initialState: FiltersStateType = {
     active: true,
-    params: {
-        contrast: 1,
-        brightness: 1,
-        saturation: 1,
-        grayscale: 0,
-        sepia: 0,
-        blur: 0,
-        hue: 0,
-    }
+    params: filterDefaults
 }
 
 
@@ -39,17 +56,18 @@ const filtersSlice = createSlice({
         toggleFilter(state) {
             state.active = !(state.active)
         },
-        updateFilterValues(state, action: PayloadAction<Partial<FiltersStateType>>) {
+        updateFilterValues(state, action: PayloadAction<Partial<FiltersType>>) {
             Object.entries(action.payload).forEach(([param, value]) => {
-                state[param] = value;
+                const limits: FilterLimits = filterLimits[param];
+                state.params[param] = limitValue(value, ...limits);
             })
         },
-        resetFilterValues(state, action: PayloadAction<(keyof FiltersStateType)[]>) {
+        resetFilterValues(state, action: PayloadAction<(keyof FiltersType)[]>) {
             for (const param of action.payload) {
-                state.params[param] = initialState[param];
+                state.params[param] = initialState.params[param];
             }
         },
-        resetFilterValue(state, action: PayloadAction<keyof FiltersStateType>) {
+        resetFilterValue(state, action: PayloadAction<keyof FiltersType>) {
             state.params[action.payload] = initialState[action.payload];
         },
         resetAllFilters() {
@@ -60,4 +78,4 @@ const filtersSlice = createSlice({
 
 
 export default filtersSlice.reducer;
-export const { updateFilterValues, resetFilterValues, resetFilterValue, resetAllFilters } = filtersSlice.actions;
+export const { toggleFilter, updateFilterValues, resetFilterValues, resetFilterValue, resetAllFilters } = filtersSlice.actions;

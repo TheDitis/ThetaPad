@@ -4,7 +4,7 @@
  */
 import React from "react";
 import styled from "styled-components";
-import {NAVBAR_HEIGHT} from "../constants";
+import {NAVBAR_HEIGHT} from "../../constants";
 
 
 const NavbarRoot = styled.div`

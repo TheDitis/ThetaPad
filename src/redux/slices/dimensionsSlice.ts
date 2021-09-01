@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice} from "@reduxjs/toolkit";
-import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../Components/constants";
+import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../constants";
 import {Dimensions} from "./imageSlice";
 import {AppDispatch, RootState} from "../store";
 import _ from "lodash";

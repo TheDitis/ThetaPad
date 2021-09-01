@@ -8,7 +8,7 @@ import {PolySegment} from "../../../../../../../types/shapes";
 import ShapeInfoItem from "../../ShapeInfoItem";
 import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
 import {unitSelector} from "../../../../../../../redux/selectors";
-import {POLY_SEGMENT_HEIGHT} from "../../../../../../constants";
+import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
 import {useAppDispatch, useAppSelector} from "../../../../../../../redux/hooks";
 
 

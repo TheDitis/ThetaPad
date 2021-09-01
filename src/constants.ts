@@ -1,3 +1,5 @@
+import {blueGrey, grey, teal} from "@material-ui/core/colors";
+
 /** constants.ts
  * @file definitions of constant values used throughout the app
  * @author Ryan McKay <ryanscottmckay@gmail.com>
@@ -56,3 +58,22 @@ export const MIN_CIRCLE_RADIUS = 5;
 
 // Distance from the line and the length-info of that line in px
 export const LINE_INFO_TEXT_OFFSET = 5;
+
+
+
+/// STYLE CONSTANTS:
+export const THEME = {
+    primary: {
+        light: blueGrey[200],
+        main: blueGrey[800],
+        dark: blueGrey[900]
+    },
+    secondary: {
+        light: teal[300],
+        main: teal[500],
+        dark: teal[800]
+    },
+    text: {
+        disabled: grey[700]
+    }
+}

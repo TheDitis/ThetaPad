@@ -6,6 +6,7 @@ import styled from "styled-components";
 import React, {useState} from "react";
 import {motion} from "framer-motion";
 import GridTool from "./Tools/GridTool";
+import FiltersTool from "./Tools/FiltersTool";
 
 const TAB_HEIGHT = 40;
 const MENU_HEIGHT = 400;
@@ -116,6 +117,7 @@ const ToolMenu: React.FC = () => {
             </motion.div>
             <motion.div className={"main"}>
                 <GridTool/>
+                <FiltersTool/>
             </motion.div>
         </ToolsRoot>
     )

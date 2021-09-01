@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './Components//App/App';
 import reportWebVitals from './reportWebVitals';
-import store from "./redux/store";
-import {Provider} from "react-redux";
 import {FirebaseAppProvider} from "reactfire";
 
 const firebaseConfig = {
@@ -20,9 +18,7 @@ const firebaseConfig = {
 ReactDOM.render(
     <React.StrictMode>
         <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-            <Provider store={store}>
                 <App/>
-            </Provider>
         </FirebaseAppProvider>
     </React.StrictMode>,
     document.getElementById('root')

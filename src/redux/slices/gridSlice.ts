@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../Components/constants";
+import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../constants";
 
 /**
  * @interface GridActiveOrientationsType

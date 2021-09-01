@@ -25,7 +25,7 @@ import {
 } from "../../../types/shapes";
 import {DrawModeType} from "../../../redux/slices/drawModeSlice";
 import React, {MouseEventHandler} from "react";
-import {MIN_CIRCLE_RADIUS, MIN_LINE_LENGTH, MIN_POLY_POINTS} from "../../constants";
+import {MIN_CIRCLE_RADIUS, MIN_LINE_LENGTH, MIN_POLY_POINTS} from "../../../constants";
 
 
 /////---------------------------------------------------------------------------

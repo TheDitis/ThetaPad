@@ -5,7 +5,7 @@
 import React from "react";
 import styled from "styled-components";
 import CompletedShapesProfiles from "./CompletedShapesProfiles";
-import {SHAPE_PROFILE_HEIGHT} from "../../../constants";
+import {SHAPE_PROFILE_HEIGHT} from "../../../../constants";
 import TempShapeProfile from "./TempShapeProfile";
 
 const ShapeProfilesSectionRoot = styled.div`

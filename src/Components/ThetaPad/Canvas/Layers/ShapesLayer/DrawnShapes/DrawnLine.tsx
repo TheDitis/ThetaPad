@@ -6,7 +6,7 @@ import React from "react";
 import {Line, LineUtils} from "../../../../../../types/shapes";
 import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-konva";
 import {unitValSelector} from "../../../../../../redux/selectors";
-import {LINE_INFO_TEXT_OFFSET} from "../../../../../constants";
+import {LINE_INFO_TEXT_OFFSET} from "../../../../../../constants";
 import {formatLengthText} from "../../../../../../utils/utils";
 import {useAppSelector} from "../../../../../../redux/hooks";
 

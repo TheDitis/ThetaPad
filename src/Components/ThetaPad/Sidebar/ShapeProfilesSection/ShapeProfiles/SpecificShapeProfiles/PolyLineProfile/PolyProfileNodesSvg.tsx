@@ -1,7 +1,7 @@
 import {Poly} from "../../../../../../../types/shapes";
 import React, {useState} from "react";
 import {unitSelector} from "../../../../../../../redux/selectors";
-import {POLY_SEGMENT_HEIGHT} from "../../../../../../constants";
+import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
 import {resetUnit} from "../../../../../../../redux/slices/unitSlice";
 import {removePolyPoint} from "../../../../../../../redux/slices/shapesSlice";
 import {motion} from "framer-motion";

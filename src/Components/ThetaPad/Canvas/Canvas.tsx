@@ -20,7 +20,7 @@ interface CanvasStyleProps {
 const CanvasRoot = styled.div<CanvasStyleProps>`
   width: ${props => props.dimensions.width - props.dimensions.sidebar}px;
   height: ${props => props.dimensions.height - props.dimensions.navbar};
-  background: rgb(156, 231, 255);
+  background: rgb(189, 233, 248);
 `
 
 
