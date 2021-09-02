@@ -23,10 +23,6 @@ import {Provider} from "react-redux";
 // TODO: Image filters
 // TODO: Grid tool
 
-// FIX TODOS:
-// TODO: make ShapeProfileBase dropdown animation match that of ToolProfileBase
-// TODO: make grid snap to image on upload, not just on resize
-
 
 const theme = createTheme({
     palette: THEME,

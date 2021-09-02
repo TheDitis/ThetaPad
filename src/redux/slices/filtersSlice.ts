@@ -43,7 +43,7 @@ export const filterDefaults = {
 
 
 const initialState: FiltersStateType = {
-    active: true,
+    active: false,
     params: filterDefaults
 }
 

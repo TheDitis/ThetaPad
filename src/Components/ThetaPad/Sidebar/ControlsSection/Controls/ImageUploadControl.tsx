@@ -5,12 +5,10 @@
 import React from "react";
 import styled from "styled-components";
 import ImageUploader from "react-images-upload";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../../../../../redux/store";
 import {setImage} from "../../../../../redux/slices/imageSlice";
 import {clearShapes} from "../../../../../redux/slices/shapesSlice";
-import {calculateImageDims} from "../../../../../redux/slices/dimensionsSlice";
-import _ from "lodash";
+import {recalculateDimensions} from "../../../../../redux/slices/dimensionsSlice";
+import {useAppDispatch} from "../../../../../redux/hooks";
 
 interface ImageUploadControlStyleProps {
 
@@ -22,7 +20,7 @@ const ImageUploadControlRoot = styled.div<ImageUploadControlStyleProps>`
 
 
 const ImageUploadControl: React.FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     const loadImage = (img, url) => {
         return new Promise((resolve, reject) => {
@@ -44,7 +42,10 @@ const ImageUploadControl: React.FC = () => {
             height: image.height
         }))
 
-        dispatch(calculateImageDims(_.pick(image, "width", "height")))
+        dispatch(recalculateDimensions({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        }))
 
         dispatch(clearShapes())
     }
