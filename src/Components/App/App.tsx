@@ -20,8 +20,6 @@ import {Provider} from "react-redux";
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
 // TODO: Add Layer to highlight 'selected' shapes
-// TODO: Image filters
-// TODO: Grid tool
 
 
 const theme = createTheme({
