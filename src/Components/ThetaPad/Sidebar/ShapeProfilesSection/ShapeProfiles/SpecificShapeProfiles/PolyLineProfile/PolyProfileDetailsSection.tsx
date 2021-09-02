@@ -24,6 +24,12 @@ interface PolyProfileDetailsSectionProps {
     line: Poly;
 }
 
+/**
+ * The list of sub-segment profiles shown in the PolyProfile dropdown menu
+ * @param {Poly} line - the poly line the profile is linked to
+ * @return {JSX.Element} - flex-column of segment profiles
+ * @constructor
+ */
 const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({line}) => {
     return (
         <PolyProfileDetailsSectionRoot>

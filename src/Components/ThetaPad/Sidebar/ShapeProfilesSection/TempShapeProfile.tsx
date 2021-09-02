@@ -17,7 +17,7 @@ const TempShapeProfile: React.FC = () => {
     const tempShape = useAppSelector(tempShapeSelector);
     const numShapes = useAppSelector(shapeCountSelector);
     return tempShape !== null ? (
-        <ShapeProfile shape={tempShape} index={numShapes}/>
+        <ShapeProfile shape={tempShape} index={numShapes} fadeIn/>
     ) : null
 }
 

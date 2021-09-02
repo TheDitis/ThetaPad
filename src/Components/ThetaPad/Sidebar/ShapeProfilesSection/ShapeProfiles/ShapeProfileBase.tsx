@@ -125,7 +125,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
   }
 
   .details {
-    max-height: ${SHAPE_PROFILE_HEIGHT * 3}px;
+    max-height: ${SHAPE_PROFILE_HEIGHT * 3.5}px;
     overflow: scroll;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
     background: rgba(0, 0, 0, 0.13);
@@ -143,6 +143,7 @@ const shapeIcons = {
 }
 
 const variants = {
+    // disabled main fade for now
     main: {
         visible: {
             opacity: 1,
@@ -153,13 +154,18 @@ const variants = {
     },
     details: {
         open: {
+            margin: 0,
+            padding: 0,
             height: SHAPE_PROFILE_HEIGHT * 3
         },
         closed: {
+            margin: 0,
+            padding: 0,
             height: 0
         }
     }
 }
+
 
 interface ShapeProfileProps {
     shape: Shape;
@@ -167,6 +173,7 @@ interface ShapeProfileProps {
     unitValue: number;
     InfoItems?: React.FC;
     DetailsSection?: React.FC;
+    fadeIn?: boolean;
 }
 
 /**
@@ -176,9 +183,16 @@ interface ShapeProfileProps {
  * @param {number} unitValue - the value to set the unit to on unit button click
  * @param {React.FC} [InfoItems] - the info component to show in the lower row
  * @param {React.FC} [DetailsSection] - component to render in the dropdown, showing more details/controls for the shape
+ * @param {boolean} [fadeIn=false] - whether or not the profile should animate in
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
-    {shape, index, unitValue, InfoItems = () => null, DetailsSection}
+    {
+        shape,
+        index,
+        unitValue,
+        InfoItems = () => null, DetailsSection,
+        fadeIn = false,
+    }
 ) => {
     const unit = useAppSelector(unitSelector);
     const [showDetails, setShowDetails] = useState(false);
@@ -202,10 +216,8 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
         <ShapeProfileRoot
             isUnit={shape.id === unit.unitShape}
             variants={variants.main}
-            initial={"hidden"}
-            exit={"hidden"}
+            initial={fadeIn ? "hidden" : "visible"}
             animate={"visible"}
-            transition={{duration: 0.2}}
         >
             <div className={"main"}>
                 <div className={"leftSection"}>
@@ -221,7 +233,8 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             <button
                                 className={"unitButton"}
                                 onClick={toggleUnit}
-                            >Unit
+                            >
+                                Unit
                             </button>
 
                             <h5
@@ -248,7 +261,6 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     {showDetails && (
                         <motion.div
                             className={"details"}
-                            transition={{ease: "easeInOut", duration: 0.5}}
                             variants={variants.details}
                             initial={"closed"}
                             exit={"closed"}

@@ -29,18 +29,21 @@ const CircleInfoItems: React.FC<{ shape: Circle }> = ({shape}) => (
 interface CircleProfileProps {
     circle: Circle;
     index: number;
+    fadeIn?: boolean;
 }
 
 /**
  * ShapeProfile subtype specific to Circle objects
  * @param {Circle} circle - Circle object this profile will be linked to
  * @param {number} index - the index of this ShapeProfile in the rendered array
+ * @param {boolean} [fadeIn] - whether or not the profile should animate in
  * @return {JSX.Element} - profile for the given Circle object
  */
-const CircleProfile: React.FC<CircleProfileProps> = ({circle, index}) => (
+const CircleProfile: React.FC<CircleProfileProps> = ({circle, index, fadeIn}) => (
     <ShapeProfileBase
         shape={circle}
         index={index}
+        fadeIn={fadeIn}
         unitValue={circle.r}
         InfoItems={React.memo(() => <CircleInfoItems shape={circle}/>)}
     />

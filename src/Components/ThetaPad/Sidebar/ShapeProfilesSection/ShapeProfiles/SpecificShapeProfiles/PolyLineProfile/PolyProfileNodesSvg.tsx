@@ -79,10 +79,11 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                         onClick={removePoint(index)}
                         style={{x: -nodeRadius}}
                     >
-                        <motion.circle // placeholder circle for hovering
-                            cx={xLoc}
-                            cy={yLoc}
-                            r={nodeRadius}
+                        <motion.rect // placeholder circle for hovering
+                            x={xLoc - nodeRadius}
+                            y={yLoc - nodeRadius}
+                            width={nodeRadius * 2.2}
+                            height={nodeRadius * 2.2}
                             fill={"transparent"}
                         />
                         <motion.g

@@ -28,18 +28,21 @@ const PolyLineInfoItems: React.FC<{ shape: Poly }> = ({shape}) => (
 interface PolyLineProfileProps {
     line: Poly;
     index: number;
+    fadeIn?: boolean;
 }
 
 /**
  * ShapeProfile subtype specific to Poly objects
  * @param {Poly} line - Poly line object this profile will be linked to
  * @param {number} index - index of this ShapeProfile in the rendered array
+ * @param {boolean} [fadeIn] - whether or not the profile should animate in
  * @return {JSX.Element} - profile for the given Poly object
  */
-const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index}) => (
+const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index, fadeIn}) => (
     <ShapeProfileBase
         shape={line}
         index={index}
+        fadeIn={fadeIn}
         unitValue={line.totalLength}
         InfoItems={React.memo(() => <PolyLineInfoItems shape={line}/>)}
         DetailsSection={React.memo(() => <PolyProfileDetailsSection line={line}/>)}
