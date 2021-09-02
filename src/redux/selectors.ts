@@ -12,14 +12,10 @@ import _ from "lodash";
 import {FiltersStateType} from "./slices/filtersSlice";
 import {GridStateType} from "./slices/gridSlice";
 import {ImageStateType} from "./slices/imageSlice";
+import {DrawModeType} from "./slices/drawModeSlice";
 
+/// shapes selectors ///
 type ShapesSelectorType = (RootState) => ShapeMap;
-type TempShapeSelectorType = (RootState) => Shape | null;
-type UnitSelectorType = (RootState) => UnitState;
-type DimensionsSelectorType = (RootState) => AppDimensions;
-type ImageSelectorType = (RootState) => ImageStateType;
-type GridSelectorType = (RootState) => GridStateType;
-type FiltersSelectorType = (RootState) => FiltersStateType;
 
 export const shapesSelector: ShapesSelectorType = (state: RootState) =>
     state.shapes;
@@ -29,8 +25,15 @@ export const shapesIdsSelector = createSelector(
     (shapes) => Object.keys(shapes)
 );
 
-export const tempShapeSelector: TempShapeSelectorType = (state: RootState) =>
-    state.tempShape;
+type TempShapeSelectorType = (RootState) => Shape | null;
+
+export const tempShapeSelector: TempShapeSelectorType = (state: RootState) => (
+    state.tempShape
+)
+
+
+/// unit selectors ///
+type UnitSelectorType = (RootState) => UnitState;
 
 export const unitSelector: UnitSelectorType = (state: RootState) => state.unit;
 
@@ -51,14 +54,19 @@ export const unitShapeSelector = createSelector(
 )
 
 
-export const drawModeSelector = (state) => state.drawMode;
+/// drawMode selectors ///
+type DrawModeSelectorType = (RootState) => DrawModeType;
 
+export const drawModeSelector: DrawModeSelectorType = (state) => state.drawMode;
 
 export const shapeCountSelector = createSelector(
     shapesSelector,
     (shapes) => Object.keys(shapes).length
 )
 
+
+/// drawMode selectors ///
+type DimensionsSelectorType = (RootState) => AppDimensions;
 
 export const dimensionsSelector: DimensionsSelectorType = (state: RootState) =>
     state.dimensions
@@ -84,6 +92,8 @@ export const imageLayerDimensionsSelector = createSelector(
 )
 
 
+/// image selectors ///
+type ImageSelectorType = (RootState) => ImageStateType;
 
 export const imageSelector: ImageSelectorType = (state) => state.image;
 
@@ -97,6 +107,9 @@ export const imageOriginalDimensionsSelector = createSelector(
     (imageData) => ({width: imageData.width, height: imageData.height})
 )
 
+
+/// grid selectors ///
+type GridSelectorType = (RootState) => GridStateType;
 
 export const gridSelector: GridSelectorType = (state) => state.grid;
 
@@ -121,6 +134,9 @@ export const gridStyleParamsSelector = createSelector(
 )
 
 
+
+/// filters selectors ///
+type FiltersSelectorType = (RootState) => FiltersStateType;
 
 export const filtersSelector: FiltersSelectorType = (state) => state.filters;
 

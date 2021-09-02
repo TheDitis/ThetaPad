@@ -62,7 +62,7 @@ const FiltersTool: React.FC = () => {
                 </div>
             </>
             <>
-                <div style={{width: "90%", display: "flex", flexDirection: "column", marginTop: 15}}>
+                <div style={{width: "90%", display: "flex", flexDirection: "column", margin: "15px 0"}}>
                     {['saturation', 'grayscale', 'sepia', 'blur', 'hue'].map((param) => {
                         const limits = filterLimits[param];
                         const snapThresh = Math.abs(limits[1] - limits[0]) / 40;
