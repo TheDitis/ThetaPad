@@ -19,11 +19,11 @@ export interface FiltersType {
 export const filterLimits: FilterLimitsMap = {
     contrast: [0.5, 3],
     brightness: [0.5, 1.5],
-    saturation: [0, 3],
+    saturation: [0, 2],
     grayscale: [0, 1],
     sepia: [0, 1],
-    blur: [0, 50],
-    hue: [-180, 180],
+    blur: [0, 20],
+    hue: [-15, 15],
 }
 
 export interface FiltersStateType {
@@ -46,6 +46,8 @@ const initialState: FiltersStateType = {
     active: true,
     params: filterDefaults
 }
+
+
 
 
 

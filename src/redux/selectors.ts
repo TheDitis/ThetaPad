@@ -9,11 +9,17 @@ import {UnitState} from "./slices/unitSlice";
 import {AppDimensions} from "./slices/dimensionsSlice";
 import {ShapeMap} from "./slices/shapesSlice";
 import _ from "lodash";
+import {FiltersStateType} from "./slices/filtersSlice";
+import {GridStateType} from "./slices/gridSlice";
+import {ImageStateType} from "./slices/imageSlice";
 
 type ShapesSelectorType = (RootState) => ShapeMap;
 type TempShapeSelectorType = (RootState) => Shape | null;
 type UnitSelectorType = (RootState) => UnitState;
-type DimensionsSelectorType = (RootState) => AppDimensions
+type DimensionsSelectorType = (RootState) => AppDimensions;
+type ImageSelectorType = (RootState) => ImageStateType;
+type GridSelectorType = (RootState) => GridStateType;
+type FiltersSelectorType = (RootState) => FiltersStateType;
 
 export const shapesSelector: ShapesSelectorType = (state: RootState) =>
     state.shapes;
@@ -79,7 +85,7 @@ export const imageLayerDimensionsSelector = createSelector(
 
 
 
-export const imageSelector = (state) => state.image;
+export const imageSelector: ImageSelectorType = (state) => state.image;
 
 export const imageSrcSelector = createSelector(
     imageSelector,
@@ -92,7 +98,7 @@ export const imageOriginalDimensionsSelector = createSelector(
 )
 
 
-export const gridSelector = (state) => state.grid;
+export const gridSelector: GridSelectorType = (state) => state.grid;
 
 export const gridIsActiveSelector = createSelector(
     gridSelector,
@@ -116,7 +122,7 @@ export const gridStyleParamsSelector = createSelector(
 
 
 
-export const filtersSelector = (state) => state.filters;
+export const filtersSelector: FiltersSelectorType = (state) => state.filters;
 
 export const filterIsActiveSelector = createSelector(
     filtersSelector,

@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 import {filtersSelector} from "../../../../../redux/selectors";
 import ToggleButton from "../../../../General/ToggleButton";
 import {
-    filterDefaults,
+    filterDefaults, filterLimits,
     FiltersType,
     resetFilterValue,
     toggleFilter,
@@ -17,6 +17,7 @@ import {
 import ImageFilterIcon from "../../../../Icons/ImageFilterIcon";
 import {Brightness5, BrightnessMedium} from "@material-ui/icons";
 import NumericSlider from "../../../../General/NumericSlider";
+import {capitalize} from "lodash";
 
 const icons = {
     "contrast" : BrightnessMedium,
@@ -43,7 +44,7 @@ const FiltersTool: React.FC = () => {
                         // const snapThresh = Math.abs(limits[1] - limits[0]) / 20
                         return (
                             <NumericSlider
-                                key={param + "NumericSlider"}
+                                key={param + "MicroNumericSlider"}
                                 Icon={() => (
                                     <Icon onClick={() => dispatch(resetFilterValue(param as keyof FiltersType))}/>
                                 )}
@@ -59,8 +60,26 @@ const FiltersTool: React.FC = () => {
                         )
                     })}
                 </div>
-
-
+            </>
+            <>
+                <div style={{width: "90%", display: "flex", flexDirection: "column", marginTop: 15}}>
+                    {['saturation', 'grayscale', 'sepia', 'blur', 'hue'].map((param) => {
+                        const limits = filterLimits[param];
+                        const snapThresh = Math.abs(limits[1] - limits[0]) / 40;
+                        return (
+                            <NumericSlider
+                                key={param + "MacroNumericSlider"}
+                                label={capitalize(param)}
+                                value={params[param]}
+                                onChange={(value) => dispatch(updateFilterValues({[param]: value}))}
+                                min={limits[0]}
+                                max={limits[1]}
+                                marks={[{value: filterDefaults[param]}]}
+                                snapThresh={snapThresh}
+                            />
+                        )
+                    })}
+                </div>
             </>
         </ToolProfileBase>
     )

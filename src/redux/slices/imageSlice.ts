@@ -14,20 +14,20 @@ export interface Dimensions {
 }
 
 /**
- * @interface UserImage
+ * @interface ImageStateType
  * @property {string} uri - uri for the image
  * @property {number} size - size in bytes of the image
  * @property {number} width - width of the original image (not display size)
  * @property {number} height - height of the original image (not display size)
  */
-export interface UserImage {
+export interface ImageStateType {
     uri: string | null;
     size: number;
     width: number;
     height: number;
 }
 
-const initialState: UserImage = {
+const initialState: ImageStateType = {
     uri: null,
     size: 0,
     width: 0,
@@ -39,11 +39,11 @@ const imageSlice = createSlice({
     name: 'image',
     initialState,
     reducers: {
-        setImage(state: UserImage, action: PayloadAction<UserImage>) {
+        setImage(state: ImageStateType, action: PayloadAction<ImageStateType>) {
             console.log(action.payload)
             return action.payload;
         },
-        clearImage(state: UserImage) {
+        clearImage(state: ImageStateType) {
             return initialState;
         }
     }

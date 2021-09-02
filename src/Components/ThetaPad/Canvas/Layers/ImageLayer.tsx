@@ -11,7 +11,7 @@ import {useAppSelector} from "../../../../redux/hooks";
 const ImageLayer: React.FC = () => {
     const imageData = useAppSelector(imageSelector);
     const dimensions = useAppSelector(imageLayerDimensionsSelector);
-    const [image] = useImage(imageData.uri);
+    const [image] = useImage(imageData.uri || "");
 
     return (
         <KonvaLayer>

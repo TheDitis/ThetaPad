@@ -61,7 +61,7 @@ export interface GridParamsType {
  * @property {GridParamsType} params - object of structural and style parameters
  *      defining the grid
  */
-interface GridStateType {
+export interface GridStateType {
     active: boolean;
     params: GridParamsType;
 }

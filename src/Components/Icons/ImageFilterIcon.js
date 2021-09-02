@@ -8,9 +8,6 @@ const ImageFilterIcon = ({
      strokeWidth = 20,
 }) => {
 
-    // const width = 458 / 8;
-    // const height = 358 / 8;
-
     return (
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 500 500" enableBackground="new 0 0 500 500" style={{margin: 0}}>
             <path fill="none" stroke={color} strokeWidth={strokeWidth * 1.4} strokeLinecap="round" strokeMiterlimit="10" d="M308,381.5H55.5c-7.732,0-14-6.268-14-14v-263c0-7.732,6.268-14,14-14h386c7.732,0,14,6.268,14,14v263c0,7.732-6.268,14-14,14h-47"/>
