@@ -68,7 +68,6 @@ interface PolySegmentProfileProps {
 const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, shapeId}) => {
     const {unit, unitShape} = useAppSelector(unitSelector);
     const dispatch = useAppDispatch();
-    const properties = ['length', 'angle'];
     const isUnit = unitShape === shapeId && unit === segment.length;
 
 
@@ -87,9 +86,15 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                 <h5>{index}</h5>
             </div>
             <div className={"infoSection"}>
-                {properties.map((property) => (
-                    <ShapeInfoItem key={property} shape={segment} property={property}/>
-                ))}
+                <ShapeInfoItem shape={segment} property={'length'}/>
+                <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
+                    <ShapeInfoItem
+                        shape={segment}
+                        property={'angle'}
+                        style={{border: "2px solid rgba(0, 0, 0, 0.4)"}}
+                        noIcon
+                    />
+                </div>
             </div>
             <div className={"nodesSpacer"}/>
         </PolySegmentProfileRoot>

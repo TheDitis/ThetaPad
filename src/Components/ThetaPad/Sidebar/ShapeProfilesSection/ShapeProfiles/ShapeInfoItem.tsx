@@ -62,6 +62,8 @@ interface ShapeInfoItemProps {
     shape: Shape | PolySegment;
     property: string;
     value?: number;
+    noIcon?: boolean;
+    style?: React.CSSProperties;
 }
 
 /**
@@ -69,9 +71,17 @@ interface ShapeInfoItemProps {
  * @param {Shape} shape - the shape you're getting info from
  * @param {string} property - the property of 'shape' you are interested in
  * @param {number} [value] - optional pre-calculated value for this property
+ * @param {boolean} [noIcon=false] - if true, the icon will not be rendered
+ * @param {React.CSSProperties} style - any extra styles to apply
  */
 const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
-    {shape, property, value}
+    {
+        shape,
+        property,
+        value,
+        noIcon = false,
+        style = {}
+    }
 ) => {
     const unit = useAppSelector(unitValSelector);
 
@@ -85,14 +95,14 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
         return val.toFixed(1);
     }
 
-    const Icon = iconMap[property];
+    const Icon = !noIcon ? iconMap[property] : () => null;
     const val = getFormattedValue();
     const unitChar = unitMap[property];
 
     return (
         <ShapeInfoItemRoot>
             <Icon size={0.21}/>
-            <div className={"valueContainer"}>
+            <div className={"valueContainer"} style={style}>
                 <p className={"value"}>{val}{unitChar}</p>
             </div>
         </ShapeInfoItemRoot>
