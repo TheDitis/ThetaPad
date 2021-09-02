@@ -162,6 +162,8 @@ export abstract class ShapeUtils {
 }
 
 
+// Points of a line        x1      y1      x2      y2
+export type BasicLine = [number, number, number, number];
 
 /** Represents a 2D line segment
  * @interface Line

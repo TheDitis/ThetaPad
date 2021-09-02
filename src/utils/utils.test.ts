@@ -1,5 +1,6 @@
-import {chunkSiblings, formatLengthText, limitValue, randomItem, sum} from "./utils";
+import {angleBetweenLines, chunkSiblings, formatLengthText, limitValue, randomItem, sum} from "./utils";
 import _ from "lodash";
+import {BasicLine} from "../types/shapes";
 
 // TESTS FOR chunkSiblings:
 test('should return [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]]', () => {
@@ -68,4 +69,25 @@ test('should be 100', () => {
 
 test('dunno!', () => {
     expect(limitValue(130, 100, 0)).toBe(100);
+})
+
+
+
+// TESTS FOR angleBetweenLines
+test("should be 90", () => {
+    const line1: BasicLine = [-50, 0, 0, 0];
+    const line2: BasicLine = [0, 0, 0, 50];
+    expect(angleBetweenLines(line1, line2)).toBeCloseTo(90, 8)
+})
+
+test("should be 45", () => {
+    const line1: BasicLine = [-50, 0, 0, 0];
+    const line2: BasicLine = [0, 0, -25, 25];
+    expect(angleBetweenLines(line1, line2)).toBeCloseTo(45, 8)
+})
+
+test("should be 135", () => {
+    const line1: BasicLine = [-50, 0, 0, 0];
+    const line2: BasicLine = [0, 0, 25, -25];
+    expect(angleBetweenLines(line1, line2)).toBeCloseTo(135, 8)
 })

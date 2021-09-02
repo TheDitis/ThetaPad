@@ -1,5 +1,7 @@
 import {COLORS} from "../constants";
 import _ from "lodash";
+import {BasicLine} from "../types/shapes";
+import {dot} from "mathjs";
 
 export const randomItem = <T>(array: T[]): T => (
     array[Math.floor(Math.random() * array.length)]
@@ -54,4 +56,20 @@ export const limitValue = (value: number, lowerLimit: number, upperLimit: number
         upperLimit = tempUpper;
     }
     return Math.min(upperLimit, Math.max(lowerLimit, value))
+}
+
+/**
+ * Get the angle between two lines in degrees
+ * @param {BasicLine} line1 - the first line
+ * @param {BasicLine} line2 - the second line
+ * @return {number} - the angle in degrees
+ */
+export const angleBetweenLines = (line1: BasicLine, line2: BasicLine): number => {
+    const vec1 = [line1[0] - line1[2], line1[1] - line1[3]];
+    const vec2 = [line2[2] - line2[0], line2[3]- line2[1]];
+    const magnitude1 = Math.sqrt(vec1[0] ** 2 + vec1[1] ** 2);
+    const magnitude2 = Math.sqrt(vec2[0] ** 2 + vec2[1] ** 2);
+    const dotProd = dot(vec1, vec2);
+    const radians = Math.acos(dotProd / (magnitude1 * magnitude2));
+    return radians * (180 / Math.PI);
 }

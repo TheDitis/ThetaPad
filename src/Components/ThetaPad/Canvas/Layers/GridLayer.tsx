@@ -8,9 +8,7 @@ import {gridStructuralParamsSelector, gridStyleParamsSelector} from "../../../..
 import {StructuralGridParamsType} from "../../../../redux/slices/gridSlice";
 import _ from "lodash";
 import {useAppSelector} from "../../../../redux/hooks";
-
-// Points of line   x1      y1      x2      y2
-type BasicLine = [number, number, number, number];
+import { BasicLine } from "../../../../types/shapes";
 
 /**
  * Creates all of the vertical lines for the grid
