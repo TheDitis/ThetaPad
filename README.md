@@ -9,7 +9,7 @@
 there are still few minor bugs to iron out.*
 
 ## Tools for Artists
-ThetaPad is a tool for visual artists. It allows them to upload reference images and make measurements on them. For example, it in drawing/painting people, sometimes you want to know things like 'how many eyes wide is the mouth?' or 'what is the angle of the right leg relative to the left?' and ThetaPad's main purpose is to allow artists to get the answers to these question as quickly and easily as possible.
+ThetaPad is a tool for visual artists. This free webapp allows users to upload reference images and make comparative measurements directly onto the image. For example, it in drawing/painting people, sometimes you want to know things like 'how many eyes wide is the mouth?' or 'what is the angle of the right leg relative to the left?' and ThetaPad's main purpose is to allow artists to get the answers to these question as quickly and easily as possible.
 
 
 ## Motivation
@@ -26,9 +26,12 @@ Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https:/
 - [x] Select a given shape as the length unit
 - [x] Select a given poly-line sub-segment as the length unit
 - [x] Apply a grid with customization options
-- [ ] Make adjustments to the image (contrast, brightness, etc) **(in progress)**
+- [x] Make adjustments to the image (contrast, brightness, etc)
+- [ ] See angles between poly-line segments **(in progress)**
 - [ ] Set a given line as the angle reference (all other angles measured relative to it)
 - [ ] Select a given angle as an angle unit
+- [ ] Export/Print changes
+- [ ] Save sessions
 
 
 ### More info coming soon
