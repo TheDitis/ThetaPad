@@ -9,7 +9,7 @@
 there are still few minor bugs to iron out.*
 
 ## Tools for Artists
-ThetaPad is a tool for visual artists. This free webapp allows users to upload reference images and make comparative measurements directly onto the image. For example, it in drawing/painting people, sometimes you want to know things like 'how many eyes wide is the mouth?' or 'what is the angle of the right leg relative to the left?' and ThetaPad's main purpose is to allow artists to get the answers to these question as quickly and easily as possible.
+ThetaPad is a tool for visual artists. This free web app allows users to upload reference images and make comparative measurements directly on the image. For example, it in drawing/painting people, sometimes you want to know things like 'how many eyes wide is the mouth?' or 'what is the angle of the right leg relative to the left?' and ThetaPad's main purpose is to allow artists to get the answers to these question as quickly and easily as possible.
 
 
 ## Motivation
