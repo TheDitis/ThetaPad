@@ -19,7 +19,7 @@ test('should return [10, 20, 30, 40]', () => {
     expect(PolyUtils.calcLengths(points)).toMatchObject([10, 20, 30, 40])
 })
 
-// Test for PolyUtils.calcAngles
+// Test for PolyUtils.calcLineAngles
 test('should return [0, 90, 45]', () => {
     const points = [
         PointUtils.new(0, 0),
@@ -28,4 +28,29 @@ test('should return [0, 90, 45]', () => {
         PointUtils.new(50, 50)
     ];
     expect(PolyUtils.calcLineAngles(points)).toMatchObject([0, 90, 45]);
+})
+
+
+// Tests for PolyUtils.calcPointAngles
+test('should return [90, 90]', () => {
+    const points = [
+        PointUtils.new(0, 0),
+        PointUtils.new(0, 100),
+        PointUtils.new(100, 100),
+        PointUtils.new(100, 0)
+    ];
+    const res = PolyUtils.calcPointAngles(points)
+    expect(res).toMatchObject([90, 90]);
+})
+
+test('should return [90, 90, 45]', () => {
+    const points = [
+        PointUtils.new(0, 0),
+        PointUtils.new(0, 100),
+        PointUtils.new(100, 100),
+        PointUtils.new(100, 0),
+        PointUtils.new(150, 50),
+    ];
+    const res = PolyUtils.calcPointAngles(points)
+    expect(res).toMatchObject([90, 90, 45]);
 })

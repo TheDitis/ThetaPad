@@ -25,7 +25,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
     const [focus, setFocus] = useState<null | number>(null);
     const dispatch = useAppDispatch();
     const unitData = useAppSelector(unitSelector);
-    const height = POLY_SEGMENT_HEIGHT * (line.angles.length + 1);
+    const height = POLY_SEGMENT_HEIGHT * line.points.length;
     const width = POLY_SEGMENT_HEIGHT;
     const xLoc = POLY_SEGMENT_HEIGHT / 2;
     const yOffset = 15;
@@ -50,7 +50,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
 
     return (
         <svg
-            style={{position: "absolute", right: 0, top: -nodeRadius}}
+            style={{position: "absolute", right: 0, top: -nodeRadius, zIndex: 100}}
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
@@ -70,11 +70,11 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
             </motion.g>
             {line.points.map((pt, index) => {
                 const yLoc = calcYLoc(index);
-                const isFocus = index === focus;
+                const isFocus = index === focus && line.points.length > 2;
                 return (
                     <motion.g
                         key={"circle" + index.toString()}
-                        onMouseEnter={() => setFocus(index)}
+                        onMouseEnter={() => {setFocus(index)}}
                         onMouseLeave={() => setFocus(null)}
                         onClick={removePoint(index)}
                         style={{x: -nodeRadius}}

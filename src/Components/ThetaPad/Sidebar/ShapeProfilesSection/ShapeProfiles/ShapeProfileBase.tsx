@@ -156,12 +156,12 @@ const variants = {
         open: {
             margin: 0,
             padding: 0,
-            height: SHAPE_PROFILE_HEIGHT * 3
+            maxHeight: SHAPE_PROFILE_HEIGHT * 3
         },
         closed: {
             margin: 0,
             padding: 0,
-            height: 0
+            maxHeight: 0
         }
     }
 }
@@ -247,7 +247,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         <div className={"infoRow"}>
                             <InfoItems/>
                         </div>
-                        {DetailsSection !== undefined && !fadeIn && (
+                        {DetailsSection !== undefined && (
                             <ShowMoreButton
                                 onClick={() => setShowDetails(!showDetails)}
                                 isOpen={showDetails}
@@ -266,9 +266,9 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             exit={"closed"}
                             animate={"open"}
                         >
-                            <div className={"detailsScrollContainer"}>
+                            {/*<div className={"detailsScrollContainer"}>*/}
                                 <DetailsSection/>
-                            </div>
+                            {/*</div>*/}
                         </motion.div>
                     )}
                 </AnimatePresence>

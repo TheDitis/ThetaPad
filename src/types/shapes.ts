@@ -269,18 +269,21 @@ export abstract class LineUtils {
  * @property {Point[]} points - all points that make up the poly-line
  * @property {number[]} lengths - array of distances between each pair of points
  * @property {number} totalLength - total length of the line (sum of 'lengths')
- * @property {number[]} angles - array of angles between each pair of points
+ * @property {number[]} lineAngles - array of angles between each pair of points
+ * @property {number[]} angles - the array of angles between segments
  */
 export interface Poly extends Shape {
     points: Point[];
     lengths: number[];
     totalLength: number;
+    lineAngles: number[];
     angles: number[];
 }
 
 export interface PolySegment {
     start: Point,
     end: Point,
+    pointAngle: number | undefined,
     angle: number,
     length: number,
 }
@@ -298,7 +301,7 @@ export abstract class PolyUtils {
         if (points.length === 1) points.push({...points[0]})
 
         const lengths = PolyUtils.calcLengths(points);
-        const angles = PolyUtils.calcLineAngles(points);
+        const lineAngles = PolyUtils.calcLineAngles(points);
         const base = ShapeUtils.newShapeTemplate(
             points[0].x, points[0].y,
             ShapeKind.Poly,
@@ -310,7 +313,9 @@ export abstract class PolyUtils {
             points,
             lengths,
             totalLength: sum(lengths),
-            angles
+            angles: [],
+            lineAngles
+
         }
     }
 
@@ -358,11 +363,15 @@ export abstract class PolyUtils {
      * @return {number[]} - array of angles between each line segment
      */
     static calcPointAngles = (points: Point[]): number[] => {
-        return points.slice(0, points.length - 3).reduce(
+        return points.reduce(
             (acc: number[], pt: Point, i: number, arr: Point[]) => {
-                acc.push(
-                    PolyUtils.calcAngleFrom3Points(pt, arr[i + 1], arr[i + 2])
-                )
+                if (i < arr.length - 2) {
+                    acc.push(
+                        Number(PolyUtils.calcAngleFrom3Points(
+                            pt, arr[i + 1], arr[i + 2]
+                        ).toFixed(5))
+                    )
+                }
                 return acc;
             },
             []
@@ -395,10 +404,10 @@ export abstract class PolyUtils {
      */
     static asSegments = (poly: Poly): PolySegment[] => {
         const pairs = PolyUtils.asPointPairs(poly);
-        const zipped = _.zip(pairs, poly.lengths, poly.angles);
-        return zipped.reduce((acc, [pts, len, ang]) => {
-            // @ts-ignore  // zipped arrays will always be the same size
-            acc.push({start: pts[0], end: pts[1], length: len, angle: ang})
+        const zipped = _.zip(pairs, poly.lengths, poly.lineAngles, poly.angles);
+        return zipped.reduce((acc, [pts, len, ang, ptAng]) => {
+            // @ts-ignore  // pointAngle can be undefined, everything else will be same length
+            acc.push({start: pts[0], end: pts[1], length: len, angle: ang, pointAngle: ptAng})
             return acc;
         }, [])
     }

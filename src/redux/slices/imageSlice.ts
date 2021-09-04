@@ -40,10 +40,9 @@ const imageSlice = createSlice({
     initialState,
     reducers: {
         setImage(state: ImageStateType, action: PayloadAction<ImageStateType>) {
-            console.log(action.payload)
             return action.payload;
         },
-        clearImage(state: ImageStateType) {
+        clearImage() {
             return initialState;
         }
     }

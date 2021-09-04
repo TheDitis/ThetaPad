@@ -1,15 +1,19 @@
 /** ResizeListener.tsx
- * @file A null component that holds the resize-listener
+ * @file A shell component that holds the resize-listener
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React, {useEffect} from "react";
 import {recalculateDimensions} from "../../../redux/slices/dimensionsSlice";
 import {useAppDispatch} from "../../../redux/hooks";
 
-
+/**
+ * A shell component to hold resize event listeners
+ * @return {null}
+ */
 const ResizeListener: React.FC = () => {
     const dispatch = useAppDispatch();
 
+    /** Add window resize listener to update dimensions */
     useEffect(() => {
         const updateDimensions = (e) => {
             dispatch(recalculateDimensions({
@@ -17,6 +21,12 @@ const ResizeListener: React.FC = () => {
                 height: e.target.innerHeight,
             }));
         }
+
+        // Calculate on mount
+        dispatch(recalculateDimensions({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        }));
 
         window.addEventListener('resize', updateDimensions);
 

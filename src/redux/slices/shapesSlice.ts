@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSelector, createSlice} from "@reduxjs/toolkit";
-import {PartialShape, Point, PointUtils, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
+import {PartialShape, Point, PointUtils, PolyUtils, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
 import {chunkSiblings, sum} from "../../utils/utils";
 
@@ -46,8 +46,9 @@ const shapesSlice = createSlice({
                 targetShape.points.splice(index, 1);
 
                 const pointPairs: [Point, Point][] = chunkSiblings(targetShape.points);
-                targetShape.angles = pointPairs.map((ptPair) => PointUtils.angle(...ptPair))
+                targetShape.lineAngles = pointPairs.map((ptPair) => PointUtils.angle(...ptPair))
                 targetShape.lengths = pointPairs.map((ptPair) => PointUtils.distance(...ptPair))
+                targetShape.angles = PolyUtils.calcPointAngles(targetShape.points)
 
                 targetShape.totalLength = sum(targetShape.lengths);
             }

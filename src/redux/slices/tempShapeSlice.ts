@@ -28,10 +28,11 @@ const tempShapeSlice = createSlice({
         /** Add a point to the current Poly tempShape */
         addPolyPoint(state: TempShapeType, action: { payload: Point }) {
             if (state !== null && ShapeUtils.isPoly(state)) {
-                state.angles.push(0);
+                state.lineAngles.push(0);
+                state.lengths.push(0);
                 state.points.push(action.payload);
                 if (state.points.length >= 3) {
-                    state.lengths.push(0);
+                    state.angles.push(0);
                 }
             }
             else if (state !== null) {
@@ -44,15 +45,19 @@ const tempShapeSlice = createSlice({
          */
         continuePolyDraw(state: TempShapeType, action: { payload: Point }) {
             if (state !== null && ShapeUtils.isPoly(state)) {
+                // Recalculate the last segment's length
                 state.lengths[state.lengths.length - 1] = PointUtils.distance(
                     state.points[state.points.length - 2],
                     action.payload,
                 );
                 state.totalLength = sum(state.lengths)
-                // state.angles[state.angles.length - 1] = PointUtils.angle(
-                //     state.points[state.points.length - 2],
-                //     action.payload,
-                // )
+
+                // Recalculate last line's angle
+                state.lineAngles[state.lineAngles.length - 1] = PointUtils.angle(
+                    state.points[state.points.length - 2],
+                    action.payload,
+                )
+                // Recalculate angle between new segment and the previous
                 state.points[state.points.length - 1] = action.payload;
                 if (state.points.length >= 3) {
                     state.angles[state.angles.length - 1] = PolyUtils.calcPointAngles(

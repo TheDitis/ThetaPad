@@ -20,7 +20,6 @@ const keyboardEventHandler = (
     tempShape: TempShapeType
 ) => (
     (e: KeyboardEvent) => {
-        console.log("key pressed: ", e.key.toLowerCase());
         switch (e.key.toLowerCase()) {
             case "escape":
                 escapeDraw(dispatch, tempShape);
@@ -41,7 +40,11 @@ const keyboardEventHandler = (
 )
 export default keyboardEventHandler;
 
-
+/**
+ * Ends poly draw session
+ * @param dispatch
+ * @param tempShape
+ */
 const escapeDraw = (dispatch, tempShape) => {
     if (tempShape !== null && ShapeUtils.isPoly(tempShape)) {
         if (shapeIsValid(tempShape)) {
@@ -50,7 +53,10 @@ const escapeDraw = (dispatch, tempShape) => {
                 shape = {...tempShape};
                 shape.points = shape.points.slice(0, shape.points.length - 1);
                 shape.lengths = shape.lengths.slice(0, shape.lengths.length - 1);
-                shape.angles = shape.angles.slice(0, shape.angles.length - 1)
+                shape.angles = shape.angles.slice(0, shape.angles.length - 1);
+                shape.lineAngles = shape.lineAngles.slice(
+                    0, shape.lineAngles.length - 1
+                );
             }
             if (shape.points.length > 2) {
                 dispatch(createShape(shape));

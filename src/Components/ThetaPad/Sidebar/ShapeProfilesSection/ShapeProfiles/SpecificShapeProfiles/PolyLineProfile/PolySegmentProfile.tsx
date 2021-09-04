@@ -22,6 +22,7 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
   justify-content: space-evenly;
   width: 100%;
   height: ${POLY_SEGMENT_HEIGHT}px;
+  min-height: ${POLY_SEGMENT_HEIGHT}px;
   border-top: 1px solid rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   
@@ -87,16 +88,19 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
             </div>
             <div className={"infoSection"}>
                 <ShapeInfoItem shape={segment} property={'length'}/>
-                {segment.angle && (
-                    <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
+
+                <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
+                    {segment.pointAngle !== undefined ? (
                         <ShapeInfoItem
                             shape={segment}
-                            property={'angle'}
+                            property={'pointAngle'}
                             style={{border: "2px solid rgba(0, 0, 0, 0.4)"}}
                             noIcon
                         />
-                    </div>
-                )}
+                    ) : (
+                        <div style={{width: 65}}/>
+                    )}
+                </div>
             </div>
             <div className={"nodesSpacer"}/>
         </PolySegmentProfileRoot>
