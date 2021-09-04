@@ -87,14 +87,16 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
             </div>
             <div className={"infoSection"}>
                 <ShapeInfoItem shape={segment} property={'length'}/>
-                <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
-                    <ShapeInfoItem
-                        shape={segment}
-                        property={'angle'}
-                        style={{border: "2px solid rgba(0, 0, 0, 0.4)"}}
-                        noIcon
-                    />
-                </div>
+                {segment.angle && (
+                    <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
+                        <ShapeInfoItem
+                            shape={segment}
+                            property={'angle'}
+                            style={{border: "2px solid rgba(0, 0, 0, 0.4)"}}
+                            noIcon
+                        />
+                    </div>
+                )}
             </div>
             <div className={"nodesSpacer"}/>
         </PolySegmentProfileRoot>

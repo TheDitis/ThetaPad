@@ -6,7 +6,6 @@ import React from "react";
 import {Line, LineUtils} from "../../../../../../types/shapes";
 import ShapeProfileBase from "../ShapeProfileBase";
 import ShapeInfoItem from "../ShapeInfoItem";
-import uuid from "react-uuid";
 
 /**
  * Renders information items relevant to Line objects. Used only in LineProfile
@@ -25,7 +24,7 @@ const LineInfoItems: React.FC<{ shape: Line }> = ({shape}) => {
             {Object.entries(properties).map(([propName, value]) => (
 
                 <ShapeInfoItem
-                    key={uuid()}
+                    key={propName}
                     shape={shape}
                     value={value}
                     property={propName}

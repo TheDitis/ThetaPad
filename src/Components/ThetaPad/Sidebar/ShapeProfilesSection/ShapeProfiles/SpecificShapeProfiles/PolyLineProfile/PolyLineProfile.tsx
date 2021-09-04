@@ -4,7 +4,6 @@
  */
 import ShapeProfileBase from "../../ShapeProfileBase";
 import ShapeInfoItem from "../../ShapeInfoItem";
-import uuid from "react-uuid";
 import {Poly} from "../../../../../../../types/shapes";
 import React from "react";
 import PolyProfileDetailsSection from "./PolyProfileDetailsSection";
@@ -19,7 +18,7 @@ import PolyProfileDetailsSection from "./PolyProfileDetailsSection";
 const PolyLineInfoItems: React.FC<{ shape: Poly }> = ({shape}) => (
     <>
         {['totalLength'].map(propName => (
-            <ShapeInfoItem key={uuid()} shape={shape} property={propName}/>
+            <ShapeInfoItem key={propName} shape={shape} property={propName}/>
         ))}
     </>
 )
@@ -46,8 +45,7 @@ const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index, fadeIn}) 
         unitValue={line.totalLength}
         InfoItems={React.memo(() => <PolyLineInfoItems shape={line}/>)}
         DetailsSection={React.memo(() => <PolyProfileDetailsSection line={line}/>)}
-    >
-    </ShapeProfileBase>
+    />
 )
 
 

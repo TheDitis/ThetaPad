@@ -6,7 +6,6 @@ import styled from "styled-components";
 import React from "react";
 import styles from "./ColorPicker.module.scss"
 import {COLORS} from "../../constants";
-import uuid from "react-uuid";
 
 
 interface ColorPickerStyleProps {
@@ -26,7 +25,7 @@ const ColorPickerLegacy: React.FC = () => {
         <ColorPickerRoot className={styles.overlay}>
             <ul className={styles.swatchList}>
                 {COLORS.map((color) => (
-                    <li key={uuid()} style={{background: color}}/>
+                    <li key={color} style={{background: color}}/>
                 ))}
             </ul>
         </ColorPickerRoot>

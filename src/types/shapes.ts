@@ -2,7 +2,7 @@
  * @file Type declarations for all Shape types and corresponding class
  *      definitions for the utility-class of each Shape type
  */
-import {chunkSiblings, randomColor, sum} from "../utils/utils";
+import {angleBetweenLines, chunkSiblings, randomColor, sum} from "../utils/utils";
 import _ from "lodash";
 
 
@@ -298,7 +298,7 @@ export abstract class PolyUtils {
         if (points.length === 1) points.push({...points[0]})
 
         const lengths = PolyUtils.calcLengths(points);
-        const angles = PolyUtils.calcAngles(points);
+        const angles = PolyUtils.calcLineAngles(points);
         const base = ShapeUtils.newShapeTemplate(
             points[0].x, points[0].y,
             ShapeKind.Poly,
@@ -344,7 +344,7 @@ export abstract class PolyUtils {
      * @param {Point[]} points - array of points
      * @return {number[]} - array of angles of each line segment
      */
-    static calcAngles = (points: Point[]): number[] => (
+    static calcLineAngles = (points: Point[]): number[] => (
         points.reduce((acc: number[], pt: Point, i: number, arr: Point[]) => {
             if (i < arr.length - 1) {
                 acc.push(PointUtils.angle(pt, arr[i + i]));
@@ -352,6 +352,34 @@ export abstract class PolyUtils {
             return acc;
         }, [])
     )
+
+    /** Calculates the angle between each set of 3 points (between segment lines)
+     * @param {Point[]} points - array of points
+     * @return {number[]} - array of angles between each line segment
+     */
+    static calcPointAngles = (points: Point[]): number[] => {
+        return points.slice(0, points.length - 3).reduce(
+            (acc: number[], pt: Point, i: number, arr: Point[]) => {
+                acc.push(
+                    PolyUtils.calcAngleFrom3Points(pt, arr[i + 1], arr[i + 2])
+                )
+                return acc;
+            },
+            []
+        )
+    }
+
+    /** Calculate the angle at pt2 between pt1 and pt 3
+     * @param {Point} pt1 - first point
+     * @param {Point} pt2 - pivot point (calculates angle here)
+     * @param {Point} pt3 - third point
+     * @return {number} - the angle at pt2 between pt1 and pt3
+     */
+    static calcAngleFrom3Points = (pt1: Point, pt2: Point, pt3: Point): number => {
+        const line1: BasicLine = [pt1.x, pt1.y, pt2.x, pt2.y];
+        const line2: BasicLine = [pt2.x, pt2.y, pt3.x, pt3.y];
+        return angleBetweenLines(line1, line2)
+    }
 
     /**
      * Get an array of point pairs (lineSegments)

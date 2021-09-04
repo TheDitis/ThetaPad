@@ -42,6 +42,4 @@ const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({li
 }
 
 
-export default PolyProfileDetailsSection;
-
-
+export default PolyProfileDetailsSection

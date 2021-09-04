@@ -247,7 +247,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         <div className={"infoRow"}>
                             <InfoItems/>
                         </div>
-                        {DetailsSection !== undefined && (
+                        {DetailsSection !== undefined && !fadeIn && (
                             <ShowMoreButton
                                 onClick={() => setShowDetails(!showDetails)}
                                 isOpen={showDetails}
@@ -276,4 +276,4 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
         </ShapeProfileRoot>
     );
 }
-export default ShapeProfileBase;
+export default ShapeProfileBase

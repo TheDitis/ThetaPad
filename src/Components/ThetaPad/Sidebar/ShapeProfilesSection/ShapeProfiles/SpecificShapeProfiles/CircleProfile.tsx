@@ -5,7 +5,6 @@
 import React from "react";
 import ShapeProfileBase from "../ShapeProfileBase";
 import ShapeInfoItem from "../ShapeInfoItem";
-import uuid from "react-uuid";
 import {Circle} from "../../../../../../types/shapes";
 
 /**
@@ -18,7 +17,7 @@ const CircleInfoItems: React.FC<{ shape: Circle }> = ({shape}) => (
     <>
         {['r'].map(propName => (
             <ShapeInfoItem
-                key={uuid()}
+                key={propName}
                 shape={shape}
                 property={propName}
             />

@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice} from "@reduxjs/toolkit";
-import {Point, PointUtils, Shape, ShapeUtils} from "../../types/shapes";
+import {Point, PointUtils, PolyUtils, Shape, ShapeUtils} from "../../types/shapes";
 import {sum} from "../../utils/utils";
 
 export type TempShapeType = (Shape | null);
@@ -29,8 +29,10 @@ const tempShapeSlice = createSlice({
         addPolyPoint(state: TempShapeType, action: { payload: Point }) {
             if (state !== null && ShapeUtils.isPoly(state)) {
                 state.angles.push(0);
-                state.lengths.push(0);
                 state.points.push(action.payload);
+                if (state.points.length >= 3) {
+                    state.lengths.push(0);
+                }
             }
             else if (state !== null) {
                 console.error("addPolyPoint action dispatched with non-poly tempShape");
@@ -47,11 +49,16 @@ const tempShapeSlice = createSlice({
                     action.payload,
                 );
                 state.totalLength = sum(state.lengths)
-                state.angles[state.angles.length - 1] = PointUtils.angle(
-                    state.points[state.points.length - 2],
-                    action.payload,
-                )
+                // state.angles[state.angles.length - 1] = PointUtils.angle(
+                //     state.points[state.points.length - 2],
+                //     action.payload,
+                // )
                 state.points[state.points.length - 1] = action.payload;
+                if (state.points.length >= 3) {
+                    state.angles[state.angles.length - 1] = PolyUtils.calcPointAngles(
+                        state.points.slice(state.points.length - 3)
+                    )[0]
+                }
             }
             else if (state !== null) {
                 console.error("continuePolyDraw action dispatched with non-poly tempShape");

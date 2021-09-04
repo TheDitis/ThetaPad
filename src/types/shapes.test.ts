@@ -27,5 +27,5 @@ test('should return [0, 90, 45]', () => {
         PointUtils.new(100, 100),
         PointUtils.new(50, 50)
     ];
-    expect(PolyUtils.calcAngles(points)).toMatchObject([0, 90, 45]);
+    expect(PolyUtils.calcLineAngles(points)).toMatchObject([0, 90, 45]);
 })

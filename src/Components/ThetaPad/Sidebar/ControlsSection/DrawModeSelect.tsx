@@ -5,7 +5,6 @@
 import React from "react";
 import styled from "styled-components";
 import SelectButton from "../ControlsSection/Controls/SelectButton";
-import uuid from "react-uuid";
 import {drawModeSelector} from "../../../../redux/selectors";
 import {setDrawMode} from "../../../../redux/slices/drawModeSlice";
 import {useAppDispatch, useAppSelector} from "../../../../redux/hooks";
@@ -35,7 +34,7 @@ const DrawModeSelect: React.FC = () => {
         <DrawModeSelectRoot>
             {['Line', 'Poly', 'Circle'].map(label => (
                 <SelectButton
-                    key={uuid()}
+                    key={label + "Select"}
                     width={50}
                     onClick={() => dispatch(setDrawMode(label))}
                     selected={label === drawMode}
