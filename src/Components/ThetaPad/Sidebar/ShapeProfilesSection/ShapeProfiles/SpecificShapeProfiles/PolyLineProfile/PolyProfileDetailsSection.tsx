@@ -9,25 +9,24 @@ import PolySegmentProfile from "./PolySegmentProfile";
 import PolyProfileNodesSvg from "./PolyProfileNodesSvg";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../../../../constants";
 import {limitValue} from "../../../../../../../utils/utils";
+import {motion} from "framer-motion";
 
 
 interface PolyProfileDetailsSectionStyleProps {
     numSegments: number;
 }
 
-const PolyProfileDetailsSectionRoot = styled.div<PolyProfileDetailsSectionStyleProps>`
+const PolyProfileDetailsSectionRoot = styled(motion.div)<PolyProfileDetailsSectionStyleProps>`
   width: 100%;
-  height: ${({numSegments}) => SHAPE_PROFILE_HEIGHT * limitValue(numSegments, 1.2, 3)}px;
   overflow-y: ${({numSegments}) => numSegments > 1 ? "scroll" : "hidden"};
-  
-  .main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 15px;
-    position: relative;
-  }
+  height: ${({numSegments}) => SHAPE_PROFILE_HEIGHT * limitValue(numSegments, 1.2, 3)}px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+  position: relative;
 `
+
+
 
 interface PolyProfileDetailsSectionProps {
     line: Poly;
@@ -40,17 +39,18 @@ interface PolyProfileDetailsSectionProps {
  * @constructor
  */
 const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({line}) => {
+    
     return (
-        <PolyProfileDetailsSectionRoot numSegments={line.lineAngles.length}>
-            <div className={"main"}>
-                {PolyUtils.asSegments(line).map((segment, index) => (
-                    <PolySegmentProfile key={index} segment={segment} index={index} shapeId={line.id}/>
-                ))}
-                <PolyProfileNodesSvg line={line}/>
-            </div>
+        <PolyProfileDetailsSectionRoot
+            numSegments={line.lineAngles.length}
+        >
+            {PolyUtils.asSegments(line).map((segment, index) => (
+                <PolySegmentProfile key={index} segment={segment} index={index} shapeId={line.id}/>
+            ))}
+            <PolyProfileNodesSvg line={line}/>
         </PolyProfileDetailsSectionRoot>
     )
 }
 
 
-export default PolyProfileDetailsSection
+export default React.memo(PolyProfileDetailsSection)

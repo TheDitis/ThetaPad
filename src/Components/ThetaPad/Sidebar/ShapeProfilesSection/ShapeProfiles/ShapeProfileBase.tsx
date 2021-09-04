@@ -39,6 +39,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
   overflow: hidden;
   min-height: ${SHAPE_PROFILE_HEIGHT}px;
   
+  
   .main {
     display: flex;
     height: ${SHAPE_PROFILE_HEIGHT}px;
@@ -156,12 +157,14 @@ const variants = {
         open: {
             margin: 0,
             padding: 0,
-            maxHeight: SHAPE_PROFILE_HEIGHT * 3
+            height: "auto", // SHAPE_PROFILE_HEIGHT * 3
+            minHeight: SHAPE_PROFILE_HEIGHT * 1.2
         },
         closed: {
             margin: 0,
             padding: 0,
-            maxHeight: 0
+            height: 0,
+            minHeight: 0,
         }
     }
 }
