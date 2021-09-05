@@ -15,7 +15,6 @@ import {Provider} from "react-redux";
 
 // TODO: Add settings menu to navbar
 // TODO: Add ability to name Shapes
-// TODO: Show angles on canvas (optional?)
 // TODO: Resize shapes with image
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
