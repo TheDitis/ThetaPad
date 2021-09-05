@@ -28,7 +28,7 @@ Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https:/
 - [x] Apply a grid with customization options
 - [x] Make adjustments to the image (contrast, brightness, etc)
 - [x] See angles between poly-line segments
-- [ ] Ability to hide/show shapes
+- [x] Ability to hide/show shapes
 - [ ] Resize shapes with image (window resize)
 - [ ] Name shapes
 - [ ] Undo & Redo

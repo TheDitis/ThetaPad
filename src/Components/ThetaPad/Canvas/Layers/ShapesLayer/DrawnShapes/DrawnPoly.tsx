@@ -8,7 +8,7 @@ import {unitValSelector} from "../../../../../../redux/selectors";
 import {PointUtils, Poly, PolyUtils, Vector} from "../../../../../../types/shapes";
 import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-konva";
 import {LINE_INFO_TEXT_OFFSET} from "../../../../../../constants";
-import {angleOfVector, formatLengthText} from "../../../../../../utils/utils";
+import {angleOfVector, formatLengthText, setVectorMagnitude, unitVector} from "../../../../../../utils/utils";
 import {useAppSelector} from "../../../../../../redux/hooks";
 import * as math from "mathjs";
 
@@ -75,26 +75,24 @@ const DrawnPoly: React.FC<DrawnPolyProps> = ({line}) => {
 
                 // get the adjacent segments as vectors
                 const [pt1, pt2, pt3] = line.points.slice(i, i + 3)
-                const vec1 = [pt1.x - pt2.x, pt1.y - pt2.y];
-                const vec2 = [pt3.x - pt2.x, pt3.y - pt2.y];
+                const vec1: Vector = [pt1.x - pt2.x, pt1.y - pt2.y];
+                const vec2: Vector = [pt3.x - pt2.x, pt3.y - pt2.y];
 
+                // vector with angle halfway between the two adjacent segments
                 let mid: Vector = math.add(
-                    vec1.map((val) => val / (math.norm(vec1) as number)),
-                    vec2.map((val) => val / (math.norm(vec2) as number))
+                    unitVector(vec1),
+                    unitVector(vec2)
                 ) as Vector;
+                // scale the mid-angle vector to be about 30 px in magnitude
+                mid = setVectorMagnitude(mid, 30);
 
-                const magnitude = math.sqrt(mid[0] ** 2 + mid[1] ** 2);
-                mid = mid.map((val: number) => val * 30 / magnitude) as Vector;
-
+                // if the angle is too narrow to fit the text, move it outside
                 const flipLabel = angle < 40
-
 
                 return (
                     <KonvaGroup
                         x={pt2.x}
                         y={pt2.y}
-                        // width={30}
-                        // rotation={line.lineAngles[i] + (angle / 2)}
                         key={angle.toString() + "AngleText"}
                     >
                         <KonvaGroup
@@ -106,7 +104,6 @@ const DrawnPoly: React.FC<DrawnPolyProps> = ({line}) => {
                         >
                             <KonvaText
                                 x={-(angleText.length * 3.2)}
-                                // y={0}
                                 width={300}
                                 text={angleText}
                                 fontSize={15}

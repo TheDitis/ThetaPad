@@ -2,10 +2,10 @@
 
 ## [2.0.3]
 ### Added
-- 
+- Show/hide shapes individually
 
 ### Changed
-- Fix: poly-segment points showing partial x when in mid-draw with details section open
+- Fix: poly-segment points showing jittery partial x when in mid-draw with details section open
 
 
 ## [2.0.2] - 2021-09-04

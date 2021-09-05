@@ -5,7 +5,7 @@
 import {COLORS} from "../constants";
 import _ from "lodash";
 import {BasicLine, Vector} from "../types/shapes";
-import {dot} from "mathjs";
+import {dot, norm} from "mathjs";
 
 export const randomItem = <T>(array: T[]): T => (
     array[Math.floor(Math.random() * array.length)]
@@ -85,4 +85,30 @@ export const angleBetweenLines = (line1: BasicLine, line2: BasicLine): number =>
     const dotProd = dot(vec1, vec2);
     const radians = Math.acos(dotProd / (magnitude1 * magnitude2));
     return radians * (180 / Math.PI);
+}
+
+/**
+ * Returns the unit vector for a given vector
+ * @param {Vector} vec - original Vector
+ * @return {Vector} - unit Vector of 'vec'
+ */
+export const unitVector = (vec: Vector): Vector => {
+    const vecNorm = norm(vec) as number;
+    return vec.map((value) => {
+        const scaledValue = value / vecNorm
+        return isNaN(scaledValue) ? 0 : scaledValue
+    }) as Vector;
+}
+
+/**
+ * Scales a given vector by a constant
+ * @param {Vector} vec - Vector to rescale
+ * @param {number} newMag - desired new magnitude of the vector
+ * @return {Vector} - Vector with same angle, but with 'newMag' magnitude
+ */
+export const setVectorMagnitude = (vec: Vector, newMag: number): Vector => {
+    const magnitude = Math.sqrt(vec[0] ** 2 + vec[1] ** 2);
+    return vec.map((value) => (
+        magnitude === 0 ? 0 : value * newMag / magnitude
+    )) as Vector
 }
