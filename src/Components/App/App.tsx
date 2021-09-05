@@ -21,7 +21,6 @@ import {Provider} from "react-redux";
 // TODO: Add Layer to highlight 'selected' shapes
 // TODO: Undo & redo
 // TODO: Style unit shape profile
-// TODO: Hide shapes
 
 
 const theme = createTheme({

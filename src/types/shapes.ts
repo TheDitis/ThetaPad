@@ -120,6 +120,7 @@ export interface Shape {
     origin: Point;
     color: string;
     visible: boolean;
+    name: string | null;
 }
 
 /** Holds useful utility functions for creating and identifying shapes */
@@ -162,6 +163,7 @@ export abstract class ShapeUtils {
             origin: {x, y},
             color,
             visible: true,
+            name: null,
         }
     }
 }
