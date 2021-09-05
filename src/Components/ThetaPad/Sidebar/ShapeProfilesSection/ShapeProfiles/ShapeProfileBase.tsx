@@ -16,11 +16,13 @@ import ColorSwatch from "../../../../Color/ColorSwatch";
 import {AnimatePresence, motion} from "framer-motion";
 import ShowMoreButton from "../../../../General/ShowMoreButton";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import {IconButton} from "@material-ui/core";
+import {VisibilityOffOutlined, VisibilityOutlined} from "@material-ui/icons";
 
 
 interface ShapeProfileStyleProps {
     isUnit: boolean;
-    border?: string;
+    isVisible: boolean;
 }
 
 const borderColor = "rgba(0, 0, 0, 0.3)";
@@ -81,6 +83,16 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
           justify-content: space-between;
           padding-left: 15px;
           padding-right: 10px;
+          
+          h3 {
+            opacity: ${({isVisible}) => isVisible ? 1 : 0.4};
+          }
+          
+          .visibilityButton {
+            height: 35px;
+            width: 35px;
+            font-size: 17pt;
+          }
 
           .unitButton {
             color: ${props => props.isUnit ? "white" : "black"};
@@ -200,6 +212,13 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     const dispatch = useAppDispatch();
     const Icon = shapeIcons[shape.kind];
 
+    const toggleVisibility = () => {
+        dispatch(updateShape({
+            target: shape.id,
+            newValues: {visible: !shape.visible}
+        }))
+    }
+
     const toggleUnit = () => {
         if (shape.id !== unit.unitShape) {
             dispatch(setUnit({value: unitValue, id: shape.id}));
@@ -216,6 +235,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     return (
         <ShapeProfileRoot
             isUnit={shape.id === unit.unitShape}
+            isVisible={shape.visible}
             variants={variants.main}
             initial={fadeIn ? "hidden" : "visible"}
             animate={"visible"}
@@ -231,6 +251,15 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         </div>
                         <div className={"labelAndControls"}>
                             <h3>{shape.kind} {index + 1}</h3>
+                            <IconButton
+                                className={"visibilityButton"}
+                                onClick={toggleVisibility}
+                            >
+                                {shape.visible
+                                    ? <VisibilityOutlined fontSize={"inherit"}/>
+                                    : <VisibilityOffOutlined fontSize={"inherit"}/>
+                                }
+                            </IconButton>
                             <button
                                 className={"unitButton"}
                                 onClick={toggleUnit}

@@ -20,6 +20,9 @@ interface DrawnShapeProps {
  */
 const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
 
+    if (!shape.visible) {
+        return null;
+    }
     if (ShapeUtils.isLine(shape)) {
         return <DrawnLine line={shape}/>
     }

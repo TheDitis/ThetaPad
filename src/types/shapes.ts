@@ -119,6 +119,7 @@ export interface Shape {
     kind: ShapeKind;
     origin: Point;
     color: string;
+    visible: boolean;
 }
 
 /** Holds useful utility functions for creating and identifying shapes */
@@ -159,7 +160,8 @@ export abstract class ShapeUtils {
             id: Date.now().toString(),
             kind,
             origin: {x, y},
-            color
+            color,
+            visible: true,
         }
     }
 }
