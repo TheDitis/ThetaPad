@@ -1,4 +1,4 @@
-import {angleBetweenLines, chunkSiblings, formatLengthText, limitValue, randomItem, sum} from "./utils";
+import {angleBetweenLines, angleOfVector, chunkSiblings, formatLengthText, limitValue, randomItem, sum} from "./utils";
 import _ from "lodash";
 import {BasicLine} from "../types/shapes";
 
@@ -67,10 +67,27 @@ test('should be 100', () => {
     expect(limitValue(1309, 0, 100)).toBe(100);
 })
 
-test('dunno!', () => {
+test('should be 100, (reverses values)', () => {
     expect(limitValue(130, 100, 0)).toBe(100);
 })
 
+
+// TESTs FOR angleOfVector
+test('should be about 0', () => {
+    expect(angleOfVector([0, 10])).toBeCloseTo(0, 8);
+})
+
+test('should be about 90', () => {
+    expect(angleOfVector([90, 0])).toBeCloseTo(90, 8);
+})
+
+test('should be about -90', () => {
+    expect(angleOfVector([-100, 0])).toBeCloseTo(-90, 8);
+})
+
+test('should be about 45', () => {
+    expect(angleOfVector([50, 50])).toBeCloseTo(45, 8);
+})
 
 
 // TESTS FOR angleBetweenLines

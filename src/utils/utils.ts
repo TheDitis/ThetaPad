@@ -1,6 +1,6 @@
 import {COLORS} from "../constants";
 import _ from "lodash";
-import {BasicLine} from "../types/shapes";
+import {BasicLine, Vector} from "../types/shapes";
 import {dot} from "mathjs";
 
 export const randomItem = <T>(array: T[]): T => (
@@ -57,6 +57,15 @@ export const limitValue = (value: number, lowerLimit: number, upperLimit: number
     }
     return Math.min(upperLimit, Math.max(lowerLimit, value))
 }
+
+/**
+ * Get angle of a 2D vector in degrees
+ * @param {Vector} vec - 2D vector to get the angle of
+ * @return {number} - angle of 'vec' in degrees
+ */
+export const angleOfVector = (vec: Vector) => (
+    Math.atan2(...vec) * (180 / Math.PI)
+);
 
 /**
  * Get the angle between two lines in degrees

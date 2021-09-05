@@ -103,6 +103,9 @@ export abstract class PointUtils {
 }
 
 
+/** 2D Vector */
+export type Vector = [number, number];
+
 
 /** Base for all shape types
  * @interface Shape

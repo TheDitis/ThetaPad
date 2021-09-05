@@ -21,6 +21,14 @@ const crossVariants = {
 interface LineNodeSvgProps {
     line: Poly
 }
+
+/**
+ * SVG lines and nodes representing the segments and points of a given poly shape
+ * in the details dropdown of the poly-profile
+ * @param {Poly} line - poly-line to display points of
+ * @return {JSX.Element} - svg with mapped lines and circles. Circles have hover
+ *      animations and click actions when there are more than 2 points
+ */
 const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
     const [focus, setFocus] = useState<null | number>(null);
     const dispatch = useAppDispatch();
@@ -43,14 +51,13 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                 ) { dispatch(resetUnit()) }
             }
             dispatch(removePolyPoint({target: line.id, index}))
-
         }
     }
 
 
     return (
         <svg
-            style={{position: "absolute", right: 0, top: -nodeRadius, zIndex: 100}}
+            style={{position: "absolute", right: 0, top: -nodeRadius}}
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
