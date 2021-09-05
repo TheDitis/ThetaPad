@@ -120,7 +120,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                                     variants={crossVariants}
                                     initial={"hidden"}
                                     animate={isFocus ? "visible" : "hidden"}
-                                    transition={{duration: 0.3, delay: 0.4}}
+                                    transition={{duration: 0.3, delay: 0}}
                                     strokeLinecap={"round"}
                                 />
                                 <motion.path
@@ -130,7 +130,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                                     variants={crossVariants}
                                     initial={"hidden"}
                                     animate={isFocus ? "visible" : "hidden"}
-                                    transition={{duration: 0.3, delay: 0.4}}
+                                    transition={{duration: 0.3, delay: 0.3}}
                                     strokeLinecap={"round"}
                                 />
                             </motion.g>
