@@ -1,3 +1,7 @@
+/** filtersSlice.ts
+ * @file slice of redux store representing the state of the image filters
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {limitValue} from "../../utils/utils";
 

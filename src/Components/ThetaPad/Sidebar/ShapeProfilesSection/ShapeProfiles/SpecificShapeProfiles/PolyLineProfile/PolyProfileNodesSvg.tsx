@@ -1,3 +1,7 @@
+/** PolyProfileNodesSvg.tsx
+ * @file component that represents poly-line segments and points as svg elements
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {Poly} from "../../../../../../../types/shapes";
 import React, {useState} from "react";
 import {unitSelector} from "../../../../../../../redux/selectors";

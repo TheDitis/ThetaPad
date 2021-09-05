@@ -1,3 +1,7 @@
+/** utils.ts
+ * @file contains a wide variety of utility functions used throughout the app
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {COLORS} from "../constants";
 import _ from "lodash";
 import {BasicLine, Vector} from "../types/shapes";

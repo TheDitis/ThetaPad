@@ -38,7 +38,10 @@ const variants = {
     }
 }
 
-
+/**
+ * A button that pops up in the bottom right corner when in the middle of a poly draw
+ * @return {JSX.Element} - a styled MUI Button with mount/dismount animations
+ */
 const EndPolyDrawButton: React.FC = () => {
     const tempShape = useAppSelector(tempShapeSelector);
     const classes = useStyles();

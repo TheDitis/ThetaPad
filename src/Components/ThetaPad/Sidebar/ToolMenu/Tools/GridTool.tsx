@@ -2,7 +2,7 @@
  * @file Tool for adding a grid over images
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React from "react";
+import React, {useEffect} from "react";
 import ToolProfileBase from "../ToolProfileBase";
 import GridIcon from "../../../../Icons/GridIcon";
 import {GridOrientation, toggleGrid, updateGridParams} from "../../../../../redux/slices/gridSlice";
@@ -13,6 +13,7 @@ import NumericSlider from "../../../../General/NumericSlider";
 import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
 import styled from "styled-components";
 import ToggleButton from "../../../../General/ToggleButton";
+import {recalculateDimensions} from "../../../../../redux/slices/dimensionsSlice";
 
 
 const DetailsSectionRoot = styled.div`
@@ -45,6 +46,15 @@ const DetailsSectionRoot = styled.div`
 const GridTool: React.FC = () => {
     const {params, active} = useAppSelector(gridSelector);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (active) {
+            dispatch(recalculateDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight
+            }))
+        }
+    }, [dispatch, active])
 
     const toggleOrientation = (orientation: GridOrientation) => {
         dispatch(updateGridParams({

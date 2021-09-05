@@ -26,8 +26,6 @@ interface ShapeProfileStyleProps {
 const borderColor = "rgba(0, 0, 0, 0.3)";
 
 
-
-
 const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
   box-sizing: border-box;
   background: white;

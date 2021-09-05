@@ -18,7 +18,10 @@ const ImageUploadControlRoot = styled.div<ImageUploadControlStyleProps>`
 
 `
 
-
+/**
+ * Button in the sidebar used to upload images
+ * @return {JSX.Element} - Button with event handlers for image upload
+ */
 const ImageUploadControl: React.FC = () => {
     const dispatch = useAppDispatch();
 

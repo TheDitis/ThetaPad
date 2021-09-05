@@ -42,8 +42,8 @@ export default keyboardEventHandler;
 
 /**
  * Ends poly draw session
- * @param dispatch
- * @param tempShape
+ * @param dispatch - dispatch function
+ * @param tempShape - the current tempShape (modifies if type is Poly)
  */
 const escapeDraw = (dispatch, tempShape) => {
     if (tempShape !== null && ShapeUtils.isPoly(tempShape)) {
@@ -75,7 +75,11 @@ const escapeDraw = (dispatch, tempShape) => {
     dispatch(clearTempShape())
 }
 
-
+/**
+ * Change the type of shape that the next click will draw
+ * @param dispatch - redux dispatch function
+ * @param {DrawModeType} targetMode - drawMode to switch to
+ */
 const switchDrawMode = (dispatch, targetMode: DrawModeType) => {
     const drawMode = store.getState().drawMode;
     if (targetMode !== drawMode) {

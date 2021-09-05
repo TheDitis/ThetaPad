@@ -1,3 +1,7 @@
+/** gridSlice.ts
+ * @file slice of redux store representing the state of the drawn grid
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
+ */
 import {createSlice} from "@reduxjs/toolkit";
 import {NAVBAR_HEIGHT, SIDEBAR_WIDTH} from "../../constants";
 

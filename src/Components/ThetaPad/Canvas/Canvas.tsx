@@ -25,9 +25,8 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
 
 
 /**
- * Contains the image and the shapes. This is the drawing area
- * @return {JSX.Element} - Container For
- * @constructor
+ * Main portion of the ThetaPad app, where the image, grid, shapes, etc go
+ * @return {JSX.Element} - Div with several Konva Stages & layers for different elements
  */
 const Canvas: React.FC = () => {
     const dimensions = useAppSelector(dimensionsSelector);

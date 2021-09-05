@@ -1,5 +1,6 @@
-/** imageReducer.ts
- * @file
+/** imageSlice.ts
+ * @file slice of Redux store containing state relevant to the user's image
+ * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 

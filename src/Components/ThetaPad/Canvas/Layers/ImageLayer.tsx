@@ -8,6 +8,10 @@ import {imageLayerDimensionsSelector, imageSelector} from "../../../../redux/sel
 import useImage from "use-image";
 import {useAppSelector} from "../../../../redux/hooks";
 
+/**
+ * The user's image rendered on the canvas
+ * @return {JSX.Element} Konva Layer with nested Konva Image
+ */
 const ImageLayer: React.FC = () => {
     const imageData = useAppSelector(imageSelector);
     const dimensions = useAppSelector(imageLayerDimensionsSelector);
