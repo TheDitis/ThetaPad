@@ -38,7 +38,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
     const dispatch = useAppDispatch();
     const unitData = useAppSelector(unitSelector);
     const height = POLY_SEGMENT_HEIGHT * line.points.length;
-    const width = POLY_SEGMENT_HEIGHT;
+    const width = POLY_SEGMENT_HEIGHT * 1.05;
     const xLoc = POLY_SEGMENT_HEIGHT / 2;
     const yOffset = 15;
     const nodeRadius = 9;
@@ -120,7 +120,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                                     variants={crossVariants}
                                     initial={"hidden"}
                                     animate={isFocus ? "visible" : "hidden"}
-                                    transition={{duration: 0.3}}
+                                    transition={{duration: 0.3, delay: 0.4}}
                                     strokeLinecap={"round"}
                                 />
                                 <motion.path
@@ -128,8 +128,9 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                                     stroke={"rgb(255, 0, 0)"}
                                     strokeWidth={4}
                                     variants={crossVariants}
+                                    initial={"hidden"}
                                     animate={isFocus ? "visible" : "hidden"}
-                                    transition={{duration: 0.3, delay: 0.2}}
+                                    transition={{duration: 0.3, delay: 0.4}}
                                     strokeLinecap={"round"}
                                 />
                             </motion.g>

@@ -1,13 +1,21 @@
 # Changelog
 
+## [2.0.3]
+### Added
+- 
+
+### Changed
+- Fix: poly-segment points showing partial x when in mid-draw with details section open
+
+
 ## [2.0.2] - 2021-09-04
 ### Added
 - Angle annotations for poly-lines on canvas
 
 ### Changed
-- Improve poly-segment angles to indicate angle between segments
-- Improve poly angles now straddle segments
-- Fix poly-profile point svg animation twitchiness
+- Improve: poly-segment angles to indicate angle between segments
+- Improve: poly angles now straddle segments
+- Fix: poly-profile point svg animation twitchiness
 
 
 ## [2.0.1] - 2021-09-01
