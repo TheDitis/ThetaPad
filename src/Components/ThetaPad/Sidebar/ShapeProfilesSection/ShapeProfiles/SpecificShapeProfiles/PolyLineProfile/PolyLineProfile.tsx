@@ -2,7 +2,7 @@
  * @file A Profile specific to they Poly line type
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import ShapeProfileBase from "../../ShapeProfileBase";
+import ShapeProfileBase from "../../ShapeProfileBase/ShapeProfileBase";
 import ShapeInfoItem from "../../ShapeInfoItem";
 import {Poly} from "../../../../../../../types/shapes";
 import React from "react";

@@ -20,21 +20,23 @@ const keyboardEventHandler = (
     tempShape: TempShapeType
 ) => (
     (e: KeyboardEvent) => {
-        switch (e.key.toLowerCase()) {
-            case "escape":
-                escapeDraw(dispatch, tempShape);
-                break;
-            case "p":
-                switchDrawMode(dispatch, ShapeKind.Poly);
-                break;
-            case "l":
-                switchDrawMode(dispatch, ShapeKind.Line);
-                break;
-            case "c":
-                switchDrawMode(dispatch, ShapeKind.Circle);
-                break;
-            default:
-                break;
+        if (!(e.target instanceof HTMLInputElement)) {
+            switch (e.key.toLowerCase()) {
+                case "escape":
+                    escapeDraw(dispatch, tempShape);
+                    break;
+                case "p":
+                    switchDrawMode(dispatch, ShapeKind.Poly);
+                    break;
+                case "l":
+                    switchDrawMode(dispatch, ShapeKind.Line);
+                    break;
+                case "c":
+                    switchDrawMode(dispatch, ShapeKind.Circle);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 )

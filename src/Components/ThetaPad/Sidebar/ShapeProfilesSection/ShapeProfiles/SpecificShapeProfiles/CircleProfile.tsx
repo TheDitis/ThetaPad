@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import React from "react";
-import ShapeProfileBase from "../ShapeProfileBase";
+import ShapeProfileBase from "../ShapeProfileBase/ShapeProfileBase";
 import ShapeInfoItem from "../ShapeInfoItem";
 import {Circle} from "../../../../../../types/shapes";
 

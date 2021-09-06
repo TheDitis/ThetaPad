@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {Line, LineUtils} from "../../../../../../types/shapes";
-import ShapeProfileBase from "../ShapeProfileBase";
+import ShapeProfileBase from "../ShapeProfileBase/ShapeProfileBase";
 import ShapeInfoItem from "../ShapeInfoItem";
 
 /**

@@ -4,20 +4,21 @@
  */
 import React, {useState} from "react";
 import styled from "styled-components";
-import {Shape} from "../../../../../types/shapes";
-import {SHAPE_PROFILE_HEIGHT} from "../../../../../constants";
-import StraightLineIcon from "../../../../Icons/StraightLineIcon";
-import PolyLineIcon from "../../../../Icons/PolyLineIcon";
-import CircleIcon from "../../../../Icons/CircleIcon";
-import {removeShape, updateShape} from "../../../../../redux/slices/shapesSlice";
-import {unitSelector} from "../../../../../redux/selectors";
-import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
-import ColorSwatch from "../../../../Color/ColorSwatch";
+import {Shape} from "../../../../../../types/shapes";
+import {SHAPE_PROFILE_HEIGHT} from "../../../../../../constants";
+import StraightLineIcon from "../../../../../Icons/StraightLineIcon";
+import PolyLineIcon from "../../../../../Icons/PolyLineIcon";
+import CircleIcon from "../../../../../Icons/CircleIcon";
+import {removeShape, updateShape} from "../../../../../../redux/slices/shapesSlice";
+import {unitSelector} from "../../../../../../redux/selectors";
+import {resetUnit, setUnit} from "../../../../../../redux/slices/unitSlice";
+import ColorSwatch from "../../../../../Color/ColorSwatch";
 import {AnimatePresence, motion} from "framer-motion";
-import ShowMoreButton from "../../../../General/ShowMoreButton";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import ShowMoreButton from "../../../../../General/ShowMoreButton";
+import {useAppDispatch, useAppSelector} from "../../../../../../redux/hooks";
 import {IconButton} from "@material-ui/core";
 import {VisibilityOffOutlined, VisibilityOutlined} from "@material-ui/icons";
+import ShapeNameField from "./ShapeNameField";
 
 
 interface ShapeProfileStyleProps {
@@ -81,7 +82,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding-left: 15px;
+          padding-left: 0;
           padding-right: 10px;
           
           h3 {
@@ -250,7 +251,9 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             <Icon/>
                         </div>
                         <div className={"labelAndControls"}>
-                            <h3>{shape.kind} {index + 1}</h3>
+                            <ShapeNameField shape={shape} index={index} disabled={!shape.visible}/>
+
+                            {/*<h3>{shape.name === null ? `${shape.kind} ${index + 1}` : shape.name}</h3>*/}
                             <IconButton
                                 className={"visibilityButton"}
                                 onClick={toggleVisibility}
