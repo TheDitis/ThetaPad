@@ -33,6 +33,7 @@ const unitMap = {
 }
 
 interface ShapeInfoItemStyleProps {
+    isUnit: boolean;
 }
 
 const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
@@ -43,6 +44,10 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   height: 100%;
   margin-right: 10px;
   padding: 0;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 
   .valueContainer {
     background-color: white;
@@ -52,6 +57,8 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
     float: bottom;
     font-size: 10pt;
     padding: 2px 0;
+
+    box-shadow: 0 0 10px ${({isUnit}) => (isUnit ? "rgba(255, 255, 255, 1)" : "transparent")};
   }
 `
 
@@ -142,6 +149,7 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
     return (
         <ShapeInfoItemRoot
             onClick={toggleUnit}
+            isUnit={isUnit}
         >
             <Icon size={0.21}/>
             <div className={"valueContainer"} style={style}>

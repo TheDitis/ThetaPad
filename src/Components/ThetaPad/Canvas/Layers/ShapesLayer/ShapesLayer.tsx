@@ -4,10 +4,9 @@
  */
 import {Layer} from "react-konva";
 import React from "react";
-import DrawnShape from "./DrawnShapes/DrawnShape";
+import DrawnShape, {MemoizedDrawnShape} from "./DrawnShapes/DrawnShape";
 import {RootState} from "../../../../../redux/store";
-import {shapesSelector} from "../../../../../redux/selectors";
-import {ShapeMap} from "../../../../../redux/slices/shapesSlice";
+import {shapesIdsSelector} from "../../../../../redux/selectors";
 import {useAppSelector} from "../../../../../redux/hooks";
 
 /**
@@ -15,11 +14,11 @@ import {useAppSelector} from "../../../../../redux/hooks";
  * @return {JSX.Element} - Fragment of DrawShapes for all completed shapes
  */
 const DrawnShapes: React.FC = () => {
-    const shapes: ShapeMap = useAppSelector(shapesSelector);
+    const shapeIds = useAppSelector(shapesIdsSelector);
     return (
         <>
-            {Object.values(shapes).map((shape) => (
-                <DrawnShape key={shape.id} shape={shape}/>
+            {Object.values(shapeIds).map((shapeId) => (
+                <MemoizedDrawnShape key={shapeId} shapeId={shapeId}/>
             ))}
         </>
     )

@@ -5,12 +5,15 @@
 import React from "react";
 import {Shape, ShapeUtils} from "../../../../../../types/shapes";
 import DrawnLine from "./DrawnLine";
-import DrawnPoly from "./DrawnPoly";
+import DrawnPoly from "./DrawnPoly/DrawnPoly";
 import DrawnCircle from "./DrawnCircle";
+import {mapShapeToPropsWithSelector} from "../../../../../../redux/slices/shapesSlice";
+import {connect} from "react-redux";
 
 
 interface DrawnShapeProps {
     shape: Shape;
+    shapeId?: string;
 }
 
 
@@ -36,3 +39,12 @@ const DrawnShape: React.FC<DrawnShapeProps> = ({shape}) => {
 }
 
 export default DrawnShape;
+
+
+
+export const MemoizedDrawnShape = React.memo(
+    connect(mapShapeToPropsWithSelector())(DrawnShape),
+    (p, n) => (
+        p.shapeId === n.shapeId
+    )
+)
