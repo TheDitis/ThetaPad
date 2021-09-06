@@ -1,6 +1,14 @@
 # Changelog
 
-## [2.0.3]
+## [2.0.4] - 2021-09-05
+### Added
+- Name shapes individually
+
+### Changed
+- Style: swapped position of the hide and unit buttons
+
+
+## [2.0.3] - 2021-09-05
 ### Added
 - Show/hide shapes individually
 

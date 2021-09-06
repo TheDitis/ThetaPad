@@ -29,8 +29,8 @@ Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https:/
 - [x] Make adjustments to the image (contrast, brightness, etc)
 - [x] See angles between poly-line segments
 - [x] Ability to hide/show shapes
+- [x] Name shapes
 - [ ] Resize shapes with image (window resize)
-- [ ] Name shapes
 - [ ] Undo & Redo
 - [ ] Set a given line as the angle reference (all other angles measured relative to it)
 - [ ] Select a given angle as an angle unit
