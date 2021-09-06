@@ -94,6 +94,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
             height: 35px;
             width: 35px;
             font-size: 17pt;
+            margin-right: 4px;
           }
 
           .unitButton {
@@ -102,7 +103,8 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
             font-size: 9pt;
             border: 1px solid gray;
             padding: 4px 8px 2px 8px;
-            margin-right: 9px;
+            margin-left: 4px;
+            margin-right: 5px;
             border-radius: 8px;
             background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
             opacity: ${({isVisible}) => isVisible ? 1 : 0.6};
@@ -111,11 +113,17 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
           .xButton {
             font-size: 15pt;
             position: absolute;
-            top: 5px;
+            top: 4px;
             right: 7px;
             line-height: 18pt;
             cursor: pointer;
-            transition: transform 80ms ease-in-out;
+            color: black;
+            transition: color 300ms ease-in-out, transform 300ms ease-in-out;
+            
+            &:hover {
+              color: rgb(150, 0, 0);
+              transform: scale(1.2);
+            }
           }
         }
       }
@@ -257,7 +265,6 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         <div className={"labelAndControls"}>
                             <ShapeNameField shape={shape} index={index} disabled={!shape.visible}/>
 
-                            {/*<h3>{shape.name === null ? `${shape.kind} ${index + 1}` : shape.name}</h3>*/}
                             <button
                                 className={"unitButton"}
                                 onClick={toggleUnit}
