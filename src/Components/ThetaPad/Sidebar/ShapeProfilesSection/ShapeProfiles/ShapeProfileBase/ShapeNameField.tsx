@@ -8,7 +8,12 @@ import {Shape} from "../../../../../../types/shapes";
 import {useAppDispatch} from "../../../../../../redux/hooks";
 import {updateShape} from "../../../../../../redux/slices/shapesSlice";
 
-
+/**
+ * @interface ShapeNameFieldStyleProps
+ * @property {boolean} disabled - if true, input won't scale on hover and opacity
+ *      will be 0.6
+ * @property {boolean} isFocused - if true, input won't scale on hover
+ */
 interface ShapeNameFieldStyleProps {
     disabled: boolean;
     isFocused: boolean;
@@ -16,7 +21,7 @@ interface ShapeNameFieldStyleProps {
 
 const ShapeNameFieldRoot = styled.input<ShapeNameFieldStyleProps>`
   padding-left: 5px;
-  width: 80px;
+  width: 100px;
   height: 90%;
   outline: none;
   border: none;
@@ -40,7 +45,13 @@ interface ShapeNameFieldProps {
     disabled?: boolean;
 }
 
-
+/**
+ * Editable name label for shape profiles, used in ShapeProfileBase
+ * @param {Shape} shape - shape to show and allow editing of the name for
+ * @param {number} index - index of the shape in the list (used for default name)
+ * @param {boolean } [disabled=false] - whether or not the input should be disabled
+ * @return {JSX.Element} - styled HTML input element with handlers for alteration
+ */
 const ShapeNameField: React.FC<ShapeNameFieldProps> = (
     {shape, index, disabled = false}
 ) => {
@@ -51,19 +62,28 @@ const ShapeNameField: React.FC<ShapeNameFieldProps> = (
         shape.name || `${shape.kind} ${index}`
     );
 
-
+    /** Make sure names aren't left blank or incorrectly numbered */
     useEffect(() => {
         if (shape.name === null) {
             setName(`${shape.kind} ${index}`)
         }
     }, [shape.name, index, shape.kind])
 
-    const onChange = (e) => {
-        setName(e.target.value)
+    /**
+     * Update local 'name' state to the current value of the input
+     * @param {React.FormEvent<HTMLInputElement>} e - Input change event
+     */
+    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setName(e.currentTarget.value)
     }
 
+    /**
+     * Upon exiting focus, update the name of the shape and check for empty or
+     * default formatting patterns
+     */
     const onBlur = () => {
         setIsFocused(false);
+        // if the input value is blank or it matches default pattern, reset to default
         if (!name || name.match(/(?:^|\W)(Circle|Line|Poly|Shape) [0-9]+(?:$|\W)/)) {
             dispatch(updateShape({
                 target: shape.id,
@@ -71,6 +91,7 @@ const ShapeNameField: React.FC<ShapeNameFieldProps> = (
             }))
             setName(`${shape.kind} ${index}`)
         }
+        // if the name is anything else, update the name of the shape
         else {
             dispatch(updateShape({
                 target: shape.id,
@@ -95,7 +116,6 @@ const ShapeNameField: React.FC<ShapeNameFieldProps> = (
             onBlur={onBlur}
             value={name}
             spellCheck={false}
-            aria-multiline
         />
     )
 }

@@ -77,11 +77,12 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
         }
 
         .labelAndControls {
+          position: relative;
           width: 100%;
           height: 100%;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
           padding-left: 0;
           padding-right: 10px;
           
@@ -101,14 +102,17 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
             font-size: 9pt;
             border: 1px solid gray;
             padding: 4px 8px 2px 8px;
+            margin-right: 9px;
             border-radius: 8px;
             background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
+            opacity: ${({isVisible}) => isVisible ? 1 : 0.6};
           }
 
           .xButton {
             font-size: 15pt;
-            position: relative;
-            top: -5px;
+            position: absolute;
+            top: 5px;
+            right: 7px;
             line-height: 18pt;
             cursor: pointer;
             transition: transform 80ms ease-in-out;
@@ -254,6 +258,14 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             <ShapeNameField shape={shape} index={index} disabled={!shape.visible}/>
 
                             {/*<h3>{shape.name === null ? `${shape.kind} ${index + 1}` : shape.name}</h3>*/}
+                            <button
+                                className={"unitButton"}
+                                onClick={toggleUnit}
+                                disabled={!shape.visible}
+                            >
+                                Unit
+                            </button>
+
                             <IconButton
                                 className={"visibilityButton"}
                                 onClick={toggleVisibility}
@@ -263,12 +275,6 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                                     : <VisibilityOffOutlined fontSize={"inherit"}/>
                                 }
                             </IconButton>
-                            <button
-                                className={"unitButton"}
-                                onClick={toggleUnit}
-                            >
-                                Unit
-                            </button>
 
                             <h5
                                 className={"xButton"}
