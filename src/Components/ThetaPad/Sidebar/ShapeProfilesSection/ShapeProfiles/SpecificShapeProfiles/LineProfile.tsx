@@ -14,19 +14,13 @@ import ShapeInfoItem from "../ShapeInfoItem";
  * @return {JSX.Element} - fragment of ShapeInfoItems
  */
 const LineInfoItems: React.FC<{ shape: Line }> = ({shape}) => {
-    const properties = {
-        'length': shape.length,
-        'angle': shape.angle,
-    }
 
     return (
         <>
-            {Object.entries(properties).map(([propName, value]) => (
-
+            {['length', 'angle'].map((propName) => (
                 <ShapeInfoItem
                     key={propName}
                     shape={shape}
-                    value={value}
                     property={propName}
                 />
             ))}

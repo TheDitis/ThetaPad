@@ -23,7 +23,7 @@ const DrawnLine: React.FC<DrawnLineProps> = ({line}) => {
     const unit = useAppSelector(unitValSelector);
     const midPoint = LineUtils.midPoint(line);
 
-    let lengthText = formatLengthText((LineUtils.length_(line) / unit), unit !== 1, 2)
+    let lengthText = formatLengthText((line.length / unit), unit !== 1)
 
     let angle = LineUtils.angle(line);
     const flipText = angle < -90 || angle > 90;

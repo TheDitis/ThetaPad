@@ -6,11 +6,12 @@ import React from "react";
 import styled from "styled-components";
 import LengthIcon from "../../../../Icons/LengthIcon";
 import AngleIcon from "../../../../Icons/AngleIcon";
-import {PolySegment, Shape} from "../../../../../types/shapes";
+import {PolySegment, Shape, ShapeUtils} from "../../../../../types/shapes";
 import RadiusIcon from "../../../../Icons/RadiusIcon";
-import {unitValSelector} from "../../../../../redux/selectors";
+import {unitSelector} from "../../../../../redux/selectors";
 import {formatLengthText} from "../../../../../utils/utils";
-import {useAppSelector} from "../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 
 // The icon to display for each property
 const iconMap = {
@@ -24,16 +25,11 @@ const iconMap = {
     diameter: null,
 }
 
-// The value character that should be displayed for each property
+// The value character that should be displayed for measurement type
 const unitMap = {
     length: '',
-    totalLength: '',
-    averageAngle: '°',
     angle: '°',
-    pointAngle: '°',
-    radius: '',
-    r: '',
-    diameter: '',
+    other: '',
 }
 
 interface ShapeInfoItemStyleProps {
@@ -59,20 +55,39 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   }
 `
 
+type MeasurementCategoryType = 'length' | 'angle' | 'other';
+
+/**
+ * Narrows down the given property name to its measurement category
+ * @param {string} property - property name
+ * @return {MeasurementCategoryType} - category of the passed property
+ */
+const getMeasurementType = (property: string): MeasurementCategoryType => {
+    if (['length', 'totalLength', 'radius', 'r', 'diameter'].includes(property)) {
+        return 'length';
+    }
+    else if (['angle', 'pointAngle', 'averageAngle']) {
+        return 'angle';
+    }
+    else return 'other'
+}
+
 
 interface ShapeInfoItemProps {
     shape: Shape | PolySegment;
     property: string;
     value?: number;
+    shapeId?: string;
     noIcon?: boolean;
     style?: React.CSSProperties;
 }
 
 /**
  * Theses are the individual info items in ShapeProfiles as an icon/value pair
- * @param {Shape} shape - the shape you're getting info from
+ * @param {Shape | PolySegment} shape - the shape you're getting info from
  * @param {string} property - the property of 'shape' you are interested in
  * @param {number} [value] - optional pre-calculated value for this property
+ * @param {string} [shapeId=null] - include shape that a PolySegment originates from
  * @param {boolean} [noIcon=false] - if true, the icon will not be rendered
  * @param {React.CSSProperties} style - any extra styles to apply
  */
@@ -81,28 +96,53 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
         shape,
         property,
         value,
+        shapeId = null,
         noIcon = false,
         style = {}
     }
 ) => {
-    const unit = useAppSelector(unitValSelector);
+    const dispatch = useAppDispatch();
+    const {unit, unitShape} = useAppSelector(unitSelector);
+    value = value || shape[property];
+    const type: MeasurementCategoryType = getMeasurementType(property);
+
+    if (ShapeUtils.isShape(shape)) {
+        shapeId = shape.id
+    }
+    else if (!shapeId) {
+        console.error(
+            "shapeId must be passed to ShapeInfoItem if shape is a PolySegment"
+        )
+    }
 
     /** @return {string} - A readable representation of shape[property] */
     const getFormattedValue = (): string => {
-
-        let val = value === undefined ? shape[property] : value;
-        if (['length', 'totalLength', 'radius', 'diameter'].includes(property)) {
-            return formatLengthText(val / unit, unit > 1);
+        if (type === 'length') {
+            return formatLengthText(value as number / unit, unit !== 1)
         }
-        return val.toFixed(1);
+        return (value as number).toFixed(1);
     }
 
     const Icon = !noIcon ? iconMap[property] : () => null;
     const val = getFormattedValue();
-    const unitChar = unitMap[property];
+    const isUnit = unitShape === shapeId && shape[property] === unit;
+    const unitChar = unitMap[type];
+
+    /** sets/resets the unit to/from this item's value */
+    const toggleUnit = () => {
+        if (type === 'length') {
+            if (isUnit) {
+                dispatch(resetUnit());
+            } else {
+                dispatch(setUnit({id: shapeId, value: value as number}))
+            }
+        }
+    }
 
     return (
-        <ShapeInfoItemRoot>
+        <ShapeInfoItemRoot
+            onClick={toggleUnit}
+        >
             <Icon size={0.21}/>
             <div className={"valueContainer"} style={style}>
                 <p className={"value"}>{val}{unitChar}</p>

@@ -125,6 +125,11 @@ export interface Shape {
 
 /** Holds useful utility functions for creating and identifying shapes */
 export abstract class ShapeUtils {
+    /** Checks if an object is a Shape of any kind */
+    static isShape(maybeShape: any): maybeShape is Shape {
+        return 'kind' in maybeShape && maybeShape.kind in ShapeKind;
+    }
+
     /** Checks if given shape is a Line */
     static isLine(shape: Shape): shape is Line {
         return shape.kind === ShapeKind.Line;

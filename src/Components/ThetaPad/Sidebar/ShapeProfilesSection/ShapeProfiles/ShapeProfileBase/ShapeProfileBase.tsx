@@ -11,7 +11,6 @@ import PolyLineIcon from "../../../../../Icons/PolyLineIcon";
 import CircleIcon from "../../../../../Icons/CircleIcon";
 import {removeShape, updateShape} from "../../../../../../redux/slices/shapesSlice";
 import {unitSelector} from "../../../../../../redux/selectors";
-import {resetUnit, setUnit} from "../../../../../../redux/slices/unitSlice";
 import ColorSwatch from "../../../../../Color/ColorSwatch";
 import {AnimatePresence, motion} from "framer-motion";
 import ShowMoreButton from "../../../../../General/ShowMoreButton";
@@ -82,7 +81,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
           height: 100%;
           display: flex;
           align-items: center;
-          justify-content: flex-start;
+          justify-content: space-between;
           padding-left: 0;
           padding-right: 10px;
           
@@ -94,7 +93,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
             height: 35px;
             width: 35px;
             font-size: 17pt;
-            margin-right: 4px;
+            margin-right: 12px;
           }
 
           .unitButton {
@@ -215,7 +214,6 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {
         shape,
         index,
-        unitValue,
         InfoItems = () => null, DetailsSection,
         fadeIn = false,
     }
@@ -230,15 +228,6 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
             target: shape.id,
             newValues: {visible: !shape.visible}
         }))
-    }
-
-    const toggleUnit = () => {
-        if (shape.id !== unit.unitShape) {
-            dispatch(setUnit({value: unitValue, id: shape.id}));
-        }
-        else {
-            dispatch(resetUnit());
-        }
     }
 
     const changeColor = (color: string) => {
@@ -264,14 +253,6 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                         </div>
                         <div className={"labelAndControls"}>
                             <ShapeNameField shape={shape} index={index} disabled={!shape.visible}/>
-
-                            <button
-                                className={"unitButton"}
-                                onClick={toggleUnit}
-                                disabled={!shape.visible}
-                            >
-                                Unit
-                            </button>
 
                             <IconButton
                                 className={"visibilityButton"}
