@@ -48,7 +48,7 @@ const LineProfile: React.FC<LineProfileProps> = ({line, index, fadeIn}) => (
         index={index}
         fadeIn={fadeIn}
         unitValue={LineUtils.length_(line)}
-        InfoItems={React.memo(() => <LineInfoItems shape={line}/>)}
+        infoItems={['length', 'angle']}
     />
 )
 

@@ -18,6 +18,7 @@ import {useAppDispatch, useAppSelector} from "../../../../../../redux/hooks";
 import {IconButton} from "@material-ui/core";
 import {VisibilityOffOutlined, VisibilityOutlined} from "@material-ui/icons";
 import ShapeNameField from "./ShapeNameField";
+import ShapeInfoItem from "../ShapeInfoItem";
 
 
 interface ShapeProfileStyleProps {
@@ -196,7 +197,7 @@ interface ShapeProfileProps {
     shape: Shape;
     index: number;
     unitValue: number;
-    InfoItems?: React.FC;
+    infoItems: string[];
     DetailsSection?: React.FC;
     fadeIn?: boolean;
 }
@@ -206,7 +207,7 @@ interface ShapeProfileProps {
  * @param {Shape} shape - the shape to show info for
  * @param {number} index - its index in the list
  * @param {number} unitValue - the value to set the unit to on unit button click
- * @param {React.FC} [InfoItems] - the info component to show in the lower row
+ * @param {string[]} [infoItems=[]] - the info component to show in the lower row
  * @param {React.FC} [DetailsSection] - component to render in the dropdown, showing more details/controls for the shape
  * @param {boolean} [fadeIn=false] - whether or not the profile should animate in
  */
@@ -214,14 +215,16 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {
         shape,
         index,
-        InfoItems = () => null, DetailsSection,
+        infoItems = [],
         fadeIn = false,
+        children
     }
 ) => {
     const unit = useAppSelector(unitSelector);
     const [showDetails, setShowDetails] = useState(false);
     const dispatch = useAppDispatch();
     const Icon = shapeIcons[shape.kind];
+
 
     const toggleVisibility = () => {
         dispatch(updateShape({
@@ -272,9 +275,11 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     </div>
                     <div className={"bottomSection"}>
                         <div className={"infoRow"}>
-                            <InfoItems/>
+                            {infoItems.map((propName) => (
+                                <ShapeInfoItem shape={shape} property={propName} key={propName}/>
+                            ))}
                         </div>
-                        {DetailsSection !== undefined && (
+                        {children !== undefined && (
                             <ShowMoreButton
                                 onClick={() => setShowDetails(!showDetails)}
                                 isOpen={showDetails}
@@ -283,7 +288,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     </div>
                 </div>
             </div>
-            {DetailsSection !== undefined && (
+            {children !== undefined && (
                 <AnimatePresence>
                     {showDetails && (
                         <motion.div
@@ -294,7 +299,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             animate={"open"}
                         >
                             {/*<div className={"detailsScrollContainer"}>*/}
-                                <DetailsSection/>
+                            {children}
                             {/*</div>*/}
                         </motion.div>
                     )}

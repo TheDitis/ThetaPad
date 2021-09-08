@@ -67,17 +67,12 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
             viewBox={`0 0 ${width} ${height}`}
         >
             <motion.g style={{x: -nodeRadius}}>
-                {line.lengths.map((pt, index) => {
-                    const points = [xLoc, calcYLoc(index), xLoc, calcYLoc(index + 1)]
-                    return (
-                        <polyline
-                            key={"line" + index.toString()}
-                            points={points.join(" ")}
-                            stroke={line.color}
-                            strokeWidth={4}
-                        />
-                    )
-                })}
+                <polyline
+                    points={[xLoc, calcYLoc(0), xLoc, calcYLoc(line.lengths.length)].join(" ")}
+                    stroke={line.color}
+                    strokeWidth={4}
+                    strokeLinecap={"round"}
+                />
             </motion.g>
             {line.points.map((pt, index) => {
                 const yLoc = calcYLoc(index);
@@ -90,7 +85,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                         onClick={removePoint(index)}
                         style={{x: -nodeRadius}}
                     >
-                        <motion.rect // placeholder circle for hovering
+                        <rect // placeholder circle for hovering
                             x={xLoc - nodeRadius}
                             y={yLoc - nodeRadius}
                             width={nodeRadius * 2.2}
@@ -101,8 +96,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                             animate={{x: isFocus ? 20 : 0}}
                             transition={{duration: 0.6}}
                         >
-                            <motion.circle
-                                transition={{duration: 0.2}}
+                            <circle
                                 cx={xLoc}
                                 cy={yLoc}
                                 r={nodeRadius}
@@ -110,9 +104,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                                 strokeWidth={1}
                                 fill={line.color}
                             />
-                            <motion.g
-                                transition={{duration: 0.4}}
-                            >
+                            <g>
                                 <motion.path
                                     d={`M ${xLoc - nodeRadius} ${yLoc - nodeRadius}L${xLoc + nodeRadius} ${yLoc + nodeRadius}`}
                                     stroke={"rgb(255, 0, 0)"}
@@ -133,7 +125,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
                                     transition={{duration: 0.3, delay: 0.3}}
                                     strokeLinecap={"round"}
                                 />
-                            </motion.g>
+                            </g>
                         </motion.g>
                     </motion.g>
                 )

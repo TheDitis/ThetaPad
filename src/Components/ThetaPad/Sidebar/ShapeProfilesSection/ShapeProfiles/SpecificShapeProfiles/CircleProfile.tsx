@@ -44,7 +44,7 @@ const CircleProfile: React.FC<CircleProfileProps> = ({circle, index, fadeIn}) =>
         index={index}
         fadeIn={fadeIn}
         unitValue={circle.r}
-        InfoItems={React.memo(() => <CircleInfoItems shape={circle}/>)}
+        infoItems={['r']}
     />
 )
 

@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React from "react";
+import React, {useEffect} from "react";
 import {PolySegment} from "../../../../../../../types/shapes";
 import ShapeInfoItem from "../../ShapeInfoItem";
 import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
@@ -68,16 +68,19 @@ interface PolySegmentProfileProps {
 
 const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, shapeId}) => {
     const {unit, unitShape} = useAppSelector(unitSelector);
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const isUnit = unitShape === shapeId && unit === segment.length;
 
+    useEffect(() => {
+        console.log("re-rendering PolySegmentProfile")
+    })
 
     const onSelect = () => {
         if (isUnit) {
-            dispatch(resetUnit());
-        }
-        else {
-            dispatch(setUnit({id: shapeId, value: segment.length}))
+        //     dispatch(resetUnit());
+        // }
+        // else {
+        //     dispatch(setUnit({id: shapeId, value: segment.length}))
         }
     }
 
@@ -109,4 +112,13 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
 }
 
 
-export default PolySegmentProfile;
+export default React.memo(
+    PolySegmentProfile,
+    (p, n) => {
+        return (
+            p.index === n.index
+            && p.segment.length === n.segment.length
+            && p.segment.pointAngle === n.segment.pointAngle
+        )
+    }
+);

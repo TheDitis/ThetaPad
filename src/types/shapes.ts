@@ -415,13 +415,26 @@ export abstract class PolyUtils {
      * @return {PolySegment[]} - array of the segments within 'poly'
      */
     static asSegments = (poly: Poly): PolySegment[] => {
-        const pairs = PolyUtils.asPointPairs(poly);
-        const zipped = _.zip(pairs, poly.lengths, poly.lineAngles, poly.angles);
-        return zipped.reduce((acc, [pts, len, ang, ptAng]) => {
-            // @ts-ignore  // pointAngle can be undefined, everything else will be same length
-            acc.push({start: pts[0], end: pts[1], length: len, angle: ang, pointAngle: ptAng})
-            return acc;
-        }, [])
+        console.log("asSegments run")
+        return _.range(poly.lengths.length).map((i) => (
+            PolyUtils.getSegment(poly, i)
+        ))
+    }
+
+    /**
+     * Gets a PolySegment by index of a given poly
+     * @param {Poly} poly - the poly to find the index in
+     * @param {number} segmentIndex - the index of the desired segment
+     * @return {PolySegment} -
+     */
+    static getSegment = (poly: Poly, segmentIndex: number): PolySegment => {
+        return {
+            start: poly.points[segmentIndex],
+            end: poly.points[segmentIndex + 1],
+            length: poly.lengths[segmentIndex],
+            angle: poly.lineAngles[segmentIndex],
+            pointAngle: poly.angles[segmentIndex]
+        }
     }
 }
 

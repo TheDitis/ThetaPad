@@ -3,8 +3,8 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React from "react";
-import {Poly, PolyUtils} from "../../../../../../../types/shapes";
+import React, {useEffect, useMemo, useState} from "react";
+import {Poly, PolySegment, PolyUtils} from "../../../../../../../types/shapes";
 import PolySegmentProfile from "./PolySegmentProfile";
 import PolyProfileNodesSvg from "./PolyProfileNodesSvg";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../../../../constants";
@@ -38,13 +38,43 @@ interface PolyProfileDetailsSectionProps {
  * @return {JSX.Element} - flex-column of segment profiles
  */
 const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({line}) => {
+    const [segments, setSegments] = useState<PolySegment[]>([]);
+
+
+    useEffect(() => {
+        console.log("line changed!")
+        console.log("segments.length: ", segments.length)
+        if (segments.length !== line.lengths.length) {
+            console.log("branch 1")
+            setSegments(PolyUtils.asSegments(line))
+        }
+        else {
+            const i = segments.length - 1;
+            if (segments.length && (
+                segments[i].length !== line.lengths[i]
+                || segments[i].angle !== line.lineAngles[i]
+                || segments[i].pointAngle !== line.angles[i]
+            )) {
+                console.log("branch 2")
+                setSegments([
+                    ...segments.slice(0, i),
+                    PolyUtils.getSegment(line, i)]
+                )
+            }
+        }
+    }, [line, segments])
 
     return (
         <PolyProfileDetailsSectionRoot
             numSegments={line.lineAngles.length}
         >
-            {PolyUtils.asSegments(line).map((segment, index) => (
-                <PolySegmentProfile key={index} segment={segment} index={index} shapeId={line.id}/>
+            {segments.map((segment, index) => (
+                <PolySegmentProfile
+                    key={index.toString() + segment.length.toString()}
+                    segment={segment}
+                    index={index}
+                    shapeId={line.id}
+                />
             ))}
             <PolyProfileNodesSvg line={line}/>
         </PolyProfileDetailsSectionRoot>
@@ -52,4 +82,15 @@ const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({li
 }
 
 
-export default React.memo(PolyProfileDetailsSection)
+export default React.memo(
+    PolyProfileDetailsSection,
+    (p, n) => {
+        const anglesMatch = p.line.angles.length === n.line.angles.length
+            && p.line.angles[p.line.angles.length - 1] === n.line.angles[n.line.angles.length - 1]
+        const lengthsMatch = p.line.lengths.length === n.line.lengths.length
+            && p.line.lengths[p.line.lengths.length - 1] === n.line.lengths[n.line.lengths.length - 1]
+        // console.log("PP DetailsSection memoization check. Should rerender: ", !(anglesMatch && lengthsMatch))
+        const colorsMatch = p.line.color === n.line.color;
+        return anglesMatch && lengthsMatch && colorsMatch;
+    }
+);

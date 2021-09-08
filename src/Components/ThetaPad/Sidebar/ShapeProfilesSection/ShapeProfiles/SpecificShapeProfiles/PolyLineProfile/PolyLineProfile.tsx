@@ -43,9 +43,10 @@ const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index, fadeIn}) 
         index={index}
         fadeIn={fadeIn}
         unitValue={line.totalLength}
-        InfoItems={React.memo(() => <PolyLineInfoItems shape={line}/>)}
-        DetailsSection={React.memo(() => <PolyProfileDetailsSection line={line}/>)}
-    />
+        infoItems={['totalLength']}
+    >
+        <PolyProfileDetailsSection line={line}/>
+    </ShapeProfileBase>
 )
 
 

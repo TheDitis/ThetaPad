@@ -60,7 +60,6 @@ const GridTool: React.FC = () => {
         dispatch(updateGridParams({
             orientations: {...params.orientations, [orientation]: !params.orientations[orientation]}
         }))
-        console.log(params.orientations)
     }
 
     return (
