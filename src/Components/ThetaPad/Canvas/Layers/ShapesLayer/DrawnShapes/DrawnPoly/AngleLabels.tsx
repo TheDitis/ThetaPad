@@ -16,7 +16,7 @@ interface AngleLabelData {
     pt: Point
 }
 
-const calculateAllLabels = (angles: number[], points: Point[]): AngleLabelData[] => (
+const calculateAngleLabels = (angles: number[], points: Point[]): AngleLabelData[] => (
     angles.map((angle, i) => {
         const angleText = angle.toFixed(0) + '°';
 
@@ -46,13 +46,13 @@ const calculateAllLabels = (angles: number[], points: Point[]): AngleLabelData[]
 interface AngleLabelsProps {
     points: Point[];
     angles: number[];
-    color: string
+    color: string;
 }
 
 const AngleLabels: React.FC<AngleLabelsProps> = ({points, angles, color}) => {
     // so color change isn't crazy slow
     const labelsData = useMemo(
-        () => calculateAllLabels(angles, points),
+        () => calculateAngleLabels(angles, points),
         [points, angles]
     )
 
@@ -92,4 +92,4 @@ const AngleLabels: React.FC<AngleLabelsProps> = ({points, angles, color}) => {
     )
 }
 
-export default React.memo(AngleLabels);
+export default AngleLabels;
