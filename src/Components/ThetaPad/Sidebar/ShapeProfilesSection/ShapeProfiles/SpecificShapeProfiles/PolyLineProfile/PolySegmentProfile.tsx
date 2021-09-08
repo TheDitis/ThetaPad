@@ -100,7 +100,7 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                         <div style={{width: 65}}/>
                     )}
                 </div>
-                <ShapeInfoItem shape={segment} property={'angle'} shapeId={shapeId}/>
+                {/*<ShapeInfoItem shape={segment} property={'angle'} shapeId={shapeId}/>*/}
             </div>
             <div className={"nodesSpacer"}/>
         </PolySegmentProfileRoot>
