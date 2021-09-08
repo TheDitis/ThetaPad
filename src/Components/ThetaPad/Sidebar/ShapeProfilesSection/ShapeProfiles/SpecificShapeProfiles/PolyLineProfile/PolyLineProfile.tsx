@@ -3,25 +3,9 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import ShapeProfileBase from "../../ShapeProfileBase/ShapeProfileBase";
-import ShapeInfoItem from "../../ShapeInfoItem";
 import {Poly} from "../../../../../../../types/shapes";
 import React from "react";
 import PolyProfileDetailsSection from "./PolyProfileDetailsSection";
-
-
-/**
- * Renders information items relevant to Poly objects. Used only in
- * PolyLineProfile below, passed as prop to ShapeProfileBase
- * @param {Poly} shape - Poly object to get the info from
- * @return {JSX.Element} - fragment of ShapeInfoItems
- */
-const PolyLineInfoItems: React.FC<{ shape: Poly }> = ({shape}) => (
-    <>
-        {['totalLength'].map(propName => (
-            <ShapeInfoItem key={propName} shape={shape} property={propName}/>
-        ))}
-    </>
-)
 
 
 interface PolyLineProfileProps {

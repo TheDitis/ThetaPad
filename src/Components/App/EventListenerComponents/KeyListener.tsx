@@ -5,7 +5,7 @@
 import React, {useEffect} from "react";
 import {tempShapeSelector} from "../../../redux/selectors";
 import keyboardEventHandler from "../../ThetaPad/keyboardEventHandler";
-import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHooks";
 
 /**
  * Component that manages key-listeners. The component returns null, so why not

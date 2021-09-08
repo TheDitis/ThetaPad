@@ -3,13 +3,13 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React, {useEffect} from "react";
+import React from "react";
 import {PolySegment} from "../../../../../../../types/shapes";
 import ShapeInfoItem from "../../ShapeInfoItem";
 import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
 import {unitSelector} from "../../../../../../../redux/selectors";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
-import {useAppDispatch, useAppSelector} from "../../../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../../hooks/reduxHooks";
 
 
 interface PolySegmentProfileStyleProps {
@@ -68,19 +68,15 @@ interface PolySegmentProfileProps {
 
 const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, shapeId}) => {
     const {unit, unitShape} = useAppSelector(unitSelector);
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
     const isUnit = unitShape === shapeId && unit === segment.length;
-
-    useEffect(() => {
-        console.log("re-rendering PolySegmentProfile")
-    })
 
     const onSelect = () => {
         if (isUnit) {
-        //     dispatch(resetUnit());
-        // }
-        // else {
-        //     dispatch(setUnit({id: shapeId, value: segment.length}))
+            dispatch(resetUnit());
+        }
+        else {
+            dispatch(setUnit({id: shapeId, value: segment.length}))
         }
     }
 
@@ -91,7 +87,6 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
             </div>
             <div className={"infoSection"}>
                 <ShapeInfoItem shape={segment} property={'length'} shapeId={shapeId}/>
-
                 <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
                     {segment.pointAngle !== undefined ? (
                         <ShapeInfoItem
@@ -105,6 +100,7 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                         <div style={{width: 65}}/>
                     )}
                 </div>
+                <ShapeInfoItem shape={segment} property={'angle'} shapeId={shapeId}/>
             </div>
             <div className={"nodesSpacer"}/>
         </PolySegmentProfileRoot>

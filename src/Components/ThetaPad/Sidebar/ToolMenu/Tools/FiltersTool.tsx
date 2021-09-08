@@ -4,7 +4,7 @@
  */
 import React from "react";
 import ToolProfileBase from "../ToolProfileBase";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxHooks";
 import {filtersSelector} from "../../../../../redux/selectors";
 import ToggleButton from "../../../../General/ToggleButton";
 import {

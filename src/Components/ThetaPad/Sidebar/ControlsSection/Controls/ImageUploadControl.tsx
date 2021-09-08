@@ -8,7 +8,7 @@ import ImageUploader from "react-images-upload";
 import {setImage} from "../../../../../redux/slices/imageSlice";
 import {clearShapes} from "../../../../../redux/slices/shapesSlice";
 import {recalculateDimensions} from "../../../../../redux/slices/dimensionsSlice";
-import {useAppDispatch} from "../../../../../redux/hooks";
+import {useAppDispatch} from "../../../../../hooks/reduxHooks";
 
 interface ImageUploadControlStyleProps {
 

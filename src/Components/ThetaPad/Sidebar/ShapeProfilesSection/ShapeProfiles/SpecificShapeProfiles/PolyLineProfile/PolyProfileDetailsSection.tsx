@@ -3,13 +3,14 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React, {useEffect, useMemo, useState} from "react";
-import {Poly, PolySegment, PolyUtils} from "../../../../../../../types/shapes";
+import React from "react";
+import {Poly} from "../../../../../../../types/shapes";
 import PolySegmentProfile from "./PolySegmentProfile";
 import PolyProfileNodesSvg from "./PolyProfileNodesSvg";
 import {SHAPE_PROFILE_HEIGHT} from "../../../../../../../constants";
 import {limitValue} from "../../../../../../../utils/utils";
 import {motion} from "framer-motion";
+import {usePolySegments} from "../../../../../../../hooks/usePolySegments";
 
 
 interface PolyProfileDetailsSectionStyleProps {
@@ -38,31 +39,7 @@ interface PolyProfileDetailsSectionProps {
  * @return {JSX.Element} - flex-column of segment profiles
  */
 const PolyProfileDetailsSection: React.FC<PolyProfileDetailsSectionProps> = ({line}) => {
-    const [segments, setSegments] = useState<PolySegment[]>([]);
-
-
-    useEffect(() => {
-        console.log("line changed!")
-        console.log("segments.length: ", segments.length)
-        if (segments.length !== line.lengths.length) {
-            console.log("branch 1")
-            setSegments(PolyUtils.asSegments(line))
-        }
-        else {
-            const i = segments.length - 1;
-            if (segments.length && (
-                segments[i].length !== line.lengths[i]
-                || segments[i].angle !== line.lineAngles[i]
-                || segments[i].pointAngle !== line.angles[i]
-            )) {
-                console.log("branch 2")
-                setSegments([
-                    ...segments.slice(0, i),
-                    PolyUtils.getSegment(line, i)]
-                )
-            }
-        }
-    }, [line, segments])
+    const segments = usePolySegments(line);
 
     return (
         <PolyProfileDetailsSectionRoot

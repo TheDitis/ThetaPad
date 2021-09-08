@@ -415,7 +415,6 @@ export abstract class PolyUtils {
      * @return {PolySegment[]} - array of the segments within 'poly'
      */
     static asSegments = (poly: Poly): PolySegment[] => {
-        console.log("asSegments run")
         return _.range(poly.lengths.length).map((i) => (
             PolyUtils.getSegment(poly, i)
         ))
@@ -428,6 +427,10 @@ export abstract class PolyUtils {
      * @return {PolySegment} -
      */
     static getSegment = (poly: Poly, segmentIndex: number): PolySegment => {
+
+        if (segmentIndex >= poly.lengths.length) {
+            console.error("segmentIndex is out of range of the given poly in PolyUtils.getSegment")
+        }
         return {
             start: poly.points[segmentIndex],
             end: poly.points[segmentIndex + 1],

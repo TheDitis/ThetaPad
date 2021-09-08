@@ -9,7 +9,7 @@ import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
 import {resetUnit} from "../../../../../../../redux/slices/unitSlice";
 import {removePolyPoint} from "../../../../../../../redux/slices/shapesSlice";
 import {motion} from "framer-motion";
-import {useAppDispatch, useAppSelector} from "../../../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../../hooks/reduxHooks";
 
 const crossVariants = {
     hidden: {

@@ -29,7 +29,6 @@ const shapesSlice = createSlice({
             action: { payload: { target: string, newValues: PartialShape } }
         ) {
             shapes[action.payload.target] = Object.assign(
-                {},
                 shapes[action.payload.target],
                 action.payload.newValues,
             )

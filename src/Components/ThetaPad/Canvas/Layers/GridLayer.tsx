@@ -7,7 +7,7 @@ import {Layer as KonvaLayer, Line as KonvaLine} from "react-konva";
 import {gridStructuralParamsSelector, gridStyleParamsSelector} from "../../../../redux/selectors";
 import {StructuralGridParamsType} from "../../../../redux/slices/gridSlice";
 import _ from "lodash";
-import {useAppSelector} from "../../../../redux/hooks";
+import {useAppSelector} from "../../../../hooks/reduxHooks";
 import { BasicLine } from "../../../../types/shapes";
 
 /**

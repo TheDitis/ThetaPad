@@ -5,7 +5,7 @@
 import styled from "styled-components";
 import React, {useEffect, useRef, useState} from "react";
 import {Shape} from "../../../../../../types/shapes";
-import {useAppDispatch} from "../../../../../../redux/hooks";
+import {useAppDispatch} from "../../../../../../hooks/reduxHooks";
 import {updateShape} from "../../../../../../redux/slices/shapesSlice";
 
 /**

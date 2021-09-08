@@ -5,7 +5,7 @@
 import React from "react";
 import {MemoizedShapeProfile} from "./ShapeProfiles/ShapeProfile";
 import {shapesIdsSelector} from "../../../../redux/selectors";
-import {useAppSelector} from "../../../../redux/hooks";
+import {useAppSelector} from "../../../../hooks/reduxHooks";
 
 
 /** Fragment of ShapeProfiles for all completed shapes */

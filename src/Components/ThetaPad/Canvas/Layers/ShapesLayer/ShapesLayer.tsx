@@ -7,7 +7,7 @@ import React from "react";
 import DrawnShape, {MemoizedDrawnShape} from "./DrawnShapes/DrawnShape";
 import {RootState} from "../../../../../redux/store";
 import {shapesIdsSelector} from "../../../../../redux/selectors";
-import {useAppSelector} from "../../../../../redux/hooks";
+import {useAppSelector} from "../../../../../hooks/reduxHooks";
 
 /**
  * Fragment of DrawShapes for all completed shapes

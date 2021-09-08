@@ -4,7 +4,7 @@
  */
 import React, {useEffect} from "react";
 import {recalculateDimensions} from "../../../redux/slices/dimensionsSlice";
-import {useAppDispatch} from "../../../redux/hooks";
+import {useAppDispatch} from "../../../hooks/reduxHooks";
 
 /**
  * A shell component to hold resize event listeners

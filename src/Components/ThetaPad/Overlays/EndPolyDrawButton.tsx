@@ -7,7 +7,7 @@ import {tempShapeSelector} from "../../../redux/selectors";
 import {ShapeKind} from "../../../types/shapes";
 import {AnimatePresence, motion} from "framer-motion";
 import {Button, makeStyles} from "@material-ui/core";
-import {useAppSelector} from "../../../redux/hooks";
+import {useAppSelector} from "../../../hooks/reduxHooks";
 
 const useStyles = makeStyles({
     EndPolyDrawButton: {

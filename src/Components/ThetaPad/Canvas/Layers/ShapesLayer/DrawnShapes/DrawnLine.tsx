@@ -8,7 +8,7 @@ import {Group as KonvaGroup, Line as KonvaLine, Text as KonvaText} from "react-k
 import {unitValSelector} from "../../../../../../redux/selectors";
 import {LINE_INFO_TEXT_OFFSET} from "../../../../../../constants";
 import {formatLengthText} from "../../../../../../utils/utils";
-import {useAppSelector} from "../../../../../../redux/hooks";
+import {useAppSelector} from "../../../../../../hooks/reduxHooks";
 
 interface DrawnLineProps {
     line: Line

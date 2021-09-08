@@ -8,6 +8,7 @@ import {Poly, PolyUtils} from "../../../../../../../types/shapes";
 import {Line as KonvaLine} from "react-konva";
 import AngleLabels from "./AngleLabels";
 import LengthLabels from "./LengthLabels";
+import {usePolySegments} from "../../../../../../../hooks/usePolySegments";
 
 
 interface DrawnPolyProps {
@@ -22,8 +23,7 @@ interface DrawnPolyProps {
  *      line and the angle between each pair of segments
  */
 const DrawnPoly: React.FC<DrawnPolyProps> = ({line}) => {
-
-    const segments = PolyUtils.asSegments(line);
+    const segments = usePolySegments(line);
 
     return (
         <>

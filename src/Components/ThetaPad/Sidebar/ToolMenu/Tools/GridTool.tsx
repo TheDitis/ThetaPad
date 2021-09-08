@@ -10,7 +10,7 @@ import {gridSelector} from "../../../../../redux/selectors";
 import ColorSwatch from "../../../../Color/ColorSwatch";
 import NumericInput from "../../../../General/NumericInput";
 import NumericSlider from "../../../../General/NumericSlider";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxHooks";
 import styled from "styled-components";
 import ToggleButton from "../../../../General/ToggleButton";
 import {recalculateDimensions} from "../../../../../redux/slices/dimensionsSlice";

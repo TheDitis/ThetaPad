@@ -5,28 +5,6 @@
 import React from "react";
 import {Line, LineUtils} from "../../../../../../types/shapes";
 import ShapeProfileBase from "../ShapeProfileBase/ShapeProfileBase";
-import ShapeInfoItem from "../ShapeInfoItem";
-
-/**
- * Renders information items relevant to Line objects. Used only in LineProfile
- * below, passed as a prop to ShapeProfileBase
- * @param {Line} shape - Line object to get the info from
- * @return {JSX.Element} - fragment of ShapeInfoItems
- */
-const LineInfoItems: React.FC<{ shape: Line }> = ({shape}) => {
-
-    return (
-        <>
-            {['length', 'angle'].map((propName) => (
-                <ShapeInfoItem
-                    key={propName}
-                    shape={shape}
-                    property={propName}
-                />
-            ))}
-        </>
-    )
-}
 
 
 interface LineProfileProps {

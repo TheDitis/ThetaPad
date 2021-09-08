@@ -7,7 +7,7 @@ import styled from "styled-components";
 import SelectButton from "../ControlsSection/Controls/SelectButton";
 import {drawModeSelector} from "../../../../redux/selectors";
 import {setDrawMode} from "../../../../redux/slices/drawModeSlice";
-import {useAppDispatch, useAppSelector} from "../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxHooks";
 
 
 interface DrawModeSelectStyleProps {

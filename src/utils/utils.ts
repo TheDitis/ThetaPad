@@ -13,7 +13,7 @@ export const randomItem = <T>(array: T[]): T => (
 
 export const randomColor = (): string => randomItem(COLORS);
 
-export const chunkSiblings = <T>(arr: T[]): [T, T][] => arr.reduce(
+export const chunkSiblings = <T>(arr: T[]): [T, T][] => (arr.reduce(
     (acc: T[][], val: T, i, array: T[]) => {
         if (i < array.length - 1) {
             const pair: [T, T] = [val, array[i + 1]]
@@ -22,9 +22,25 @@ export const chunkSiblings = <T>(arr: T[]): [T, T][] => arr.reduce(
         return acc;
     },
     []
-) as [T, T][]
+) as [T, T][]);
 
-export const sum = (arr: number[]) => arr.reduce((acc, val) => acc + val)
+/**
+ * Calculate the sum of an array
+ * @param {number[]} arr - array to get sum of
+ * @return {number} - sum of all numbers in array
+ */
+export const sum = (arr: number[]): number => (
+    arr.reduce((acc, val) => acc + val)
+)
+
+/**
+ * Calculate absolute difference between two numbers
+ * @param {number} a - any number
+ * @param {number} b - another number
+ * @return {number} - the absolute difference between a & b
+ */
+export const diff = (a: number, b: number): number => Math.abs(a - b)
+
 
 /**
  * Formats length values for ideal display
@@ -67,7 +83,7 @@ export const limitValue = (value: number, lowerLimit: number, upperLimit: number
  * @param {Vector} vec - 2D vector to get the angle of
  * @return {number} - angle of 'vec' in degrees
  */
-export const angleOfVector = (vec: Vector) => (
+export const angleOfVector = (vec: Vector): number => (
     Math.atan2(...vec) * (180 / Math.PI)
 );
 

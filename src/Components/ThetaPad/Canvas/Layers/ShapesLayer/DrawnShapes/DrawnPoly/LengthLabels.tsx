@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {PointUtils, PolySegment} from "../../../../../../../types/shapes";
-import {useAppSelector} from "../../../../../../../redux/hooks";
+import {useAppSelector} from "../../../../../../../hooks/reduxHooks";
 import {unitValSelector} from "../../../../../../../redux/selectors";
 import {formatLengthText} from "../../../../../../../utils/utils";
 import {Group as KonvaGroup, Text as KonvaText} from "react-konva";
@@ -17,8 +17,8 @@ interface LengthLabelsProps {
 }
 
 const LengthLabels: React.FC<LengthLabelsProps> = ({segments, color}) => {
-
     const unit = useAppSelector(unitValSelector);
+
     return (
         <>
             {segments.map((segment) => {
@@ -29,13 +29,13 @@ const LengthLabels: React.FC<LengthLabelsProps> = ({segments, color}) => {
                     2
                 )
                 const flipText = segment.angle < -90 || segment.angle > 90;
-                if (flipText) segment.angle += 180
+                let angle = flipText ? segment.angle + 180 : segment.angle;
 
                 return (
                     <KonvaGroup
                         x={midPoint.x}
                         y={midPoint.y}
-                        rotation={segment.angle}
+                        rotation={angle}
                         key={midPoint.x.toString() + "-" + midPoint.y.toString()}
                     >
                         <KonvaText
@@ -52,16 +52,4 @@ const LengthLabels: React.FC<LengthLabelsProps> = ({segments, color}) => {
     )
 }
 
-export default React.memo(
-    LengthLabels,
-    (p, n) => {
-        const pLen = p.segments.length;
-        const nLen = n.segments.length;
-
-        return (
-            p.color === n.color
-            && pLen === nLen
-            && p.segments[pLen - 1].length === n.segments[nLen - 1].length
-        )
-    }
-);
+export default LengthLabels;

@@ -8,7 +8,7 @@ import Canvas from "./Canvas/Canvas";
 import Sidebar from "./Sidebar/Sidebar";
 import {appHeightSelector} from "../../redux/selectors";
 import Overlays from "./Overlays/Overlays";
-import {useAppSelector} from "../../redux/hooks";
+import {useAppSelector} from "../../hooks/reduxHooks";
 
 
 interface ThetaPadStyleProps {

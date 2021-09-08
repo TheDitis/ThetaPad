@@ -11,7 +11,7 @@ import {dimensionsSelector, filtersCssString, gridIsActiveSelector} from "../../
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 import ImageLayer from "./Layers/ImageLayer";
 import GridLayer from "./Layers/GridLayer";
-import {useAppSelector} from "../../../redux/hooks";
+import {useAppSelector} from "../../../hooks/reduxHooks";
 
 interface CanvasStyleProps {
     dimensions: AppDimensions;

@@ -5,7 +5,7 @@
 import {shapeCountSelector, tempShapeSelector} from "../../../../redux/selectors";
 import ShapeProfile from "./ShapeProfiles/ShapeProfile";
 import React from "react";
-import {useAppSelector} from "../../../../redux/hooks";
+import {useAppSelector} from "../../../../hooks/reduxHooks";
 
 
 /**

@@ -7,8 +7,6 @@ import React, {ChangeEvent, useRef} from "react";
 
 
 interface ColorSwatchStyleProps {
-    clickable?: boolean;
-    color: string;
     disabled?: boolean;
     width?: number;
     height?: number;
@@ -18,7 +16,7 @@ const ColorSwatchRoot = styled.div<ColorSwatchStyleProps>`
   width: ${({width}) => width ? `${width}px` : "85%"};
   height: ${({height}) => height ? `${height}px` : "85%"};
   border-radius: 15%;
-  background-color: ${props => props.color};
+  // background-color: ${props => props.color};
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.6) inset;
   cursor: pointer;
   opacity: ${({disabled}) => disabled ? 0.6 : 1};
@@ -73,10 +71,9 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({color, onChange, style, width,
             onClick={onChange !== undefined ? open : () => null}
             color={color}
             disabled={disabled}
-            clickable={onChange !== undefined && onChange !== null}
             width={width}
             height={height}
-            style={style}
+            style={{...style, background: color}}
         >
             <input
                 type={"color"}

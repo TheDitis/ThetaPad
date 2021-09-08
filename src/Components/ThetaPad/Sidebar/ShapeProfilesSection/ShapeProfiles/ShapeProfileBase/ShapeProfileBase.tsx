@@ -14,7 +14,7 @@ import {unitSelector} from "../../../../../../redux/selectors";
 import ColorSwatch from "../../../../../Color/ColorSwatch";
 import {AnimatePresence, motion} from "framer-motion";
 import ShowMoreButton from "../../../../../General/ShowMoreButton";
-import {useAppDispatch, useAppSelector} from "../../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../hooks/reduxHooks";
 import {IconButton} from "@material-ui/core";
 import {VisibilityOffOutlined, VisibilityOutlined} from "@material-ui/icons";
 import ShapeNameField from "./ShapeNameField";
@@ -208,7 +208,6 @@ interface ShapeProfileProps {
  * @param {number} index - its index in the list
  * @param {number} unitValue - the value to set the unit to on unit button click
  * @param {string[]} [infoItems=[]] - the info component to show in the lower row
- * @param {React.FC} [DetailsSection] - component to render in the dropdown, showing more details/controls for the shape
  * @param {boolean} [fadeIn=false] - whether or not the profile should animate in
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (

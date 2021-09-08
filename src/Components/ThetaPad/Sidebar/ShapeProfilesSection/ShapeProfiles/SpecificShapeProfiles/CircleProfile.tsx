@@ -4,26 +4,8 @@
  */
 import React from "react";
 import ShapeProfileBase from "../ShapeProfileBase/ShapeProfileBase";
-import ShapeInfoItem from "../ShapeInfoItem";
 import {Circle} from "../../../../../../types/shapes";
 
-/**
- * Renders information items relevant to Circle objects. Used in CircleProfile
- * only, passed as a prop to ShapeProfileBase
- * @param {Circle} shape - Circle to get the info from
- * @return {JSX.Element} - fragment of ShapeInfoItems
- */
-const CircleInfoItems: React.FC<{ shape: Circle }> = ({shape}) => (
-    <>
-        {['r'].map(propName => (
-            <ShapeInfoItem
-                key={propName}
-                shape={shape}
-                property={propName}
-            />
-        ))}
-    </>
-)
 
 interface CircleProfileProps {
     circle: Circle;

@@ -10,7 +10,7 @@ import {PolySegment, Shape, ShapeUtils} from "../../../../../types/shapes";
 import RadiusIcon from "../../../../Icons/RadiusIcon";
 import {unitSelector} from "../../../../../redux/selectors";
 import {formatLengthText} from "../../../../../utils/utils";
-import {useAppDispatch, useAppSelector} from "../../../../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxHooks";
 import {resetUnit, setUnit} from "../../../../../redux/slices/unitSlice";
 
 // The icon to display for each property

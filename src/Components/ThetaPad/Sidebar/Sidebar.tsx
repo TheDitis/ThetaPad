@@ -8,7 +8,7 @@ import ControlsSection from "./ControlsSection/ControlsSection";
 import ShapeProfilesSection from "./ShapeProfilesSection/ShapeProfilesSection";
 import {sidebarWidthSelector} from "../../../redux/selectors";
 import ToolMenu from "./ToolMenu/ToolMenu";
-import {useAppSelector} from "../../../redux/hooks";
+import {useAppSelector} from "../../../hooks/reduxHooks";
 
 
 interface SidebarStyleProps {
