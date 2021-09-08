@@ -32,15 +32,6 @@ const ToolProfileBaseRoot = styled.div<ToolProfileBaseStyleProps>`
     width: 100%;
     color: black;
   }
-
-  // .toolToggleButton {
-  //   background: ${({active}) => active ? "hsl(197,16%,18%)" : "white"};
-  //   margin-right: 10px;
-  //  
-  //   &:hover {
-  //     background: ${({active}) => active ? "hsl(202,14%,26%)" : "hsl(0,0%,84%)"};
-  //   }
-  // }
   
   .showMoreButtonContainer {
     position: absolute;

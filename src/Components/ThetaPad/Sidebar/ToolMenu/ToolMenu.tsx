@@ -25,8 +25,6 @@ const ToolsRoot = styled(motion.div)<ToolsStyleProps>`
   //border-bottom: 40px solid #282c34;
   
   .tabSection {
-    //display: flex;
-    //height: ${TAB_HEIGHT}px;
     position: relative;
     width: 100%;
     
