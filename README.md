@@ -36,6 +36,7 @@ Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https:/
 - [ ] Select a given angle as an angle unit
 - [ ] Export/Print changes
 - [ ] Save sessions
+- [ ] Selectively show/hide info-labels on canvas
 
 
 ### More info coming soon
