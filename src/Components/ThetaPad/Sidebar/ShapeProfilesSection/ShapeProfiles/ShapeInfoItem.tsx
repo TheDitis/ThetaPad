@@ -34,6 +34,7 @@ const unitMap = {
 
 interface ShapeInfoItemStyleProps {
     isUnit: boolean;
+    clickable: boolean;
 }
 
 const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
@@ -46,7 +47,7 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   padding: 0;
   
   &:hover {
-    transform: scale(1.05);
+    transform: ${({clickable}) => clickable ? "scale(1.05)" : "none"};
   }
 
   .valueContainer {
@@ -149,6 +150,7 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
     return (
         <ShapeInfoItemRoot
             onClick={toggleUnit}
+            clickable={type === 'length'}  // temporary measure to prevent confusion while angle units aren't implemented
             isUnit={isUnit}
         >
             <Icon size={0.21}/>
