@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.5] - 2021-09-08
+### Added
+- Length indicators can now be clicked to set the length unit to that value, or reset it to 1 if already selected
+
+### Removed
+- Dedicated unit button
+
+## Changed
+- Improve: performance when changing color of poly-objects with details dropdown open
+
+
 ## [2.0.4] - 2021-09-05
 ### Added
 - Name shapes individually
