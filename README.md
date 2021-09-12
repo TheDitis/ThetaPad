@@ -2,7 +2,7 @@
 ### A Free Tool For Artists
 <br/>
 
-### Version 2 is live!
+### [Version 2 is live!](https://thetapad.art/)
 #### Only a few main features are implemented so far, but more are coming. Check it out at [**ThetaPad.art**](https://thetapad.art/)!
 
 *Note: This project is still under construction. I'm in the process of adding features, and
