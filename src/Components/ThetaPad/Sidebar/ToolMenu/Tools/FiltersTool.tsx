@@ -72,6 +72,7 @@ const FiltersTool: React.FC = () => {
                                 label={capitalize(param)}
                                 value={params[param]}
                                 onChange={(value) => dispatch(updateFilterValues({[param]: value}))}
+                                disabled={!active}
                                 min={limits[0]}
                                 max={limits[1]}
                                 marks={[{value: filterDefaults[param]}]}
