@@ -42,7 +42,7 @@ const initialState: AppDimensions = {
     height: window.innerHeight,
 }
 
-/** slice containing the AppDimensions of the app */
+/** slice containing the dimensions of the app */
 const dimensionsSlice = createSlice({
     name: "dimensions",
     initialState,

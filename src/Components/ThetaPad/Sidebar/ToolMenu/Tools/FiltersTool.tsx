@@ -26,7 +26,10 @@ const icons = {
     "brightness": Brightness5
 }
 
-
+/**
+ * ToolProfile for image filters
+ * @return {JSX.Element} - ToolProfileBase with some sliders for filter values
+ */
 const FiltersTool: React.FC = () => {
     const {active, params} = useAppSelector(filtersSelector);
     const imageSrc = useAppSelector(imageSrcSelector);

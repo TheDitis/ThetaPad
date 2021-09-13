@@ -6,6 +6,12 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type AlertSeverityType = 'error' | 'warning' | 'info' | 'success';
 
+/**
+ * @interface AlertStateType
+ * @property {boolean} open - whether or not the alert should be showing
+ * @property {AlertSeverityType} severity - determines the style of the alert
+ * @property {string} message - the text to display in the alert
+ */
 export interface AlertStateType {
     open: boolean;
     severity: AlertSeverityType;
@@ -21,16 +27,20 @@ const initialState: AlertStateType = {
 export type SetAlertAction =
     PayloadAction<{severity: AlertSeverityType, message: string}>
 
+/** slice containing the status of snackbar alerts */
 const alertSlice = createSlice({
     name: 'alert',
     initialState,
     reducers: {
+        /** Closes the alert */
         clearAlert(state) {
             state.open = false;
         },
+        /** Set both the severity & message */
         setAlert(state, action: SetAlertAction) {
             return {...action.payload, open: true}
         },
+        /** Display a success alert with given message */
         success(state, action: PayloadAction<string>) {
             return {
                 open: true,
@@ -38,6 +48,7 @@ const alertSlice = createSlice({
                 message: action.payload
             }
         },
+        /** Display a info alert with given message */
         notify(state, action: PayloadAction<string>) {
             return {
                 open: true,
@@ -45,6 +56,7 @@ const alertSlice = createSlice({
                 message: action.payload
             }
         },
+        /** Display a warning alert with given message */
         warn(state, action: PayloadAction<string>) {
             return {
                 open: true,
@@ -52,6 +64,7 @@ const alertSlice = createSlice({
                 message: action.payload
             }
         },
+        /** Display an error alert with given message */
         error(state, action: PayloadAction<string>) {
             return {
                 open: true,

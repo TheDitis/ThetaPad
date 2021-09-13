@@ -13,6 +13,10 @@ import Alert from '@material-ui/lab/Alert'
 interface SnackBarProps {
 }
 
+/**
+ * Listens to alertSlice in redux and displays Snackbar alerts accordingly
+ * @return {JSX.Element} - MUI Snackbar & nested Alert with info from alertSlice
+ */
 const SnackBar: React.FC<SnackBarProps> = () => {
     const {open, severity, message} = useAppSelector(alertSelector);
     const dispatch = useAppDispatch();
