@@ -12,6 +12,7 @@ import {createTheme, ThemeProvider} from "@material-ui/core";
 import {THEME} from "../../constants";
 import store from "../../redux/store";
 import {Provider} from "react-redux";
+import Overlays from "./Overlays/Overlays";
 
 // TODO: Add settings menu to navbar
 // TODO: Add ability to name Shapes
@@ -30,13 +31,14 @@ const theme = createTheme({
 
 
 const App = () => {
-    return (
 
+    return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <div className="App">
                     <Navbar/>
                     <ThetaPad/>
+                    <Overlays/>
                     <ResizeListener/>
                     <KeyListener/>
                 </div>
