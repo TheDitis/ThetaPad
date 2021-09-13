@@ -6,7 +6,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type AlertSeverityType = 'error' | 'warning' | 'info' | 'success';
 
-interface AlertStateType {
+export interface AlertStateType {
     open: boolean;
     severity: AlertSeverityType;
     message: string;
@@ -25,8 +25,8 @@ const alertSlice = createSlice({
     name: 'alert',
     initialState,
     reducers: {
-        clearAlert() {
-            return initialState;
+        clearAlert(state) {
+            state.open = false;
         },
         setAlert(state, action: SetAlertAction) {
             return {...action.payload, open: true}

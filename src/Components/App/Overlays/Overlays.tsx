@@ -4,6 +4,7 @@
  */
 import React from "react";
 import EndPolyDrawButton from "./EndPolyDrawButton";
+import SnackBar from "./SnackBar";
 
 
 /**
@@ -14,6 +15,7 @@ const Overlays: React.FC = () => {
     return (
         <>
             <EndPolyDrawButton/>
+            <SnackBar/>
         </>
     )
 }

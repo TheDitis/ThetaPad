@@ -13,6 +13,7 @@ import {FiltersStateType} from "./slices/filtersSlice";
 import {GridStateType} from "./slices/gridSlice";
 import {ImageStateType} from "./slices/imageSlice";
 import {DrawModeType} from "./slices/drawModeSlice";
+import {AlertStateType} from "./slices/alertSlice";
 
 /// shapes selectors ///
 type ShapesSelectorType = (RootState) => ShapeMap;
@@ -157,3 +158,10 @@ export const filtersCssString = createSelector(
         `contrast(${filters.contrast}) brightness(${filters.brightness}) saturate(${filters.saturation}) grayscale(${filters.grayscale}) sepia(${filters.sepia}) blur(${filters.blur}px) hue-rotate(${filters.hue}deg)`
     ) : "none"
 )
+
+
+
+/// alert selectors ///
+type AlertSelectorType = (RootState) => AlertStateType;
+
+export const alertSelector: AlertSelectorType = (state) => state.alert;
