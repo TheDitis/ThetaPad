@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.6] - 2021-09-13
+### Added
+- Snackbar notifiers to notify the user of status or certain events
+
 ## [2.0.5] - 2021-09-08
 ### Added
 - Length indicators can now be clicked to set the length unit to that value, or reset it to 1 if already selected
