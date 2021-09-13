@@ -38,7 +38,7 @@ const alertSlice = createSlice({
                 message: action.payload
             }
         },
-        info(state, action: PayloadAction<string>) {
+        notify(state, action: PayloadAction<string>) {
             return {
                 open: true,
                 severity: 'info',
@@ -66,7 +66,7 @@ export const {
     clearAlert,
     setAlert,
     success,
-    info,
+    notify,
     warn,
     error
 } = alertSlice.actions;

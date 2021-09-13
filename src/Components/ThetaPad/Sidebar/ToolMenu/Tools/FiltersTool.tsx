@@ -5,10 +5,11 @@
 import React from "react";
 import ToolProfileBase from "../ToolProfileBase";
 import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxHooks";
-import {filtersSelector} from "../../../../../redux/selectors";
+import {filtersSelector, imageSrcSelector} from "../../../../../redux/selectors";
 import ToggleButton from "../../../../General/ToggleButton";
 import {
-    filterDefaults, filterLimits,
+    filterDefaults,
+    filterLimits,
     FiltersType,
     resetFilterValue,
     toggleFilter,
@@ -18,6 +19,7 @@ import ImageFilterIcon from "../../../../Icons/ImageFilterIcon";
 import {Brightness5, BrightnessMedium} from "@material-ui/icons";
 import NumericSlider from "../../../../General/NumericSlider";
 import {capitalize} from "lodash";
+import {notify} from "../../../../../redux/slices/alertSlice";
 
 const icons = {
     "contrast" : BrightnessMedium,
@@ -27,12 +29,22 @@ const icons = {
 
 const FiltersTool: React.FC = () => {
     const {active, params} = useAppSelector(filtersSelector);
+    const imageSrc = useAppSelector(imageSrcSelector);
     const dispatch = useAppDispatch();
+
+    const toggleActive = () => {
+        if (imageSrc !== null) {
+            dispatch(toggleFilter())
+        }
+        else {
+            dispatch(notify("Add an image to enable filters"))
+        }
+    }
 
     return (
         <ToolProfileBase active={active}>
             <>
-                <ToggleButton active={active} onClick={() => dispatch(toggleFilter())}>
+                <ToggleButton active={active} onClick={toggleActive}>
                     <ImageFilterIcon
                         color={active ? "white" : "black"}
                     />
