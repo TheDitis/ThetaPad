@@ -11,6 +11,7 @@ import drawModeReducer from "./slices/drawModeSlice";
 import imageReducer from "./slices/imageSlice";
 import gridReducer from "./slices/gridSlice";
 import filtersReducer from "./slices/filtersSlice";
+import alertReducer from "./slices/alertSlice";
 
 
 const store = configureStore({
@@ -23,6 +24,7 @@ const store = configureStore({
         image: imageReducer,
         grid: gridReducer,
         filters: filtersReducer,
+        alert: alertReducer
     }
 })
 
