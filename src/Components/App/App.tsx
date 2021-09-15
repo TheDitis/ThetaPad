@@ -15,14 +15,12 @@ import {Provider} from "react-redux";
 import Overlays from "./Overlays/Overlays";
 
 // TODO: Add settings menu to navbar
-// TODO: Add ability to name Shapes
 // TODO: Resize shapes with image
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
 // TODO: Add Layer to highlight 'selected' shapes
 // TODO: Undo & redo
 // TODO: Style unit shape profile
-// TODO: Add snackbar system
 
 
 const theme = createTheme({
