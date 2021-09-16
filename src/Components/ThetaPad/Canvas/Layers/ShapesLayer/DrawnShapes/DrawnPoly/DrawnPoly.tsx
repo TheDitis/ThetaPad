@@ -35,6 +35,8 @@ const DrawnPoly: React.FC<DrawnPolyProps> = ({line}) => {
                 points={PolyUtils.points(line)}
                 stroke={line.color}
                 strokeWidth={2}
+                lineJoin={'round'}
+                lineCap={'round'}
             />
 
             {/* LENGTH LABELS */}

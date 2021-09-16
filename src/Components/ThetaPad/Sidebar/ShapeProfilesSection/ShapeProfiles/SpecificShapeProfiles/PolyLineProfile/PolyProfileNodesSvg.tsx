@@ -3,13 +3,14 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {Poly} from "../../../../../../../types/shapes";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {unitSelector} from "../../../../../../../redux/selectors";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
 import {resetUnit} from "../../../../../../../redux/slices/unitSlice";
 import {removePolyPoint} from "../../../../../../../redux/slices/shapesSlice";
 import {motion} from "framer-motion";
 import {useAppDispatch, useAppSelector} from "../../../../../../../hooks/reduxHooks";
+import {clearHighlight, highlightPointRemoval} from "../../../../../../../redux/slices/highlightSlice";
 
 const crossVariants = {
     hidden: {
@@ -42,11 +43,21 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
     const xLoc = POLY_SEGMENT_HEIGHT / 2;
     const yOffset = 15;
     const nodeRadius = 9;
-
+    const nPoints = line.points.length;
     const calcYLoc = (index) => (POLY_SEGMENT_HEIGHT * index) + yOffset + nodeRadius;
 
+    /** Update highlight state in redux when focus changes */
+    useEffect(() => {
+        if (focus !== null && nPoints > 2) {
+            dispatch(highlightPointRemoval({shapeId: line.id, subItemIndex: focus}));
+        } else {
+            dispatch(clearHighlight());
+        }
+    }, [focus, dispatch, line.id, nPoints])
+
+    /** removes a given point from the poly-line */
     const removePoint = (index) => () => {
-        if (line.points.length > 2) {
+        if (nPoints > 2) {
             // if the point being removed is part of the unit, reset the unit
             if (unitData.unitShape === line.id) {
                 if (

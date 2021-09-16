@@ -4,29 +4,32 @@
  */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
+export enum HighlightKind {
+    Remove = 'remove',
+    Show = 'show',
+    None = 'none'
+}
 
-// What action is the highlight for?
-type HighlightType = 'remove' | 'show';
 
 /**
  * @interface HighlightStateType
- * @property {string | null} shape - id of shape to highlight
+ * @property {string | null} shapeId - id of shape to highlight
  * @property {number | null} subItemIndex - index of item within shape (poly)
- * @property {HighlightType | null} type - type of highlight
+ * @property {HighlightKind} type - type of highlight
  */
 export interface HighlightStateType {
-    shape: string | null;
+    shapeId: string | null;
     subItemIndex: number | null;
-    type: HighlightType | null;
+    type: HighlightKind;
 }
 
 const initialState: HighlightStateType = {
-    shape: null,
+    shapeId: null,
     subItemIndex: null,
-    type: null,
+    type: HighlightKind.None,
 }
 
-type PointRemovalHighlightAction = PayloadAction<{shape: string, subItemIndex: number}>
+type PointRemovalHighlightAction = PayloadAction<{shapeId: string, subItemIndex: number}>
 
 const highlightSlice = createSlice({
     name: 'highlight',
@@ -38,14 +41,14 @@ const highlightSlice = createSlice({
         highlightPointRemoval(state, action: PointRemovalHighlightAction) {
             return {
                 ...(action.payload),
-                type: "remove"
+                type: HighlightKind.Remove
             }
         }
     }
 })
 
 
-const {
+export const {
     clearHighlight,
     highlightPointRemoval
 } = highlightSlice.actions;

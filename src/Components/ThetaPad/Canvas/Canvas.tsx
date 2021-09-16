@@ -12,6 +12,7 @@ import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 import ImageLayer from "./Layers/ImageLayer";
 import GridLayer from "./Layers/GridLayer";
 import {useAppSelector} from "../../../hooks/reduxHooks";
+import HighlightLayer from "./Layers/HighlightLayer/HighlightLayer";
 
 interface CanvasStyleProps {
     dimensions: AppDimensions;
@@ -57,6 +58,7 @@ const Canvas: React.FC = () => {
             >
                 {gridIsActive && <GridLayer/>}
                 <ShapesLayer/>
+                <HighlightLayer/>
             </KonvaStageWithReduxBridge>
         </CanvasRoot>
     )
