@@ -14,6 +14,7 @@ import {GridStateType} from "./slices/gridSlice";
 import {ImageStateType} from "./slices/imageSlice";
 import {DrawModeType} from "./slices/drawModeSlice";
 import {AlertStateType} from "./slices/alertSlice";
+import {HighlightStateType} from "./slices/highlightSlice";
 
 /// shapes selectors ///
 type ShapesSelectorType = (RootState) => ShapeMap;
@@ -165,3 +166,10 @@ export const filtersCssString = createSelector(
 type AlertSelectorType = (RootState) => AlertStateType;
 
 export const alertSelector: AlertSelectorType = (state) => state.alert;
+
+
+
+/// highlight selectors ///
+type HighlightSelectorType = (RootState) => HighlightStateType;
+
+export const highlightSelector: HighlightSelectorType = (state) => state.highlight;
