@@ -5,8 +5,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export enum HighlightKind {
-    Remove = 'remove',
-    Show = 'show',
+    RemovePoint = 'removePoint',
+    Point = 'point',
+    Length = 'length',
     None = 'none'
 }
 
@@ -29,7 +30,7 @@ const initialState: HighlightStateType = {
     type: HighlightKind.None,
 }
 
-type PointRemovalHighlightAction = PayloadAction<{shapeId: string, subItemIndex: number}>
+type PointHighlightAction = PayloadAction<{shapeId: string, subItemIndex: number}>
 
 const highlightSlice = createSlice({
     name: 'highlight',
@@ -38,11 +39,11 @@ const highlightSlice = createSlice({
         clearHighlight() {
             return initialState;
         },
-        highlightPointRemoval(state, action: PointRemovalHighlightAction) {
-            return {
-                ...(action.payload),
-                type: HighlightKind.Remove
-            }
+        highlightPoint(state, action: PointHighlightAction) {
+            return {...(action.payload), type: HighlightKind.Point}
+        },
+        highlightPointRemoval(state, action: PointHighlightAction) {
+            return {...(action.payload), type: HighlightKind.RemovePoint}
         }
     }
 })
@@ -50,6 +51,7 @@ const highlightSlice = createSlice({
 
 export const {
     clearHighlight,
+    highlightPoint,
     highlightPointRemoval
 } = highlightSlice.actions;
 

@@ -10,6 +10,7 @@ import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
 import {unitSelector} from "../../../../../../../redux/selectors";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
 import {useAppDispatch, useAppSelector} from "../../../../../../../hooks/reduxHooks";
+import {clearHighlight, highlightPoint} from "../../../../../../../redux/slices/highlightSlice";
 
 
 interface PolySegmentProfileStyleProps {
@@ -95,6 +96,15 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                             shapeId={shapeId}
                             style={{border: "2px solid rgba(0, 0, 0, 0.4)"}}
                             noIcon
+                            onMouseEnter={() => {
+                                dispatch(highlightPoint({
+                                    shapeId: shapeId,
+                                    subItemIndex: index + 1,
+                                }))
+                            }}
+                            onMouseLeave={() => {
+                                dispatch(clearHighlight());
+                            }}
                         />
                     ) : (
                         <div style={{width: 65}}/>

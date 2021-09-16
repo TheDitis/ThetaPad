@@ -80,6 +80,7 @@ const getMeasurementType = (property: string): MeasurementCategoryType => {
     else return 'other'
 }
 
+type HoverHandler = (e: React.MouseEvent) => void;
 
 interface ShapeInfoItemProps {
     shape: Shape | PolySegment;
@@ -88,6 +89,8 @@ interface ShapeInfoItemProps {
     shapeId?: string;
     noIcon?: boolean;
     style?: React.CSSProperties;
+    onMouseEnter?: HoverHandler;
+    onMouseLeave?: HoverHandler;
 }
 
 /**
@@ -97,7 +100,9 @@ interface ShapeInfoItemProps {
  * @param {number} [value] - optional pre-calculated value for this property
  * @param {string} [shapeId=null] - include shape that a PolySegment originates from
  * @param {boolean} [noIcon=false] - if true, the icon will not be rendered
- * @param {React.CSSProperties} style - any extra styles to apply
+ * @param {React.CSSProperties} [style={}] - any extra styles to apply
+ * @param {HoverHandler} [onMouseEnter=(e) => null] - function to run on hover
+ * @param {HoverHandler} [onMouseLeave=(e) => null] - function to run on hover-out
  */
 const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
     {
@@ -106,7 +111,9 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
         value,
         shapeId = null,
         noIcon = false,
-        style = {}
+        style = {},
+        onMouseEnter = () => null,
+        onMouseLeave = () => null,
     }
 ) => {
     const dispatch = useAppDispatch();
@@ -152,6 +159,8 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
             onClick={toggleUnit}
             clickable={type === 'length'}  // temporary measure to prevent confusion while angle units aren't implemented
             isUnit={isUnit}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         >
             <Icon size={0.21}/>
             <div className={"valueContainer"} style={style}>

@@ -8,7 +8,7 @@ import {Point, Shape, ShapeUtils} from "../../../../../types/shapes";
 import {connect} from "react-redux";
 import {mapShapeToPropsWithSelector} from "../../../../../redux/slices/shapesSlice";
 import Konva from "konva";
-import PointHighlight from "./PointHighlight";
+import RotatingHighlightCircle from "./RotatingHighlightCircle";
 
 
 interface RemovePointHighlightProps {
@@ -45,7 +45,7 @@ const RemovePolyPointHighlight: React.FC<RemovePointHighlightProps> = ({shape, i
         const nextPoint: false | Point = index < shape.points.length - 1 && shape.points[index + 1];
         return (
             <Layer>
-                <PointHighlight point={point} removal/>
+                <RotatingHighlightCircle point={point} removal/>
                 {prevPoint && nextPoint && (
                     <>
                         <KonvaLine
@@ -58,8 +58,8 @@ const RemovePolyPointHighlight: React.FC<RemovePointHighlightProps> = ({shape, i
                             lineJoin={'round'}
                             opacity={1}
                         />
-                        <PointHighlight point={prevPoint} color={shape.color} r={10} strokeWidth={3}/>
-                        <PointHighlight point={nextPoint} color={shape.color} r={10} strokeWidth={3}/>
+                        <RotatingHighlightCircle point={prevPoint} color={shape.color} r={10} strokeWidth={3}/>
+                        <RotatingHighlightCircle point={nextPoint} color={shape.color} r={10} strokeWidth={3}/>
                     </>
                 )}
             </Layer>
