@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.7] - 2021-09-16
+## Added
+- Hover over point-angle info in poly-line dropdown menu to highlight it on canvas, so you know which point is which
+- Shows preview of potential poly-line point removal to prevent accidental removal of the wrong line
+
 ## [2.0.6] - 2021-09-13
 ### Added
 - Snackbar notifiers to notify the user of status or certain events

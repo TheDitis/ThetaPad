@@ -18,7 +18,8 @@ import Overlays from "./Overlays/Overlays";
 // TODO: Resize shapes with image
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
-// TODO: Add Layer to highlight 'selected' shapes
+// TODO: Implement highlight for lengths and other shapes
+// TODO: Make poly-details dropdown appear only after drawing is done
 // TODO: Undo & redo
 // TODO: Style unit shape profile
 
