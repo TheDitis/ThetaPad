@@ -10,21 +10,21 @@ import {Circle} from "../../../../../../types/shapes";
 interface CircleProfileProps {
     circle: Circle;
     index: number;
-    fadeIn?: boolean;
+    isTemp?: boolean;
 }
 
 /**
  * ShapeProfile subtype specific to Circle objects
  * @param {Circle} circle - Circle object this profile will be linked to
  * @param {number} index - the index of this ShapeProfile in the rendered array
- * @param {boolean} [fadeIn] - whether or not the profile should animate in
+ * @param {boolean} [isTemp] - whether or not the profile should animate in
  * @return {JSX.Element} - profile for the given Circle object
  */
-const CircleProfile: React.FC<CircleProfileProps> = ({circle, index, fadeIn}) => (
+const CircleProfile: React.FC<CircleProfileProps> = ({circle, index, isTemp}) => (
     <ShapeProfileBase
         shape={circle}
         index={index}
-        fadeIn={fadeIn}
+        isTemp={isTemp}
         unitValue={circle.r}
         infoItems={['r']}
     />

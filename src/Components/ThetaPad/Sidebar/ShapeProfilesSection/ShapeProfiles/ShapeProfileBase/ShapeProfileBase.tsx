@@ -199,7 +199,7 @@ interface ShapeProfileProps {
     unitValue: number;
     infoItems: string[];
     DetailsSection?: React.FC;
-    fadeIn?: boolean;
+    isTemp?: boolean;
 }
 
 /**
@@ -208,14 +208,14 @@ interface ShapeProfileProps {
  * @param {number} index - its index in the list
  * @param {number} unitValue - the value to set the unit to on unit button click
  * @param {string[]} [infoItems=[]] - the info component to show in the lower row
- * @param {boolean} [fadeIn=false] - whether or not the profile should animate in
+ * @param {boolean} [isTemp=false] - whether or not the profile should animate in
  */
 const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     {
         shape,
         index,
         infoItems = [],
-        fadeIn = false,
+        isTemp = false,
         children
     }
 ) => {
@@ -241,7 +241,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
             isUnit={shape.id === unit.unitShape}
             isVisible={shape.visible}
             variants={variants.main}
-            initial={fadeIn ? "hidden" : "visible"}
+            initial={isTemp ? "hidden" : "visible"}
             animate={"visible"}
         >
             <div className={"main"}>
@@ -278,7 +278,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                                 <ShapeInfoItem shape={shape} property={propName} key={propName}/>
                             ))}
                         </div>
-                        {children !== undefined && (
+                        {children !== undefined && !isTemp && (
                             <ShowMoreButton
                                 onClick={() => setShowDetails(!showDetails)}
                                 isOpen={showDetails}

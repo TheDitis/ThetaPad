@@ -14,7 +14,7 @@ interface ShapeProfileProps {
     shape: Shape;
     shapeId?: string;
     index: number;
-    fadeIn?: boolean;
+    isTemp?: boolean;
 }
 
 /**
@@ -22,20 +22,20 @@ interface ShapeProfileProps {
  * of 'shape'
  * @param {Shape} shape - Shape object the profile will be linked to
  * @param {number} index - index of this shape in the rendered array
- * @param {boolean} [fadeIn=false] - whether or not the profile should animate in
+ * @param {boolean} [isTemp=false] - whether or not the profile should animate in
  * @return {JSX.Element | null} - LineProfile, PolyLineProfile, or CircleProfile
  *      based on the type of 'shape', null if the shape is an invalid type
  */
-const ShapeProfile: React.FC<ShapeProfileProps> = ({index, shape, fadeIn = false}) => {
+const ShapeProfile: React.FC<ShapeProfileProps> = ({index, shape, isTemp = false}) => {
     if (ShapeUtils.isLine(shape)) {
         const line = shape as Line;
-        return <LineProfile line={line} index={index} fadeIn={fadeIn}/>
+        return <LineProfile line={line} index={index} isTemp={isTemp}/>
     }
     if (ShapeUtils.isPoly(shape)) {
-        return <PolyLineProfile line={shape} index={index} fadeIn={fadeIn}/>
+        return <PolyLineProfile line={shape} index={index} isTemp={isTemp}/>
     }
     if (ShapeUtils.isCircle(shape)) {
-        return <CircleProfile circle={shape} index={index} fadeIn={fadeIn}/>;
+        return <CircleProfile circle={shape} index={index} isTemp={isTemp}/>;
     }
     return null;
 }

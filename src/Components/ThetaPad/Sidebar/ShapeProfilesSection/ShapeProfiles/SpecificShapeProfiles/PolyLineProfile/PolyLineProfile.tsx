@@ -11,21 +11,21 @@ import PolyProfileDetailsSection from "./PolyProfileDetailsSection";
 interface PolyLineProfileProps {
     line: Poly;
     index: number;
-    fadeIn?: boolean;
+    isTemp?: boolean;
 }
 
 /**
  * ShapeProfile subtype specific to Poly objects
  * @param {Poly} line - Poly line object this profile will be linked to
  * @param {number} index - index of this ShapeProfile in the rendered array
- * @param {boolean} [fadeIn] - whether or not the profile should animate in
+ * @param {boolean} [isTemp] - whether or not the profile should animate in
  * @return {JSX.Element} - profile for the given Poly object
  */
-const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index, fadeIn}) => (
+const PolyLineProfile: React.FC<PolyLineProfileProps> = ({line, index, isTemp}) => (
     <ShapeProfileBase
         shape={line}
         index={index}
-        fadeIn={fadeIn}
+        isTemp={isTemp}
         unitValue={line.totalLength}
         infoItems={['totalLength']}
     >
