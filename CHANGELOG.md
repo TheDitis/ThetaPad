@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.8] - 2021-09-18
+## Added
+- Hover over poly-line segment number to highlight that segment on canvas
+
 ## [2.0.7] - 2021-09-16
 ## Added
 - Hover over point-angle info in poly-line dropdown menu to highlight it on canvas, so you know which point is which

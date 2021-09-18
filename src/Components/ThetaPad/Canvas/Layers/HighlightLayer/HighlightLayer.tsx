@@ -10,7 +10,10 @@ import RemovePolyPointHighlight from "./PointHighlights/RemovePolyPointHighlight
 import PointHighlight from "./PointHighlights/PointHighlight";
 import LengthHighlight from "./LengthHighlights/LengthHighlight";
 
-
+/**
+ * Renders any highlight shapes on the canvas
+ * @return {JSX.Element | null} - Relevant Highlight component based on type
+ */
 const HighlightLayer: React.FC = () => {
     const {shapeId, subItemIndex, type} = useAppSelector(highlightSelector);
 

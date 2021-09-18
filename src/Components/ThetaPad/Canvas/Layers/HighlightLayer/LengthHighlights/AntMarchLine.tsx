@@ -18,6 +18,17 @@ interface AntMarchLineProps {
     speed?: number;
 }
 
+/**
+ * Marching dashed Konva Line
+ * @param {Point} pt1 - start point of the line (ants march from this point)
+ * @param {Point} pt2 - end point of the line (ants march to this point)
+ * @param {string} [color="red"] - color of the line
+ * @param {number} [strokeWidth=3] - thickness of the line
+ * @param {number[]} [dash=[8, 12]] - intervals of dash & gap lengths alternating
+ * @param {number} [opacity=1] - opacity of the line
+ * @param {number} [speed=20] - speed of the ants (dashes)
+ * @return {JSX.Element} - Konva line with moving dashes
+ */
 const AntMarchLine: React.FC<AntMarchLineProps> = (
     {
         pt1,
@@ -35,7 +46,7 @@ const AntMarchLine: React.FC<AntMarchLineProps> = (
     useEffect(() => {
         const interval = setInterval(() => {
             if (lineRef.current !== null) {
-                lineRef.current.dashOffset((Date.now() / (1000 / speed)) % 1000);
+                lineRef.current.dashOffset(-(Date.now() / (1000 / speed)) % 1000);
             }
         }, 30)
         return () => clearInterval(interval);

@@ -15,11 +15,23 @@ interface PointHighlightProps {
     index: number | null;
 }
 
+/**
+ * Switch component that returns point-highlight component for a given shape type,
+ * or null if none is implemented for that shape type
+ * @param {Shape} shape
+ * @param {number | null} index
+ * @return {JSX.Element | null}
+ * @constructor
+ */
 const PointHighlight: React.FC<PointHighlightProps> = ({shape, index}) => {
     if (ShapeUtils.isPoly(shape)) {
         return <PolyPointHighlight line={shape} shapeId={shape.id} index={index as number}/>
     }
-    else return null;
+    else {
+        console.error("PointHighlight rendered with shape that doesn't have " +
+            "a point-highlight component implemented.")
+        return null;
+    }
 }
 
 

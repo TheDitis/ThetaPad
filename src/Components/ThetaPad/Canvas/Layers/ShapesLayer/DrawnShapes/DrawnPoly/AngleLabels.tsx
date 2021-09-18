@@ -4,8 +4,7 @@
  */
 import React, {useMemo} from "react";
 import {Point, Vector} from "../../../../../../../types/shapes";
-import * as math from "mathjs";
-import {angleOfVector, setVectorMagnitude, unitVector} from "../../../../../../../utils/utils";
+import {angleOfVector, midAngleVector, setVectorMagnitude} from "../../../../../../../utils/utils";
 import {Group as KonvaGroup, Text as KonvaText} from "react-konva";
 
 
@@ -22,15 +21,10 @@ const calculateAngleLabels = (angles: number[], points: Point[]): AngleLabelData
 
         // get the adjacent segments as vectors
         const [pt1, pt2, pt3] = points.slice(i, i + 3)
-        const vec1: Vector = [pt1.x - pt2.x, pt1.y - pt2.y];
-        const vec2: Vector = [pt3.x - pt2.x, pt3.y - pt2.y];
 
-        // vector with angle halfway between the two adjacent segments
-        let mid: Vector = math.add(
-            unitVector(vec1),
-            unitVector(vec2)
-        ) as Vector;
-        // scale the mid-angle vector to be about 30 px in magnitude
+        // get vector with angle halfway between
+        let mid = midAngleVector(pt1, pt3, pt2);
+        // scale the mid-angle vector to be 30 px in magnitude
         mid = setVectorMagnitude(mid, 30);
 
         return {

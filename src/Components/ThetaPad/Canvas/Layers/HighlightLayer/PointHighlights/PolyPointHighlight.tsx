@@ -14,6 +14,12 @@ interface PointHighlightProps {
     index: number;
 }
 
+/**
+ * Renders a rotating dotted circle over a given point of a given poly line
+ * @param {Poly} line - the line to highlight a point of
+ * @param {number} index - the index of the point to highlight
+ * @return {JSX.Element} - a RotatingHighlightCircle over the specified point
+ */
 const PolyPointHighlight: React.FC<PointHighlightProps> = ({line, index}) => {
     return (
         <Layer>

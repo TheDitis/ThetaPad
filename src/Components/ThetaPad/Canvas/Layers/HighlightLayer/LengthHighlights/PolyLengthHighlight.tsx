@@ -9,20 +9,28 @@ import AntMarchLine from "./AntMarchLine";
 
 
 interface PolyLengthHighlightProps {
-    shape: Poly;
+    line: Poly;
     index: number;
 }
 
-const PolyLengthHighlight: React.FC<PolyLengthHighlightProps> = ({shape,index}) => {
-    const segment = PolyUtils.getSegment(shape, index);
+/**
+ * Highlight layer that renders an AntMarchLine over a given segment
+ * @param {Poly} line - The poly line to highlight a segment of
+ * @param {number} index - The index of the segment to highlight
+ * @return {JSX.Element} - Konva Layer with an AntMarchLine
+ */
+const PolyLengthHighlight: React.FC<PolyLengthHighlightProps> = ({line,index}) => {
+    const {start, end} = PolyUtils.getSegment(line, index);
+
     return (
         <Layer>
             <AntMarchLine
-                pt1={segment.start}
-                pt2={segment.end}
-                color={shape.color}
-                strokeWidth={5}
+                pt1={start}
+                pt2={end}
+                color={line.color}
+                strokeWidth={4}
                 speed={50}
+                dash={[8, 10]}
             />
         </Layer>
     )

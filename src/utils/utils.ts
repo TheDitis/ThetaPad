@@ -4,8 +4,9 @@
  */
 import {COLORS} from "../constants";
 import _ from "lodash";
-import {BasicLine, Vector} from "../types/shapes";
+import {BasicLine, Point, Vector} from "../types/shapes";
 import {dot, norm} from "mathjs";
+import * as math from "mathjs";
 
 export const randomItem = <T>(array: T[]): T => (
     array[Math.floor(Math.random() * array.length)]
@@ -127,4 +128,27 @@ export const setVectorMagnitude = (vec: Vector, newMag: number): Vector => {
     return vec.map((value) => (
         magnitude === 0 ? 0 : value * newMag / magnitude
     )) as Vector
+}
+
+/**
+ * Calculates unit vector with angle halfway between pt1 and p2
+ * @param {Point} pt1 - first of two points (acts as vector1)
+ * @param {Point} pt2 - second of two points (acts as vector2)
+ * @param {Point} [origin={x: 0, y: 0}] - origin point to calculate angle from
+ * @return {Vector} - unit vector with angle halfway between pt1 and pt2, with
+ *      'origin' as the origin point
+ */
+export const midAngleVector = (
+    pt1: Point,
+    pt2: Point,
+    origin: Point = {x: 0, y: 0}
+): Vector => {
+    const vec1: Vector = [pt1.x - origin.x, pt1.y - origin.y];
+    const vec2: Vector = [pt2.x - origin?.x, pt2.y - origin?.y];
+
+    // vector with angle halfway between the two adjacent segments
+    return math.add(
+        unitVector(vec1),
+        unitVector(vec2)
+    ) as Vector;
 }
