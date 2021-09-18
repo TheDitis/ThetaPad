@@ -8,6 +8,7 @@ export enum HighlightKind {
     RemovePoint = 'removePoint',
     Point = 'point',
     Length = 'length',
+    All = 'all',
     None = 'none'
 }
 
@@ -30,7 +31,7 @@ const initialState: HighlightStateType = {
     type: HighlightKind.None,
 }
 
-type PointHighlightAction = PayloadAction<{shapeId: string, subItemIndex: number}>
+type PolyItemHighlightAction = PayloadAction<{shapeId: string, subItemIndex: number}>
 
 const highlightSlice = createSlice({
     name: 'highlight',
@@ -39,11 +40,14 @@ const highlightSlice = createSlice({
         clearHighlight() {
             return initialState;
         },
-        highlightPoint(state, action: PointHighlightAction) {
+        highlightPoint(state, action: PolyItemHighlightAction) {
             return {...(action.payload), type: HighlightKind.Point}
         },
-        highlightPointRemoval(state, action: PointHighlightAction) {
+        highlightPolyPointRemoval(state, action: PolyItemHighlightAction) {
             return {...(action.payload), type: HighlightKind.RemovePoint}
+        },
+        highlightPolySegmentLength(state, action: PolyItemHighlightAction) {
+            return {...(action.payload), type: HighlightKind.Length}
         }
     }
 })
@@ -52,7 +56,8 @@ const highlightSlice = createSlice({
 export const {
     clearHighlight,
     highlightPoint,
-    highlightPointRemoval
+    highlightPolyPointRemoval,
+    highlightPolySegmentLength
 } = highlightSlice.actions;
 
 export default highlightSlice.reducer;

@@ -6,8 +6,9 @@ import React from "react";
 import {useAppSelector} from "../../../../../hooks/reduxHooks";
 import {highlightSelector} from "../../../../../redux/selectors";
 import {HighlightKind} from "../../../../../redux/slices/highlightSlice";
-import RemovePolyPointHighlight from "./RemovePolyPointHighlight";
-import PointHighlight from "./PointHighlight";
+import RemovePolyPointHighlight from "./PointHighlights/RemovePolyPointHighlight";
+import PointHighlight from "./PointHighlights/PointHighlight";
+import LengthHighlight from "./LengthHighlights/LengthHighlight";
 
 
 const HighlightLayer: React.FC = () => {
@@ -18,6 +19,8 @@ const HighlightLayer: React.FC = () => {
             return <RemovePolyPointHighlight shapeId={shapeId} index={subItemIndex}/>
         case HighlightKind.Point:
             return <PointHighlight shapeId={shapeId} index={subItemIndex}/>
+        case HighlightKind.Length:
+            return <LengthHighlight shapeId={shapeId} index={subItemIndex}/>
         default:
             return null;
     }

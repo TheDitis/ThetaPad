@@ -2,13 +2,13 @@
  * @file Konva shapes to highlight potential point-removal action
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import React, {useEffect, useRef} from "react";
-import {Layer, Line as KonvaLine} from "react-konva";
-import {Point, Shape, ShapeUtils} from "../../../../../types/shapes";
+import React from "react";
+import {Layer} from "react-konva";
+import {Point, Shape, ShapeUtils} from "../../../../../../types/shapes";
 import {connect} from "react-redux";
-import {mapShapeToPropsWithSelector} from "../../../../../redux/slices/shapesSlice";
-import Konva from "konva";
+import {mapShapeToPropsWithSelector} from "../../../../../../redux/slices/shapesSlice";
 import RotatingHighlightCircle from "./RotatingHighlightCircle";
+import AntMarchLine from "../LengthHighlights/AntMarchLine";
 
 
 interface RemovePointHighlightProps {
@@ -26,17 +26,6 @@ interface RemovePointHighlightProps {
  *      render a moving dotted line joining the adjacent points
  */
 const RemovePolyPointHighlight: React.FC<RemovePointHighlightProps> = ({shape, index}) => {
-    const lineRef = useRef<Konva.Line>(null);
-
-    /** create interval to update line dashes */
-    useEffect(() => {
-        const interval = setInterval(() => {
-                if (lineRef.current !== null) {
-                    lineRef.current.dashOffset((Date.now() / 50) % 360);
-                }
-        }, 30)
-        return () => clearInterval(interval);
-    }, [])
 
     // If the shape is a poly (IT SHOULD BE)
     if (ShapeUtils.isPoly(shape)) {
@@ -48,18 +37,25 @@ const RemovePolyPointHighlight: React.FC<RemovePointHighlightProps> = ({shape, i
                 <RotatingHighlightCircle point={point} removal/>
                 {prevPoint && nextPoint && (
                     <>
-                        <KonvaLine
-                            ref={lineRef}
-                            points={[prevPoint.x, prevPoint.y, nextPoint.x, nextPoint.y]}
-                            stroke={shape.color}
+                        <AntMarchLine
+                            pt1={prevPoint}
+                            pt2={nextPoint}
+                            color={shape.color}
                             dash={[8, 12]}
                             strokeWidth={2}
-                            lineCap={'round'}
-                            lineJoin={'round'}
-                            opacity={1}
                         />
-                        <RotatingHighlightCircle point={prevPoint} color={shape.color} r={10} strokeWidth={3}/>
-                        <RotatingHighlightCircle point={nextPoint} color={shape.color} r={10} strokeWidth={3}/>
+                        <RotatingHighlightCircle
+                            point={prevPoint}
+                            color={shape.color}
+                            r={10}
+                            strokeWidth={3}
+                        />
+                        <RotatingHighlightCircle
+                            point={nextPoint}
+                            color={shape.color}
+                            r={10}
+                            strokeWidth={3}
+                        />
                     </>
                 )}
             </Layer>

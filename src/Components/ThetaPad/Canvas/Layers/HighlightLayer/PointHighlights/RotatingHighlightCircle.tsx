@@ -5,7 +5,7 @@
 import React, {useEffect, useRef} from "react";
 import {Circle as KonvaCircle, Group} from "react-konva";
 import Konva from "konva";
-import {Point} from "../../../../../types/shapes";
+import {Point} from "../../../../../../types/shapes";
 import {Line as KonvaLine} from "react-konva";
 
 

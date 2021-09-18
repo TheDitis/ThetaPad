@@ -10,7 +10,11 @@ import {resetUnit, setUnit} from "../../../../../../../redux/slices/unitSlice";
 import {unitSelector} from "../../../../../../../redux/selectors";
 import {POLY_SEGMENT_HEIGHT} from "../../../../../../../constants";
 import {useAppDispatch, useAppSelector} from "../../../../../../../hooks/reduxHooks";
-import {clearHighlight, highlightPoint} from "../../../../../../../redux/slices/highlightSlice";
+import {
+    clearHighlight,
+    highlightPoint,
+    highlightPolySegmentLength
+} from "../../../../../../../redux/slices/highlightSlice";
 
 
 interface PolySegmentProfileStyleProps {
@@ -37,6 +41,7 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
     width: 25px;
     background: ${props => props.isUnit ? 'white' : 'rgba(0, 0, 0, 0.2)'};
     box-shadow: ${props => props.isUnit ? "0 0 10px white" : "none"};
+    transition-duration: 0.3s;
     
     h5 {
       font-size: 14px;
@@ -46,7 +51,7 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
 
     &:hover {
       box-shadow: 0 0 10px white;
-      transform: scale(1.3);
+      transform: scale(1.15);
     }
   }
 
@@ -81,9 +86,23 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
         }
     }
 
+    const highlightSegment = () => {
+        dispatch(
+            highlightPolySegmentLength({
+                shapeId: shapeId,
+                subItemIndex: index,
+            })
+        )
+    }
+
     return (
         <PolySegmentProfileRoot isUnit={isUnit}>
-            <div className={"indexSection"} onClick={onSelect}>
+            <div
+                className={"indexSection"}
+                onClick={onSelect}
+                onMouseEnter={highlightSegment}
+                onMouseLeave={() => dispatch(clearHighlight())}
+            >
                 <h5>{index}</h5>
             </div>
             <div className={"infoSection"}>

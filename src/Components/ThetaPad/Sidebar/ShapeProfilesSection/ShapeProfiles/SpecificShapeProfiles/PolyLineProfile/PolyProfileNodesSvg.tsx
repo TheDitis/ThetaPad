@@ -10,7 +10,7 @@ import {resetUnit} from "../../../../../../../redux/slices/unitSlice";
 import {removePolyPoint} from "../../../../../../../redux/slices/shapesSlice";
 import {motion} from "framer-motion";
 import {useAppDispatch, useAppSelector} from "../../../../../../../hooks/reduxHooks";
-import {clearHighlight, highlightPointRemoval} from "../../../../../../../redux/slices/highlightSlice";
+import {clearHighlight, highlightPolyPointRemoval} from "../../../../../../../redux/slices/highlightSlice";
 
 const crossVariants = {
     hidden: {
@@ -49,7 +49,7 @@ const PolyProfileNodesSvg: React.FC<LineNodeSvgProps> = ({line}) => {
     /** Update highlight state in redux when focus changes */
     useEffect(() => {
         if (focus !== null && nPoints > 2) {
-            dispatch(highlightPointRemoval({shapeId: line.id, subItemIndex: focus}));
+            dispatch(highlightPolyPointRemoval({shapeId: line.id, subItemIndex: focus}));
         } else {
             dispatch(clearHighlight());
         }

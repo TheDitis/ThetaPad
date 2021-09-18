@@ -4,8 +4,8 @@
  */
 import React from "react";
 import {connect} from "react-redux";
-import {mapShapeToPropsWithSelector} from "../../../../../redux/slices/shapesSlice";
-import {Shape, ShapeUtils} from "../../../../../types/shapes";
+import {mapShapeToPropsWithSelector} from "../../../../../../redux/slices/shapesSlice";
+import {Shape, ShapeUtils} from "../../../../../../types/shapes";
 import PolyPointHighlight from "./PolyPointHighlight";
 
 

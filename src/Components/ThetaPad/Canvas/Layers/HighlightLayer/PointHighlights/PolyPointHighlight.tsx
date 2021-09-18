@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {Layer} from "react-konva";
-import {Poly} from "../../../../../types/shapes";
+import {Poly} from "../../../../../../types/shapes";
 import RotatingHighlightCircle from "./RotatingHighlightCircle";
 
 
