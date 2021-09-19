@@ -449,6 +449,21 @@ export abstract class PolyUtils {
             pointAngle: poly.angles[segmentIndex]
         }
     }
+
+    /**
+     * Rescales a given Poly shape by the given ratio
+     * @param {Poly} poly - Poly shape to rescale (MUTATES ARGUMENT)
+     * @param {number} ratio - Ratio to scale shape by
+     */
+    static rescale = (poly: Poly, ratio: number): void => {
+        poly.origin.x *= ratio;
+        poly.origin.y *= ratio;
+        poly.points = poly.points.map((pt) => (
+            PointUtils.new(pt.x * ratio, pt.y * ratio)
+        ));
+        poly.lengths = PolyUtils.calcLengths(poly.points);
+        poly.totalLength = sum(poly.lengths);
+    }
 }
 
 

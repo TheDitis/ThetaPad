@@ -72,7 +72,7 @@ const shapesSlice = createSlice({
                     LineUtils.rescale(shape, ratio);
                 }
                 else if (ShapeUtils.isPoly(shape)) {
-
+                    PolyUtils.rescale(shape, ratio);
                 }
             }
         }
