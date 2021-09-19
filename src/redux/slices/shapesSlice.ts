@@ -2,8 +2,8 @@
  * @file Redux slice containing map of drawn shapes
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
-import {createSelector, createSlice} from "@reduxjs/toolkit";
-import {PartialShape, Point, PointUtils, PolyUtils, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
+import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {LineUtils, PartialShape, Point, PointUtils, PolyUtils, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
 import {chunkSiblings, sum} from "../../utils/utils";
 
@@ -63,7 +63,19 @@ const shapesSlice = createSlice({
             delete shapes[action.payload];
         },
         /** Reset shapes to an empty object */
-        clearShapes: () => ({})
+        clearShapes() {return {}},
+        rescaleShapes(shapes, action: PayloadAction<number>) {
+            const ratio = action.payload;
+
+            for (let shape of Object.values(shapes)) {
+                if (ShapeUtils.isLine(shape)) {
+                    LineUtils.rescale(shape, ratio);
+                }
+                else if (ShapeUtils.isPoly(shape)) {
+
+                }
+            }
+        }
     }
 })
 
@@ -73,6 +85,7 @@ export const {
     removePolyPoint,
     removeShape,
     clearShapes,
+    rescaleShapes,
 } = shapesSlice.actions;
 export default shapesSlice.reducer;
 

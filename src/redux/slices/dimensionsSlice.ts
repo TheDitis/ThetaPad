@@ -8,6 +8,7 @@ import {Dimensions} from "./imageSlice";
 import {AppDispatch, RootState} from "../store";
 import _ from "lodash";
 import {updateGridParams} from "./gridSlice";
+import {rescaleShapes} from "./shapesSlice";
 
 /**
  * @interface WindowDimensions
@@ -101,12 +102,14 @@ const calculateImageDims = (imgDims: Dimensions) => (
         const canvasHeight = dims.height - dims.navbar;
         const wRatio = canvasWidth / imgDims.width;
         const hRatio = canvasHeight / imgDims.height;
-        const scaleRatio = Math.min(wRatio, hRatio)
-
-        dispatch(setImageDims({
-            width: imgDims.width * scaleRatio,
-            height: imgDims.height * scaleRatio
-        }))
+        const imageScaleRatio = Math.min(wRatio, hRatio);
+        const newImageDims = {
+            width: imgDims.width * imageScaleRatio,
+            height: imgDims.height * imageScaleRatio
+        }
+        const shapeScaleRatio = newImageDims.width / dims.image.width;
+        dispatch(rescaleShapes(shapeScaleRatio));
+        dispatch(setImageDims(newImageDims))
     }
 )
 

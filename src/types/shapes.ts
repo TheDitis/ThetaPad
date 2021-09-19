@@ -268,9 +268,19 @@ export abstract class LineUtils {
      */
     static midPoint = (line: Line): Point => PointUtils.midPoint(line.start, line.end);
 
-    // static infoTextLocation = (point: Point): Point => {
-    //
-    // }
+    /**
+     * Rescales the given line on the canvas via the given ratio
+     * @param {Line} line - the line to rescale (MUTATES ARGUMENT)
+     * @param {number} ratio - the ratio to scale the line by
+     */
+    static rescale = (line: Line, ratio: number): void => {
+        line.start.x *= ratio;
+        line.start.y *= ratio;
+        line.origin = {...line.start};
+        line.end.x *= ratio;
+        line.end.y *= ratio;
+        line.length = LineUtils.length_(line);
+    }
 }
 
 
