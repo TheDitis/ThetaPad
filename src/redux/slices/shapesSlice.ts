@@ -3,7 +3,17 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {LineUtils, PartialShape, Point, PointUtils, PolyUtils, Shape, ShapeUtils, ValidShape} from "../../types/shapes";
+import {
+    CircleUtils,
+    LineUtils,
+    PartialShape,
+    Point,
+    PointUtils,
+    PolyUtils,
+    Shape,
+    ShapeUtils,
+    ValidShape
+} from "../../types/shapes";
 import {shapesSelector} from "../selectors";
 import {chunkSiblings, sum} from "../../utils/utils";
 
@@ -73,6 +83,9 @@ const shapesSlice = createSlice({
                 }
                 else if (ShapeUtils.isPoly(shape)) {
                     PolyUtils.rescale(shape, ratio);
+                }
+                else if (ShapeUtils.isCircle(shape)) {
+                    CircleUtils.rescale(shape, ratio);
                 }
             }
         }

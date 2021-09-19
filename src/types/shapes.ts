@@ -517,6 +517,19 @@ export abstract class CircleUtils {
         }
         return LineUtils.new(pt1.x, pt1.y, pt2.x, pt2.y, circle.color);
     }
+
+    /**
+     * Rescales given circle by the given ratio
+     * @param {Circle} circle - Circle to resize (MUTATES ARGUMENT)
+     * @param {number} ratio - ratio to scale circle by
+     */
+    static rescale = (circle: Circle, ratio: number): void => {
+        circle.origin.x *= ratio;
+        circle.origin.y *= ratio;
+        circle.edgePoint.x *= ratio;
+        circle.edgePoint.y *= ratio;
+        circle.r = PointUtils.distance(circle.origin, circle.edgePoint);
+    }
 }
 
 // Drawable subtypes of Shape
