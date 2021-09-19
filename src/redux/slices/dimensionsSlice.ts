@@ -64,19 +64,23 @@ const dimensionsSlice = createSlice({
         setSidebarWidth(state, action: { payload: number }) {
             state.sidebar = action.payload;
         },
-        /** Takes original image dimensions and calculates display dimensions */
-        calculateImageDims(state, action: { payload: Dimensions }) {
-            const imgDims = action.payload;
-            const canvasWidth = state.width - state.sidebar;
-            const canvasHeight = state.height - state.navbar;
-            const wRatio = canvasWidth / imgDims.width;
-            const hRatio = canvasHeight / imgDims.height;
-            const scaleRatio = Math.min(wRatio, hRatio)
-            state.image = {
-                width: imgDims.width * scaleRatio,
-                height: imgDims.height * scaleRatio
-            }
-        }
+        /** Manually sets the image dimensions */
+        setImageDims(state, action: {payload: Dimensions}) {
+            state.image = action.payload;
+        },
+        // /** Takes original image dimensions and calculates display dimensions */
+        // calculateImageDims(state, action: { payload: Dimensions }) {
+        //     const imgDims = action.payload;
+        //     const canvasWidth = state.width - state.sidebar;
+        //     const canvasHeight = state.height - state.navbar;
+        //     const wRatio = canvasWidth / imgDims.width;
+        //     const hRatio = canvasHeight / imgDims.height;
+        //     const scaleRatio = Math.min(wRatio, hRatio)
+        //     state.image = {
+        //         width: imgDims.width * scaleRatio,
+        //         height: imgDims.height * scaleRatio
+        //     }
+        // }
     }
 })
 
@@ -85,9 +89,26 @@ export const {
     setDimensions,
     setWindowDimensions,
     setSidebarWidth,
-    calculateImageDims,
+    setImageDims,
 } = dimensionsSlice.actions;
+
 export default dimensionsSlice.reducer;
+
+const calculateImageDims = (imgDims: Dimensions) => (
+    (dispatch: AppDispatch, getState: () => RootState) => {
+        const dims = getState().dimensions;
+        const canvasWidth = dims.width - dims.sidebar;
+        const canvasHeight = dims.height - dims.navbar;
+        const wRatio = canvasWidth / imgDims.width;
+        const hRatio = canvasHeight / imgDims.height;
+        const scaleRatio = Math.min(wRatio, hRatio)
+
+        dispatch(setImageDims({
+            width: imgDims.width * scaleRatio,
+            height: imgDims.height * scaleRatio
+        }))
+    }
+)
 
 
 export const recalculateDimensions = (windowDims: Dimensions) => (

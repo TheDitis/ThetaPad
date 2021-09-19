@@ -297,9 +297,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                             exit={"closed"}
                             animate={"open"}
                         >
-                            {/*<div className={"detailsScrollContainer"}>*/}
                             {children}
-                            {/*</div>*/}
                         </motion.div>
                     )}
                 </AnimatePresence>
