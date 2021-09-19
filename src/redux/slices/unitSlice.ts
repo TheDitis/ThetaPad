@@ -42,4 +42,17 @@ const unitSlice = createSlice({
 })
 
 export const {setUnit, resetUnit} = unitSlice.actions;
+
 export default unitSlice.reducer;
+
+// export const syncUnit = () => (
+//     (dispatch: AppDispatch, getState: () => RootState) => {
+//         const unit = getState().unit;
+//         if (unit.unitShape !== null) {
+//             const unitShape = getState().shapes[unit.unitShape];
+//             if (ShapeUtils.isPoly(unitShape)) {
+//
+//             }
+//         }
+//     }
+// )

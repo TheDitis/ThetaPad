@@ -9,6 +9,7 @@ import {AppDispatch, RootState} from "../store";
 import _ from "lodash";
 import {updateGridParams} from "./gridSlice";
 import {rescaleShapes} from "./shapesSlice";
+import {setUnit} from "./unitSlice";
 
 /**
  * @interface WindowDimensions
@@ -109,7 +110,14 @@ const calculateImageDims = (imgDims: Dimensions) => (
         }
         const shapeScaleRatio = newImageDims.width / dims.image.width;
         dispatch(rescaleShapes(shapeScaleRatio));
-        dispatch(setImageDims(newImageDims))
+        dispatch(setImageDims(newImageDims));
+        const unit = getState().unit;
+        if (unit.unitShape !== null) {
+            dispatch(setUnit({
+                value: unit.unit * shapeScaleRatio,
+                id: unit.unitShape,
+            }))
+        }
     }
 )
 
