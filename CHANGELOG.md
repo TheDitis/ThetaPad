@@ -1,11 +1,15 @@
 # Changelog
 
+## [2.0.9] - 2021-09-20
+### Changed
+- Improve: Shapes now scale automatically with the image when the window is resized with an image present
+
 ## [2.0.8] - 2021-09-18
-## Added
+### Added
 - Hover over poly-line segment number to highlight that segment on canvas
 
 ## [2.0.7] - 2021-09-16
-## Added
+### Added
 - Hover over point-angle info in poly-line dropdown menu to highlight it on canvas, so you know which point is which
 - Shows preview of potential poly-line point removal to prevent accidental removal of the wrong line
 

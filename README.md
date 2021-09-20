@@ -32,13 +32,13 @@ Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https:/
 - [x] Name shapes
 - [x] Highlight poly-line points on canvas to identify them from the details dropdown items
 - [x] Highlight poly-line segments on canvas to identify them from details dropdown
-- [ ] Resize shapes with image (window resize)
+- [x] Resize shapes with image (window resize)
 - [ ] Undo & Redo
-- [ ] Set a given line as the angle reference (all other angles measured relative to it)
-- [ ] Select a given angle as an angle unit
 - [ ] Export/Print changes
 - [ ] Save sessions
 - [ ] Selectively show/hide info-labels on canvas
+- [ ] Set a given line as the angle reference (all other angles measured relative to it)
+- [ ] Select a given angle as an angle unit
 
 
 ### More info coming soon
