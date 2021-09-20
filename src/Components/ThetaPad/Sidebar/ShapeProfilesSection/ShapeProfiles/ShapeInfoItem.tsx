@@ -87,6 +87,7 @@ interface ShapeInfoItemProps {
     property: string;
     value?: number;
     shapeId?: string;
+    subItem?: number | null;
     noIcon?: boolean;
     style?: React.CSSProperties;
     onMouseEnter?: HoverHandler;
@@ -99,6 +100,8 @@ interface ShapeInfoItemProps {
  * @param {string} property - the property of 'shape' you are interested in
  * @param {number} [value] - optional pre-calculated value for this property
  * @param {string} [shapeId=null] - include shape that a PolySegment originates from
+ * @param {number | null} [subItem=null] - If the unit value represents an item
+ *      within the unit shape (ie a segment of a poly shape) identify its index
  * @param {boolean} [noIcon=false] - if true, the icon will not be rendered
  * @param {React.CSSProperties} [style={}] - any extra styles to apply
  * @param {HoverHandler} [onMouseEnter=(e) => null] - function to run on hover
@@ -110,6 +113,7 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
         property,
         value,
         shapeId = null,
+        subItem = null,
         noIcon = false,
         style = {},
         onMouseEnter = () => null,
@@ -149,7 +153,11 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
             if (isUnit) {
                 dispatch(resetUnit());
             } else {
-                dispatch(setUnit({id: shapeId, value: value as number}))
+                dispatch(setUnit({
+                    id: shapeId,
+                    value: value as number,
+                    subItem
+                }))
             }
         }
     }

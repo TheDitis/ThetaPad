@@ -9,6 +9,7 @@ import {setImage} from "../../../../../redux/slices/imageSlice";
 import {clearShapes} from "../../../../../redux/slices/shapesSlice";
 import {recalculateDimensions} from "../../../../../redux/slices/dimensionsSlice";
 import {useAppDispatch} from "../../../../../hooks/reduxHooks";
+import {resetUnit} from "../../../../../redux/slices/unitSlice";
 
 interface ImageUploadControlStyleProps {
 
@@ -43,14 +44,16 @@ const ImageUploadControl: React.FC = () => {
             size: imageFiles[0].size,
             width: image.width,
             height: image.height
-        }))
+        }));
+
+        dispatch(resetUnit());
 
         dispatch(recalculateDimensions({
             width: window.innerWidth,
             height: window.innerHeight,
-        }))
+        }));
 
-        dispatch(clearShapes())
+        dispatch(clearShapes());
     }
 
     return (

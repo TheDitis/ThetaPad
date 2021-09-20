@@ -5,7 +5,7 @@
 import {createSelector} from "@reduxjs/toolkit";
 import {RootState} from "./store";
 import {Shape} from "../types/shapes";
-import {UnitState} from "./slices/unitSlice";
+import {UnitStateType} from "./slices/unitSlice";
 import {AppDimensions} from "./slices/dimensionsSlice";
 import {ShapeMap} from "./slices/shapesSlice";
 import _ from "lodash";
@@ -35,7 +35,7 @@ export const tempShapeSelector: TempShapeSelectorType = (state: RootState) => (
 
 
 /// unit selectors ///
-type UnitSelectorType = (RootState) => UnitState;
+type UnitSelectorType = (RootState) => UnitStateType;
 
 export const unitSelector: UnitSelectorType = (state: RootState) => state.unit;
 

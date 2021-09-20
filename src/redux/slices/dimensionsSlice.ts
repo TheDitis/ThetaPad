@@ -9,7 +9,7 @@ import {AppDispatch, RootState} from "../store";
 import _ from "lodash";
 import {updateGridParams} from "./gridSlice";
 import {rescaleShapes} from "./shapesSlice";
-import {setUnit} from "./unitSlice";
+import {syncUnit} from "./unitSlice";
 
 /**
  * @interface WindowDimensions
@@ -70,19 +70,6 @@ const dimensionsSlice = createSlice({
         setImageDims(state, action: {payload: Dimensions}) {
             state.image = action.payload;
         },
-        // /** Takes original image dimensions and calculates display dimensions */
-        // calculateImageDims(state, action: { payload: Dimensions }) {
-        //     const imgDims = action.payload;
-        //     const canvasWidth = state.width - state.sidebar;
-        //     const canvasHeight = state.height - state.navbar;
-        //     const wRatio = canvasWidth / imgDims.width;
-        //     const hRatio = canvasHeight / imgDims.height;
-        //     const scaleRatio = Math.min(wRatio, hRatio)
-        //     state.image = {
-        //         width: imgDims.width * scaleRatio,
-        //         height: imgDims.height * scaleRatio
-        //     }
-        // }
     }
 })
 
@@ -96,6 +83,13 @@ export const {
 
 export default dimensionsSlice.reducer;
 
+/**
+ * Thunk function that is called upon image upload or window-resize with an
+ * image present. It calculates the new display-dimensions of the image so that
+ * it fits the canvas, and dispatches actions to scale any existing shapes
+ * accordingly and sync the unit with the new resized unit shape if one is set
+ * @param {Dimensions} imgDims - dimensions of the original image (in px)
+ */
 const calculateImageDims = (imgDims: Dimensions) => (
     (dispatch: AppDispatch, getState: () => RootState) => {
         const dims = getState().dimensions;
@@ -113,15 +107,15 @@ const calculateImageDims = (imgDims: Dimensions) => (
         dispatch(setImageDims(newImageDims));
         const unit = getState().unit;
         if (unit.unitShape !== null) {
-            dispatch(setUnit({
-                value: unit.unit * shapeScaleRatio,
-                id: unit.unitShape,
-            }))
+            dispatch(syncUnit());
         }
     }
 )
 
-
+/**
+ * Thunk function to recalculate dimensions of the image on canvas and the grid
+ * @param {Dimensions} windowDims - Dimensions of the window in pixels
+ */
 export const recalculateDimensions = (windowDims: Dimensions) => (
     (dispatch: AppDispatch, getState: () => RootState) => {
         dispatch(setWindowDimensions(windowDims));

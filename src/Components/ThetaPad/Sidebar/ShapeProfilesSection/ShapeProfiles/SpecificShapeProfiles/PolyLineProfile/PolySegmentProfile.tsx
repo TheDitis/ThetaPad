@@ -71,7 +71,13 @@ interface PolySegmentProfileProps {
     shapeId: string;
 }
 
-
+/**
+ * Profile for an individual segment of a poly-line
+ * @param {PolySegment} segment - poly-segment to profile
+ * @param {number} index - index of the segment in the poly shape
+ * @param {string} shapeId - id of the poly shape this segment originates from
+ * @return {JSX.Element} - row with info and a selection button for the segment
+ */
 const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, shapeId}) => {
     const {unit, unitShape} = useAppSelector(unitSelector);
     const dispatch = useAppDispatch();
@@ -82,7 +88,7 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
             dispatch(resetUnit());
         }
         else {
-            dispatch(setUnit({id: shapeId, value: segment.length}))
+            dispatch(setUnit({id: shapeId, value: segment.length, subItem: index}))
         }
     }
 
@@ -106,7 +112,12 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
                 <h5>{index}</h5>
             </div>
             <div className={"infoSection"}>
-                <ShapeInfoItem shape={segment} property={'length'} shapeId={shapeId}/>
+                <ShapeInfoItem
+                    shape={segment}
+                    property={'length'}
+                    shapeId={shapeId}
+                    subItem={index}
+                />
                 <div style={{position: "relative", top: POLY_SEGMENT_HEIGHT / 2}}>
                     {segment.pointAngle !== undefined ? (
                         <ShapeInfoItem
