@@ -1,7 +1,8 @@
 import {Action, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {createShape, removeShape} from "./shapesSlice";
-import {ValidShape} from "../../types/shapes";
+import {Shape, ValidShape} from "../../types/shapes";
 import {AppDispatch, RootState} from "../store";
+import {addPolyPoint, clearTempShape, createTempShape, popPolyPoint} from "./tempShapeSlice";
 
 
 interface UndoRedoStateType {
@@ -19,7 +20,7 @@ const undoRedoSlice = createSlice({
     name: "undoRedo",
     initialState,
     reducers: {
-        addToFuture(state: UndoRedoStateType, action: PayloadAction<PayloadAction | Action>) {
+        addToFuture(state, action: PayloadAction<PayloadAction | Action>) {
             state.redoBuffer.push(action.payload);
         },
         popUndo(state) {
@@ -30,9 +31,14 @@ const undoRedoSlice = createSlice({
         }
     },
     extraReducers: {
-        [createShape.type]: (state: UndoRedoStateType, action: PayloadAction<ValidShape>) => {
-            console.log("adding action ", action)
+        [createShape.type]: (state, action: PayloadAction<ValidShape>) => {
             state.undoBuffer.push(action);
+        },
+        [createTempShape.type]: (state, action: PayloadAction<Shape>) => {
+            state.undoBuffer.push(action);
+        },
+        [addPolyPoint.type]: (state, action) => {
+            state.undoBuffer.push(action)
         }
     }
 })
@@ -46,9 +52,9 @@ const {addToFuture, popUndo,} = undoRedoSlice.actions;
 export const undo = () => (dispatch: AppDispatch, getState: () => RootState) => {
     const state = getState();
     const undoBuffer = state.undoRedo.undoBuffer;
-
     if (state.undoRedo.undoBuffer.length > 0) {
         const lastAction = undoBuffer[undoBuffer.length - 1];
+        console.log("lastAction: ", lastAction)
         dispatch(popUndo());
         const undoAction = inverseAction(lastAction);
         if (undoAction) {
@@ -63,5 +69,11 @@ export const undo = () => (dispatch: AppDispatch, getState: () => RootState) => 
 const inverseAction = (action) => {
     if (action.type === createShape.type) {
         return removeShape(action.payload.id);
+    }
+    if (action.type === createTempShape.type) {
+        return clearTempShape();
+    }
+    if (action.type === addPolyPoint.type) {
+        return popPolyPoint();
     }
 }
