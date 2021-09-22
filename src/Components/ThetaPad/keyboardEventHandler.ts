@@ -8,6 +8,7 @@ import {createShape} from "../../redux/slices/shapesSlice";
 import {clearTempShape, TempShapeType} from "../../redux/slices/tempShapeSlice";
 import {DrawModeType, setDrawMode} from "../../redux/slices/drawModeSlice";
 import store, {AppDispatch} from "../../redux/store";
+import {undo} from "../../redux/slices/undoRedoSlice";
 
 /**
  * Create a new KeyboardEventHandler bound with dispatch and tempShape
@@ -33,6 +34,11 @@ const keyboardEventHandler = (
                     break;
                 case "c":
                     switchDrawMode(dispatch, ShapeKind.Circle);
+                    break;
+                case "z":
+                    if (e.metaKey || e.ctrlKey) {
+                        dispatch(undo());
+                    }
                     break;
                 default:
                     break;

@@ -13,6 +13,7 @@ import gridReducer from "./slices/gridSlice";
 import filtersReducer from "./slices/filtersSlice";
 import alertReducer from "./slices/alertSlice";
 import highlightReducer from "./slices/highlightSlice";
+import undoRedoReducer from "./slices/undoRedoSlice";
 
 
 const store = configureStore({
@@ -26,7 +27,8 @@ const store = configureStore({
         grid: gridReducer,
         filters: filtersReducer,
         alert: alertReducer,
-        highlight: highlightReducer
+        highlight: highlightReducer,
+        undoRedo: undoRedoReducer
     }
 })
 

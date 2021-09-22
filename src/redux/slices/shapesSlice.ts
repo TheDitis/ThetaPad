@@ -68,7 +68,7 @@ const shapesSlice = createSlice({
         /** Remove a shape by id */
         removeShape(
             shapes,
-            action
+            action: PayloadAction<string>
         ) {
             delete shapes[action.payload];
         },
@@ -101,6 +101,14 @@ export const {
     rescaleShapes,
 } = shapesSlice.actions;
 export default shapesSlice.reducer;
+
+
+// export const createShape = (shape: ValidShape) => (
+//     (dispatch: AppDispatch, getState: () => RootState) => {
+//         dispat
+//     }
+// )
+
 
 const shapeIdSelector = (state, shapeId) => shapeId;
 
