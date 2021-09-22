@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.0] - 2021-09-21
+### Changed
+- Improve: Shape profile will now change theme when any of its values are set as the unit value so that the unit shape is more easily identified
+
 ## [2.0.9] - 2021-09-20
 ### Changed
 - Improve: Shapes now scale automatically with the image when the window is resized with an image present
