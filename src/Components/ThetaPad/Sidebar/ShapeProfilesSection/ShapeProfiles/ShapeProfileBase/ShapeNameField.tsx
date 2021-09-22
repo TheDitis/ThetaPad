@@ -13,15 +13,17 @@ import {updateShape} from "../../../../../../redux/slices/shapesSlice";
  * @property {boolean} disabled - if true, input won't scale on hover and opacity
  *      will be 0.6
  * @property {boolean} isFocused - if true, input won't scale on hover
+ * @property {string} color - color of the text
  */
 interface ShapeNameFieldStyleProps {
     disabled: boolean;
     isFocused: boolean;
+    color: string;
 }
 
 const ShapeNameFieldRoot = styled.input<ShapeNameFieldStyleProps>`
   padding-left: 5px;
-  width: 100px;
+  width: 160px;
   height: 90%;
   outline: none;
   border: none;
@@ -31,6 +33,7 @@ const ShapeNameFieldRoot = styled.input<ShapeNameFieldStyleProps>`
   overflow-x: visible;
   background: transparent;
   opacity: ${({disabled}) => disabled ? 0.6 : 1};
+  color: ${({color}) => color};
   
   &:hover {
     transform: ${({isFocused, disabled}) => (
@@ -43,17 +46,19 @@ interface ShapeNameFieldProps {
     shape: Shape;
     index: number;
     disabled?: boolean;
+    color?: string;
 }
 
 /**
  * Editable name label for shape profiles, used in ShapeProfileBase
  * @param {Shape} shape - shape to show and allow editing of the name for
  * @param {number} index - index of the shape in the list (used for default name)
- * @param {boolean } [disabled=false] - whether or not the input should be disabled
+ * @param {boolean} [disabled=false] - whether or not the input should be disabled
+ * @param {string} color - color of the text
  * @return {JSX.Element} - styled HTML input element with handlers for alteration
  */
 const ShapeNameField: React.FC<ShapeNameFieldProps> = (
-    {shape, index, disabled = false}
+    {shape, index, disabled = false, color = "black"}
 ) => {
     const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
@@ -104,6 +109,7 @@ const ShapeNameField: React.FC<ShapeNameFieldProps> = (
         <ShapeNameFieldRoot
             isFocused={isFocused}
             disabled={disabled}
+            color={color}
             ref={inputRef}
             type={"text"}
             onChange={onChange}

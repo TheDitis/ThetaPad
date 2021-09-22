@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const PolyLineIcon = () => {
+const PolyLineIcon = ({color = "black"}) => {
 
     const width = 458 / 12;
     const height = 358 / 12;
@@ -10,7 +10,7 @@ const PolyLineIcon = () => {
         <svg width={width} height={height} viewBox="0 0 458 358">
             <polyline
                 fill="none"
-                stroke="black"
+                stroke={color}
                 strokeWidth={30}
                 strokeLinecap="round"
                 strokeLinejoin="round"

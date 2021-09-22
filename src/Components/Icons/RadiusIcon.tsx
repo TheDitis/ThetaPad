@@ -30,9 +30,9 @@ const RadiusIcon: React.FC<RadiusIconProps> = ({size = 1, color = "black"}) => {
                 strokeLinecap={"round"}
                 strokeMiterlimit={"10"}
             />
-            <polygon points="314.9,207.6 364,179 314.7,150.8"/>
+            <polygon points="314.9,207.6 364,179 314.7,150.8" stroke={color} fill={color}/>
             {/*<text transform="matrix(1 0 0 1 247.8037 141.7095)" fontFamily={"Gabriola"} fontSize={148}>r</text>*/}
-            <text transform="matrix(1 0 0 1 133.1396 230)" fontFamily={"Gabriola"} fontSize={300}>r</text>
+            <text transform="matrix(1 0 0 1 133.1396 230)" fontFamily={"Gabriola"} fill={color} fontSize={300}>r</text>
         </svg>
     )
 }

@@ -45,6 +45,7 @@ const ShapeInfoItemRoot = styled.div<ShapeInfoItemStyleProps>`
   height: 100%;
   margin-right: 10px;
   padding: 0;
+  color: black;
   
   &:hover {
     transform: ${({clickable}) => clickable ? "scale(1.05)" : "none"};
@@ -170,7 +171,7 @@ const ShapeInfoItem: React.FC<ShapeInfoItemProps> = (
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <Icon size={0.21}/>
+            <Icon size={0.21} color={shapeId === unitShape ? "white" : "black"}/>
             <div className={"valueContainer"} style={style}>
                 <p className={"value"}>{val}{unitChar}</p>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const StraightLineIcon = ({size = 100}) => {
+const StraightLineIcon = ({color = "black"}) => {
 
     const width = 458 / 12;
     const height = 358 / 12;
@@ -10,7 +10,7 @@ const StraightLineIcon = ({size = 100}) => {
         <svg width={width} height={height} viewBox="0 0 458 358">
             <line
                 fill="none"
-                stroke="#000000"
+                stroke={color}
                 strokeWidth="30"
                 strokeLinecap="round"
                 strokeLinejoin="round"

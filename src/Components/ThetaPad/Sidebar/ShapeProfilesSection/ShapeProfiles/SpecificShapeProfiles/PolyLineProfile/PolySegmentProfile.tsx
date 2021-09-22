@@ -19,6 +19,7 @@ import {
 
 interface PolySegmentProfileStyleProps {
     isUnit: boolean;
+    shapeIsUnit: boolean;
 }
 
 const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
@@ -47,6 +48,7 @@ const PolySegmentProfileRoot = styled.div<PolySegmentProfileStyleProps>`
       font-size: 14px;
       min-width: 25px;
       transition: transform 80ms ease-in-out;
+      color: ${({shapeIsUnit, isUnit}) => isUnit || !shapeIsUnit ? "black" : "white"}
     }
 
     &:hover {
@@ -81,7 +83,8 @@ interface PolySegmentProfileProps {
 const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, shapeId}) => {
     const {unit, unitShape} = useAppSelector(unitSelector);
     const dispatch = useAppDispatch();
-    const isUnit = unitShape === shapeId && unit === segment.length;
+    const shapeIsUnit = unitShape === shapeId;
+    const isUnit = shapeIsUnit && unit === segment.length;
 
     const onSelect = () => {
         if (isUnit) {
@@ -102,7 +105,7 @@ const PolySegmentProfile: React.FC<PolySegmentProfileProps> = ({segment, index, 
     }
 
     return (
-        <PolySegmentProfileRoot isUnit={isUnit}>
+        <PolySegmentProfileRoot isUnit={isUnit} shapeIsUnit={shapeIsUnit}>
             <div
                 className={"indexSection"}
                 onClick={onSelect}

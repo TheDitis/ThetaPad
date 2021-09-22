@@ -23,23 +23,24 @@ import ShapeInfoItem from "../ShapeInfoItem";
 
 interface ShapeProfileStyleProps {
     isUnit: boolean;
+    borderColor: string;
     isVisible: boolean;
 }
 
-const borderColor = "rgba(0, 0, 0, 0.3)";
+
 
 
 const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
   box-sizing: border-box;
-  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  background: ${({isUnit}) => (isUnit ? "hsl(235, 15%, 35%)" : "white")};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   margin: 5px 4px;
-  color: black;
   overflow: hidden;
   min-height: ${SHAPE_PROFILE_HEIGHT}px;
-  
+  color: ${({isUnit}) => isUnit ? "white" : "black"};
   
   .main {
     display: flex;
@@ -53,7 +54,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
       display: flex;
       align-items: center;
       justify-content: center;
-      border-right: 1px solid ${borderColor};
+      border-right: 1px solid ${({borderColor}) => borderColor};
     }
 
     .rightSection {
@@ -64,7 +65,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
         position: relative;
         height: ${SHAPE_PROFILE_HEIGHT * 0.55}px;
         width: 100%;
-        border-bottom: 1px solid ${borderColor};
+        border-bottom: 1px solid ${({borderColor}) => borderColor};
         display: flex;
         align-items: center;
 
@@ -72,7 +73,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
           display: flex;
           align-items: center;
           justify-content: center;
-          border-right: 1px solid ${borderColor};
+          border-right: 1px solid ${({borderColor}) => borderColor};
           height: 100%;
         }
 
@@ -95,19 +96,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
             width: 35px;
             font-size: 17pt;
             margin-right: 12px;
-          }
-
-          .unitButton {
-            color: ${props => props.isUnit ? "white" : "black"};
-            display: flex;
-            font-size: 9pt;
-            border: 1px solid gray;
-            padding: 4px 8px 2px 8px;
-            margin-left: 4px;
-            margin-right: 5px;
-            border-radius: 8px;
-            background: ${props => props.isUnit ? "rgb(75, 75, 75)" : "white"};
-            opacity: ${({isVisible}) => isVisible ? 1 : 0.6};
+            color: ${({isUnit}) => isUnit ? "white" : "rgba(0, 0, 0, 0.6)"};
           }
 
           .xButton {
@@ -117,7 +106,7 @@ const ShapeProfileRoot = styled(motion.div)<ShapeProfileStyleProps>`
             right: 7px;
             line-height: 18pt;
             cursor: pointer;
-            color: black;
+            color: ${({isUnit}) => isUnit ? "white" : "rgba(0, 0, 0, 0.6)"};
             transition: color 300ms ease-in-out, transform 300ms ease-in-out;
             
             &:hover {
@@ -223,7 +212,7 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     const [showDetails, setShowDetails] = useState(false);
     const dispatch = useAppDispatch();
     const Icon = shapeIcons[shape.kind];
-
+    const isUnit = unit.unitShape === shape.id;
 
     const toggleVisibility = () => {
         dispatch(updateShape({
@@ -238,7 +227,8 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
 
     return (
         <ShapeProfileRoot
-            isUnit={shape.id === unit.unitShape}
+            isUnit={isUnit}
+            borderColor={isUnit ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.3)"}
             isVisible={shape.visible}
             variants={variants.main}
             initial={isTemp ? "hidden" : "visible"}
@@ -251,18 +241,29 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                 <div className={"rightSection"}>
                     <div className={"topSection"}>
                         <div className={"icon"}>
-                            <Icon/>
+                            <Icon color={isUnit ? "white" : "black"}/>
                         </div>
                         <div className={"labelAndControls"}>
-                            <ShapeNameField shape={shape} index={index} disabled={!shape.visible}/>
+                            <ShapeNameField
+                                shape={shape}
+                                index={index}
+                                disabled={!shape.visible}
+                                color={isUnit ? "white" : "black"}
+                            />
 
                             <IconButton
                                 className={"visibilityButton"}
                                 onClick={toggleVisibility}
                             >
                                 {shape.visible
-                                    ? <VisibilityOutlined fontSize={"inherit"}/>
-                                    : <VisibilityOffOutlined fontSize={"inherit"}/>
+                                    ? <VisibilityOutlined
+                                        fontSize={"inherit"}
+                                        color={"inherit"}
+                                    />
+                                    : <VisibilityOffOutlined
+                                        fontSize={"inherit"}
+                                        color={"inherit"}
+                                    />
                                 }
                             </IconButton>
 
@@ -275,7 +276,11 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
                     <div className={"bottomSection"}>
                         <div className={"infoRow"}>
                             {infoItems.map((propName) => (
-                                <ShapeInfoItem shape={shape} property={propName} key={propName}/>
+                                <ShapeInfoItem
+                                    key={propName}
+                                    shape={shape}
+                                    property={propName}
+                                />
                             ))}
                         </div>
                         {children !== undefined && !isTemp && (
