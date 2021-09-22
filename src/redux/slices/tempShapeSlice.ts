@@ -45,6 +45,7 @@ const tempShapeSlice = createSlice({
                 if (state.points.length >= 3) {
                     state.totalLength -= state.lengths.pop()!;
                     state.totalLength -= state.lengths.pop()!;
+
                     state.angles.pop();
 
                     state.lineAngles.pop();
