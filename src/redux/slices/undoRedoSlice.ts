@@ -10,7 +10,7 @@ import {resetUnit} from "./unitSlice";
  * @property {(Action | PayloadAction<any>)[]} past - array of past actions
  * @property {(Action | PayloadAction<any>)[]} future - array of undone actions
  */
-interface UndoRedoStateType {
+export interface UndoRedoStateType {
     past: (Action | PayloadAction<any>)[];
     future: (Action | PayloadAction<any>)[];
     actionIsRedo: boolean;

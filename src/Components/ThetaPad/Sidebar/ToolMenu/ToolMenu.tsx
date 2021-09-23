@@ -3,7 +3,7 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import styled from "styled-components";
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import GridTool from "./Tools/GridTool";
 import FiltersTool from "./Tools/FiltersTool";
@@ -88,7 +88,7 @@ const ToolMenu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [doneClosing, setDoneClosing] = useState(true); // keeps whileHover from activating while closing
 
-    const toggleIsOpen = () => {
+    const toggleIsOpen = useCallback(() => {
         if (isOpen) {
             setIsOpen(false);
             setTimeout(() => setDoneClosing(true), 500);
@@ -97,7 +97,18 @@ const ToolMenu: React.FC = () => {
             setIsOpen(true);
             setDoneClosing(false);
         }
-    }
+    }, [isOpen])
+
+    useEffect(() => {
+        const keyboardToggle = (e: KeyboardEvent) => {
+            if (e.key.toLowerCase() === 't') {
+                toggleIsOpen();
+            }
+        }
+        window.addEventListener('keydown', keyboardToggle);
+
+        return () => window.removeEventListener('keydown', keyboardToggle);
+    }, [toggleIsOpen])
 
     return (
         <ToolsRoot

@@ -15,6 +15,7 @@ import {ImageStateType} from "./slices/imageSlice";
 import {DrawModeType} from "./slices/drawModeSlice";
 import {AlertStateType} from "./slices/alertSlice";
 import {HighlightStateType} from "./slices/highlightSlice";
+import {UndoRedoStateType} from "./slices/undoRedoSlice";
 
 /// shapes selectors ///
 type ShapesSelectorType = (RootState) => ShapeMap;
@@ -173,3 +174,30 @@ export const alertSelector: AlertSelectorType = (state) => state.alert;
 type HighlightSelectorType = (RootState) => HighlightStateType;
 
 export const highlightSelector: HighlightSelectorType = (state) => state.highlight;
+
+
+
+/// undoRedo selectors ///
+type UndoRedoSelectorType = (RootState) => UndoRedoStateType;
+
+export const undoRedoSelector: UndoRedoSelectorType = (state) => state.undoRedo;
+
+export const pastActionsSelector = createSelector(
+    undoRedoSelector,
+    (state) => state.past
+)
+
+export const futureActionsSelector = createSelector(
+    undoRedoSelector,
+    (state) => state.future
+)
+
+export const hasPastActionsSelector = createSelector(
+    pastActionsSelector,
+    (past) => past.length > 0
+)
+
+export const hasFutureActionsSelector = createSelector(
+    futureActionsSelector,
+    (future) => future.length > 0
+)

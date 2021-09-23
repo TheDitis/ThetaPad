@@ -5,16 +5,25 @@
 import React from "react";
 import DrawModeSelect from "./DrawModeSelect";
 import ImageUploadControl from "./Controls/ImageUploadControl";
+import UndoOrRedoButton from "./Controls/UndoOrRedoButton";
+import styled from "styled-components";
 
-// Component style properties
-const styles: { [property: string]: string } = {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottom: "2px solid rgba(255, 255, 255, 0.4)",
-}
+const ControlsSectionRoot = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  
+  .topRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+`
+
 
 /**
  * Holds main controls for the app, including draw-mode select and image upload
@@ -22,10 +31,14 @@ const styles: { [property: string]: string } = {
  */
 const ControlsSection: React.FC = () => {
     return (
-        <div style={styles}>
-            <ImageUploadControl/>
+        <ControlsSectionRoot>
+            <div className={"topRow"}>
+                <UndoOrRedoButton variant={"undo"}/>
+                <ImageUploadControl/>
+                <UndoOrRedoButton variant={"redo"}/>
+            </div>
             <DrawModeSelect/>
-        </div>
+        </ControlsSectionRoot>
     )
 }
 
