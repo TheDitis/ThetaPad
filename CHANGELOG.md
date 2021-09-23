@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.1.2] - 2021-09-23
+### Added
+- Undo & Redo buttons in sidebar
+- Keyboard shortcuts to open tools (t), toggle grid (g), & toggle image filters (f)
+
 ## [2.1.1] - 2021-09-22
 ### Added
 - Undo & Redo of shape creation and removal (ctrl/cmd + z & ctrl/cmd + shift + z)
