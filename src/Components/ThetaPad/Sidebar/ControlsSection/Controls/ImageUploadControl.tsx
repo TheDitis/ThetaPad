@@ -10,6 +10,7 @@ import {clearShapes} from "../../../../../redux/slices/shapesSlice";
 import {recalculateDimensions} from "../../../../../redux/slices/dimensionsSlice";
 import {useAppDispatch} from "../../../../../hooks/reduxHooks";
 import {resetUnit} from "../../../../../redux/slices/unitSlice";
+import {clearUndoRedo} from "../../../../../redux/slices/undoRedoSlice";
 
 interface ImageUploadControlStyleProps {
 
@@ -54,6 +55,7 @@ const ImageUploadControl: React.FC = () => {
         }));
 
         dispatch(clearShapes());
+        dispatch(clearUndoRedo());
     }
 
     return (

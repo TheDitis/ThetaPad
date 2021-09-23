@@ -103,12 +103,6 @@ export const {
 export default shapesSlice.reducer;
 
 
-// export const createShape = (shape: ValidShape) => (
-//     (dispatch: AppDispatch, getState: () => RootState) => {
-//         dispat
-//     }
-// )
-
 
 const shapeIdSelector = (state, shapeId) => shapeId;
 
