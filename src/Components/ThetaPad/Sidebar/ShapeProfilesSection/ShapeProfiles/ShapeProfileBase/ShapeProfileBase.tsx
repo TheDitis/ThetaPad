@@ -19,6 +19,7 @@ import {IconButton} from "@material-ui/core";
 import {VisibilityOffOutlined, VisibilityOutlined} from "@material-ui/icons";
 import ShapeNameField from "./ShapeNameField";
 import ShapeInfoItem from "../ShapeInfoItem";
+import {updateTempShape} from "../../../../../../redux/slices/tempShapeSlice";
 
 
 interface ShapeProfileStyleProps {
@@ -222,7 +223,12 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     }
 
     const changeColor = (color: string) => {
-        dispatch(updateShape({target: shape.id, newValues: {color}}))
+        if (!isTemp) {
+            dispatch(updateShape({target: shape.id, newValues: {color}}))
+        }
+        else {
+            dispatch(updateTempShape({color}))
+        }
     }
 
     return (
