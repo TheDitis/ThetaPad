@@ -223,11 +223,11 @@ const ShapeProfileBase: React.FC<ShapeProfileProps> = (
     }
 
     const changeColor = (color: string) => {
-        if (!isTemp) {
-            dispatch(updateShape({target: shape.id, newValues: {color}}))
+        if (isTemp) {
+            dispatch(updateTempShape({color}))
         }
         else {
-            dispatch(updateTempShape({color}))
+            dispatch(updateShape({target: shape.id, newValues: {color}}))
         }
     }
 

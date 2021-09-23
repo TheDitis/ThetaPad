@@ -9,6 +9,10 @@ import {clearTempShape, TempShapeType} from "../../redux/slices/tempShapeSlice";
 import {DrawModeType, setDrawMode} from "../../redux/slices/drawModeSlice";
 import store, {AppDispatch} from "../../redux/store";
 import {redo, undo} from "../../redux/slices/undoRedoSlice";
+import {toggleGrid} from "../../redux/slices/gridSlice";
+import {toggleFilter} from "../../redux/slices/filtersSlice";
+import {imageSrcSelector} from "../../redux/selectors";
+import {notify} from "../../redux/slices/alertSlice";
 
 /**
  * Create a new KeyboardEventHandler bound with dispatch and tempShape
@@ -22,26 +26,48 @@ const keyboardEventHandler = (
 ) => (
     (e: KeyboardEvent) => {
         if (!(e.target instanceof HTMLInputElement)) {
+            const cmd = (e.metaKey || e.ctrlKey);
             switch (e.key.toLowerCase()) {
+                // ESCAPE DRAW
                 case "escape":
                     escapeDraw(dispatch, tempShape);
                     break;
+                // SHAPE DRAW MODE SWITCHING
                 case "p":
-                    switchDrawMode(dispatch, ShapeKind.Poly);
+                    if (!cmd) {
+                        switchDrawMode(dispatch, ShapeKind.Poly);
+                    }
                     break;
                 case "l":
                     switchDrawMode(dispatch, ShapeKind.Line);
                     break;
                 case "c":
-                    switchDrawMode(dispatch, ShapeKind.Circle);
+                    if (!cmd) {
+                        switchDrawMode(dispatch, ShapeKind.Circle);
+                    }
                     break;
+                // UNDO/REDO
                 case "z":
-                    if (e.metaKey || e.ctrlKey) {
+                    if (cmd) {
                         if (e.shiftKey) {
                             dispatch(redo());
                         }
                         else {
                             dispatch(undo());
+                        }
+                    }
+                    break;
+                // TOGGLE TOOLS
+                case "g":
+                    dispatch(toggleGrid());
+                    break;
+                case "f":
+                    if (!cmd) {
+                        const imageSrc = imageSrcSelector(store.getState());
+                        if (imageSrc !== null) {
+                            dispatch(toggleFilter())
+                        } else {
+                            dispatch(notify("Add an image to enable filters"))
                         }
                     }
                     break;
