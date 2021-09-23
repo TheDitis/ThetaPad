@@ -11,12 +11,14 @@ import {addPolyPoint, clearTempShape, createTempShape, popPolyPoint} from "./tem
  */
 interface UndoRedoStateType {
     undoBuffer: (Action | PayloadAction<any>)[];
-    redoBuffer: (Action | PayloadAction<any>)[]
+    redoBuffer: (Action | PayloadAction<any>)[];
+    actionIsRedo: boolean;
 }
 
 const initialState: UndoRedoStateType = {
     undoBuffer: [],
     redoBuffer: [],
+    actionIsRedo: false,
 }
 
 /** slice that holds past and future actions (undo and redo) */
@@ -30,22 +32,37 @@ const undoRedoSlice = createSlice({
         popUndo(state) {
             state.undoBuffer.pop();
         },
+        popRedo(state) {
+            state.redoBuffer.pop();
+        },
         clearFuture(state) {
             state.redoBuffer = [];
+        },
+        shieldRedoBuffer(state) {
+            state.actionIsRedo = true;
+        },
+        removeRedoBufferShield(state) {
+            state.actionIsRedo = false;
         }
     },
     extraReducers: {
         [createShape.type]: (state, action: PayloadAction<ValidShape>) => {
             // Remove the tempShape undo action now now that the shape is done
-            if (state.undoBuffer[state.undoBuffer.length - 1].type === createTempShape.type) {
+            if (
+                state.undoBuffer.length
+                && state.undoBuffer[state.undoBuffer.length - 1].type === createTempShape.type
+            ) {
                 state.undoBuffer.pop();
             }
+            if (!state.actionIsRedo) state.redoBuffer = [];
             state.undoBuffer.push(action);
         },
         [createTempShape.type]: (state, action: PayloadAction<Shape>) => {
+            if (!state.actionIsRedo) state.redoBuffer = [];
             state.undoBuffer.push(action);
         },
         [addPolyPoint.type]: (state, action) => {
+            if (!state.actionIsRedo) state.redoBuffer = [];
             state.undoBuffer.push(action)
         }
     }
@@ -54,7 +71,13 @@ const undoRedoSlice = createSlice({
 
 export default undoRedoSlice.reducer;
 
-const {addToFuture, popUndo,} = undoRedoSlice.actions;
+const {
+    addToFuture,
+    popUndo,
+    popRedo,
+    shieldRedoBuffer,
+    removeRedoBufferShield
+} = undoRedoSlice.actions;
 
 /** Thunk function to undo the last action */
 export const undo = () => (dispatch: AppDispatch, getState: () => RootState) => {
@@ -75,9 +98,27 @@ export const undo = () => (dispatch: AppDispatch, getState: () => RootState) => 
         // move the original action to redoBuffer
         dispatch(addToFuture(lastAction))
         // removes any past actions that are no longer relevant
-        filterBuffer(dispatch, getState);
+        filterUndoBuffer(dispatch, getState);
     }
 }
+
+/** Thunk function to redo the last undone action, if any */
+export const redo = () => (dispatch: AppDispatch, getState: () => RootState) => {
+    let state = getState();
+    const redoBuffer = state.undoRedo.redoBuffer;
+    if (redoBuffer.length) {
+        // get and remove the last undone action
+        const lastUndone = redoBuffer[redoBuffer.length - 1];
+        dispatch(popRedo());
+        // if the last undone action is redoable (doesn't rely on other context):
+        if (lastUndone.type !== addPolyPoint.type) {
+            // dispatch the undone event, shielding the redoBuffer from reset
+            dispatch(shieldRedoBuffer());
+            dispatch(lastUndone);
+            dispatch(removeRedoBufferShield());
+        }
+    }
+};
 
 
 /**
@@ -85,7 +126,7 @@ export const undo = () => (dispatch: AppDispatch, getState: () => RootState) => 
  * @param {AppDispatch} dispatch - dispatch function for the app
  * @param {() => RootState} getState - getState function for the redux store
  */
-const filterBuffer = (dispatch: AppDispatch, getState: () => RootState) => {
+const filterUndoBuffer = (dispatch: AppDispatch, getState: () => RootState) => {
     let state = getState();
     // if there's no tempShape or it isn't a poly
     if (state.tempShape === null || !ShapeUtils.isPoly(state.tempShape!)) {
@@ -101,9 +142,9 @@ const filterBuffer = (dispatch: AppDispatch, getState: () => RootState) => {
                 break;
             }
         }
-
     }
-}
+};
+
 
 /**
  * Returns the inverse of a given action if there is one
