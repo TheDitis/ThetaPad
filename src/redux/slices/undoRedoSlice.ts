@@ -3,6 +3,7 @@ import {createShape, removeShape} from "./shapesSlice";
 import {Shape, ShapeUtils, ValidShape} from "../../types/shapes";
 import {AppDispatch, RootState} from "../store";
 import {addPolyPoint, clearTempShape, createTempShape, popPolyPoint} from "./tempShapeSlice";
+import {resetUnit} from "./unitSlice";
 
 /**
  * @interface UndoRedoStateType
@@ -103,8 +104,16 @@ export const undo = () => (dispatch: AppDispatch, getState: () => RootState) => 
 
         // if the last undone action is redoable (doesn't rely on other context):
         if (lastAction.type !== addPolyPoint.type && lastAction.type !== createTempShape.type) {
+            // if the shape you're removing is the unit, reset the unit
+            if (
+                lastAction.type === createShape.type
+                && "payload" in lastAction
+                && state.unit.unitShape === lastAction.payload.id
+            ) {
+                dispatch(resetUnit())
+            }
             // move the original action to future
-            dispatch(addToFuture(lastAction))
+            dispatch(addToFuture(lastAction));
         }
 
         // removes any past actions that are no longer relevant

@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.1] - 2021-09-22
+### Added
+- Undo & Redo of shape creation and removal (ctrl/cmd + z & ctrl/cmd + shift + z)
+
 ## [2.1.0] - 2021-09-21
 ### Changed
 - Improve: Shape profile will now change theme when any of its values are set as the unit value so that the unit shape is more easily identified
