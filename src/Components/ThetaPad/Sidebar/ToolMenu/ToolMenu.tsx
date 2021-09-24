@@ -66,8 +66,6 @@ const ToolsRoot = styled(motion.div)<ToolsStyleProps>`
     border-top: 2px solid white;
     overflow-y: scroll;
   }
-  
-
 `
 
 
@@ -101,7 +99,7 @@ const ToolMenu: React.FC = () => {
 
     useEffect(() => {
         const keyboardToggle = (e: KeyboardEvent) => {
-            if (e.key.toLowerCase() === 't') {
+            if (e.key.toLowerCase() === 't' && !(e.target instanceof HTMLInputElement)) {
                 toggleIsOpen();
             }
         }
