@@ -6,6 +6,7 @@ import React from "react";
 import styled from "styled-components";
 import {NAVBAR_HEIGHT} from "../../constants";
 import logo from "../../assets/logo.png";
+import UserNav from "./UserNav/UserNav";
 
 const NavbarRoot = styled.div`
   position: relative;
@@ -26,6 +27,11 @@ const NavbarRoot = styled.div`
     align-items: center;
   }
 
+  .rightSide {
+    display: flex;
+    align-items: center;
+  }
+
   h1 {
     margin: 0 10px;
     color: white;
@@ -40,6 +46,7 @@ const NavbarRoot = styled.div`
 const Navbar: React.FC = () => {
     return (
         <NavbarRoot>
+
             <div className={"leftSide"}>
                 <img
                     src={logo}
@@ -50,8 +57,9 @@ const Navbar: React.FC = () => {
                 <h1>ThetaPad</h1>
             </div>
             <div className={"rightSide"}>
-
+                <UserNav/>
             </div>
+
         </NavbarRoot>
     )
 }

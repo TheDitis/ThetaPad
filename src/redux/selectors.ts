@@ -16,6 +16,7 @@ import {DrawModeType} from "./slices/drawModeSlice";
 import {AlertStateType} from "./slices/alertSlice";
 import {HighlightStateType} from "./slices/highlightSlice";
 import {UndoRedoStateType} from "./slices/undoRedoSlice";
+import {UserStateType} from "./slices/userSlice";
 
 /// shapes selectors ///
 type ShapesSelectorType = (RootState) => ShapeMap;
@@ -201,3 +202,10 @@ export const hasFutureActionsSelector = createSelector(
     futureActionsSelector,
     (future) => future.length > 0
 )
+
+
+
+/// user Selectors
+type UserSelectorType = (RootState) => UserStateType;
+
+export const userStateSelector: UserSelectorType = (state) => state.user;

@@ -3,24 +3,30 @@
  * @author Ryan McKay <ryanscottmckay@gmail.com>
  */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppDispatch, RootState} from "../store";
+import _ from "lodash";
 
 export interface UserData {
-    id: string;
-    name: string;
+    uid: string;
+    displayName: string | null;
+    email: string | null;
+    photoURL: string | null;
 }
 
+export type UserType = UserData | null;
+
 export interface UserStateType {
-    user: UserData | null
+    user: UserType
 }
 const initialState: UserStateType = {
-    user: null
+    user: null,
 }
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<UserData>) {
+        setUser(state, action: PayloadAction<UserType>) {
             state.user = action.payload;
         },
         clearUser(state) {
@@ -37,3 +43,17 @@ export const {
 
 
 export default userSlice.reducer;
+
+
+
+export const logIn = (user: UserType) => (
+    (dispatch: AppDispatch, getState: () => RootState) => {
+        if (user !== null) {
+            dispatch(setUser(_.pick(
+                user,
+                ["uid", "displayName", "email", "photoURL"]
+            )))
+        }
+        console.log("user")
+    }
+)

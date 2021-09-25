@@ -5,8 +5,11 @@ import App from './Components//App/App';
 import reportWebVitals from './reportWebVitals';
 import {FirebaseAppProvider} from "reactfire";
 
+console.log("KEY: ", "")
+
+
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_API_KEY,
+    apiKey: "AIzaSyCuLGF2vmTRjSxjljfKXRGiRg2uruH58Y0",
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
     projectId: process.env.REACT_APP_PROJECT_ID,
     storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
@@ -14,6 +17,8 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_APP_ID,
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
+
+// const app = initializeApp(firebaseConfig);
 
 ReactDOM.render(
     <React.StrictMode>

@@ -77,7 +77,6 @@ const keyboardEventHandler = (
         }
     }
 )
-export default keyboardEventHandler;
 
 /**
  * Ends poly draw session
@@ -126,3 +125,6 @@ const switchDrawMode = (dispatch, targetMode: DrawModeType) => {
         dispatch(setDrawMode(targetMode))
     }
 }
+
+
+export default keyboardEventHandler;
