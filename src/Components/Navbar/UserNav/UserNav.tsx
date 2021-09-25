@@ -15,6 +15,7 @@ import DownloadImageButton from "./DownloadImageButton";
 
 const UserNavRoot = styled.div`
   display: flex;
+  align-items: center;
 `
 
 interface UserNavProps {
@@ -32,16 +33,16 @@ const UserNav: React.FC<UserNavProps> = () => {
     }, [dispatch])
 
     return (
-        <>
+        <UserNavRoot>
+            <DownloadImageButton/>
             {user === null ? (
                 <SignInButton/>
             ) : (
-                <UserNavRoot>
-                    <DownloadImageButton/>
+                <>
                     <UserNavMenu user={user}/>
-                </UserNavRoot>
+                </>
             )}
-        </>
+        </UserNavRoot>
     )
 }
 
