@@ -75,5 +75,5 @@ export const THEME = {
     },
     text: {
         disabled: grey[700]
-    }
+    },
 }

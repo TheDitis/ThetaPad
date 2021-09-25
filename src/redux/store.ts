@@ -15,6 +15,7 @@ import alertReducer from "./slices/alertSlice";
 import highlightReducer from "./slices/highlightSlice";
 import undoRedoReducer from "./slices/undoRedoSlice";
 import userReducer from "./slices/userSlice";
+import sessionReducer from "./slices/sessionSlice";
 
 
 const store = configureStore({
@@ -30,7 +31,8 @@ const store = configureStore({
         alert: alertReducer,
         highlight: highlightReducer,
         undoRedo: undoRedoReducer,
-        user: userReducer
+        user: userReducer,
+        session: sessionReducer
     }
 })
 

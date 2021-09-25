@@ -10,9 +10,8 @@ import {NAVBAR_HEIGHT} from "../../../constants";
 import {teal} from "@material-ui/core/colors";
 import {AnimatePresence, motion} from "framer-motion";
 // import {MenuItem} from "@material-ui/core";
-import {styled as MuiStyled} from "@material-ui/core"
+import {Button, styled as MuiStyled} from "@material-ui/core"
 import {useAppDispatch} from "../../../hooks/reduxHooks";
-import {Button} from "@material-ui/core";
 
 
 interface UserNavMenuStyleProps {

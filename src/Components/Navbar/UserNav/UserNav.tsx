@@ -10,12 +10,10 @@ import SignInButton from "./SignInButton";
 import UserNavMenu from "./UserNavMenu";
 import {getAuth} from "firebase/auth";
 import {logIn} from "../../../redux/slices/userSlice";
+import DownloadImageButton from "./DownloadImageButton";
 
 
-interface UserNavStyleProps {
-}
-
-const UserNavRoot = styled.div<UserNavStyleProps>`
+const UserNavRoot = styled.div`
   display: flex;
 `
 
@@ -39,6 +37,7 @@ const UserNav: React.FC<UserNavProps> = () => {
                 <SignInButton/>
             ) : (
                 <UserNavRoot>
+                    <DownloadImageButton/>
                     <UserNavMenu user={user}/>
                 </UserNavRoot>
             )}

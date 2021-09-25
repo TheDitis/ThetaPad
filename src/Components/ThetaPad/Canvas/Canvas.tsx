@@ -11,11 +11,9 @@ import {dimensionsSelector, filtersCssString, gridIsActiveSelector} from "../../
 import {handleCanvasClick, handleMouseMove} from "./canvasEventHandlers";
 import ImageLayer from "./Layers/ImageLayer";
 import GridLayer from "./Layers/GridLayer";
-import {useAppSelector} from "../../../hooks/reduxHooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHooks";
 import HighlightLayer from "./Layers/HighlightLayer/HighlightLayer";
-import {toPng} from "html-to-image";
-import download from "downloadjs";
-import {Dimensions} from "../../../redux/slices/imageSlice";
+import {setCanvasId} from "../../../redux/slices/sessionSlice";
 
 interface CanvasStyleProps {
     dimensions: AppDimensions;
@@ -28,32 +26,13 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
   background: rgb(189, 233, 248);
 `
 
-const downloadNodeAsImage = (node: HTMLElement, dimensions: Dimensions) => {
-    toPng(node)
-        .then((dataUrl) => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext('2d');
-
-            if (ctx !== null && dimensions.width > 10 && dimensions.height > 10) {
-                canvas.width = dimensions.width;
-                canvas.height = dimensions.height;
-                const image = new Image();
-                image.src = dataUrl
-                image.onload = () => {
-                    ctx.drawImage(image, 0, 0)
-                    const url = canvas.toDataURL('image/png');
-                    download(url, "image.png")
-                }
-            }
-        })
-}
-
 
 /**
  * Main portion of the ThetaPad app, where the image, grid, shapes, etc go
  * @return {JSX.Element} - Div with several Konva Stages & layers for different elements
  */
 const Canvas: React.FC = () => {
+    const dispatch = useAppDispatch();
     const canvasRef = useRef<HTMLDivElement>(null);
     const dimensions = useAppSelector(dimensionsSelector);
     const gridIsActive = useAppSelector(gridIsActiveSelector);
@@ -62,9 +41,9 @@ const Canvas: React.FC = () => {
 
     useEffect(() => {
         if (canvasRef.current !== null) {
-            downloadNodeAsImage(canvasRef.current, dimensions.image);
+            dispatch(setCanvasId(canvasRef.current.className))
         }
-    }, [canvasRef, dimensions])
+    }, [canvasRef, dispatch])
 
     return (
         <CanvasRoot
