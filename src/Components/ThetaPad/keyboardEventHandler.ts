@@ -71,6 +71,15 @@ const keyboardEventHandler = (
                         }
                     }
                     break;
+                // PREVENT RESIZE
+                case "-":
+                    e.preventDefault();
+                    e.stopPropagation();
+                    break;
+                case "=":
+                    e.preventDefault();
+                    e.stopPropagation();
+                    break;
                 default:
                     break;
             }
