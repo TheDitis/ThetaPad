@@ -5,7 +5,7 @@
 import React from "react";
 import styled from "styled-components";
 import {NAVBAR_HEIGHT} from "../../constants";
-
+import logo from "../../assets/logo.png";
 
 const NavbarRoot = styled.div`
   position: relative;
@@ -16,12 +16,18 @@ const NavbarRoot = styled.div`
   width: 100vw;
   height: ${NAVBAR_HEIGHT}px;
   margin: 0;
+  padding: 0 20px;
   box-sizing: border-box;
   background: #212328;
   box-shadow: 0 0 20px black;
+  
+  .leftSide {
+    display: flex;
+    align-items: center;
+  }
 
   h1 {
-    margin: 0 20px;
+    margin: 0 10px;
     color: white;
     font-size: 20pt;
   }
@@ -34,7 +40,18 @@ const NavbarRoot = styled.div`
 const Navbar: React.FC = () => {
     return (
         <NavbarRoot>
-            <h1>ThetaPad</h1>
+            <div className={"leftSide"}>
+                <img
+                    src={logo}
+                    alt={"ThetaPad Logo"}
+                    height={NAVBAR_HEIGHT * 0.9}
+                    width={NAVBAR_HEIGHT * 0.9}
+                />
+                <h1>ThetaPad</h1>
+            </div>
+            <div className={"rightSide"}>
+
+            </div>
         </NavbarRoot>
     )
 }
