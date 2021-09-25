@@ -5,6 +5,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "../store";
 import _ from "lodash";
+import {getAuth, signOut} from "firebase/auth";
 
 export interface UserData {
     uid: string;
@@ -26,7 +27,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<UserType>) {
+        setUser(state, action: PayloadAction<UserData>) {
             state.user = action.payload;
         },
         clearUser(state) {
@@ -54,6 +55,19 @@ export const logIn = (user: UserType) => (
                 ["uid", "displayName", "email", "photoURL"]
             )))
         }
-        console.log("user")
+        console.log("user: ", user)
+    }
+)
+
+export const logOut = () =>(
+    (dispatch: AppDispatch, getState: () => RootState) => {
+        const auth = getAuth();
+        signOut(auth)
+            .then(() => {
+                dispatch(clearUser());
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 )

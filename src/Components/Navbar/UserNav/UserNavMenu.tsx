@@ -4,11 +4,15 @@
  */
 import styled from "styled-components";
 import React, {useRef, useState} from "react";
-import {UserType} from "../../../redux/slices/userSlice";
+import {logOut, UserType} from "../../../redux/slices/userSlice";
 import defaultImage from "../../../assets/images/default_profile.png";
 import {NAVBAR_HEIGHT} from "../../../constants";
 import {teal} from "@material-ui/core/colors";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
+// import {MenuItem} from "@material-ui/core";
+import {styled as MuiStyled} from "@material-ui/core"
+import {useAppDispatch} from "../../../hooks/reduxHooks";
+import {Button} from "@material-ui/core";
 
 
 interface UserNavMenuStyleProps {
@@ -20,22 +24,41 @@ const UserNavMenuRoot = styled(motion.div)<UserNavMenuStyleProps>`
     border-radius: 50%;
     border: 2px solid ${teal[500]};
     margin-top: 3px;
+    -webkit-user-drag: none;
   }
 
   .menu {
     position: absolute;
-    top: ${NAVBAR_HEIGHT}px;
-    right: 0;
+    top: ${NAVBAR_HEIGHT + 5}px;
+    right: 5px;
     background: white;
-    width: 100px;
-  }
-
-  .menuItem {
-    width: 100%;
-    height: 50px;
-    color: hsl(0, 0%, 30%);
+    border-radius: 5px;
+    padding: 5px 0;
+    
+    .triangle {
+      position: absolute;
+      top: -80px;
+      right: -25%;
+      fill: white;
+      stroke: none;
+    }
   }
 `
+
+const variants = {
+    menu: {
+        open: {
+            y: 0,
+            scaleY: 1,
+            opacity: 1
+        },
+        closed: {
+            y: "-50%",
+            scaleY: 0,
+            opacity: 0
+        }
+    }
+}
 
 interface UserNavMenuProps {
     user: UserType
@@ -43,12 +66,13 @@ interface UserNavMenuProps {
 
 const UserNavMenu: React.FC<UserNavMenuProps> = ({user}) => {
     const menuRef = useRef<HTMLDivElement>(null);
+    const dispatch = useAppDispatch();
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const handleOutsideClick = (e) => {
-        console.log(e)
         if (menuRef.current !== null && !menuRef.current.contains(e.target)) {
             handleClick();
+
         }
     }
 
@@ -71,23 +95,41 @@ const UserNavMenu: React.FC<UserNavMenuProps> = ({user}) => {
                 width={NAVBAR_HEIGHT * 0.85}
                 onClick={handleClick}
             />
-            {isOpen && (
-                <div className={"menu"}>
-                    <MenuItem>Log Out</MenuItem>
-                </div>
-            )}
+            {/*<Menu open={isOpen} anchorEl={menuRef.current}>*/}
+            {/*    <MenuItem onClick={() => dispatch(logOut())}>Logout</MenuItem>*/}
+            {/*</Menu>*/}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        className={"menu"}
+                        variants={variants.menu}
+                        animate={"open"}
+                        initial={"closed"}
+                        exit={"closed"}
+                    >
+                        {/*<svg className={"triangle"} height="100" width="100">*/}
+                        {/*    <polygon points="50,65 30,80 70,80" className="triangle"/>*/}
+                        {/*    Sorry, your browser does not support inline SVG.*/}
+                        {/*</svg>*/}
+                        <MenuItem onClick={() => dispatch(logOut())}>
+                            Log Out
+                        </MenuItem>
+                    </motion.div>
+                )}
+
+            </AnimatePresence>
         </UserNavMenuRoot>
     );
 }
 
 
-const MenuItem = ({children}) => {
-    return (
-        <div className={"menuItem"}>
-            {children}
-        </div>
-    )
-}
+const MenuItem = MuiStyled(Button)({
+    height: 35,
+    width: 120,
+    color: "hsl(0, 0%, 30%)",
+    // paddingLeft: 20,
+    // justifyContent: "flex-start"
+})
 
 
 export default UserNavMenu;

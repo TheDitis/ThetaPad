@@ -6,8 +6,6 @@ import React from "react";
 import {Button, styled} from "@material-ui/core";
 import {teal} from "@material-ui/core/colors";
 import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-import {useAppDispatch} from "../../../hooks/reduxHooks";
-import {setUser} from "../../../redux/slices/userSlice";
 
 
 const StyledButton = styled(Button)({
@@ -23,31 +21,19 @@ const StyledButton = styled(Button)({
     }
 })
 
-/*
-{
-    uid: string;
-    displayName: string;
-    email: string;
-    photoURL: string
-}
- */
 
 interface SignInButtonProps {
 }
 
 const SignInButton: React.FC<SignInButtonProps> = () => {
-    const dispatch = useAppDispatch();
 
     const signIn = () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
-            .then((result) => {
-                // const credential = GoogleAuthProvider.credentialFromResult(result);
-                // const token = credential?.accessToken;
-                const user = result.user;
-                dispatch(setUser(user))
-            })
+            // .then((result) => {
+            //     dispatch(logIn(result.user))
+            // })
             .catch(err => {
                 console.error(err)
             })

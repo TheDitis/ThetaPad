@@ -209,3 +209,8 @@ export const hasFutureActionsSelector = createSelector(
 type UserSelectorType = (RootState) => UserStateType;
 
 export const userStateSelector: UserSelectorType = (state) => state.user;
+
+export const userDataSelector = createSelector(
+    userStateSelector,
+    (userState) => userState.user
+)

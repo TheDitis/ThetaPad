@@ -5,11 +5,11 @@
 import styled from "styled-components";
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHooks";
-import {userStateSelector} from "../../../redux/selectors";
+import {userDataSelector} from "../../../redux/selectors";
 import SignInButton from "./SignInButton";
+import UserNavMenu from "./UserNavMenu";
 import {getAuth} from "firebase/auth";
 import {logIn} from "../../../redux/slices/userSlice";
-import UserNavMenu from "./UserNavMenu";
 
 
 interface UserNavStyleProps {
@@ -23,25 +23,27 @@ interface UserNavProps {
 }
 
 const UserNav: React.FC<UserNavProps> = () => {
-    const userState = useAppSelector(userStateSelector);
     const dispatch = useAppDispatch();
+    const user = useAppSelector(userDataSelector);
 
     useEffect(() => {
-        const auth = getAuth()
-        // console.log("currentUser: ", auth.currentUser)
-        auth.onAuthStateChanged((fbUser) => {
-            console.log("fbUser: ", fbUser)
-            dispatch(logIn(fbUser))
+        const auth = getAuth();
+        auth.onAuthStateChanged((user) => {
+            dispatch(logIn(user))
         })
-        // signOut(auth);
     }, [dispatch])
 
-    if (userState.user !== null) return (
-        <UserNavRoot>
-            <UserNavMenu user={userState.user}/>
-        </UserNavRoot>
+    return (
+        <>
+            {user === null ? (
+                <SignInButton/>
+            ) : (
+                <UserNavRoot>
+                    <UserNavMenu user={user}/>
+                </UserNavRoot>
+            )}
+        </>
     )
-    else return <SignInButton/>;
 }
 
 
