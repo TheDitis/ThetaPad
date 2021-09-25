@@ -28,7 +28,7 @@ const DownloadImageButton: React.FC<DownloadImageButtonProps> = () => {
             }
             // disabled={imageLayerDims.width === 0 || imageLayerDims.height === 0}
             color={"secondary"}
-            style={{opacity: disabled ? 0.4 : 1, marginRight: 20}}
+            style={{opacity: disabled ? 0.4 : 1, marginRight: 20, borderRadius: 0}}
         >
             <FileDownload
                 color={"inherit"}

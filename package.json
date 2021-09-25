@@ -1,6 +1,6 @@
 {
   "name": "thetapad",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.4.1",

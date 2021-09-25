@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.1.3] - 2021-09-25
+### Added
+- Sign-up & sign-in to account (user settings and saved sessions not yet implemented)
+- Download image with lines, grid, filters, etc. applied
+
 ## [2.1.2] - 2021-09-23
 ### Added
 - Undo & Redo buttons in sidebar

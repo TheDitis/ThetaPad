@@ -15,11 +15,10 @@ import {Provider} from "react-redux";
 import Overlays from "./Overlays/Overlays";
 
 // TODO: Add settings menu to navbar
-// TODO: Resize shapes with image
 // TODO: Add help button in navbar that shows info on the app
 // TODO: Cache store so users don't lose everything if they accidentally refresh
 // TODO: Implement highlight for other shapes
-// TODO: Add buttons for undo/redo
+// TODO: Save sessions
 
 
 const theme = createTheme({
@@ -28,7 +27,6 @@ const theme = createTheme({
 
 
 const App = () => {
-
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
