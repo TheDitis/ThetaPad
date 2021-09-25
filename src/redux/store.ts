@@ -14,6 +14,7 @@ import filtersReducer from "./slices/filtersSlice";
 import alertReducer from "./slices/alertSlice";
 import highlightReducer from "./slices/highlightSlice";
 import undoRedoReducer from "./slices/undoRedoSlice";
+import userReducer from "./slices/userSlice";
 
 
 const store = configureStore({
@@ -28,7 +29,8 @@ const store = configureStore({
         filters: filtersReducer,
         alert: alertReducer,
         highlight: highlightReducer,
-        undoRedo: undoRedoReducer
+        undoRedo: undoRedoReducer,
+        user: userReducer
     }
 })
 
