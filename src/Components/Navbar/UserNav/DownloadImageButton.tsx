@@ -31,7 +31,7 @@ const DownloadImageButton: React.FC<DownloadImageButtonProps> = () => {
             style={{opacity: disabled ? 0.4 : 1, marginRight: 20}}
         >
             <FileDownload
-                color={"secondary"}
+                color={"inherit"}
             />
         </IconButton>
     )

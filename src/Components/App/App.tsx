@@ -8,7 +8,7 @@ import Navbar from "../Navbar/Navbar";
 import React from "react";
 import KeyListener from "./EventListenerComponents/KeyListener";
 import ResizeListener from "./EventListenerComponents/ResizeListener";
-import {createTheme, ThemeProvider} from "@mui/material";
+import {createTheme, ThemeProvider} from "@material-ui/core";
 import {THEME} from "../../constants";
 import store from "../../redux/store";
 import {Provider} from "react-redux";
