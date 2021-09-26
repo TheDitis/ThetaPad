@@ -43,7 +43,6 @@ const UndoOrRedoButton: React.FC<UndoOrRedoButtonProps> = ({variant}) => {
         ? hasPastActionsSelector
         : hasFutureActionsSelector
     )
-    console.log("hasActions: ", hasActions)
     const classes = useStyles();
 
     return (

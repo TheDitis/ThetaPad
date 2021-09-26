@@ -30,7 +30,6 @@ const sessionSlice = createSlice({
             state.name = action.payload;
         },
         setCanvasId(state, action: PayloadAction<string>) {
-            console.log("id: ", action.payload)
             state.canvasId = action.payload;
         },
     }

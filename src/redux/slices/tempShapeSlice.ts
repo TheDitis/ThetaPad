@@ -41,7 +41,6 @@ const tempShapeSlice = createSlice({
         },
         popPolyPoint(state: TempShapeType) {
             if (state !== null && ShapeUtils.isPoly(state)) {
-                console.log("state pre: ", JSON.stringify(state))
                 if (state.points.length >= 3) {
                     state.totalLength -= state.lengths.pop()!;
                     state.totalLength -= state.lengths.pop()!;
@@ -67,7 +66,6 @@ const tempShapeSlice = createSlice({
                         state.points.slice(state.points.length - 3)
                     )[0]
                 }
-                console.log("state post: ", JSON.stringify(state))
             }
         },
         /**
