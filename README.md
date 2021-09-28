@@ -34,7 +34,7 @@ Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https:/
 - [x] Highlight poly-line segments on canvas to identify them from details dropdown
 - [x] Resize shapes with image (window resize)
 - [x] Undo & Redo
-- [x] Export/Print changes
+- [x] Export/Print changes (Still bugs in some environments)
 - [x] Sign-up & Sign-in
 - [ ] Save sessions to cloud    <(in-progress)
 - [ ] Selectively show/hide info-labels on canvas
