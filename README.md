@@ -16,7 +16,7 @@ ThetaPad is a tool for visual artists. This free web app allows users to upload 
 ThetaPad was primarily made to help eliminate some barriers to entry for aspiring visual artists. Professional visual artists of all kinds often use techniques such as griding, filtering, and measuring their reference photos, and they usually use software like Photoshop to do that. Photoshop is expensive, and it's not really even meant for those uses, adding not only a monetary barrier, but a skill barrier as well. This means many young artists, especially those living in poor and underprivileged communities, can't compete with the professionals. ThetaPad is my attempt to provide some of the tools used by professionals all in one website.
 
 
-Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https://www.instagram.com/niklane.art/)) for inspiring the idea for this project
+Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https://www.instagram.com/blue.niklane/)) for inspiring the idea for this project
 
 
 ## Features
