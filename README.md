@@ -18,6 +18,13 @@ ThetaPad was primarily made to help eliminate some barriers to entry for aspirin
 
 Shout out to my close friend and incredible artist, Nik ([@blue.niklane](https://www.instagram.com/blue.niklane/)) for inspiring the idea for this project
 
+## Instructions (Basic)
+1. Click "Choose image" at the top of the menu bar at the left and select your reference image
+2. Choose the shape you want (Line for distances, Poly for distances and angles, circles for circles)
+3. Draw a shape over the canvas
+4. Click on a length measurement in a line profile to set that length as the unit
+5. If you want to apply a grid, you can find that tool in the tool menu at the bottom of the sidebar
+Note: Unfortunately, I have not gotten around to implementing session saving yet, so don't refresh!
 
 ## Features
 
