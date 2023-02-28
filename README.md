@@ -1,5 +1,9 @@
 # ThetaPad
 ### A Free Tool For Artists
+
+<img width="1670" alt="Screenshot 2023-02-28 at 3 10 33 PM" src="https://user-images.githubusercontent.com/44735056/221993006-26343447-b7af-4294-8028-15ac966d2de8.png">
+
+
 <br/>
 
 ### [Version 2 is live!](https://thetapad.art/)
