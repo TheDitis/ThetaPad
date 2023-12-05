@@ -17,6 +17,7 @@ import {AlertStateType} from "./slices/alertSlice";
 import {HighlightStateType} from "./slices/highlightSlice";
 import {UndoRedoStateType} from "./slices/undoRedoSlice";
 import {UserStateType} from "./slices/userSlice";
+import {SessionData} from "./slices/sessionSlice";
 
 /// shapes selectors ///
 type ShapesSelectorType = (RootState) => ShapeMap;
@@ -205,7 +206,7 @@ export const hasFutureActionsSelector = createSelector(
 
 
 
-/// user Selectors
+/// user Selectors ///
 type UserSelectorType = (RootState) => UserStateType;
 
 export const userStateSelector: UserSelectorType = (state) => state.user;
@@ -214,3 +215,11 @@ export const userDataSelector = createSelector(
     userStateSelector,
     (userState) => userState.user
 )
+
+
+
+
+/// session Selectors ///
+type sessionSelectorType = (RootState) => SessionData;
+
+export const sessionSelector = (state) => state.session;
