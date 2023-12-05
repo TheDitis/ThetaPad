@@ -19,6 +19,7 @@ import Overlays from "./Overlays/Overlays";
 // TODO: Cache store so users don't lose everything if they accidentally refresh
 // TODO: Implement highlight for other shapes
 // TODO: Save sessions
+// TODO: Debug export issues on mac
 
 
 const theme = createTheme({
