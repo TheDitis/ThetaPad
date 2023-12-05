@@ -19,7 +19,7 @@ const DownloadImageButton: React.FC<DownloadImageButtonProps> = () => {
     const imageLayerDims = useAppSelector(imageLayerDimensionsSelector);
 
     const disabled = imageLayerDims.width === 0 || imageLayerDims.height === 0
-
+    if (disabled) return null;
     return (
         <IconButton
             onClick={() => !disabled
