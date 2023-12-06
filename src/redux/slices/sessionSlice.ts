@@ -55,19 +55,19 @@ export const downloadImage = () => (
             if (canvas !== null) {
                 toPng(canvas as HTMLDivElement)
                     .then((dataUrl) => {
-                        const canvas = document.createElement("canvas");
-                        const ctx = canvas.getContext('2d');
+                        const outputCanvas = document.createElement("canvas");
+                        const ctx = outputCanvas.getContext('2d');
 
                         const dimensions = state.dimensions.image
 
                         if (ctx !== null && dimensions.width > 10 && dimensions.height > 10) {
-                            canvas.width = dimensions.width;
-                            canvas.height = dimensions.height;
+                            outputCanvas.width = dimensions.width * 1.5; // unclear why the ratio is different, but it is
+                            outputCanvas.height = dimensions.height * 1.5;
                             const image = new Image();
-                            image.src = dataUrl
+                            image.src = dataUrl;
                             image.onload = () => {
                                 ctx.drawImage(image, 0, 0)
-                                const url = canvas.toDataURL('image/png');
+                                const url = outputCanvas.toDataURL('image/png');
                                 download(url, "image.png")
                             }
                         }

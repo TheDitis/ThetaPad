@@ -19,16 +19,21 @@ const DownloadImageButton: React.FC<DownloadImageButtonProps> = () => {
     const imageLayerDims = useAppSelector(imageLayerDimensionsSelector);
 
     const disabled = imageLayerDims.width === 0 || imageLayerDims.height === 0
-    if (disabled) return null;
+
     return (
         <IconButton
-            onClick={() => !disabled
-                ? dispatch(downloadImage())
-                : dispatch(warn("You must upload an image before downloading!"))
+            onClick={() => {
+                if (!disabled) {
+                    dispatch(downloadImage())
+                }
+                else {
+                    dispatch(warn("You must upload an image before downloading!"))
+                }
+            }
             }
             // disabled={imageLayerDims.width === 0 || imageLayerDims.height === 0}
             color={"secondary"}
-            style={{opacity: disabled ? 0.4 : 1, marginRight: 20, borderRadius: 0}}
+            style={{opacity: disabled ? 0.3 : 1, marginRight: 0, borderRadius: 0}}
         >
             <FileDownload
                 color={"inherit"}
