@@ -23,7 +23,7 @@ const CanvasRoot = styled.div<CanvasStyleProps>`
   position: relative;
   width: ${props => props.dimensions.width - props.dimensions.sidebar}px;
   height: ${props => props.dimensions.height - props.dimensions.navbar};
-  background: rgb(189, 233, 248);
+  background: rgb(20, 20, 20);
 `
 
 
