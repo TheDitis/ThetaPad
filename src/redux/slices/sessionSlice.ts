@@ -71,8 +71,17 @@ export const downloadImage = () => (
                                 download(url, "image.png")
                             }
                         }
+                        else {
+                            console.error("can't get output canvas context or dimensions are too small")
+                        }
                     })
             }
+            else {
+                console.error("failed to get canvas element!")
+            }
+        }
+        else {
+            console.error("Attempted to download image with null canvasId!")
         }
     }
 )
